@@ -1,0 +1,13 @@
+language: node_js
+node_js: stable
+install:
+- npm i
+script:
+- npm run build
+after_success:
+- cd docs/.vuepress/dist
+- echo 'lindb.io' > CNAME
+- git init
+- git add -A
+- git commit -m 'update docs'
+- git push -f git@github.com:lindb/lindb.github.io.git master
