@@ -58,9 +58,13 @@ function getGuide() {
 }
 ```
 
-:::tip 建议
+❗️建议
+
 不论中文、英文内容，两个文件名字保持一致，使用英文命名，单词之间用 `-` 连接。
-:::
+
+## 发布
+
+发布到 `dev` 分支即可，[Travis CI](https://travis-ci.org/lindb/lindb.github.io) 将会自动部署到 `master` 分支，访问 [lindb.io](https://lindb.io/) 即可。
 
 ## 图标
 
