@@ -1,0 +1,29 @@
+{
+  "name": "lindb-doc",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lindb/lindb.github.io.git"
+  },
+  "keywords": [
+    "lindb"
+  ],
+  "author": "lindb",
+  "bugs": {
+    "url": "https://github.com/lindb/lindb.github.io/issues"
+  },
+  "homepage": "https://github.com/lindb/lindb.github.io#readme",
+  "devDependencies": {
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "vuepress": "^1.0.3"
+  },
+  "dependencies": {
+    "vue-github-button": "^1.0.8"
+  }
+}
