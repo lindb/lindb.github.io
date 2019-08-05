@@ -11,6 +11,7 @@ deploy:
   github_token: $GITHUB_TOKEN
   keep_history: true
   local_dir: docs/.vuepress/dist
+  fqdn: lindb.io
   committer_from_gh: true
   on:
-    branch: master
+    branch: dev
