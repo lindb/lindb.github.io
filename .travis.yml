@@ -12,6 +12,7 @@ deploy:
   keep_history: true
   local_dir: docs/.vuepress/dist
   fqdn: lindb.io
+  target_branch: master
   committer_from_gh: true
   on:
     branch: dev
