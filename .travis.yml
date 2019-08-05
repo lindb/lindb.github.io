@@ -4,10 +4,13 @@ install:
 - npm i
 script:
 - npm run build
-after_success:
-- cd docs/.vuepress/dist
-- echo 'lindb.io' > CNAME
-- git init
-- git add -A
-- git commit -m 'update docs'
-- git push -f git@github.com:lindb/lindb.github.io.git master
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  local_dir: docs/.vuepress/dist
+  committer_from_gh: true
+  on:
+    branch: master
