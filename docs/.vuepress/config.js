@@ -16,7 +16,7 @@ module.exports = {
   head: [
     ['meta', { name: 'keywords', content: 'lindb tsdb' }],
     ['link', { rel: 'shortcut icon', href: '/images/logo.png' }],
-    ['link', { rel: 'stylesheet', type: 'text/css', href: '//at.alicdn.com/t/font_1331329_0jabn5zzncio.css' }],
+    ['link', { rel: 'stylesheet', type: 'text/css', href: '//at.alicdn.com/t/font_1331329_he22yc3ekc6.css' }],
   ],
   themeConfig: {
     logo: '/images/logo.png',
