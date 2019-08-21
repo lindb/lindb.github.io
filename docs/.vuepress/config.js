@@ -38,7 +38,7 @@ module.exports = {
           { text: 'Docs', link: '/docs/quick-start' }
         ],
         sidebar: {
-          '/docs/': getGuide(),
+          '/docs/': getGuideSidebar("User Guide","Design"),
         }
       },
       '/zh/': {
@@ -55,7 +55,7 @@ module.exports = {
           { text: 'Docs', link: '/zh/docs/quick-start' }
         ],
         sidebar: {
-          '/zh/docs/': getGuide(),
+          '/zh/docs/': getGuideSidebar("使用手册","设计文档"),
         }
       }
     }
@@ -66,7 +66,26 @@ module.exports = {
 
 function getGuide() {
   return [
-    'quick-start',
-    'example',
+    'test',
+  ]
+}
+
+function getGuideSidebar (groupA, groupB) {
+  return [
+    {
+      title: groupA,
+      collapsable: false,
+      children: [
+        'quick-start',
+        'example',
+      ]
+    },
+    {
+      title: groupB,
+      collapsable: false,
+      children: [
+        'index_',
+      ]
+    }
   ]
 }
