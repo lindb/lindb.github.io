@@ -18,7 +18,7 @@ TBD
 
 具体 Value 的格式如下：
 
-![forward_index_format](../../assets/images/design/forward_index.png)
+![forward_index_format](../../../assets/images/design/forward_index.png)
 
 - 第一层: 多个 Version 的数据，每个 Version 包括当前 Version No. + Offsets， 这里的 Offsets 主要存储指向 Series IDs Bitmap，Dictionary，Offsets 及 第一个 Tags 的 offset；
 - 第二层: 一个 Version 对应的数据格式如下；

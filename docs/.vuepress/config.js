@@ -40,9 +40,11 @@ module.exports = {
           }
         },
         nav: [
-          { text: 'Docs', link: '/docs/quick-start' }
+          { text: 'Docs', link: '/docs/quick-start' },
+          { text: 'Community', link: '/docs/community/contributor-guide' }
         ],
         sidebar: {
+          '/docs/community/':  getCommunity(),
           '/docs/': getGuideSidebar("User Guide", "Design"),
         }
       },
@@ -58,9 +60,11 @@ module.exports = {
           }
         },
         nav: [
-          { text: 'Docs', link: '/zh/docs/quick-start' }
+          { text: '文档', link: '/zh/docs/quick-start' },
+          { text: '社区', link: '/zh/docs/community/contributor-guide' }
         ],
         sidebar: {
+          '/zh/docs/community/': getCommunity(),
           '/zh/docs/': getGuideSidebar("使用手册", "设计文档"),
         }
       }
@@ -74,9 +78,9 @@ module.exports = {
   }
 }
 
-function getGuide() {
+function getCommunity() {
   return [
-    'test',
+    'contributor-guide',
   ]
 }
 
@@ -94,7 +98,7 @@ function getGuideSidebar(groupA, groupB) {
       title: groupB,
       collapsable: false,
       children: [
-        'index_',
+        'design/index_',
       ]
     }
   ]
