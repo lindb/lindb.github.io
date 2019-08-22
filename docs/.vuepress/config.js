@@ -23,11 +23,16 @@ module.exports = {
     repo: 'lindb/lindb',
     sideBar: 'auto',
     sidebarDepth: 3,
+    docsRepo: 'lindb/lindb.github.io',
+    docsBranch: 'dev',
+    editLinks: true,
+    docsDir: 'docs',
     locales: {
       '/': {
         selectText: 'Languages',
         label: 'English',
         editLinkText: 'Edit this page on GitHub',
+        lastUpdated: 'Last Updated',
         serviceWorker: {
           updatePopup: {
             message: "New content is available.",
@@ -38,13 +43,14 @@ module.exports = {
           { text: 'Docs', link: '/docs/quick-start' }
         ],
         sidebar: {
-          '/docs/': getGuideSidebar("User Guide","Design"),
+          '/docs/': getGuideSidebar("User Guide", "Design"),
         }
       },
       '/zh/': {
         selectText: '选择语言',
         label: '简体中文',
         editLinkText: '在 GitHub 上编辑此页',
+        lastUpdated: '最后更新',
         serviceWorker: {
           updatePopup: {
             message: "发现新内容可用.",
@@ -55,13 +61,17 @@ module.exports = {
           { text: 'Docs', link: '/zh/docs/quick-start' }
         ],
         sidebar: {
-          '/zh/docs/': getGuideSidebar("使用手册","设计文档"),
+          '/zh/docs/': getGuideSidebar("使用手册", "设计文档"),
         }
       }
     }
   },
   serviceWorker: true,
   evergreen: true,
+  plugins: {
+    '@vuepress/medium-zoom': true,
+    '@vuepress/back-to-top': true,
+  }
 }
 
 function getGuide() {
@@ -70,7 +80,7 @@ function getGuide() {
   ]
 }
 
-function getGuideSidebar (groupA, groupB) {
+function getGuideSidebar(groupA, groupB) {
   return [
     {
       title: groupA,

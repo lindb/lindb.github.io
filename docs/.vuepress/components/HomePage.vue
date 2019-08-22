@@ -160,6 +160,7 @@ export default {
           cursor: pointer;
           transition: all 0.3s;
           line-height: 1.3rem;
+          border-style: solid;
 
           &:focus {
             outline: none;

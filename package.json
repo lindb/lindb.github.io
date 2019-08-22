@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/lindb/lindb.github.io#readme",
   "devDependencies": {
+    "@vuepress/plugin-back-to-top": "^1.0.0-rc.1",
+    "@vuepress/plugin-medium-zoom": "^1.0.3",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "vuepress": "^1.0.3"
