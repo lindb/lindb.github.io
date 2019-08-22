@@ -9,7 +9,7 @@
   <link rel="shortcut icon" href="/images/logo.png">
   <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1331329_he22yc3ekc6.css">
     
-    <link rel="preload" href="/assets/css/0.styles.5dd60c69.css" as="style"><link rel="preload" href="/assets/js/app.b43f08f2.js" as="script"><link rel="preload" href="/assets/js/2.3f9e8c38.js" as="script"><link rel="preload" href="/assets/js/17.0c890264.js" as="script"><link rel="prefetch" href="/assets/js/10.628f4ba1.js"><link rel="prefetch" href="/assets/js/11.593f54b4.js"><link rel="prefetch" href="/assets/js/12.2ee15c6a.js"><link rel="prefetch" href="/assets/js/13.f69ae9c1.js"><link rel="prefetch" href="/assets/js/14.206f9163.js"><link rel="prefetch" href="/assets/js/15.5a3faf75.js"><link rel="prefetch" href="/assets/js/16.409f02f5.js"><link rel="prefetch" href="/assets/js/18.575ab685.js"><link rel="prefetch" href="/assets/js/19.429549b8.js"><link rel="prefetch" href="/assets/js/20.d23fd094.js"><link rel="prefetch" href="/assets/js/3.dcda1e3f.js"><link rel="prefetch" href="/assets/js/4.5488cdcc.js"><link rel="prefetch" href="/assets/js/5.46c8d38f.js"><link rel="prefetch" href="/assets/js/6.5942bd51.js"><link rel="prefetch" href="/assets/js/7.43ac96ad.js"><link rel="prefetch" href="/assets/js/8.1785fe05.js"><link rel="prefetch" href="/assets/js/9.03befe43.js">
+    <link rel="preload" href="/assets/css/0.styles.5dd60c69.css" as="style"><link rel="preload" href="/assets/js/app.4ad5e750.js" as="script"><link rel="preload" href="/assets/js/2.3f9e8c38.js" as="script"><link rel="preload" href="/assets/js/17.c9866d10.js" as="script"><link rel="prefetch" href="/assets/js/10.628f4ba1.js"><link rel="prefetch" href="/assets/js/11.593f54b4.js"><link rel="prefetch" href="/assets/js/12.57358a1c.js"><link rel="prefetch" href="/assets/js/13.f69ae9c1.js"><link rel="prefetch" href="/assets/js/14.206f9163.js"><link rel="prefetch" href="/assets/js/15.5a3faf75.js"><link rel="prefetch" href="/assets/js/16.409f02f5.js"><link rel="prefetch" href="/assets/js/18.575ab685.js"><link rel="prefetch" href="/assets/js/19.429549b8.js"><link rel="prefetch" href="/assets/js/20.d23fd094.js"><link rel="prefetch" href="/assets/js/3.dcda1e3f.js"><link rel="prefetch" href="/assets/js/4.5488cdcc.js"><link rel="prefetch" href="/assets/js/5.46c8d38f.js"><link rel="prefetch" href="/assets/js/6.5942bd51.js"><link rel="prefetch" href="/assets/js/7.43ac96ad.js"><link rel="prefetch" href="/assets/js/8.1785fe05.js"><link rel="prefetch" href="/assets/js/9.03befe43.js">
     <link rel="stylesheet" href="/assets/css/0.styles.5dd60c69.css">
   </head>
   <body>
@@ -19,9 +19,9 @@
     GitHub
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><a href="/zh/docs/community/contributor-guide.html" class="active sidebar-link">贡献指南</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/docs/community/contributor-guide.html#项目结构" class="sidebar-link">项目结构</a></li></ul></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="贡献指南"><a href="#贡献指南" aria-hidden="true" class="header-anchor">#</a> 贡献指南</h1> <h2 id="项目结构"><a href="#项目结构" aria-hidden="true" class="header-anchor">#</a> 项目结构</h2> <p>整个项目使用 Go 实现，所以遵循了一般 Go 项目的规则，下面是整个项目结构的简单说明：</p> <div class="language- extra-class"><pre class="language-text"><code>.
 ├─ aggregation    : 数据聚合，函数及表达式计算
-├─ bin            : 编译生成的文件
+├─ bin            : 编译生成的文件，二进制包名称为 `lind`
 ├─ broker         : Broker 内部实现及整个 Broker 的运行时依赖
-├─ ci             : 一些 CI 工具及脚本
+├─ ci             : 一些 CI 工具及protobuf脚本
 ├─ cmd            : 整个系统的入口，包括 Broker, Stroage 及 Standalone
 ├─ config         : 各组件启动时需要的配置项
 ├─ constants      : 一些通用的常量定义
@@ -39,14 +39,14 @@
 ├─ standalone     : 单机模式运行时依赖
 ├─ storage        : Storage 内部实现及整个 Storage 的运行时依赖 
 ├─ tsdb           : 整个 Time Series 存储引擎 
-│  ├─ indexdb     : 内存索引存储
-│  ├─ indextbl    : 内存索引写 KV 存储的逻辑
+│  ├─ indexdb     : 索引数据库
+│  ├─ indextbl    : 索引数据库写 KV 存储，与索引文件查询功能
 │  ├─ memdb       : Time Series 内存数据库
-│  ├─ metrictbl   : 内存数据库写 KV 存储的逻辑
-│  └─ series      : 基于 Bitmap 的多版本
+│  ├─ metrictbl   : 内存数据库写 KV 存储，与数据文件查询功能
+│  └─ series      : 基于 Bitmap 的多版本和series接口
 ├─ vendor         : Go vender
 └─ web            : 前端项目
-</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/lindb/lindb.github.io/edit/dev/docs/zh/docs/community/contributor-guide.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">最后更新: </span> <span class="time">8/22/2019, 5:55:00 AM</span></div></footer> <!----> </main></div><div class="global-ui"><!----></div></div>
-    <script src="/assets/js/app.b43f08f2.js" defer></script><script src="/assets/js/2.3f9e8c38.js" defer></script><script src="/assets/js/17.0c890264.js" defer></script>
+</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/lindb/lindb.github.io/edit/dev/docs/zh/docs/community/contributor-guide.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">最后更新: </span> <span class="time">8/22/2019, 11:59:32 AM</span></div></footer> <!----> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/assets/js/app.4ad5e750.js" defer></script><script src="/assets/js/2.3f9e8c38.js" defer></script><script src="/assets/js/17.c9866d10.js" defer></script>
   </body>
 </html>
