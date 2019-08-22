@@ -7,9 +7,9 @@
 ```
 .
 ├─ aggregation    : 数据聚合，函数及表达式计算
-├─ bin            : 编译生成的文件
+├─ bin            : 编译生成的文件，二进制包名称为 `lind`
 ├─ broker         : Broker 内部实现及整个 Broker 的运行时依赖
-├─ ci             : 一些 CI 工具及脚本
+├─ ci             : 一些 CI 工具及protobuf脚本
 ├─ cmd            : 整个系统的入口，包括 Broker, Stroage 及 Standalone
 ├─ config         : 各组件启动时需要的配置项
 ├─ constants      : 一些通用的常量定义
@@ -27,11 +27,11 @@
 ├─ standalone     : 单机模式运行时依赖
 ├─ storage        : Storage 内部实现及整个 Storage 的运行时依赖 
 ├─ tsdb           : 整个 Time Series 存储引擎 
-│  ├─ indexdb     : 内存索引存储
-│  ├─ indextbl    : 内存索引写 KV 存储的逻辑
+│  ├─ indexdb     : 索引数据库
+│  ├─ indextbl    : 索引数据库写 KV 存储，与索引文件查询功能
 │  ├─ memdb       : Time Series 内存数据库
-│  ├─ metrictbl   : 内存数据库写 KV 存储的逻辑
-│  └─ series      : 基于 Bitmap 的多版本
+│  ├─ metrictbl   : 内存数据库写 KV 存储，与数据文件查询功能
+│  └─ series      : 基于 Bitmap 的多版本和series接口
 ├─ vendor         : Go vender
 └─ web            : 前端项目
 ```
