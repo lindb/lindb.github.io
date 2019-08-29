@@ -29,9 +29,8 @@ Below is a brief description for project structure
 ├─ storage        : internal implementation and runtime dependencies of Storage
 ├─ tsdb           : storage engine of TimeSeries database
 │  ├─ indexdb     : index database
-│  ├─ indextbl    : flusher and reader for index files
 │  ├─ memdb       : Time Series In-Memory database
-│  ├─ metrictbl   : flusher and reader for metric data files
+│  ├─ tblstore    : flushers and readers for metric data files and index files
 │  └─ series      : Multi-version based on Bitmap and interfaces of series
 ├─ vendor         : Go vender
 └─ web            : front-end project

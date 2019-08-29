@@ -28,9 +28,8 @@
 ├─ storage        : Storage 内部实现及整个 Storage 的运行时依赖 
 ├─ tsdb           : 整个 Time Series 存储引擎 
 │  ├─ indexdb     : 索引数据库
-│  ├─ indextbl    : 索引数据库写 KV 存储，与索引文件查询功能
 │  ├─ memdb       : Time Series 内存数据库
-│  ├─ metrictbl   : 内存数据库写 KV 存储，与数据文件查询功能
+│  ├─ tblstore    : tsdb与 KV 存储的读写交互，包括索引文件与数据文件
 │  └─ series      : 基于 Bitmap 的多版本和series接口
 ├─ vendor         : Go vender
 └─ web            : 前端项目
