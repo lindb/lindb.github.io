@@ -98,6 +98,8 @@ function getGuideSidebar(groupA, groupB) {
       title: groupB,
       collapsable: false,
       children: [
+        'design/architecture',
+        'design/coordinator',
         'design/index_',
       ]
     }
