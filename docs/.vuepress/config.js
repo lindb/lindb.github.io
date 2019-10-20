@@ -100,6 +100,7 @@ function getGuideSidebar(groupA, groupB) {
       children: [
         'design/architecture',
         'design/coordinator',
+        'design/replication',
         'design/index_',
       ]
     }
