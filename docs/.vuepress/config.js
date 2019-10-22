@@ -101,6 +101,8 @@ function getGuideSidebar(groupA, groupB) {
         'design/architecture',
         'design/coordinator',
         'design/replication',
+        'design/query',
+        'design/storage',
         'design/index_',
       ]
     }
