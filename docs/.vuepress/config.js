@@ -45,7 +45,7 @@ module.exports = {
         ],
         sidebar: {
           '/docs/community/':  getCommunity(),
-          '/docs/': getGuideSidebar("User Guide", "Design"),
+          '/docs/': getGuideSidebar("Concept", "User Guide", "Design"),
         }
       },
       '/zh/': {
@@ -65,7 +65,7 @@ module.exports = {
         ],
         sidebar: {
           '/zh/docs/community/': getCommunity(),
-          '/zh/docs/': getGuideSidebar("使用手册", "设计文档"),
+          '/zh/docs/': getGuideSidebar("概念", "使用手册", "设计文档"),
         }
       }
     }
@@ -84,10 +84,17 @@ function getCommunity() {
   ]
 }
 
-function getGuideSidebar(groupA, groupB) {
+function getGuideSidebar(groupA, groupB, groupC) {
   return [
     {
       title: groupA,
+      collapsable: false,
+      children: [
+        'concept/terminology',
+      ]
+    },
+    {
+      title: groupB,
       collapsable: false,
       children: [
         'quick-start',
@@ -95,7 +102,7 @@ function getGuideSidebar(groupA, groupB) {
       ]
     },
     {
-      title: groupB,
+      title: groupC,
       collapsable: false,
       children: [
         'design/architecture',
