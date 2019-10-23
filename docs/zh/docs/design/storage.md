@@ -116,6 +116,9 @@ LinDB 所有的数据都会存储在本地磁盘上，根据不同的数据类�
 
 ![storage compaction](../../../assets/images/design/storage_compaction.png)
 
+- 每个 KV Store 都会启一个 Goroutine 定期 Check 一下每个 Family Level 0 下面的文件是否太多，满足 Compaction 的条件
+- 如何满足条件，会通知对应 Family 执行 Compaction Job，如果当前已经有 Compaction 正在执行，则忽略这次操作，整个操作只在一个 Goroutine 内完成，这样的好处是整个操作为无锁操作，因为 Compaction Job 是一个很重的操作，如果需要加锁则可能会影响新文件的写入
+
 Compaction 主要是把 Level 0 中的文件合并到 Level 1 中，目前 LinDB 只有 2 级 Level，这个有别于 LevelDB。
 
 Compaction 条件，符合以下任意一个条件都会触发Compact任务
