@@ -154,3 +154,22 @@ Level 1:
 
 > - Version Edit: 类似 LevelDB ，会把每次写文件操作都记录一个 Version Edit ，Version Edit 记录新增文件/删除文件，这样就可以做到当系统重启或者 Crash，只要重新加载一遍 Version Edit Log 就可以提到整个有用的文件有那些。 
 > - Version Set: 记录当前存储有哪些文件可用。
+
+### SSTable
+
+![storage sstable](../../../assets/images/design/storage_sstable.png)
+
+每个 SSTable 的结构如上图，主要有如下几部分组件：
+- Footer Block: 主要存储 Margic Number(8 Bytes) + Version(1 byte) + Index Block Offset(4 bytes) + Offset Block Offset(4 bytes)，可以通过 Index Block Offset 和 Offset Block Offset 这两个 Offset 读取 Index Block 和 Offset Block 的内容
+- Index Block: 使用 Roaring Bitmap 存储当前 SSTable 文件里面所有的 Keys，因为所有的 Key 都是 uint32，所以可以直接用 Roaring Bitmap 来存储，这样的好处是，可以通过 Roaring Bitmap 来判断一个 Key 是否存在的同时，也可以知道这个 Key 在这个 Roaring Bitmap 中第几个位置
+- Offset Block: 存储所有的 Value Entry 的 Offset，并且每个 Offset 都是以固定长度来存储，所以如果在 Index Block 找到是第 N 个位置，那个 Value Entry 的 Offset 就是 N * Offset Length 指向的数据
+- Value Entry: 存储每个 Key/Value 对应的 Value, 因为 Key 已经在 Index Block 存储了，所以 Value Entry 只需要存储 Key/Value 中的 Value 即可
+
+这样做的好处是 Key 的压缩可以做的很好，而且 Roaring Bitmap 已经对 Bitmap 做了很多优化，通过 Key 来 Get 数据很高效，因为不会像 LevelDB 那样中间还要二分查询 Key，而且 Bitmap 可以做到常驻在内存中。
+
+基于上面的存储结构整个查询逻辑如下：
+1. 通过 Index Block 直接可以知道查询的 Key 是否存在，如果不存在直接返回，如果存在，拿到在 Bitmap 中的第几个位置(Index)
+2. 第一跳: 根据上面拿到的 Index，在 Offset Block，跳过 Index * Offset Length 之后就可以拿到 Value Entry Offset(Position)
+3. 第二跳: 根据上面拿到的 Position，以文件开头跳过 Position 之后就是想要的 Value，直接读取即可 
+
+如果想做 Scan 操作，直接基于 Index Block 和 Offset Blcok 顺序读取即可。
