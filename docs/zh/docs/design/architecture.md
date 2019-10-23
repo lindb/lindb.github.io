@@ -22,10 +22,10 @@
 
 Broker 是一个无状态的服务，具有水平扩容能力。
 
-Master 是 Broker 节点需要担任的一个特殊职责，因为 LinDB 所有的 Metadata 的变更需要一个人来完成，以保证 Metadata 变更的一致性，因此需要一个 Master 的角色。Master 可以从 Broker 节点中选择任意一个节点成为 Master，但 Master 不会维护或者存储太多的 Metadata，所有的 Metadata 都存储在 ETCD 中，因此 Master 可以自由的从 Broker 进行选举，以保证当当前 Master 出问题的时候可以快速的切换，切换操作需要系统自动来完成，整个 Master 的选举为抢占式。
+Master 是 Broker 中承担特殊职责的节点，因为 LinDB 所有的 Metadata 的变更需要唯一节点来完成，以保证 Metadata 变更的一致性。Master 可以从任一 Broker 节点中产生，但 Master 不会维护或者存储太多的 Metadata，所有的 Metadata 都存储在 ETCD 中，因此 Master 可以自由的从 Broker 进行选举，以保证当当前 Master 出问题的时候可以快速的切换，切换操作需要系统自动来完成，整个 Master 的选举为抢占式。
 
 Broker 的主要职责如下：
-1. 所有的读写操作都通过 Broker 暴露给最终的用户，用户主要跟 Broker 进行交互；
+1. 所有的读写操作都通过 Broker 暴露给终端用户，用户主要跟 Broker 进行交互；
 2. WAL Replica；
 3. 执行用户的查询请求，根据具体的查询情况生成不同的执行计划；
 4. 作为计算层聚合 Broker/Storage 查询返回的数据；
@@ -34,7 +34,7 @@ Broker 的主要职责如下：
 ### Storage
 
 Storage 也是一个无状态的服务，只存储实际的数据，不存储整个 Storage 集群的 Metadata，因此也具有水平扩展的能力。主要职责如下：
-1. 存储所有数据包括数据及索引；
+1. 存储数据及索引；
 2. 存储当前节点自己的 Metadata；
 2. 执行数据的过滤及一些简单的聚合操作(最原子的聚合计算)；
 3. 执行 Broker 下发的 Metadata 变更任务，如创建数据库，数据治理等；

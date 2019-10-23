@@ -26,12 +26,12 @@ Below is a brief description for project structure
 ├─ service        : internal general services implementation
 ├─ sql            : SQL parser
 ├─ standalone     : runtime dependencies for standalone-mode
+├─ series         : Multi-version based on Bitmap and interfaces of series
 ├─ storage        : internal implementation and runtime dependencies of Storage
 ├─ tsdb           : storage engine of TimeSeries database
-│  ├─ indexdb     : index database
+│  ├─ diskdb      : disk database
 │  ├─ memdb       : Time Series In-Memory database
-│  ├─ tblstore    : flushers and readers for metric data files and index files
-│  └─ series      : Multi-version based on Bitmap and interfaces of series
+│  └─ tblstore    : flushers and readers for metric data files and index files
 ├─ vendor         : Go vender
 └─ web            : front-end project
 ```
