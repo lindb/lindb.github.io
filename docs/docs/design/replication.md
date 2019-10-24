@@ -21,7 +21,7 @@ client通过tcp或http协议将时序数据(包含database, metric name, tags, t
 ### storage
 
 1. 响应broker查询，重置record index请求
-2. 接收broker复制推送的record，检测record的index和storage记录的index是否一致，一致则返回ok，index自增1，否则返回broker错误
+2. 接收broker复制推送的record，检测record的index和storage记录的index是否一致，一致则返回ok，index自增1，否则返回错误
 
 
 
