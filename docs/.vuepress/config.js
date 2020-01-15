@@ -109,8 +109,9 @@ function getGuideSidebar(groupA, groupB, groupC) {
         'design/coordinator',
         'design/replication',
         'design/query',
-        'design/storage',
+        'design/memory',
         'design/index_',
+        'design/storage',
       ]
     }
   ]

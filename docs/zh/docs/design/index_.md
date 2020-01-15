@@ -1,29 +1,63 @@
 # Index
 
-## 反向
+主要作用是为方便对某个 Metrics 下面 Tags 的 Filtering/Grouping 操作，同时也是为了提升整体的查询效率。
 
-TBD
+整个索引为一个倒排结构，类似 Lucene，但是相比会更加简单，因为在时序这样的场景不需要做分词这样的操作。下面以一个例子的方式来说明 Filtering/Grouping。
 
-## 正向
+## Filtering
 
-反向索引主要用于根据查询条件过滤Tags找到对应的 Series ID，但是不能很好的解决 Group By 查询时通过 Series ID 找到对应 Tags， 再进行分组，所以需要一个正向的存储来解决这类问题。
+如下表为一个 Metrics(cpu) 下面 Tags 对应的正向数据，有 3 个 Tags 分别为 host/cpu/type
 
-正向的主要作用如下：
-- 解决 Group By 分组的问题；
-- 可以通过正向来重建反正的索引；
+|  Tags  | Series ID |
+|  ----  | ----  |
+| host=dev cpu=0 type=SCHED  | 1 |
+| host=dev cpu=1 type=SCHED  | 2 |
+| host=dev cpu=0 type=TIMER  | 3 |
+| host=dev cpu=1 type=TIMER  | 4 |
+| host=test cpu=0 type=SCHED  | 5 |
+| host=test cpu=1 type=SCHED  | 6 |
+| host=test cpu=2 type=SCHED  | 7 |
+| host=test cpu=3 type=SCHED  | 8 |
+| host=test cpu=0 type=TIMER  | 9 |
+| host=test cpu=1 type=TIMER  | 10 |
+| host=test cpu=2 type=TIMER  | 11 |
+| host=test cpu=3 type=TIMER  | 12 |
 
-正向数据存储和数据存储很相似，数据存储是 Series ID => Data Points，而正向存储是 Series ID => Tags， 其中Series ID在两边的数据是一样的，所以能很好的解决根据实际查询结果的 Series ID 来找对应的 Tags。
+如果把上表的数据，倒排一下，就形成了如下表的倒排结构，Posting List 直接用 Roaring Bitmap 来存储。
 
-所有的正向数据也存储在底层通过的 KV Store，即 Key => Metric ID， Value => Tags Set，把一个 Metric 下所有的正向数据放在一个 KV 里面，Value 的存储通过 Dictionary + Bitmap 的方式，方便查询的同时可以减少实际的存储成本。
+|  Tag  | Posting List |
+|  ----  | ----  |
+| host=dev  | 1, 2, 3, 4 |
+| host=test | 5, 6, 7, 8, 9, 10, 11, 12 |
+| cpu=0  | 1, 3, 5, 9 |
+| cpu=1  | 2, 4, 6, 10 |
+| cpu=2  | 7, 11 |
+| cpu=3  | 8, 12 |
+| type=SCHED  | 1, 2, 5, 6, 7, 8 |
+| type=TIMER  | 3, 4, 9, 10, 11, 12 |
 
-具体 Value 的格式如下：
+同时对 Tag 下面的 Tag Values 以前缀树的方式存储，以方便对 Tag Value 做过滤操作，如 host like dev* 这样的前缀过滤操作。加上上面的倒排结构之后，对于条件过滤操作就非常方便，如多个条件的操作只需要对多个 Posting List 做 ”与“ / ”或“ 操作即可，基本可以满足日常多个条件的 And/Or/Not 这样的过滤操作。
 
-![forward_index_format](../../../assets/images/design/forward_index.png)
+例如：
+* Case 1:  host = test or host = dev，就是 2 个 Posting list 的 ”与“ 操作
+* Case 1:  host != test，这种就是找到 host 下面所的 Series IDs 和 host = test 的 Series IDs，把这 2 个 Posting list 求一个 AntNot(Difference) 操作即可
 
-- 第一层: 多个 Version 的数据，每个 Version 包括当前 Version No. + Offsets， 这里的 Offsets 主要存储指向 Series IDs Bitmap，Dictionary，Offsets 及 第一个 Tags 的 offset；
-- 第二层: 一个 Version 对应的数据格式如下；
-    1. Series IDs Bitmap: 存储了所有 Series IDs，所以 Series ID 查询的时候，通过该 Bitmap 直接定位到 Offsets 的 Index，即有过滤又有定位的效果；
-    2. Offsets: 每个 Offset 需要固定长度存储，结合上面得到的 Index 就可以找到实际 Tags Offset，例如，第个 Offset 的存储宽度为 3 Byte，要找第 100 的 Index 的真实 Offset 是多少，即 skip 3*100 之后取 3 bytes 就是真实的 Tags Offset；
-    3. Tag Keys: 存储当前 Metric 下所有 Tag Keys 的组合，并为每个组合生成一个 Sequence，因为 Metric 下面 tag keys 正常都是固定的，即使有变化一般也不会很多，不需要每个 tags 存储一样的 tag keys，还有一个好处是可以通过 tag keys 来简单过滤一下查询想要的 tag key 有没有在里面，如果没有就直接返回，如果存在找到在第几个位置，然后取第几个位置的 tag value 就可以了；
-    4. Tags: 存储了在 Dictionary 中第几个位置的组合，如 Tags => {host=1.1.1.1, region=sh} 实际编码就是 tag keys=> 10(tag keys seq:10=>1,3)  tag values=> 2,4 即 1=>host, 2=>1.1.1.1, 3=>region, 4=>sh，可以看出 tag keys 和 tag values 是分开存储，即 {10,2,4} 。
-- 第三层: Dictionary, 因为真实的每个 Tag 的组合都是 string 并且很多都是重复的 string, 如果直接用 string 来存储 tags 的数据，存储会很浪费，所以需要一个 Dictionary 来存储 string => sequence 的关系， sequence 为当前 Dictionary 中每个 string 的编码，并且是递增型的，可以按一组 string 为一个单位放在一个 block 中，一个 string block 可以做一个压缩处理。由于 seqeunce 是递增类型的，所以实际不需要存储这个数据，只需要存储每个 string 的 offset 就可以了，这里的 offset 有 2 块，一个为 string block 的 offset，还有一个是在 string block 中的 offset，如每个 offset 为 2 bytes， 拿上面那个例子要找 3=>region 这个数据，skip (2+2)*3 之后取 4 bytes 就是真实数据的 offset 再通过该 offset 来取真实的 string 值。
+同时基于这个倒排结构可能支持一些 Metadata 的查询，如想知道 host 这个 Tag 下面有哪些 Value 等。
+
+## Grouping
+
+### 如何反推正向数据
+
+那么，如果不存储正向数据，怎么来解决按某个或者某几个 Tag Key 的 Group By 操作呢？如果我们像 Lucene 一样需要对 Tag Value 做分词的话，基本上是做不到通过反向来推导出正向的数据，但是在 TSDB 这样的场景里面，我们不需要对 Tag Value 做分词处理，所以还是可以通过反向的数据来反推出来正向的数据的。
+
+![index forward](../../../assets/images/design/index_forward.png)
+
+下面还是拿之前那个例子来说明，怎么来拿到 Group By host,cpu 这 2 个 Tag Key 的数据，如上图所示，其实从图中可以看到，整个操作就是一个归并操作，有 2 种做法。
+1. 因为每个数据都是排好序的，所以可以用 2 个堆来排序，即 host 和 cpu 分别放在一个堆里面，每次从每个堆里面取一个值，如果值相同，说明 2 者都满足，如 TSID = 0 对应的 host=dev,cpu=0，即可以找到相应的 Group By 数据了，以此类推，遍历完 2 个堆里面的数据，就可以得到最终的结合，该方式会占用 CPU，内存占用少；
+2. 使用 Counting Sort，即预先分配好一个固定大小的数组，然后把 Series IDs 放在相应的数组下标里面，如下标为 1 中同时包括了 2 个 Tag Key 的数据，即是我们想要的，以此类推，可以拿到所有的数据，CPU 占用少，但是浪费内存；
+
+再结合，Roaring Bitmap High/Low Container 的结构，一个 Container 里最多可以有 65536 个值，所以内存的占用也可以得到控制，所以我们采用 Counting Sort 的方式来推导对应的正向数据，并且整体过程可以按一个个 Container 来并行处理。
+
+参考引用
+1. http://roaringbitmap.org/
+2. https://akumuli.org/akumuli/2017/11/17/indexing/
