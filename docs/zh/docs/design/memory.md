@@ -15,9 +15,28 @@
 
 整个内存结构中维护了上面 2 个数据结构的 2 个映射关系。
 
-部分设计考虑了 OpenTSDB String => Int 的思路，因为根据时序数据的特点，把 Metric Name + Tags 这部分占用存储大头的数据存储在 Index 中，因为正常的 Filtering/Grouping 都是基于这些数据来完成的，但是实际的数据存储其实不大关心这部分数据，所以我们也沿用这个设计，但是如果每次写入都需要对 Metric Name 和 Tags(Key/Value) 这些都做 String => Int, 再排序完查询是否有对应的 Series ID，没有就创建一个新的 Series ID， 会引致占用很写入资源，影响整体的写入性能，这里通过使用 FNV64a 计算一个 64 位的 hash code，以减少没有必要的转换操作。
 
-这里对 FNV64a Hash 算法做了一个测试，模拟 1000W 随机的 String 通过 FNV64a 计算一个 64 位的 hash code，跑了差不多几千万次，没有发现 hash 冲突的情况，所以使用 FNV64a 对 String 求 Hash Code 这种方式是可行的。
+## Series ID 的唯一性
+部分设计考虑了 OpenTSDB String => Int 的思路，考虑到时序数据的特点， Metric Name + Tags 这部分占用存储大头的数据存储在 Index 中： Filtering/Grouping 等操作将基于这部分数据来进行，实际存储数据时只存储到Series ID。
+
+Metric下的每一条Series线的唯一性通过tags来确定：对于tags(ip=1.1.1.1, host=test.vm, zone=nt)，先根据tagKey作排序，得到host=test.vm,ip=1.1.1.1,zone=nt。如果原始存储tags文本到Series ID的映射关系，会浪费过多的存储空间。权衡效率后，LinDB 通过对tags计算hash来记录Series，关于碰撞机率可参考 [生日碰撞](https://www.johndcook.com/blog/2017/01/10/probability-of-secure-hash-collisions/)
+
+
+一般化的哈希碰撞机率公式如下：
+
+![哈希碰撞机率公式](https://www.wangbase.com/blogimg/asset/201809/bg2018090508.png)
+
+通过以上公式，计算得64位hash在不同的tags组合数下的碰撞概率见下表。其中d为取值空间，n为数据集规模。
+在监控领域下，Metric下tags的组合数极少能达到1M量级，即使在该量级碰撞机率也极低。
+
+|  Tags组合数量  | 至少有2条Series出现碰撞的机率 |
+|  ----  | ----  |
+| 100K  | 0.000000000271 |
+| 1M  | 0.0000000271 |
+| 10M  | 0.00000271 |
+| 100M  | 0.000271 |
+| 1G  | 0.0271 |
+
 
 ## 写
 
