@@ -1,6 +1,6 @@
-# Query
+# 查询
 
-## Overview
+## 概览
 
 参与查询的角色如下：
 - Broker: 接收用户的查询，根据查询语句生成相应的执行计划，并下发到相应的 Storage 节点，同时会聚合各 Storage 节点返回的结果，生成最终的结果
@@ -32,14 +32,14 @@
 - Complex Query: 带 Grouping 的查询；
 - Cross IDC Query: 跨 IDC 之间的查询；
 
-## Simple Query
+## 简单查询
 
 ![simple query](../../../assets/images/design/simple_query.png)
 
 - 只做数据的过滤，Downsampling 及 Aggregation
 - 由于没有 Grouping 操作，因此最终的结果可以直接可以在 Root 节点进行聚合
 
-## Complex Query
+## 复杂查询
 
 ![complex query](../../../assets/images/design/complex_query.png)
 
@@ -49,7 +49,7 @@
 - Storage 会按 Grouping 之后 Series 的 hash 值，把数据 Sharding 的指定的 Intermediate Broker 节点上，这样可以做到同一个 Series 的数据可以 Sharding 到同一台 Intermediate Broker 上进行 Aggregation 操作
 - 最后每个 Intermediate Broker 节点把自己的计算结果返回给 Root 节点，Root 合并生成最终的结果
 
-## Cross IDC Query
+## 跨机房查询
 
 ![cross idc query](../../../assets/images/design/cross_idc_query.png)
 

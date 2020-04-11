@@ -1,4 +1,4 @@
-# Storage
+# 存储
 
 LinDB 所有的数据都会存储在本地磁盘上，根据不同的数据类型有不同的存储结构：
 - Metirc Metadata: 存储 Metric Name 及其下面的 Fields

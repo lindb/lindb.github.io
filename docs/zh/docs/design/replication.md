@@ -1,4 +1,4 @@
-# Replication
+# 副本
 
 client 通过 tcp或 http 协议将时序数据（包含 database、metric name、tags、timestamp、fields 信息）发送到 broker，broker 首先判断 database 是否存在，如果存在根据 metric name、tags、database 配置的 shard 总数计算所属的 shard，然后将数据写入到 shard 相应内存缓存中，当缓存大小超过限制或离上一次写入时间超过限制，缓存中的数据作为一条 record 追加到当前 shard 所属的磁盘日志文件中。
 
