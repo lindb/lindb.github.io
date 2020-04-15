@@ -1,4 +1,4 @@
-# Index
+# 索引
 
 主要作用是为方便对某个 Metrics 下面 Tags 的 Filtering/Grouping 操作，同时也是为了提升整体的查询效率。
 
