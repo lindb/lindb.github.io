@@ -1,4 +1,4 @@
-# LinDB与其他时序数据库的对比
+# 与其他TSDB对比
 
 ## LinDB vs. InfluxDB
 ### 架构方案

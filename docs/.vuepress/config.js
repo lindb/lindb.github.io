@@ -40,7 +40,7 @@ module.exports = {
           }
         },
         nav: [
-          { text: 'Docs', link: '/docs/quick-start' },
+          { text: 'Docs', link: '/docs/introduction/overview' },
           { text: 'Community', link: '/docs/community/contributor-guide' }
         ],
         sidebar: {
@@ -60,12 +60,12 @@ module.exports = {
           }
         },
         nav: [
-          { text: '文档', link: '/zh/docs/quick-start' },
+          { text: '文档', link: '/zh/docs/introduction/overview' },
           { text: '社区', link: '/zh/docs/community/contributor-guide' }
         ],
         sidebar: {
           '/zh/docs/community/': getCommunity(),
-          '/zh/docs/': getGuideSidebar("概念", "使用手册", "设计文档"),
+          '/zh/docs/': getGuideSidebar("简介", "概念", "设计文档"),
         }
       }
     }
@@ -90,15 +90,19 @@ function getGuideSidebar(groupA, groupB, groupC) {
       title: groupA,
       collapsable: false,
       children: [
-        'concept/terminology',
-      ]
+        'introduction/overview',
+        'introduction/installation',
+        'introduction/comparision',
+        'introduction/roadmap',
+     ]
     },
     {
       title: groupB,
       collapsable: false,
       children: [
-        'quick-start',
-        'example',
+        'concept/terminology',
+        'concept/datamodel',
+        'concept/fieldtype',
       ]
     },
     {
