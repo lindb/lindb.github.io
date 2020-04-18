@@ -100,7 +100,6 @@ function getGuideSidebar(groupA, groupB, groupC) {
       title: groupB,
       collapsable: false,
       children: [
-        'concept/terminology',
         'concept/datamodel',
         'concept/fieldtype',
       ]
