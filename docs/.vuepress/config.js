@@ -101,6 +101,7 @@ function getGuideSidebar(groupA, groupB, groupC) {
       collapsable: false,
       children: [
         'concept/datamodel',
+        'concept/dtomodel',
         'concept/fieldtype',
       ]
     },
