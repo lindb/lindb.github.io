@@ -77,7 +77,7 @@ jobs:
           # built into /dist folder
           source-directory: 'docs/.vuepress/dist'
           # Set user settings and repository to push to
-          destination-github-username: codingcrush
+          destination-github-username: lindb
           destination-repository-name: lindb.github.io
           user-email: codingcrush@163.com
-          target-branch: main
+          target-branch: master
