@@ -8,7 +8,7 @@ script:
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: $GITHUB_TOKEN
+  github_token: $TOKEN
   keep_history: true
   local_dir: docs/.vuepress/dist
   fqdn: lindb.io
