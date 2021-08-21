@@ -1,6 +1,4 @@
-# Contributor Guide
-
-## Project Layout
+# Project Layout
 
 This entire project is implemented by Go, so it follows the common rule of general Go project.
 Below is a brief description for project structure

@@ -41,10 +41,8 @@ module.exports = {
         },
         nav: [
           { text: 'Docs', link: '/docs/introduction/overview' },
-          { text: 'Community', link: '/docs/community/contributor-guide' }
         ],
         sidebar: {
-          '/docs/community/':  getCommunity(),
           '/docs/': getGuideSidebar("Concept", "User Guide", "Design"),
         }
       },
@@ -61,10 +59,8 @@ module.exports = {
         },
         nav: [
           { text: '文档', link: '/zh/docs/introduction/overview' },
-          { text: '社区', link: '/zh/docs/community/contributor-guide' }
         ],
         sidebar: {
-          '/zh/docs/community/': getCommunity(),
           '/zh/docs/': getGuideSidebar("简介", "概念", "设计文档"),
         }
       }
@@ -78,12 +74,6 @@ module.exports = {
   }
 }
 
-function getCommunity() {
-  return [
-    'contributor-guide',
-  ]
-}
-
 function getGuideSidebar(groupA, groupB, groupC) {
   return [
     {
@@ -91,6 +81,7 @@ function getGuideSidebar(groupA, groupB, groupC) {
       collapsable: false,
       children: [
         'introduction/overview',
+        'introduction/project-layout',
         'introduction/installation',
         'introduction/comparision',
         'introduction/roadmap',
