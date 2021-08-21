@@ -1,18 +1,80 @@
-name: GitHub Pages
+# https://dev.to/vanwildemeerschbrent/how-to-deploy-to-github-pages-using-github-actions-57k8
 
+# Name that will define how it shows up in
+# your Github Action overview for this repository
+name: Build and Deploy
+
+
+# Defines what events the workflow will listen to in repository
+# In this case commits and pull-requests on master-branch
 on:
   push:
-    branches:
-      - dev
+    branches: [dev]
 
+
+# What jobs will run in your workflow -> build_and_deploy
+# Jobs can run in parallel or sequentially
 jobs:
-  build:
+  build_and_deploy:
+    # Type of runner that this job wil run on -> Linux Ubuntu
     runs-on: ubuntu-latest
+
+    # Define which node version to use in the runner.
+    # Use node version 14.15.0, latest Node LTS version
+    strategy:
+      matrix:
+        node-version: [14.15.0]
+
+    # Steps that are part of the build_and_deploy job
+    # Steps represent a sequence of tasks that will be executed
     steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - uses: actions/checkout@v1
-      - run: ./build.sh
+      # Action that will checkout repository so the workflow can
+      # access the codebase
+      - uses: actions/checkout@v2
+
+        # Action allowing caching of node_modules to improve
+        # workflow execution time
+        # {{runner.os}} will use defined runner 'ubuntu-latest'
+      - name: Cache node_modules
+        uses: actions/cache@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.github_token }}
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name}}-${{hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+        # Sets node environment for use in action
+        # {{matrix.node-version}} will use Github default Node.js
+        # version
+      - name: Node ${{matrix.node-version}}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{matrix.node-version}}
+
+        # Run npm commands to install NPM packages
+      - name: Install dependencies
+        run: npm install
+
+        # Run npm build command for Vue project
+      - name: Build Project
+        run: cd docs/.vuepress/dist && npm run build
+
+        # Push built code to the upfront created GH pages repo
+      - name: Pushes to master repository
+        uses: lindb/lindb.github.io@master
+        env:
+          # Create and store API_TOKEN_GITHUB in repository
+          # secrets -> explained later in this article
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          # Define source directory to push from -> Vue default
+          # built into /dist folder
+          source-directory: 'dist'
+          # Set user settings and repository to push to
+          destination-github-username: 'codingcrush'
+          destination-repository-name: 'lindb.github.io'
+          user-email: {{codingcrush@163.com}}
