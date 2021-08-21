@@ -18,12 +18,6 @@ MaxField 是一个自动求最大值的字段，功能与 MinField 类似。
 GaugeField 用来表示可以任意波动的值，例如当前的内存用量、CPU使用率等。
 GaugeField 是一个复合型的 Field，在存储时会自动转换为 gaugeSum与gaugeCount两个字段，查询时也会转换为相对应的字段来进行查询。
 
-## IncreaseField
-IncreaseField 是一个累计型的字段，类似 Prometheus 中的 Counter型，只能单调递增。例如，可以记录 Nginx 已处理的请求数、页面总访问量等数据。
-
 
 ## HistogramField
 HistogramField 是组成直方图数据的基础字段，在 SDK中打点时，对应的数据会被拆解为多个HistogramField，记录到不同的Bucket中，以支持计算99线、95线等。
-
-## SummaryField
-SummaryField 类似 HistogramField，但更准确的说是摘要数据。对于 Summary 的计算是在 Client 端进行的。
