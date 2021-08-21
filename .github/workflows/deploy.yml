@@ -77,4 +77,4 @@ jobs:
           # Set user settings and repository to push to
           destination-github-username: 'codingcrush'
           destination-repository-name: 'lindb.github.io'
-          user-email: {{codingcrush@163.com}}
+          user-email: 'codingcrush@163.com'
