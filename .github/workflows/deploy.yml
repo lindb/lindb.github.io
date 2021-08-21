@@ -31,6 +31,8 @@ jobs:
       # Action that will checkout repository so the workflow can
       # access the codebase
       - uses: actions/checkout@v2
+        with:
+          ref: dev
 
         # Action allowing caching of node_modules to improve
         # workflow execution time
