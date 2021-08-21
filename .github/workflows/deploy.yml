@@ -63,7 +63,7 @@ jobs:
 
         # Run npm build command for Vue project
       - name: Build Project
-        run: cd docs/.vuepress/dist && npm run build
+        run: npm run build
 
         # Push built code to the upfront created GH pages repo
       - name: Pushes to master repository
