@@ -11,7 +11,7 @@
 2. Filtering
 3. Scan Time Series
 4. Grouping if need
-5. Downsampling
+5. DownSampling
 6. Aggregation
 7. Functions
 8. Expressions
@@ -43,13 +43,14 @@
 
 ![complex query](../../../assets/images/design/complex_query.png)
 
-- 由于在一些场景下面做 Grouping 再求 Top N 的时候，会返回大量的 Grouping 之后的数据，如果此时再把这些数据返回给一个计算节点的话，可能导致这个节点的内存成为瓶颈，因此引入了 Intermediate Broker 节点参与中间结果的计算
-- 执行计划会在当前可用的 Broker 节点中，挑选一些 Intermediate Broker 来参与计算
-- Root 会把请求下发给 Intermediate Broker, 由 Intermediate Broker 再下发给个自对应的 Storage 节点
-- Storage 会按 Grouping 之后 Series 的 hash 值，把数据 Sharding 的指定的 Intermediate Broker 节点上，这样可以做到同一个 Series 的数据可以 Sharding 到同一台 Intermediate Broker 上进行 Aggregation 操作
-- 最后每个 Intermediate Broker 节点把自己的计算结果返回给 Root 节点，Root 合并生成最终的结果
+1. 由于在某些场景下面做 Grouping 再求 Top N 的时候，会返回大量的 Grouping 之后的数据，如果此时再把这些数据返回给一个计算节点的话，可能导致这个节点的内存成为瓶颈，因此引入了 Intermediate Broker 节点参与中间结果的计算
+2. 执行计划会在当前可用的 Broker 节点中，根据集群数量计算并行度选择特定的 Intermediate Broker 来参与计算
+3. Root 首先将请求下发给 Intermediate Broker,等待 Intermediate Broker 建立完查询任务后， Root 再下发任务给 Storage 节点
+4. Storage 会按 Grouping 之后 Series 的 hash 值，把数据 Sharding 到指定的 Intermediate Broker 节点上，这样便能将相同的 Series 数据 Sharding 到同一台 Intermediate Broker 上进行 Aggregation 操作，以提高数据聚合的局部性
+5. 最后每个 Intermediate Broker 节点把自己的计算结果返回给 Root 节点，Root 合并生成最终的结果
 
-## 跨机房查询
+## 跨机房查询 (TODO)
+
 
 ![cross idc query](../../../assets/images/design/cross_idc_query.png)
 
