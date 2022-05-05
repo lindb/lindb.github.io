@@ -6,6 +6,7 @@
     "dev": "vuepress dev docs",
     "build": "vuepress build docs"
   },
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lindb/lindb.github.io.git"
@@ -19,13 +20,14 @@
   },
   "homepage": "https://github.com/lindb/lindb.github.io#readme",
   "devDependencies": {
-    "@vuepress/plugin-back-to-top": "^1.0.0-rc.1",
-    "@vuepress/plugin-medium-zoom": "^1.0.3",
-    "less": "^3.9.0",
-    "less-loader": "^5.0.0",
-    "vuepress": "^1.0.3"
-  },
-  "dependencies": {
-    "vue-github-button": "^1.0.8"
+    "@vuepress/plugin-docsearch": "^2.0.0-beta.43",
+    "@vuepress/plugin-register-components": "^2.0.0-beta.43",
+    "@vuepress/plugin-search": "^2.0.0-beta.43",
+    "@vuepress/utils": "^2.0.0-alpha.1",
+    "eslint": "^8.14.0",
+    "less": "^4.1.2",
+    "typescript": "^4.6.4",
+    "vue-github-button": "^3.0.3",
+    "vuepress": "^2.0.0-beta.43"
   }
 }

@@ -1,6 +1,5 @@
 # Architecture
 
-
 ## Design Goals
 
 - Sufficiently simple for usability and serviceability;
@@ -13,7 +12,7 @@
 
 ## Overview
 
-![architecture](../../assets/images/design/architecture.png)
+![architecture](../assets/images/design/architecture.png)
 
 LinDB is mainly composed of several components：
 1. Broker

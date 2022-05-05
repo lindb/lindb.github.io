@@ -18,7 +18,6 @@
 
         <div class="lindb-intro__btn-group">
           <a href="docs/introduction/overview"><button class="lindb-intro__btn primary">{{startText}}</button></a>
-          <a href="https://github.com/lindb/lindb"><button class="lindb-intro__btn">GitHub</button></a>
         </div>
 
         <div class="lindb-intro__btn-group github">
@@ -47,8 +46,9 @@
 </template>
 
 <script>
-import IntroList from "./IntroList";
-import HomeBackgroundCanvas from "./HomeBackgroundCanvas";
+import IntroList from "./IntroList.vue";
+import LinFooter from "./LinFooter.vue";
+import HomeBackgroundCanvas from "./HomeBackgroundCanvas.vue";
 import GithubButton from "vue-github-button";
 
 export default {
@@ -71,6 +71,7 @@ export default {
   components: {
     IntroList,
     GithubButton,
+    LinFooter,
     HomeBackgroundCanvas
   }
 };
@@ -94,6 +95,7 @@ export default {
 </style>
 
 <style lang="less" scoped>
+
 .lindb-home-container {
   @pc-narrow: 959px;
   @mobile-wide: 719px;
@@ -155,7 +157,7 @@ export default {
           padding: 0.8em 1.1em;
           border-radius: 4px;
           display: inline-block;
-          width: 120px;
+          width: 160px;
           margin: 0 10px;
           cursor: pointer;
           transition: all 0.3s;
@@ -175,15 +177,20 @@ export default {
           }
 
           &.primary {
-            background-color: #35a6c9;
-            border-color: #35a6c9;
             color: #fff;
+            background-color: var(--c-brand);
+            border-color: var(--c-brand);
 
             &:hover {
               color: #fff;
-              background: darken(#35a6c9, 5%);
+              background: darken(#3aa675, 5%);
             }
           }
+          &.secondary {
+            color: #1866d4;
+            background-color: var(--c-bg);
+            border-color: #1866d4;
+         }
 
           @media (max-width: @mobile-narrow) {
             margin: 0 5px;
@@ -194,7 +201,7 @@ export default {
       .lindb-intro__title {
         font-size: 36px;
         display: inline-block;
-        color: #022c63;
+        // color: #022c63;
         padding: 0 2rem;
         margin: 0.2em 0;
         // text-align: center;
@@ -215,7 +222,7 @@ export default {
         padding: 0.5rem 2rem;
         text-indent: 2em;
         margin: 0;
-        color: rgba(#022c63, 0.8);
+        // color: rgba(#022c63, 0.8);
         font-weight: bold;
 
         p {

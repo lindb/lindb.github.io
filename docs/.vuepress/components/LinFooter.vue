@@ -1,5 +1,5 @@
 <template>
-  <div class="lindb-footer">Copyright © 2019 LinDB</div>
+  <div class="lindb-footer">Copyright © {{new Date().getFullYear()}} LinDB.io. All Rights Reserved.</div>
 </template>
 
 <script>
@@ -12,7 +12,6 @@ export default {};
   padding: 1.2em;
   margin: 0 30px;
   text-align: center;
-  border-top: 1px solid #E4E7ED;
-  font-size: 0.8rem;
+  border-top: 1px solid var(--c-border);
 }
 </style>

@@ -34,14 +34,14 @@
 
 ## 简单查询
 
-![simple query](../../../assets/images/design/simple_query.png)
+![simple query](../../assets/images/design/simple_query.png)
 
 - 只做数据的过滤，Downsampling 及 Aggregation
 - 由于没有 Grouping 操作，因此最终的结果可以直接可以在 Root 节点进行聚合
 
 ## 复杂查询
 
-![complex query](../../../assets/images/design/complex_query.png)
+![complex query](../../assets/images/design/complex_query.png)
 
 1. 由于在某些场景下面做 Grouping 再求 Top N 的时候，会返回大量的 Grouping 之后的数据，如果此时再把这些数据返回给一个计算节点的话，可能导致这个节点的内存成为瓶颈，因此引入了 Intermediate Broker 节点参与中间结果的计算
 2. 执行计划会在当前可用的 Broker 节点中，根据集群数量计算并行度选择特定的 Intermediate Broker 来参与计算
@@ -52,6 +52,6 @@
 ## 跨机房查询 (TODO)
 
 
-![cross idc query](../../../assets/images/design/cross_idc_query.png)
+![cross idc query](../../assets/images/design/cross_idc_query.png)
 
 - LinDB 的跨 IDC 是做在 Query 层，因此可以把此类查询理解为把上面 2 种查询下发到各 IDC 之后的再聚合操作
