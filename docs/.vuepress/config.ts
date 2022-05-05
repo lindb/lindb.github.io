@@ -2,6 +2,7 @@ import { defineUserConfig } from 'vuepress'
 import { defaultTheme } from '@vuepress/theme-default'
 import { searchPlugin } from '@vuepress/plugin-search'
 import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
+import { containerPlugin } from '@vuepress/plugin-container'
 import { path } from '@vuepress/utils'
 import { navbar, sidebar } from './configs'
 
@@ -48,6 +49,17 @@ export default defineUserConfig({
     }),
     registerComponentsPlugin({
       componentsDir: path.resolve(__dirname, './components'),
+    }),
+    containerPlugin({
+      type: 'tip',
+      locales: {
+        '/': {
+          defaultInfo: 'TIP',
+        },
+        '/zh/': {
+          defaultInfo: '提示',
+        },
+      },
     }),
   ],
 })
