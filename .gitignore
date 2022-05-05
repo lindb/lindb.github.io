@@ -63,3 +63,6 @@ typings/
 docs/.vuepress/dist
 .node_modules
 *.DS_Store
+node_modules
+.temp
+.cache

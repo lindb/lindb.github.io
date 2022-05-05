@@ -7,7 +7,7 @@ client 通过 tcp或 http 协议将时序数据（包含 database、metric name�
 
 一个 shard 的复制过程可以抽象为 Fanout queue 的生产和消费过程，实现时借鉴了 [bigqueue](https://github.com/bulldog2011/bigqueue)，broker 将写入的数据计算 shard，累计成批后写入 Fanout queue，异步 go routine 负责将数据推送到对应的 storage 节点，storage 确认成功消费的数据记录。broker 删除被所有 storage 确认消费的 queue 文件。
 
-![replication](../../../assets/images/design/replication.png)
+![replication](../../assets/images/design/replication.png)
 
 时序数据库对数据写入的顺序没有要求，只要数据最终都完成写入，查询的结果是一致的，broker 向 storage 复制时保持顺序性是为了依靠顺序性处理各种异常场景，保证数据准确地复制到 storage。
 

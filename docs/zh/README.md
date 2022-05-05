@@ -1,5 +1,7 @@
 ---
-pageClass: home-page
+home: true
+heroText: null
+tagline: null
 ---
 
 <home-page title="什么是 LinDB？" :intro="['LinDB 是一款开源分布式时序数据库，具有高性能、高可用性和水平扩展性等特性。', '提供海量时序数据存储的同时支持跨多数据中心的能力，目前 LinDB 已经支撑起「饿了么」所有监控数据的存储。']" startText="快速上手"/>
@@ -37,4 +39,4 @@ pageClass: home-page
 
 </intro-list>
 
-<lindb-footer/>
+<lin-footer/>

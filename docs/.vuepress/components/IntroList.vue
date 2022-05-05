@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import IntroItem from "./IntroItem";
+import IntroItem from "./IntroItem.vue";
 
 export default {
   props: {
