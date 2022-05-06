@@ -21,3 +21,8 @@
         display: none !important;
     }
 }
+
+.home {
+    padding: var(--navbar-height) 0;
+    max-width: none;
+}
