@@ -4,6 +4,7 @@ import { searchPlugin } from '@vuepress/plugin-search'
 import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
 import { path } from '@vuepress/utils'
 import { navbar, sidebar } from './configs'
+import { localTheme } from './theme'
 
 export default defineUserConfig({
   lang: 'zh-CN',
@@ -21,7 +22,7 @@ export default defineUserConfig({
       lang: 'zh-CN',
     },
   },
-  theme: defaultTheme({
+  theme: localTheme({
     logo: '/images/logo.png',
     logoDark:'/images/logo_dark.png',
     repo: 'lindb/lindb',
