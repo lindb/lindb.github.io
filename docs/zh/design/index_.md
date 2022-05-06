@@ -50,7 +50,7 @@
 
 那么，如果不存储正向数据，怎么来解决按某个或者某几个 Tag Key 的 Group By 操作呢？如果我们像 Lucene 一样需要对 Tag Value 做分词的话，基本上是做不到通过反向来推导出正向的数据，但是在 TSDB 这样的场景里面，我们不需要对 Tag Value 做分词处理，所以还是可以通过反向的数据来反推出来正向的数据的。
 
-![index forward](../../../assets/images/design/index_forward.png)
+![index forward](../../assets/images/design/index_forward.png)
 
 下面还是拿之前那个例子来说明，怎么来拿到 Group By host,cpu 这 2 个 Tag Key 的数据，如上图所示，其实从图中可以看到，整个操作就是一个归并操作，有 2 种做法。
 1. 因为每个数据都是排好序的，所以可以用 2 个堆来排序，即 host 和 cpu 分别放在一个堆里面，每次从每个堆里面取一个值，如果值相同，说明 2 者都满足，如 TSID = 0 对应的 host=dev,cpu=0，即可以找到相应的 Group By 数据了，以此类推，遍历完 2 个堆里面的数据，就可以得到最终的结合，该方式会占用 CPU，内存占用少；
