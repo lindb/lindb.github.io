@@ -40,11 +40,9 @@ export default defineUserConfig({
         selectLanguageAriaLabel: '选择语言',
         sidebar: sidebar.zh,
         navbar: navbar.zh,
-        // page meta
         editLinkText: '在 GitHub 上编辑此页',
         lastUpdatedText: '上次更新',
         contributorsText: '贡献者',
-        // custom containers
         tip: '提示',
         warning: '注意',
         danger: '警告',

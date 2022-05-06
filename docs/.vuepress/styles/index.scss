@@ -1,0 +1,23 @@
+.navbar-item a[aria-label="GitHub"]{
+    margin: 0 !important;
+    font-size: 0;
+    &::before {
+        display: inline-block;
+        font-family: 'iconfont' !important;
+        font-size: 22px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: '\e885';
+        line-height: 0.5rem;
+        vertical-align: text-bottom;
+    }
+
+    &:hover{
+        border-bottom: 0;
+    }
+  
+    svg {
+        display: none !important;
+    }
+}
