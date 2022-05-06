@@ -20,9 +20,7 @@
   },
   "homepage": "https://github.com/lindb/lindb.github.io#readme",
   "devDependencies": {
-    "@vuepress/plugin-container": "^2.0.0-beta.43",
     "@vuepress/plugin-docsearch": "^2.0.0-beta.43",
-    "@vuepress/plugin-medium-zoom": "^2.0.0-beta.43",
     "@vuepress/plugin-register-components": "^2.0.0-beta.43",
     "@vuepress/plugin-search": "^2.0.0-beta.43",
     "@vuepress/utils": "^2.0.0-alpha.1",
