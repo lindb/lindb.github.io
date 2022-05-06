@@ -26,6 +26,7 @@ export const zh: SidebarConfig = {
         '/zh/design/storage.md',
         '/zh/design/replication.md',
         '/zh/design/memory.md',
+        '/zh/design/index_.md',
       ],
     },
   ],

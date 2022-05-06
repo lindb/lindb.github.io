@@ -2,7 +2,6 @@ import { defineUserConfig } from 'vuepress'
 import { defaultTheme } from '@vuepress/theme-default'
 import { searchPlugin } from '@vuepress/plugin-search'
 import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
-import { containerPlugin } from '@vuepress/plugin-container'
 import { path } from '@vuepress/utils'
 import { navbar, sidebar } from './configs'
 
@@ -41,6 +40,15 @@ export default defineUserConfig({
         selectLanguageAriaLabel: '选择语言',
         sidebar: sidebar.zh,
         navbar: navbar.zh,
+        // page meta
+        editLinkText: '在 GitHub 上编辑此页',
+        lastUpdatedText: '上次更新',
+        contributorsText: '贡献者',
+        // custom containers
+        tip: '提示',
+        warning: '注意',
+        danger: '警告',
+        toggleDarkMode: '切换夜间模式',
       },
     },
   }),
@@ -49,17 +57,6 @@ export default defineUserConfig({
     }),
     registerComponentsPlugin({
       componentsDir: path.resolve(__dirname, './components'),
-    }),
-    containerPlugin({
-      type: 'tip',
-      locales: {
-        '/': {
-          defaultInfo: 'TIP',
-        },
-        '/zh/': {
-          defaultInfo: '提示',
-        },
-      },
     }),
   ],
 })

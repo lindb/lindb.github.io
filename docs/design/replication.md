@@ -6,7 +6,7 @@ A shard according to the configured number of replicas will correspond to one or
 
 The replication process of a shard can be abstracted into the production and consumption process of the Fanout queue. The implementation is inspired by [bigqueue](https://github.com/bulldog2011/bigqueue). The broker calculates the shard number of time series data, batches in-memory for efficiency, then write to the Fanout queue, the asynchronous go routine is responsible for pushing the data to the corresponding storage node. 
 
-![replication](../../assets/images/design/replication.png)
+<!-- ![replication](../../assets/images/design/replication.png) -->
 
 
 The time series database does not require the sequential writing. As long as the data is finally written, the result of the query is consistent. The sequence is maintained when replicating records from broker to storage in order to ensure accurate data replication under various abnormal scenarios.

@@ -1,5 +1,5 @@
 <template>
-  <div class="lindb-footer">Copyright © {{new Date().getFullYear()}} LinDB.io. All Rights Reserved.</div>
+  <div class="lindb-footer">Copyright © {{new Date().getFullYear()}} LinDB. All Rights Reserved.</div>
 </template>
 
 <script>
