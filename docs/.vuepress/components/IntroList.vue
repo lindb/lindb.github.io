@@ -26,10 +26,11 @@ export default {
 @mobile-wide: 719px;
 @mobile: 419px;
 
+
 .intro-list {
   padding: 20px;
   font-size: 0;
-  max-width: 1200px;
+  max-width: var(--homepage-width);
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;

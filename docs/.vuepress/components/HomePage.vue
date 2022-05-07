@@ -19,26 +19,6 @@
         <div class="lindb-intro__btn-group">
           <a href="docs/introduction/overview"><button class="lindb-intro__btn primary">{{startText}}</button></a>
         </div>
-
-        <div class="lindb-intro__btn-group github">
-          <github-button
-            href="https://github.com/lindb/lindb"
-            data-icon="octicon-star"
-            data-size="large"
-            data-show-count="true"
-            data-text="Star"
-            aria-label="Star lindb/lindb on GitHub"
-          />
-
-          <github-button
-            href="https://github.com/lindb/lindb/fork"
-            data-icon="octicon-repo-forked"
-            data-size="large"
-            data-show-count="true"
-            data-text="Fork"
-            aria-label="Fork lindb/lindb on GitHub"
-          />
-        </div>
       </div>
     </div>
     <!-- <div class="lindb-content"></div> -->
@@ -49,7 +29,6 @@
 import IntroList from "./IntroList.vue";
 import LinFooter from "./LinFooter.vue";
 import HomeBackgroundCanvas from "./HomeBackgroundCanvas.vue";
-import GithubButton from "vue-github-button";
 
 export default {
   props: {
@@ -70,7 +49,6 @@ export default {
   },
   components: {
     IntroList,
-    GithubButton,
     LinFooter,
     HomeBackgroundCanvas
   }
