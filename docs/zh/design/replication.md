@@ -101,4 +101,4 @@
 由于整个写入与复制过程都是基于`GRPC Stream`长连接加单协程处理机制，因此基本可以保证上述几个条件。
 
 #### 参考
-[bigqueue](https://github.com/bulldog2011/bigqueue)
+1. [bigqueue](https://github.com/bulldog2011/bigqueue)
