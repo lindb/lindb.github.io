@@ -11,6 +11,6 @@ export const zh: NavbarConfig = [
   },
   {
     text: '社区',
-    link: '/zh/desd',
+    link: '/zh/community/project-layout',
   },
 ]
