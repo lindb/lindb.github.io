@@ -2,7 +2,7 @@
 
 整个项目使用 Go 实现，所以遵循了一般 Go 项目的规则，下面是整个项目结构的简单说明：
 
-```
+```md:no-line-numbers
 ├── aggregation           : 数据聚合，函数及表达式计算
 ├── app                   : broker、storage、standalone、cli 等runtime
 │   ├── broker            : Broker 内部实现及整个 Broker 的运行时依赖
@@ -15,6 +15,8 @@
 ├── config                : 各组件启动时需要的配置项
 ├── constants             : 一些通用的常量定义
 ├── coordinator           : 分布式的协调者，包括 Metadata, State 及 Task 的管理，包含了 Broker, Storage 及 Master 等
+├── docker                : docker image 构建
+├── e2e                   : 集成和性能测试用例
 ├── flow                  : 数据查询流程接口
 ├── ingestion             : metric数据摄取入口
 │   ├── common            : gzip handler、行解析等通用工具
@@ -23,14 +25,16 @@
 │   └── prometheus        : prometheus 数据解析转换
 ├── internal              : 内部的一些工具包
 │   ├── bootstrap         : 启动时初始化_internal数据库的方法
+│   ├── client            : 访问Broker API Client
 │   ├── concurrent        : 并发goroutine池
 │   ├── conntrack         : grpc 与 tcp conn埋点钩子
-│   ├── server            : app 通用接口
 │   ├── linmetric         : lindb自带的内部多值类型的sdk打点工具
-│   └── mock              : 项目所用到的一些 Mock 工具实现
+│   |── mock              : 项目所用到的一些 Mock 工具实现
+|   ├── monitoring        : 自带的系统层监控采集与native metrics pusher
+│   └── server            : app 通用接口
 ├── kv                    : 底层的通用 KV 存储
+├── metrics               : 所有监控指标定义
 ├── models                : 整个项目的 Model 定义
-├── monitoring            : 自带的系统层监控采集与native metrics pusher
 ├── pkg                   : 整个项目通用工具包
 │   ├── bit               : 位读写
 │   ├── bufioutil         : 缓冲io工具包
@@ -58,8 +62,7 @@
 ├── query                 : 分布式的数据与元数据查询
 │   ├── broker            : 计算节点的数据查询与聚合
 │   └── storage           : 存储节点的数据查询与聚合
-├── replica               : storage层的复制
-├── replication           : broker层的复制
+├── replica               : broker数据写入以及storage层的复制
 ├── rpc                   : 内部通信的 RPC 
 ├── series                : 时间线迭代器、聚合器
 │   ├── field             : field数据结构与聚合器
@@ -69,14 +72,11 @@
 │   ├── grammar           : antlr4生成的语法解析器
 │   └── stmt              : SQL statement 
 ├── tsdb                  : 整个 Time Series 存储引擎 
-│   ├── cumulativecache   : 简单的cumulative型数据到lindb delta数值的转换缓存
 │   ├── indexdb           : 索引存储
 │   ├── memdb             : LSM 树的内存数据库
 │   ├── metadb            : metric 元数据
-│   ├── query             : tsdb层的查询上下文对象
 │   ├── tblstore          : tsdb与 KV 存储的读写交互，包括索引文件与数据文件
-│   ├── template          : 利用模板生成一些通用的代码
-│   └── wal               : Write Ahead Log
+│   └── template          : 利用模板生成一些通用的代码
 └── web                   : lindb admin页面的前端项目
 
 ```

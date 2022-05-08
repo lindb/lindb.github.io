@@ -39,4 +39,12 @@ export const zh: SidebarConfig = {
       ],
     },
   ],
+  '/zh/community/': [
+    {
+      text: '社区',
+      children: [
+        '/zh/community/project-layout.md',
+      ],
+    },
+  ],
 }

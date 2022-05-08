@@ -23,6 +23,15 @@ export const en: SidebarConfig = {
         '/design/replication.md',
         '/design/storage.md',
         '/design/memory.md',
+        '/design/index_.md',
+      ],
+    },
+  ],
+  '/community/': [
+    {
+      text: 'Community',
+      children: [
+        '/community/project-layout.md',
       ],
     },
   ],

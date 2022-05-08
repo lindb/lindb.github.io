@@ -9,4 +9,8 @@ export const en: NavbarConfig = [
     text: 'Design',
     link: '/design/architecture',
   },
+  {
+    text: 'Community',
+    link: '/community/project-layout',
+  },
 ]
