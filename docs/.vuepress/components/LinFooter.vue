@@ -12,6 +12,7 @@ export default {};
   padding: 1.2em;
   margin: 0 30px;
   text-align: center;
+  font-size: 12px;
   border-top: 1px solid var(--c-border);
 }
 </style>

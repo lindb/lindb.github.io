@@ -54,7 +54,9 @@
 │   ├── stream            : 文件读取工具包
 │   ├── strutil           : 字符串工具包
 │   ├── timeutil          : 时间处理工具包
-│   └── trie              : 紧凑型的trie树，用于string->int的存储
+│   |── trie              : 紧凑型的trie树，用于string->int的存储
+│   |── unique            : 全局唯一ID存储
+│   └── validate          : 对 struct 进行校验的工具包
 ├── proto                 : protobuf
 │   ├── gen               : protobuf 生成的golang code
 │   ├── opentelemetry-v1  : open telemetry的protobuf文件，暂未利用

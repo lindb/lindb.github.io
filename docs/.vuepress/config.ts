@@ -1,10 +1,12 @@
 import { defineUserConfig } from 'vuepress'
-import { defaultTheme } from '@vuepress/theme-default'
 import { searchPlugin } from '@vuepress/plugin-search'
 import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
 import { path } from '@vuepress/utils'
 import { navbar, sidebar } from './configs'
 import { localTheme } from './theme'
+import { mediumZoomPlugin } from '@vuepress/plugin-medium-zoom'
+
+// layout ref: https://github.com/gavinliu6/vuepress-theme-mix/
 
 export default defineUserConfig({
   lang: 'zh-CN',
@@ -13,6 +15,7 @@ export default defineUserConfig({
   head: [
     ['link', { rel: 'icon', href: '/images/logo.png' }],
     ['link', { rel: 'stylesheet', type: 'text/css', href: '//at.alicdn.com/t/font_1331329_he22yc3ekc6.css' }],
+    ["meta", { name: "viewport", content: "width=device-width, initial-scale=1.0" }],
   ],
   locales: {
     '/': {
@@ -20,6 +23,11 @@ export default defineUserConfig({
     },
     '/zh/': {
       lang: 'zh-CN',
+    },
+  },
+  markdown:{
+    extractHeaders:{
+      level:[2,3,4,5,6,7]
     },
   },
   theme: localTheme({
@@ -34,6 +42,7 @@ export default defineUserConfig({
         selectLanguageName: 'English',
         navbar: navbar.en,
         sidebar: sidebar.en,
+        tocNavText: 'On this page',
       },
       '/zh/': {
         selectLanguageName: '简体中文',
@@ -48,12 +57,14 @@ export default defineUserConfig({
         warning: '注意',
         danger: '警告',
         toggleDarkMode: '切换夜间模式',
+        tocNavText: '本页导航',
       },
     },
   }),
   plugins: [
     searchPlugin({
     }),
+    // mediumZoomPlugin({}),
     registerComponentsPlugin({
       componentsDir: path.resolve(__dirname, './components'),
     }),
