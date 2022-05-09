@@ -45,7 +45,7 @@ export default {
     font-size: 30px;
     margin-right: 0.6em;
     // color: #35a6c9;
-    // color: var(--c-brand);
+    color: var(--c-brand);
   }
 
   .intro-item__content {

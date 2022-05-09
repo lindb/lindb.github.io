@@ -1,5 +1,8 @@
-@use 'theme';
+@use 'vars-dark';
+@use 'vars';
 @use 'layout';
+@use 'navbar';
+@use 'sidebar';
 @use 'page';
 @use 'toc';
 @use 'lin';

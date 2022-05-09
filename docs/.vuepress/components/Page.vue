@@ -1,6 +1,6 @@
 <template>
   <main class="page">
-    <div class="theme-lin-content-wrap" :class="{ 'with-toc': shouldShowToc }">
+    <div class="theme-default-content theme-lin-content-wrap" :class="{ 'with-toc': shouldShowToc }">
       <div class="theme-lin-content">
         <Content />
         <PageMeta />
