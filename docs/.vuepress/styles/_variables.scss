@@ -1,0 +1,18 @@
+@import '@vuepress/plugin-palette/palette';
+
+// responsive breakpoints
+$desktop: 1200px !default;
+$tablet: 992px !default;
+$landscapePhone: 768px !default;
+$portraitPhone: 576px !default;
+
+// layouts
+$maxPageWidth: 90rem !default;
+$maxContentWidth: 62rem !default;
+$navbarHeight: 3.6rem !default;
+$sidebarWidth: 20rem !default;
+
+// code
+$codeLang: 'c' 'cpp' 'cs' 'css' 'dart' 'docker' 'fs' 'go' 'html' 'java' 'js'
+  'json' 'kt' 'less' 'makefile' 'md' 'php' 'py' 'rb' 'rs' 'sass' 'scss' 'sh'
+  'styl' 'ts' 'toml' 'vue' 'yml' !default;

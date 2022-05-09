@@ -105,6 +105,9 @@ export default {
 
     drawParticle(particle, canvas, ctx) {
       canvas = document.getElementById("background-canvas");
+      if(!canvas){
+        return;
+      }
       const vh = canvas.height / 100;
 
       ctx.fillStyle = particle.colour;

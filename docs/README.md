@@ -38,5 +38,3 @@ tagline: null
     summary="LinDB supports rollup in specific interval(minute, hour and day) automatically after creating the database(unlike the Continuous-Query of InfluxDB)."/>
 
 </intro-list>
-
-<lin-footer/>
