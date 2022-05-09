@@ -2,7 +2,7 @@
 <Scrollbar>
   <div class="theme-lin-toc" :class="{ 'toc-open': isTocOpen }">
     <div class="toc-mask" @click="isTocOpen = false"></div>
-    <button class="mobile-toc-title" @click="isTocOpen = !isTocOpen">
+    <button class="mobile-toc-title" v-if="anchors && anchors.length>0" @click="isTocOpen = !isTocOpen">
       <svg
         fill="none"
         stroke="currentColor"
@@ -19,7 +19,7 @@
       </svg>
     </button>
     <div class="toc-items-wrap" :class="{ 'show-toc': isTocOpen }">
-      <div class="toc-nav-text">{{ themeLocaleData.tocNavText }}</div>
+      <div class="toc-nav-text" v-if="anchors && anchors.length>0">{{ themeLocaleData.tocNavText }}</div>
       <ul class="toc-items">
         <li
           class="toc-item"
