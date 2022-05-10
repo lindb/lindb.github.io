@@ -4,7 +4,6 @@ import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
 import { path } from '@vuepress/utils'
 import { navbar, sidebar } from './configs'
 import { localTheme } from './theme'
-import { mediumZoomPlugin } from '@vuepress/plugin-medium-zoom'
 
 // layout ref: https://github.com/gavinliu6/vuepress-theme-mix/
 
@@ -29,6 +28,9 @@ export default defineUserConfig({
     extractHeaders:{
       level:[2,3,4,5,6,7]
     },
+  },
+  alias: {
+    '@images': path.resolve(__dirname, '../assets/images'),
   },
   theme: localTheme({
     logo: '/images/logo.png',
@@ -64,7 +66,6 @@ export default defineUserConfig({
   plugins: [
     searchPlugin({
     }),
-    // mediumZoomPlugin({}),
     registerComponentsPlugin({
       componentsDir: path.resolve(__dirname, './components'),
     }),

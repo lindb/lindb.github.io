@@ -16,7 +16,7 @@ html.dark {
   
     // border colors
     --c-border: #3e4c5a;
-    --c-border-dark: #34404c;
+    --c-border-dark: #444c56;
   
     // custom container colors
     --c-tip: #318a62;
@@ -34,6 +34,8 @@ html.dark {
     // code blocks vars
     --code-hl-bg-color: #32373e;
     --code-bg-color: #32373e;
+    --scrollbar-color: rgba(192, 183, 183, .25);
+    --scrollbar-color-hover: rgba(116, 109, 109, .4);
   }
   
   // plugin-docsearch

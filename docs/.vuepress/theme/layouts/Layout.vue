@@ -1,5 +1,8 @@
 <template>
   <ParentLayout>
+    <template #sidebar>
+      <Sidebar/>
+    </template>
     <template #page>
       <Home v-if="frontmatter.home" />
       <Page v-else :key="page.path" />
@@ -21,6 +24,7 @@ import {
   ref,
 } from 'vue'
 import Page from "../../components/Page.vue";
+import Sidebar from '../../components/Sidebar.vue'
 import { usePageData, usePageFrontmatter } from '@vuepress/client'
 import ParentLayout from '@vuepress/theme-default/lib/client/layouts/Layout.vue'
 import Home from '@vuepress/theme-default/lib/client/components/Home.vue'
@@ -30,6 +34,7 @@ export default defineComponent({
   components: {
     Page,
     Home,
+    Sidebar,
     ParentLayout,
   },
   setup() {

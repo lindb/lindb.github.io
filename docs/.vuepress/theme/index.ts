@@ -10,5 +10,8 @@ export const localTheme = (options: DefaultThemeOptions): Theme => {
     layouts: {
       Layout: path.resolve(__dirname, 'layouts/Layout.vue'),
     },
+    alias: {
+      '@image': path.resolve(__dirname, '../../assets/images'),
+    },
   }
 }

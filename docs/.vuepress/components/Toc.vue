@@ -1,42 +1,44 @@
 <template>
-<Scrollbar>
-  <div class="theme-lin-toc" :class="{ 'toc-open': isTocOpen }">
-    <div class="toc-mask" @click="isTocOpen = false"></div>
-    <button class="mobile-toc-title" v-if="anchors && anchors.length>0" @click="isTocOpen = !isTocOpen">
-      <svg
-        fill="none"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="1.5"
-        shape-rendering="geometricPrecision"
-        viewBox="0 0 24 24"
-        height="1.5em"
-        width="1.5em"
-        style="color: currentcolor"
-      >
-        <path d="M21 10H7M21 6H3M21 14H3M21 18H7"></path>
-      </svg>
-    </button>
-    <div class="toc-items-wrap" :class="{ 'show-toc': isTocOpen }">
-      <div class="toc-nav-text" v-if="anchors && anchors.length>0">{{ themeLocaleData.tocNavText }}</div>
-      <ul class="toc-items">
-        <li
-          class="toc-item"
-          v-for="anchor in anchors"
-          :key="anchor.slug"
-          :class="{
-            ['toc-level-' + anchor.level]: true,
-            active: `#${anchor.slug}` === hash,
-          }"
-          @click="isTocOpen = !isTocOpen"
-        >
-          <a class="toc-anchor" :href="'#' + anchor.slug">{{ anchor.title }}</a>
-        </li>
-      </ul>
-    </div>
+  <div v-if="anchors && anchors.length>0" class="toc-wrap">
+    <Scrollbar>
+      <div class="theme-lin-toc" :class="{ 'toc-open': isTocOpen }">
+        <div class="toc-mask" @click="isTocOpen = false"></div>
+        <button class="mobile-toc-title" @click="isTocOpen = !isTocOpen">
+          <svg
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            shape-rendering="geometricPrecision"
+            viewBox="0 0 24 24"
+            height="1.5em"
+            width="1.5em"
+            style="color: currentcolor"
+          >
+            <path d="M21 10H7M21 6H3M21 14H3M21 18H7"></path>
+          </svg>
+        </button>
+        <div class="toc-items-wrap" :class="{ 'show-toc': isTocOpen }">
+          <div class="toc-nav-text">{{ themeLocaleData.tocNavText }}</div>
+          <ul class="toc-items">
+            <li
+              class="toc-item"
+              v-for="anchor in anchors"
+              :key="anchor.slug"
+              :class="{
+                ['toc-level-' + anchor.level]: true,
+                active: `#${anchor.slug}` === hash,
+              }"
+              @click="isTocOpen = !isTocOpen"
+            >
+              <a class="toc-anchor" :href="'#' + anchor.slug">{{ anchor.title }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+     </Scrollbar>
   </div>
-  </Scrollbar>
 </template>
 
 <script lang="ts">
@@ -64,7 +66,7 @@ export default defineComponent({
 
     const tocLevel = 5
     const resolved: PageHeader[] = []
-
+  console.log('themeData',themeData)
     const resolveAnchors = (
       headers: PageHeader[],
       depth: number = 0

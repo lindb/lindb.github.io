@@ -1,15 +1,13 @@
 <template>
   <main class="page">
-    <div class="theme-default-content theme-lin-content-wrap" :class="{ 'with-toc': shouldShowToc }">
+    <div class="theme-default-content theme-lin-content-wrap" :class="{ 'with-toc': true }">
       <div class="theme-lin-content">
         <Content />
         <PageMeta />
         <PageNav />
       </div>
 
-      <div v-if="shouldShowToc" class="toc-wrap">
-        <Toc />
-      </div>
+      <Toc />
     </div>
   </main>
 </template>
@@ -30,10 +28,8 @@ export default defineComponent({
   setup() {
     const page = usePageData()
     const headers = computed(() => page.value.headers)
-    const shouldShowToc = true
     return {
       headers,
-      shouldShowToc,
     }
   },
 })
