@@ -1,4 +1,4 @@
-# SQL
+# Lin Query Language(LQL) 
 
 ## Database
 
