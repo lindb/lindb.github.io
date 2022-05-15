@@ -9,7 +9,7 @@ name: Build and Deploy
 # In this case commits and pull-requests on master-branch
 on:
   push:
-    branches: [dev]
+    branches: [main]
 
 
 # What jobs will run in your workflow -> build_and_deploy
@@ -32,7 +32,7 @@ jobs:
       # access the codebase
       - uses: actions/checkout@v2
         with:
-          ref: dev
+          ref: main
 
         # Action allowing caching of node_modules to improve
         # workflow execution time
