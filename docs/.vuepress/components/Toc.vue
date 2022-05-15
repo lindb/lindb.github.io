@@ -66,7 +66,6 @@ export default defineComponent({
 
     const tocLevel = 5
     const resolved: PageHeader[] = []
-  console.log('themeData',themeData)
     const resolveAnchors = (
       headers: PageHeader[],
       depth: number = 0

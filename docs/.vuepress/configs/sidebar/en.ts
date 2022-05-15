@@ -10,6 +10,7 @@ export const en: SidebarConfig = {
         '/guide/admin-ui.md',
         '/guide/api.md',
         '/guide/sql.md',
+        '/guide/configuration.md',
       ],
     },
   ],
