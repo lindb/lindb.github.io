@@ -80,4 +80,10 @@ jobs:
           destination-github-username: lindb
           destination-repository-name: lindb.github.io
           user-email: codingcrush@163.com
-          target-branch: master
+          target-branch: release
+      - name: add cname
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.API_TOKEN_GITHUB }}
+          publish_dir: ./
+          cname: lindb.io
