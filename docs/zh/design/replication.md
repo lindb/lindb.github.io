@@ -16,7 +16,7 @@ LinDB 面临的场景是写入量巨大，对数据一致性要求不是很高�
 
 为了解决上述问题，尽量保证数据不丢失， LinDB 采用多通道复制方案，如下图：
 
-![replication](../../assets/images/design/storage_database.png)
+![replication](@images/design/storage_database.png)
 
 以数据分片 Shard 3 为例：
 - 当 Node 1 作为 Leader 时，启用 1-WAL 写入通道， Node 1 接收新的数据写入到 1-WAL 通道中，并把 1-wal 通道中的数据复制到 Node 2 和 Node 4 的 1-WAL 通道中；
@@ -42,7 +42,7 @@ Node 1 对应在集群中唯一的标识为 1，其他节点以此类推。
 
 ## 本地复制
 
-![local replication](../../assets/images/design/local_replication.png)
+![local replication](@images/design/local_replication.png)
 
 整个本地复制写入过程如下：
 - 系统会为每一个 Shard 复制通道启一个写协程，该协程负责这个通道的所有写操作，包括作为 Leader 或者 Follower 时都有该协程来完成写操作；
@@ -68,7 +68,7 @@ Node 1 对应在集群中唯一的标识为 1，其他节点以此类推。
 
 当前 Node 1 为该数据分片 Shard 的 Leader 接受 Broker 的写入，Node 2 和 Node 4 都是 Follower 接受 Node 1 的复制请求，此时 1-WAL 通道作为当前的数据写入通道。
 
-![remote replication](../../assets/images/design/remote_replication.png)
+![remote replication](@images/design/remote_replication.png)
   
 Index 基本概念说明：
 - 每个通道的 Append Index，表示该通道写入数据的位置；

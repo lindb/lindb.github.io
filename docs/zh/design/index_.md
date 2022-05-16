@@ -127,7 +127,7 @@ Forward Index 和传统的索引有所不同，传统索引会把每一条写入
 
 如下图，已经把单条 Tag Key 的正向数据重新还原成 Tag Key/Value => Series IDs ，以方便理解。
 
-![index forward](../../assets/images/design/forward_grouping.png)
+![index forward](@images/design/forward_grouping.png)
 
 下面还是拿之前那个例子来说明，怎么来拿到 Group By host,cpu 这 2 个 Tag Key 的数据，如上图所示，其实从图中可以看到，整个操作就是一个归并操作，有 2 种做法。
 1. 因为每个数据都是排好序的，所以可以用 2 个堆来排序，即 host 和 cpu 分别放在一个堆里面，每次从每个堆里面取一个值，如果值相同，说明 2 者都满足，如 TSID = 0 对应的 host=dev,cpu=0 ，即可以找到相应的 Group By 数据，以此类推，遍历完 2 个堆里面的数据，就可以得到最终的结合，该方式会占用 CPU ，内存占用少；

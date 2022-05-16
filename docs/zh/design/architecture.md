@@ -13,7 +13,7 @@
 
 ## 整体架构
 
-![architecture](../../assets/images/design/architecture.png)
+![architecture](@images/design/architecture.png)
 
 整体架构采用计算存储分离：
 - 计费层：由 Broker 集群承担，处理入口的读写请求；
