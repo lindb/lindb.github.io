@@ -19,7 +19,7 @@
 
 ## 概述
 
-![coordinator](../../assets/images/design/coordinator.png)
+![coordinator](@images/design/coordinator.png)
 
 所有的调度操作都基于上图的基本框架逻辑处理，每种角色各自监听 ETCD 中所关心的数据变更操作。
 - 每个角色针对自己所关心的 Metadata 启动一个异步线程进行监听对应 ETCD 中 Key 的变化，每个 Key 的变化都有一个独立的线程负责监听；

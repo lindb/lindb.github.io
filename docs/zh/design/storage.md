@@ -13,7 +13,7 @@
 
 在讲存储之前，首先来讲一下时序的特性，如图：
 
-![time series characteristic](../../assets/images/design/time_series_characteristic.png)
+![time series characteristic](@images/design/time_series_characteristic.png)
 
 时序数据特性（根据其时间特性可以分为不随时间变化和随时间变化的数据）
 1. Time Series  =>  Metric + Tags：这部分数据基本都是字符串，而且该数据占数据包的大头，但是不会随时间变化而变化，
@@ -24,7 +24,7 @@
 
 ### Database
 
-![storage database](../../assets/images/design/storage_database.png)
+![storage database](@images/design/storage_database.png)
 
 - 一个数据库的数据按 Shard 分散在 Storage 集群的不同节点上；
 - 一个 Shard 可以有多个副本，详细请看[复制](replication.md)；
@@ -123,7 +123,7 @@ meta 和 index 相关结构请看[索引](index_.md)。
 
 ### Compaction
 
-![storage compaction](../../assets/images/design/storage_compaction.png)
+![storage compaction](@images/design/storage_compaction.png)
 
 - 每个 KV Store 都会启一个 Goroutine 定期 Check 每个 Family Level 0  面的文件是否太多，满足 Compaction 的条件；
 - 如何满足条件，会通知对应 Family 执行 Compaction Job ，如果当前已经有 Compaction 正在执行，则忽略这次操作，整个操作只在一个 Goroutine 内完成，这样的好处是整个操作为无锁操作，因为 Compaction Job 是一个很重的操作，如果需要加锁则可能会影响新文件的写入
@@ -168,7 +168,7 @@ Level 1:
 
 ### Rollup
 
-![storage sstable](../../assets/images/design/storage_rollup.png)
+![storage sstable](@images/design/storage_rollup.png)
 
 Rollup Job 是一种特殊的 Compact Job，主要处理数据降精度（ Downsampling ）,即 10s->5m->1h，其核心的逻辑和Compaction Job 一样，主要区别如下：
 1. 是由 Source Family 把数据合并到 Target Family 操作 2 个 Family ；
@@ -176,7 +176,7 @@ Rollup Job 是一种特殊的 Compact Job，主要处理数据降精度（ Downs
 
 ### SSTable Layout
 
-![storage sstable](../../assets/images/design/storage_sstable.png)
+![storage sstable](@images/design/storage_sstable.png)
 
 每个 SSTable 的结构如上图，主要有如下几部分组件：
 - Footer Block：主要存储 Margic Number(8 Bytes) + Version(1 byte) + Index Block Offset(4 bytes) + Offset Block Offset(4 bytes)，可以通过 Index Block Offset 和 Offset Block Offset 这两个 Offset 读取 Index Block 和 Offset Block 的内容；

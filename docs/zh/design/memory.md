@@ -2,7 +2,7 @@
 
 ## 内存结构
 
-![memory overview](../../assets/images/design/memory_database.png)
+![memory overview](@images/design/memory_database.png)
 
 整个内存结构更像是一个内存时序存储，主要包括如下 2 大块组成:
 1. Metric Meta/Index: 主要存储了 Metric Metadata 和 Tags 的索引；

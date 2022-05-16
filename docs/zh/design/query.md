@@ -33,7 +33,7 @@
 
 ## 简单查询
 
-![simple query](../../assets/images/design/simple_query.png)
+![simple query](@images/design/simple_query.png)
 
 1. 接收到用户请求的 Broker 节点作为 Root 节点，根据当前所需要查询的 Database 状态，执行 Plan 操作，并生成执行计划，并把查询请求发送给 Storage 集群相关的节点（Leaf 节点）执行;
 2.  Leaf 节点根据查询条件执行 Filtering=>Scan=>Downsampling=>Aggreation 等操作；
@@ -41,7 +41,7 @@
 
 ## 复杂查询
 
-![complex query](../../assets/images/design/complex_query.png)
+![complex query](@images/design/complex_query.png)
 
 由于很多场景都需要通过 Grouping 来做更复杂的分析，有时还需要通过 Top N 求相应的数据，这时会返回大量的 Grouping 之后的数据，如果此时再把这些数据返回给一个计算节点的话，可能导致这个节点的内存成为瓶颈，为了解决这种场景带来的问题，引入了  Intermediate Broker 节点参与中间结果的计算，即：
 - 多台计算节点协同参与部分 Grouping 的计算；
@@ -56,7 +56,7 @@
 
 ## 跨机房查询
 
-![cross idc query](../../assets/images/design/cross_idc_query.png)
+![cross idc query](@images/design/cross_idc_query.png)
 
 - LinDB 的跨 IDC 是做在 Query 层，因此可以把此类查询理解为把上面 2 种查询下发到各 IDC 之后的再在 Root 节点上做最终的聚合操作；
 
