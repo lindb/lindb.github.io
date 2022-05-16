@@ -65,25 +65,16 @@ jobs:
       - name: Build Project
         run: npm run build
 
-        # Push built code to the upfront created GH pages repo
-      - name: Pushes to master repository
-        uses: cpina/github-action-push-to-another-repository@master
+      # please check out the docs of the workflow for more details
+      # @see https://github.com/crazy-max/ghaction-github-pages
+      - name: Deploy to GitHub Pages
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          fqdn: lindb.io
+          # deploy to gh-pages branch
+          target_branch: release
+          # deploy the default output dir of VuePress
+          build_dir: docs/.vuepress/dist
         env:
-          # Create and store API_TOKEN_GITHUB in repository
-          # secrets -> explained later in this article
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-        with:
-          # Define source directory to push from -> Vue default
-          # built into /dist folder
-          source-directory: 'docs/.vuepress/dist'
-          # Set user settings and repository to push to
-          destination-github-username: lindb
-          destination-repository-name: lindb.github.io
-          user-email: codingcrush@163.com
-          target-branch: release
-      - name: add cname
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.API_TOKEN_GITHUB }}
-          publish_dir: ./
-          cname: lindb.io
+          # @see https://docs.github.com/en/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
