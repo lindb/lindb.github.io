@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as o,t as _}from"./app.1245c310.js";const r={},s={class:"lindb-footer"};function a(n,i,c,l,p,d){return t(),o("div",s,"Copyright \xA9 "+_(new Date().getFullYear())+" LinDB. All Rights Reserved.",1)}var f=e(r,[["render",a],["__scopeId","data-v-41206837"],["__file","LinFooter.vue"]]);export{f as default};

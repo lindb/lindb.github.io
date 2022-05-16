@@ -1,0 +1,1 @@
+const t={key:"v-ab923088",path:"/community/project-layout.html",title:"Project Layout",lang:"en-US",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1652670087e3,contributors:[{name:"stone1100",email:"stonejh1100@gmail.com",commits:1}]},filePathRelative:"community/project-layout.md"};export{t as data};

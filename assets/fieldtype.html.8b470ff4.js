@@ -1,0 +1,1 @@
+const e={key:"v-22929067",path:"/docs/concept/fieldtype.html",title:"Field Type",lang:"en-US",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1652670087e3,contributors:[{name:"stone1100",email:"stonejh1100@gmail.com",commits:1}]},filePathRelative:"docs/concept/fieldtype.md"};export{e as data};

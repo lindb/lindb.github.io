@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as a,d as o,e as s}from"./app.1245c310.js";const c={},d={id:"field-type",tabindex:"-1"},_=o("a",{class:"header-anchor",href:"#field-type","aria-hidden":"true"},"#",-1),r=s(" Field Type"),i=[_,r];function n(l,f){return t(),a("h1",d,i)}var p=e(c,[["render",n],["__file","fieldtype.html.vue"]]);export{p as default};

@@ -1,0 +1,1 @@
+const e={key:"v-3523efed",path:"/docs/concept/dtomodel.html",title:"DTO Model",lang:"en-US",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1652670087e3,contributors:[{name:"stone1100",email:"stonejh1100@gmail.com",commits:1}]},filePathRelative:"docs/concept/dtomodel.md"};export{e as data};
