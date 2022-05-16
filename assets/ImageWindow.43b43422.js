@@ -1,1 +1,0 @@
-import{_ as o,o as a,c as s,D as n}from"./app.1245c310.js";const r={},t={class:"image-window"};function c(e,_){return a(),s("div",t,[n(e.$slots,"default")])}var i=o(r,[["render",c],["__file","ImageWindow.vue"]]);export{i as default};

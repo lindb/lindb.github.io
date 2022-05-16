@@ -1,1 +1,0 @@
-const t={key:"v-15ef7b52",path:"/docs/introduction/roadmap.html",title:"RoadMap",lang:"en-US",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1652670087e3,contributors:[{name:"stone1100",email:"stonejh1100@gmail.com",commits:1}]},filePathRelative:"docs/introduction/roadmap.md"};export{t as data};

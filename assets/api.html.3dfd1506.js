@@ -1,1 +1,0 @@
-import{_ as e,o as a,c as t,d as o,e as s}from"./app.1245c310.js";const c={},_={id:"api",tabindex:"-1"},r=o("a",{class:"header-anchor",href:"#api","aria-hidden":"true"},"#",-1),i=s(" API"),n=[r,i];function d(h,f){return a(),t("h1",_,n)}var p=e(c,[["render",d],["__file","api.html.vue"]]);export{p as default};

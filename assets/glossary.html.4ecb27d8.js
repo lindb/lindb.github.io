@@ -1,1 +1,0 @@
-const t={key:"v-78207980",path:"/zh/guide/glossary.html",title:"\u672F\u8BED\u8868",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1652670087e3,contributors:[{name:"stone1100",email:"stonejh1100@gmail.com",commits:1}]},filePathRelative:"zh/guide/glossary.md"};export{t as data};
