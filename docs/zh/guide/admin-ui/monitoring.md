@@ -6,7 +6,7 @@ Dashboard 为 LinDB 自带的自监控大盘，可以通过各组件相关 Dashb
 
 <image-window>
 
-![dashboard](@images/gudie/admin_ui/dashboard.png)
+![dashboard](@images/guide/admin_ui/dashboard.png)
 </image-window>
 
 ### Broker Dashboard
@@ -57,14 +57,14 @@ Dashboard 为 LinDB 自带的自监控大盘，可以通过各组件相关 Dashb
 
 <image-window>
 
-![replication shards](@images/gudie/admin_ui/replication_shards.png)
+![replication shards](@images/guide/admin_ui/replication_shards.png)
 </image-window>
 
 - 模式 2：以所有分片 Shard 下所有复制通道为视角展现，展现当前所有复制通道的复制情况；
 
 <image-window>
 
-![replication families](@images/gudie/admin_ui/replication_families.png)
+![replication families](@images/guide/admin_ui/replication_families.png)
 </image-window>
 
 ## Log View
@@ -73,5 +73,5 @@ Log View 允许用户浏览集群中所有节点上的日志文件，并在页�
 
 <image-window>
 
-![log view](@images/gudie/admin_ui/log_view.png)
+![log view](@images/guide/admin_ui/log_view.png)
 </image-window>

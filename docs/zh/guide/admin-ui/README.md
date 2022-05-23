@@ -4,7 +4,7 @@
 
 <image-window>
 
-![overview](@images/gudie/admin_ui/overview.png)
+![overview](@images/guide/admin_ui/overview.png)
 
 </image-window>
 
