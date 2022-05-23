@@ -20,7 +20,8 @@
 
 <image-window>
 
-![overview](@images/gudie/admin_ui/overview.png)
+![overview](@images/guide/admin_ui/overview.png)
+
 </image-window>
 
 ## 节点配置信息
@@ -29,17 +30,20 @@
 
 <image-window>
 
-![node configuration](@images/gudie/admin_ui/node_config.png)
+![node configuration](@images/guide/admin_ui/node_config.png)
+
 </image-window>
 
 ## 存储集群状态
 
-点击 Storage 集群列表中的某个 Storage 名称可以查询该 Storage 集群的基本状态信息，如下：
+点击 Storage 集群列表中的某个 Storage 名称可以查询该 Storage 集群的基本状态信息：
 - 集群基本状态信息；
 - 集群当前存活的存储节点信息，可以看某个节点的[配置信息](#节点配置信息)；
 - 当前集群下可用的数据库状态，点击具体某个数据库名称可以查看该[数据库副本状态信息](./monitoring.md#replication)；
 
 <image-window>
 
-![node configuration](@images/gudie/admin_ui/storage_state.png)
+![node configuration](@images/guide/admin_ui/storage_state.png)
+
 </image-window>
+

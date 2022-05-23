@@ -14,5 +14,6 @@ Data Explore 提供数据浏览模式，为不熟悉 [Lin Query Language(LQL)](.
 
 <image-window>
 
-![data explore](@images/gudie/admin_ui/data_explore.png)
+![data explore](@images/guide/admin_ui/data_explore.png)
+
 </image-window>

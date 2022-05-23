@@ -7,6 +7,18 @@ export const en: SidebarConfig = {
       children: [
         '/guide/overview.md',
         '/guide/installation.md',
+        {
+          text: 'Admin Console',
+          collapsible: true,
+          children: [
+            '/guide/admin-ui/README.md',
+            '/guide/admin-ui/overview.md',
+            '/guide/admin-ui/search.md',
+            '/guide/admin-ui/explore.md',
+            '/guide/admin-ui/monitoring.md',
+            '/guide/admin-ui/metadata.md',
+          ],
+        },
         '/guide/admin-ui.md',
         '/guide/api.md',
         '/guide/sql.md',
