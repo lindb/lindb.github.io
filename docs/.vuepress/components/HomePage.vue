@@ -17,7 +17,7 @@
         </div>
 
         <div class="lindb-intro__btn-group">
-          <a href="docs/introduction/overview"><button class="lindb-intro__btn primary">{{startText}}</button></a>
+          <a href="/zh/guide/overview"><button class="lindb-intro__btn primary">{{startText}}</button></a>
         </div>
       </div>
     </div>
