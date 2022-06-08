@@ -5,6 +5,7 @@ export const en: SidebarConfig = {
     {
       text: 'Guide',
       children: [
+        '/guide/README.md',
         '/guide/overview.md',
         '/guide/installation.md',
         {
@@ -19,10 +20,11 @@ export const en: SidebarConfig = {
             '/guide/admin-ui/metadata.md',
           ],
         },
-        '/guide/admin-ui.md',
+        '/guide/lql.md',
+        '/guide/cli.md',
         '/guide/api.md',
-        '/guide/sql.md',
         '/guide/configuration.md',
+        '/guide/glossary.md',
       ],
     },
   ],
