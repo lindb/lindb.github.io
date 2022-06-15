@@ -2,63 +2,61 @@
 
 ## Design Goals
 
-- Sufficiently simple for usability and serviceability;
-- Support cluster mode;
-- Support replication;
-- Support multiple IDCs;
+- High Availability;
+- Easy Usability and Maintenance;
+- Cluster Deployment;
+- Replication;
+- Support Multiple IDCs;
 - Eventually Consistency;
-- Self-monitoring ability;
-- Self-governance ability;
+- Self-Monitoring Ability;
+- Self-Governance Ability;
 
 ## Overview
 
-![architecture](../assets/images/design/architecture.png)
+![architecture](@images/design/architecture.png)
 
-LinDB is mainly composed of several components：
-1. Broker
-2. Storage
-3. ETCD
+LinDB adopts the design of Separating compute and storage:
 
-### Broker
+- **Computation layer**: Broker cluster is responsible for handling read/write requests;
+- **Storage layer**: Storage cluster is responsible for data storage, which may be composed of multiple components. Each cluster acts as an independent storage unit;
 
-Broker is a stateless service with horizontal expansion capacity.
+### Computation Layer
 
-Master is the node with special responsibilities of Broker, which executes the modification of Metadata.
-
-Each Broker node could be the Master, but Master node won't maintain or store too much Metadata. All Metadata is stored in ETCD, so the Master will be quickly freely elected from the Broker when problem occurs. The switch operation is automatically done by the system and the election process is preemptive.
+Broker is a stateless service with horizontal expansion capability.
 
 The main responsibilities of the Broker are as follows:
 
-1. All read and write operations are exposed to the end-user, and the user will interacts with the Broker primarily;
-2. WAL Replication;
-3. Executing the user's query request and generating different execution plans according to the specific query conditions;
-4. Aggregating the data returned by Broker/Storage as the compute layer.
-5. Re-aggregating the query results of multiple IDCs.
+1. **Load Balancing**: Multiple stateless Broker instances are able to handle the IO requests at access layer.
+2. **Data Ingestion**: Broker communicates with the Shard Leader node, and delivering writing to the Leader-Node according to the Shard status of the target database, then the Leader-Node will perform multiple-follower replication;
+3. **Distributed Query**: Broker generate different execution plans according to the specific query situation;
+4. **Query-Result-Aggregation**: Aggregate data returned by Broker (As Intermediate Node) / Storage(As Leaf Node);
+5. **Cross-IDC-Query-Result-Aggregation**: Re-Aggregating multi-IDC query results;
 
+Master is a special Broker-Node,  who takes all modification of Metadata and dispatches it to the corresponding node to ensure metadata consistency.
 
-### Storage
+Since the Master itself is only responsible for lightweight operations, and in order to simplify the architecture, master is elected from Broker node via preemption election.
 
-Storage is also a stateless service which stores the data without the Metadata. Therefore, the Storage has the ability to scale horizontally. The main responsibilities are as follows:
+### Storage Layer
 
-1. Storing all data and index;
-2. Storing self's Metadata;
-3. Perform data filtering and simply aggregation operations(the most atomic aggregation calculation); 
-4. Reporting self status periodically;
+Storage is a stateful service that stores data without the Metadata. It is also able to scale horizontally. The main responsibilities are as follows:
 
-### ETCD
+1. **Write**: Storing all data and index of database, as well as its own MetaData(Metric/Tags/Fields);
+2. **Read**: Perform data filtering and some simple aggregation (aggregation of basic Field Type) and Down Sampling operations;
+3. **DDL**: Execute Metadata change task dispatched by Broker, such as database creation, data governance, etc.;
 
-ETCD is the only external dependency of the entire system, and which is designed as a weak dependency.
-In other words, LinDB is capable of providing external services when ETCD is unavailable.
+### MetaData Layer
+
+ETCD is the only external dependency of LinDB, it stores all metadata.
 
 The main responsibilities of ETCD are as follows:
 
-1. Storing Metadata, such as database configuration, information about sharding, etc;
-2. Storing status information, such as the status of each node in the Broker/Storage cluster;
-3. Coordinator task state management: all changes to Metadata are sent to the Storage node through ETCD;
+1. **Metadata Storage**: database configuration, sharding details, status of Broker/Storage Node;
+2. **Distributed Scheduling**: Every change to Metadata is sent to the Storage node through ETCD;
 
-How to achieve the weak dependency of ETCD:
+LinDB can still handle read and write requests when ETCD fails when the following two preconditions are met:
 
-- Prerequisites:
-  1. When ETCD is down, the is no modification of Metadata, such as not modifying the configuration of database;
-  2. The cluster status is healthy, which means that the current Metadata/Status is available;
-- Status Reporting ability of Broker/Storage: when data in ETCD is unavailable or lost, Broker/Storage will report Metadata/Status to the new ETCD cluster;
+1. When ETCD is down, no more modification of Metadata will be performed, such as modifying the configuration of database;
+2. The cluster status is still healthy, which means that the current Metadata/Status is available for coordinating the entire cluster;
+
+
+- Certain self-healing ability: When the data in ETCD is completely unavailable or lost, Broker/Storage can report Metadata/Status to the new ETCD cluster for failover;
