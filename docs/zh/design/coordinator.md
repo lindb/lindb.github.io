@@ -1,13 +1,13 @@
 # 集群协调
 
- LinDB 中所有 Metadata 的协调变更操作主要有以后 3 种角色完成。
-1. Master：操作所有 Metadata 变更操作，并通过 ETCD 下发给集群里别的组件，Master 中 Broker 节点的选举出来；
-2. Broker：监听集群中所有状态；
-3. Storage：监听当前 Storage 所在的存储集群的状态；
+ LinDB 中 Metadata 的协调变更操作由 3 种角色共同完成。
+1. **Master**：操作所有 Metadata 变更操作，并通过 ETCD 下发给集群里别的组件，Master 中 Broker 节点的选举出来；
+2. **Broker**：监听集群中所有状态；
+3. **Storage**：监听当前 Storage 所在的存储集群的状态；
 
 整个集群的协调操作都是由 Master 来完成，那么为什么把这些重要的操作放在 Broker 上呢？
-- Broker 其实是充当计算节点，包括读写操作。由于 Broker 需要知道下层所有 Storage 节点的状态信息，所以状态信息的协调任务被放在 Broker 中；
-- Metadata 的变更不是很频繁，并且都是轻量操作；
+- Broker 其实是充当计算节点，包括读写操作。由于 Broker 需要知道下层所有 Storage 节点的状态信息，所以状态信息的协调任务被放在 Broker 中；
+- Metadata 的变更不频繁，并且都是轻量操作；
 - 需要多机房同一数据库的计算能力；
 
 哪些信息需要处理？
@@ -40,8 +40,8 @@ Master KEY: /{broker namespace}/master/node
 
 Master 主要负责以下几种状态机：
 1. Storage Config State Machine;
-2. Database Config State Mahcine;
-3. Shard Assignment State Mahcine;
+2. Database Config State Machine;
+3. Shard Assignment State Machine;
 
 ### Storage Config
 
@@ -50,13 +50,13 @@ Watch KEY: /{broker namespace}/storage/config
 ```  
 
 - 用户可以提交 Storage 集群配置信息给任意一台 Broker 节点，该 Broker 节点只是简单的把配置信息写到 `/storage/config/{cluster name}` 下；
-- Master 根据配置信息为每个 Storage 集群建立一个 Storage Live Node State Mahcine 的 Watch 机制，以追溯每个 Storage 集群节点的存活情况；
-- 每个 Storage Cluster 的 Watch 会 Watch Storage 节点的存活情况，并把该 Storage 整体的状态信息写到 `/state/storage/cluster/{cluster name}` 下以供 [Storage Cluster Status State Machine](#storage-status) 使用；
+- Master 根据配置信息为每个 Storage 集群建立一个 Storage Live Node State Machine 的 Watch 机制，以追溯每个 Storage 集群节点的存活情况；
+- 每个 Storage Cluster 会 Watch Storage 节点的存活情况，并把该 Storage 整体的状态信息写到 `/state/storage/cluster/{cluster name}` 下以供 [Storage Cluster Status State Machine](#storage-status) 使用；
 
 每个 Storage Cluster 的 Watch 机制如下：
 - 根据 Storage 集群的配置信息，与 Storage 集群的 ETCD 建立关系；
-- Watch Storage 集群节点存活的 KEY: `/active/nodes` (注意有别于与 Broker 的 `/active/nodes`，这里对应的是 Storage 相要注册的信息)；
-- 每个 Storage 节点启动的时候，需要注册节点信息到对应的 KEY 下面，即 `/live/nodes/{storage node id}` 
+- Watch Storage 集群节点存活的 KEY: `/active/nodes` (注意有别于与 Broker 的 `/active/nodes`，这里对应的是 Storage 将要注册的信息)；
+- 每个 Storage 节点启动的时候，需要注册节点信息到对应的 KEY 下:  `/live/nodes/{storage node id}`;
 
 ### Database Config
 
@@ -65,10 +65,10 @@ Watch KEY: /{broker namespace}/database/config
 ```
 
 - 用户可以提交数据库 DDL 到任意一台 Broker 节点，该 Broker 节点只作配置写入；
-- Master 通过 Watch KEY 的变化，知道需要对对应数据库进行分配操作，根据当前 Storage 集群的节点状态信息，生成 Shard Assignment ，并把 Shard Assignment 信息下发给对应的节点；
+- Master 通过 Watch KEY 的变化，知道需要对哪个数据库进行分配操作，根据当前 Storage 集群的节点状态信息，生成 Shard Assignment ，并把 Shard Assignment 信息下发给对应的节点；
 
 :::tip
-Shard Assignment : 为数据库的每分片 Shard 的信息，主要包括如下信息：
+Shard Assignment : 描述数据库每一分片 Shard 的详细信息：
 
 ```yaml:no-line-numbers
 Name: 数据库名
@@ -81,7 +81,7 @@ Replicas: 该 Shard 下所有 Replicas 的信息，对应上面 Node ID 里面�
 ```
 :::
 
-### Shard Assignemnt
+### Shard Assignment
 
 ```yaml:no-line-numbers
 Watch KEY: /{broker namespace}/database/assign
@@ -150,7 +150,7 @@ Watch KEY: /{storage namespace}/live/nodes
 - Storage 启动的时候都会把自己的信息注册到 Watch KEY 下面，即 `/live/nodes/{storage node}`；
 - 通过 Watch KEY 的变化，每个 Storage 都知道当前 Storage 集群中存活的节点有哪些；
 
-### Shard Assignemnt
+### Shard Assignment
 
 ```yaml:no-line-numbers
 Watch KEY: /{storage namespace}/database/assign

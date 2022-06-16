@@ -1,74 +1,95 @@
 # Coordinator
 
+All MetaData modification are mainly executed by three different roles in LinDB.
+
+1. **Master**: Execute all Metadata modification and delivery them to other components in the cluster through ETCD, and the Master is elected in Broker;
+2. **Broker**: Listens all states in the cluster;
+3. **Storage**: Listens status of the storage cluster where its located;
+
+Why is Master in charge of all Coordination of the entire cluster?
+
+- Broker actually acts as compute node with read/write operations. Coordination task of the state information is placed in the broker layer so that it is able to access the state information of all the storage nodes in the lower layer.
+- Metadata changes are frequent and are all lightweight;
+- Requires the computing ability to reduce query of a same database from multiple IDCs;
+
+What information needs to be processed?
+- Database DDL operations;
+- Storage Node Management;
+- Runtime Parameter Adjustment;
+- Storage/Broker State Management;
+
 ## Overview
 
-Why does the Broker provide the important coordination of the entire cluster?
+![coordinator](@images/design/coordinator.png)
 
-- Broker is actually a compute node which executes the reading and writing operations. Because the Broker needs to know the status information of all Storage nodes, so it performs the coordination tasks;
-- Metadata changes are not very frequent and are lightweight.
-- Storage nodes status changes are frequent, Broker picks the available shards by those information, so it's not necessary to let Storage managing the statues and then synchronize to the Broker. The advantage is that Storage can focus on storage things.
-- Computing ability of a certain database is required across multi IDCs.
+All scheduling operations are processed based on the basic framework logic of the figure above, each role listens for its own interested data change operations in ETCD.
 
-What information needs to be processes?
-
-- database DDL operations;
-- Storage node management;
-- runtime parameter adjustment;
-- Storage/Broker state management;
-
-All coordination and scheduling operations are done based on ETCD.
-All scheduling messages require a version number to track whether the data on each node is consistent anymore after each node changes in Metadata.
+- Each character spawns an asynchronous goroutine for the Metadata they care about to listen for changes via different keys in ETCD, each key is listened by separated goroutine;
+- When the listening key is changed, the corresponding goroutine submits the event to the event-queue in State Manager. Then the State Manager will start a global thread to process the change work of all events uniformly, and store the processed result in the State Manager's State Store;
+- All external status information is obtained directly from the State Manager's State Store without ETCD, so LinDB will still work when ETCD is down;
 
 
 ## Master
 
-The master node is responsible for the main Metadata changes. Master is elected from current surviving Broker nodes preemptively. Each Broker node registers the Master Key at the same time, then whoever registers firstly becomes the Master.
+The Master is responsible for most Metadata changes, it is elected from currently surviving Broker nodes by preemptively election. In brief, each Broker node registers the Master KEY concurrently, the first node will become Master;
 
-At the same time, each Broker will also watch Master Key, If the information on Master Key is lost, the election will be re-elected, so that every Broker node will knows who is Master.
+At the same time, each Broker will also watch Master Key, If the information on Master Key is lost, the election will be re-initialized, so that each Broker will know who is the Master and able to forward requests to Master node;
 
+
+```yaml:no-line-numbers
+Master KEY: /{broker namespace}/master/node
+Successfully Election KEY: /{broker namespace}/master/node/{broker node}
+Post-Election Key: /{broker namespace}/master/elected/{broker node}
+``` 
+
+Master is responsible for the following state machines:
+
+1. Storage Config State Machine;
+2. Database Config State Machine;
+3. Shard Assignment State Machine;
+
+### Storage Config
+
+```yaml:no-line-numbers
+Watch KEY: /{broker namespace}/storage/config
+```  
+
+- The user can submit storage cluster configuration information to any broker node, then the Broker node just simply writes the configuration information to `/storage/config/{cluster name}`
+- Master establishes a Storage-Live-Node State-Machine Watching mechanism for each Storage cluster based on the configuration information to trace the survival of each Storage cluster node;
+- Each Storage Cluster Watches the survival situation of Storage nodes, and write the overall storage status information to `/state/storage/cluster/{cluster name}` for usage by [Storage Cluster Status State Machine] (#storage-status);
+
+
+The Watch mechanism for each Storage Cluster is as follows:
+- Establish connection with ETCD of the Storage cluster based on the configuration information of the Storage cluster;
+- Watch Storage cluster node survival KEY: `/active/nodes` (note that unlike brokers `/active/nodes`, it corresponds to the storage registration information);
+- When each Storage node starts, registers the node information below the corresponding KEY:  `/live/nodes/{storage node id}`;
+
+
+### Database Config
+
+```yaml:no-line-numbers
+Watch KEY: /{broker namespace}/database/config
 ```
-- Master Key: /master/node
-- Registered Key: /master/node/{broker node}
+
+- The user can submit the database DDL to any broker node, which broker will just write the configuration to ETCD;
+- Through the change of Watch KEY, the Master knows that it needs to assign the corresponding database, then generates a Shard Assignment according to the node status information of the current Storage cluster, and sends the Shard Assignment task to the corresponding nodes;
+
+:::tip
+Shard Assignment : Describe the detail of each DataBase Shard;
+
+```yaml:no-line-numbers
+Name: Database Name;
+Option: Configuration information for the storage engine;
+Shards: Assignment information for each Shard;
+
+Each Shard assignment includes the following information:
+ShardID: Shard's ID;
+Replicas: The information of all Replicas under the Shard corresponds to the information in the Node ID above;
 ```
-
-## Task
-
-The task mentioned here mainly refers to the Storage node's received tasks which are sent by Master(Broker). It mainly includes the following two roles:
-- Controller;
-- Executor;
-
-The ETCD related Keys are as follows: 
-```
-- Task Key: /task-coordinator/v1/executor/{storage node id}/kinds/{task kind}/names/{task name}
-- Task Status Key: /task-coordinator/v1/status/kinds/{task kind}/names/{task name}
-```
-
-#### Controller:
-
-The controller runs at the Broker layer:
-- Task generation(Task Key): The controller accepts the task submitted by the Master(Broker), then generates a specific Task and send it to the Storage node. The delivery operation is done by ETCD;
-- Task status Tracker(Task status Key): A Task status tracker is generated while task is delivered to track specific Task execution status;
-
-#### Executor
-
-Executor runs on the Storage layer:
-- Executing the task: Executor will execute the task by watching corresponding Task Key modification;
-- Task status update: Executor will update the report of execution result to the corresponding Task Status Key;
+:::
 
 
-## State Machine
-
-All of these operations are done by a variety of different state machines, each of which is described below. Different State Machines will watch the Keys on different ETCDs to perform the corresponding operations.
-
-### Broker Node State Machine 
-
-The State Machine runs on each Broker node, it performs the discovery of the Broker Node.
-
-`Watch Key: /active/nodes`
-
-- When the broker starts, it will register its information to the Watched Key(/active/nodes/{broker node});
-- When watched Key changed, every Broker knows which nodes are still alive;
-
+### Shard Assignment
 
 ### Storage Cluster Status State Machine
 
