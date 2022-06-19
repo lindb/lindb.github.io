@@ -4,7 +4,7 @@
 
 参与查询的角色如下：
 - Broker : 接收用户的查询，根据查询语句生成相应的执行计划，并下发到相应的 Storage 节点，同时会聚合各 Storage 节点返回的结果，生成最终的结果；
-- Storage : 执行数据的过滤， Downsampling 和最简单的原子计算（即有一定的算子下推的能力）；
+- Storage : 执行数据的过滤， DownSampling 和最简单的原子计算（即有一定的算子下推的能力）；
 
 整个查询顺序如下，这里不分是在 Broker 还是 Storage 上执行，只看整个查询过程：
 1. Query Language Plan
