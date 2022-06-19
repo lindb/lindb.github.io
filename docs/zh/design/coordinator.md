@@ -87,7 +87,7 @@ Replicas: 该 Shard 下所有 Replicas 的信息，对应上面 Node ID 里面�
 Watch KEY: /{broker namespace}/database/assign
 ```  
 
-- 通过 Watch KEY 的变化，知道对应 Database 发生了数据分片数量的变更，并根据目标 Storage 集群当前在线的节点情况，选举对应数据分成的 Leader 节点，并把选举的结果信息下发给相应的节点；
+- Broker 通过 Watch 这个 KEY,  在数据分片数量变更时，根据目标 Storage 集群当前在线的节点情况，选举对应数据分成的 Leader 节点，并将选举结果信息下发至相应的节点；
 
 ### Storage Live Node
 
@@ -95,7 +95,7 @@ Watch KEY: /{broker namespace}/database/assign
 Watch KEY: /{storage namespace}/live/nodes
 ```  
 
-通过监听对应 Storage 集群每个节点存活的情况，来控制该节点上负责相关数据分片是否需要重新选举新的 Leader 节点，已经当前的副本的存活情况。
+通过监听对应 Storage 集群每个节点存活的情况，来控制该节点上的数据分片是否需要重新选举新的 Leader 节点，已经当前的副本的存活情况。
 - 下线节点中有承担数据分片  Leader  的角色，则需要从当前存活的副本节点中选举对应的节点成为新的 Leader，如果当前没有存活的副本节点，则把该数据分片标识为下线状态；
 - 下线节点只承担数据分片的副本角色，则从存活的副本列表中移除该节点；
 - 上线节点，把该上节点添加到存活副本列表中，如果此时对应的数据分片为下线状态，选举该节点为 Leader，同时上线该数据分片；
@@ -104,8 +104,8 @@ Watch KEY: /{storage namespace}/live/nodes
 
 Broker 主要负责以下几种状态机：
 1. Live Node State Machine;
-2. Database Config State Mahcine;
-3. Storage Status State Mahcine;
+2. Database Config State Machine;
+3. Storage Status State Machine;
 
 ### Live Node
 
@@ -139,7 +139,7 @@ Watch KEY: /{broker namespace}/storage/state"
 
 Storage 主要负责以下几种状态机：
 1. Live Node State Machine;
-2. Shard Assignment State Mahcine;
+2. Shard Assignment State Machine;
 
 ### Live Node
 
@@ -161,13 +161,13 @@ Watch KEY: /{storage namespace}/database/assign
 ## 容错
 
 - 整个过程中 ETCD 成为了一个非常核心的组节，因为所有的协调及调度信息都是通过 ETCD 来完成。
-- 并且很多  Metadata  信息都存放在 ETCD 中；
+- 大部分 Metadata  信息都存放在 ETCD 中；
 
 因此如果 ETCD 出问题了对整个系统会产生很大的影响，那么怎么把影响做到最小是比较关键的：
 1. 首先 ETCD 挂了，极端情况 ETCD 中的数据损坏不能恢复了怎么办? 因此需要在每次 Metadata 变更之后相关节点都需要做好本地的备份操作，并有能力通过这些备份数据能还原到新的 ETCD 集群中；
 2. ETCD 出问题不应该影响整个系统的可用性，即不影响正常的读写操作；
 
 限制：
-1. 影响 Metadata 的变更，但此操作本身为一个低频操作，因此这个是可被接受的；
+1. 影响 Metadata 的变更，但此操作本身为一个低频操作，是可被接受的；
 2. 如此时 Shard Leader 节点出现问题，写入该节点的数据，会临时写到别的 Shard 中，暂时不能读取该节点中的数据；
 3. 如此时 Shard Follower 节点出现问题，可能会影响副本数据不一致，但数据会暂存在 Leader 节点；
