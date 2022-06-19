@@ -3,10 +3,10 @@
 ## Overview
 
 The roles involved in the query are as follows:
-- `Broker`: Receive the user's query, generate the corresponding execution plan according to the query statement, and send it to the corresponding `Storage` node, and aggregate the results returned by each `Storage` node to generate the final result;
-- `Storage`: perform data filtering, `Downsampling` and the simplest atomic calculation (that is, there is a certain ability to push down operators);
+- `Broker`: Receive user query request, generate the corresponding execution plan according to the query statement, then deliver it to the corresponding `Storage` node, and aggregate the results returned by each `Storage` node to build the final result;
+- `Storage`: perform data filtering, `DownSampling` and the simplest atomic calculation (that is, there is a certain ability to push down operators);
 
-The entire query sequence is as follows, here it does not matter whether it is executed on `Broker` or `Storage`, just look at the entire query process:
+The entire query sequence is as follows, here it does not matter whether it is executed on `Broker` or `Storage`, just an entire query process:
 1. Query Language Plan
 2. Filtering
 3. Scan Time Series
@@ -16,7 +16,7 @@ The entire query sequence is as follows, here it does not matter whether it is e
 7. Functions
 8. Expressions
 
-Since `LinDB` is implemented in `Golang`, an asynchronous operation and high concurrency can be well supported through `Goroutine`, but the system still uses the concept of `Goroutine Pool` to better manage and handle these asynchronous operations `Task`.
+Since `LinDB` is implemented in `Golang`, an asynchronous operation and high concurrency can be well-supported through `Goroutine`, but the system still uses the concept of `Goroutine Pool` to better manage and handle these asynchronous operations `Task`.
 
 The entire query process is completed asynchronously and works in an asynchronous `Task` way, that is, `Task A` only does one thing, the result of `Task A` may be the `Input` of `Task B`, but `Task B` It will not wait for the arrival of the result of `Task A`, but `Trigger Task B` in the way of `Event`, and finally complete the execution of a query `Pipeline`.
 
@@ -33,7 +33,7 @@ According to different query conditions, you can `Plan` the following types of e
 
 ## Simple query
 
-![simple_query](../assets/images/design/simple_query.png)
+![simple query](@images/design/simple_query.png)
 
 1. The `Broker` node that receives the user request is used as the `Root` node, executes the `Plan` operation according to the current `Database` status to be queried, generates an execution plan, and sends the query request to the `Storage` cluster related The node (`Leaf` node) executes;
 2. The `Leaf` node performs operations such as `Filtering=>Scan=>Downsampling=>Aggregation` according to the query conditions;
@@ -41,7 +41,7 @@ According to different query conditions, you can `Plan` the following types of e
 
 ## Complex query
 
-![complex_query](../assets/images/design/complex_query.png)
+![complex query](@images/design/complex_query.png)
 
 1. In some scenarios, when Grouping is performed and then Top N is obtained, a large amount of data after grouping will be returned. If these data are returned to a computing node at this time, the memory of this node may become a bottleneck. Therefore, Introduced Intermediate Broker nodes to participate in the calculation of intermediate results
 2. The execution plan will select a specific Intermediate Broker to participate in the calculation according to the number of clusters in the currently available Broker nodes.
@@ -52,6 +52,16 @@ According to different query conditions, you can `Plan` the following types of e
 ## Cross-IDC Query
 
 
-![cross_idc_query](../assets/images/design/cross_idc_query.png)
+![cross idc query](@images/design/cross_idc_query.png)
 
 - LinDB's cross-IDC is done at the Query layer, so this kind of query can be understood as a re-aggregation operation after the above two queries are sent to each IDC
+
+## Error Handle
+
+- Query timeout or exception causes some nodes not returning data to the upstream node, so the task of the upstream node will at Pending state all the time. Therefore, each node will have a Task Manager to manage all the task states processed by each request to handle abnormal tasks.
+- Partial Storage nodes sometimes return Not Found because there is no corresponding data, and need to handle such exceptions;
+- normal exception handling;
+
+###### Reference
+1. [M3DB: Building a Query Engine for High Cardinality Time Series Data](https://eng.uber.com/billion-data-point-challenge/)
+2. [Drill Query Execution](https://drill.apache.org/docs/drill-query-execution/)
