@@ -5,9 +5,8 @@ export const en: SidebarConfig = {
     {
       text: 'Guide',
       children: [
-        '/guide/README.md',
-        '/guide/overview.md',
-        '/guide/installation.md',
+        '/guide/introduction.md',
+        '/guide/get-started.md',
         {
           text: 'Admin Console',
           collapsible: true,

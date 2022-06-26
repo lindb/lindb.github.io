@@ -4,7 +4,7 @@ heroText: null
 tagline: null
 ---
 
-<home-page title="What's LinDB?" :intro="['LinDB is an open-source distributed time series database which provides high performance, high availability and horizontal scalability.', 'LinDB stores all monitoring data of ELEME Inc, providing massive time series data storage and the capability of cross-IDCs.']" startText="Get Started"/>
+<home-page title="What's LinDB?" :intro="['LinDB is an open-source distributed time series database which provides high performance, high availability and horizontal scalability.', 'LinDB stores all monitoring data of ELEME Inc, providing massive time series data storage and the capability of cross-IDCs.']" startLink="/guide/get-started" startText="Get Started"/>
 
 <intro-list title="Feature List">
   <intro-item 
