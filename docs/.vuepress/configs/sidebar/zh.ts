@@ -5,9 +5,8 @@ export const zh: SidebarConfig = {
     {
       text: '用户指南',
       children: [
-        '/zh/guide/README.md',
-        '/zh/guide/overview.md',
-        '/zh/guide/installation.md',
+        '/zh/guide/introduction.md',
+        '/zh/guide/get-started.md',
         {
           text: 'Admin Console',
           collapsible: true,

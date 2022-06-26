@@ -17,7 +17,7 @@
         </div>
 
         <div class="lindb-intro__btn-group">
-          <a href="/zh/guide/overview"><button class="lindb-intro__btn primary">{{startText}}</button></a>
+          <a :href="startLink"><button class="lindb-intro__btn primary">{{startText}}</button></a>
         </div>
       </div>
     </div>
@@ -41,6 +41,10 @@ export default {
       default: function() {
         return [];
       }
+    },
+    startLink: {
+      type: String,
+      default: ""
     },
     startText: {
       type: String,
@@ -161,7 +165,7 @@ export default {
 
             &:hover {
               color: #fff;
-              background: darken(#3aa675, 5%);
+              // background: darken(#3aa675, 5%);
             }
           }
           &.secondary {
