@@ -7,6 +7,7 @@ export const zh: SidebarConfig = {
       children: [
         '/zh/guide/introduction.md',
         '/zh/guide/get-started.md',
+        '/zh/guide/concept.md',
         {
           text: 'Admin Console',
           collapsible: true,
@@ -23,7 +24,6 @@ export const zh: SidebarConfig = {
         '/zh/guide/cli.md',
         '/zh/guide/api.md',
         '/zh/guide/configuration.md',
-        '/zh/guide/glossary.md',
       ],
     },
   ],
