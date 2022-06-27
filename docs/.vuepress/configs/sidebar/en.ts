@@ -7,6 +7,7 @@ export const en: SidebarConfig = {
       children: [
         '/guide/introduction.md',
         '/guide/get-started.md',
+        '/guide/concept.md',
         {
           text: 'Admin Console',
           collapsible: true,
@@ -23,7 +24,6 @@ export const en: SidebarConfig = {
         '/guide/cli.md',
         '/guide/api.md',
         '/guide/configuration.md',
-        '/guide/glossary.md',
       ],
     },
   ],
