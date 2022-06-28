@@ -20,7 +20,7 @@ export const zh: SidebarConfig = {
             '/zh/guide/admin-ui/metadata.md',
           ],
         },
-        '/zh/guide/lql.md',
+        '/zh/guide/lin-ql.md',
         '/zh/guide/cli.md',
         '/zh/guide/api.md',
         '/zh/guide/configuration.md',

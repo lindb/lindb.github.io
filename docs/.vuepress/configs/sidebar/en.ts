@@ -20,7 +20,7 @@ export const en: SidebarConfig = {
             '/guide/admin-ui/metadata.md',
           ],
         },
-        '/guide/lql.md',
+        '/guide/lin-ql.md',
         '/guide/cli.md',
         '/guide/api.md',
         '/guide/configuration.md',
