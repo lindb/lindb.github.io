@@ -6,7 +6,85 @@ LinDB 为了让用户快速上手，提供类 SQL 语法 (LinQL) 来查询集群
 
 ## Database
 
-//TODO
+数据库相关操作
+
+### 创建数据库
+
+创建数据配置。
+
+**语法规则**
+
+```sql:no-line-numbers
+create database json_config
+```
+
+**示例**
+
+```sql:no-line-numbers
+/*数据库配置信息为 JSON 格式，请注意 JSON 格式的正确性*/
+create database {\"option\":{\"intervals\":[{\"interval\":\"10s\",\"retention\":\"30d\"},{\"interval\":\"5m\",\"retention\":\"3M\"},{\"interval\":\"1h\",\"retention\":\"2y\"}],\"autoCreateNS\":true,\"behead\":\"1h\",\"ahead\":\"1h\"},\"name\":\"system_monitor\",\"storage\":\"/lindb-storage\",\"numOfShard\":3,\"replicaFactor\":2}
+```
+
+### 查询数据库名
+
+查询当前集群下所有的数据库名。
+
+**语法规则**
+
+```sql:no-line-numbers
+show databases
+```
+
+### 查询数据库配置
+
+查询当前集群下所有的数据库配置信息。
+
+**语法规则**
+
+```sql:no-line-numbers
+show schemas
+```
+
+### 删除数据库
+
+删除相应的数据配置及其存储在 Storage 集群中的数据。
+
+**语法规则**
+
+```sql:no-line-numbers
+drop database database_name
+```
+
+## Storage
+
+Storage 集群相关操作。
+
+### 创建注册 Storage 集群
+
+Storage 集群部署完成之后，需要注册到 Broker 集群中才可以提供存储服务，目前 Storage 节点在启动的时候会自注册自己当前所在的 Storage 集群配置给 Broker 集群，如果自注册失败，也可以通过手动的方式注册。
+
+**语法规则**
+
+```sql:no-line-numbers
+create storage json_config
+```
+
+**示例**
+
+```sql:no-line-numbers
+/*Storage 配置信息为 JSON 格式，请注意 JSON 格式的正确性*/
+create storage {\"config\":{\"namespace\":\"/lindb-storage\",\"timeout\":10,\"dialTimeout\":10,\"leaseTTL\":10,\"endpoints\":[\"http://192.168.1.10:2379\"]}}
+```
+
+### 查询 Storage 集群
+
+查询当前存活的 Storage 集群配置信息。
+
+**语法规则**
+
+```sql:no-line-numbers
+show storage
+```
 
 ## 数据查询
 
@@ -153,4 +231,189 @@ show tag values from system.cpu_stat with key=ip where ip=192.168 limit 20;
 
 ## 状态查询
 
-//TODO
+使用 **SHOW** 语句结合状态类型查询集群相关状态信息。
+
+### Master
+
+查询当前 Master 信息。
+
+**语法规则**
+
+```sql:no-line-numbers
+show master
+```
+
+### Broker
+
+查询当前集群存活的 Broker 节点信息。 
+
+**语法规则**
+
+```sql:no-line-numbers
+show broker alive
+```
+
+### Storage
+
+查询当前集群存活的 Storage 集群，返回每个存活 Storage 的状态信息。 
+
+**语法规则**
+
+```sql:no-line-numbers
+show storage alive
+```
+
+### Metadata
+
+查询当前集群协调的元数据信息，包括存储在 ETCD 中的信息，以及各状态机当前内存中的信息。
+
+#### 类型查询
+
+查询当前可以查询的 Metadata 类型以及它们存储的路径 (ETCD 中的 KEY)。
+
+**语法规则**
+
+```sql:
+show metadata types
+```
+
+目前提供的 Metadata 如下，具体的 Metadata 使用及基于 Metadata 的集群调度请参考[集群协调](../design/coordinator.md)。
+
+<table>
+    <thead>
+        <tr>
+            <th>Role</th>
+            <th>Type</th>
+            <th>Path</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan=3>Broker</td>
+            <td>DatabaseConfig</td>
+            <td>/database/config</td>
+            <td>数据库配置信息，每个 Broker 节点需要同步所有数据库的配置</td>
+        </tr>
+        <tr>
+            <td>LiveNode</td>
+            <td>/live/nodes</td>
+            <td>当前存活 Broker 节点</td>
+        </tr>
+        <tr>
+            <td>StorageState</td>
+            <td>/storage/state</td>
+            <td>当前存活 Storage 集群状态</td>
+        </tr>
+        <tr>
+            <td rowspan=5>Master</td>
+            <td>DatabaseConfig</td>
+            <td>/database/config</td>
+            <td>Master 根据数据库配置信息进行 Shard 及副本分配</td>
+        </tr>
+        <tr>
+            <td>Master</td>
+            <td>/master/node</td>
+            <td>当前 Master 节点</td>
+        </tr>
+        <tr>
+            <td>ShardAssigment</td>
+            <td>/database/assign</td>
+            <td>数据库 Shard 及副本信息</td>
+        </tr>
+        <tr>
+            <td>StorageConfig</td>
+            <td>/storage/config</td>
+            <td>Storage 集群配置信息</td>
+        </tr>
+        <tr>
+            <td>StorageState</td>
+            <td>/storage/state</td>
+            <td>当前存活 Storage 集群状态</td>
+        </tr>
+        <tr>
+            <td rowspan=2>Storage</td>
+            <td>LiveNode</td>
+            <td>/live/nodes</td>
+            <td>当前 Storage 集群下存活的节点</td>
+        </tr>
+        <tr>
+            <td>ShardAssigment</td>
+            <td>/database/assign</td>
+            <td>当前 Storage 集群下数据库 Shard 及副本信息</td>
+        </tr>
+    </tbody>
+</table>
+
+Metadata 存储介质如下：
+
+- **state_repo**: 持有久存储在 ETCD 中；
+- **state_machine**: 根据 ETCD 中的信息协调到对应节点的状态机内存中；
+
+#### 数据查询
+
+查询对应 Metadata 在相应的存储介质中的值。
+
+**语法规则**
+
+```sql:
+show Broker|Master|Storage metadata from state_repo|state_machine where where_condition
+```
+
+**示例**
+
+```sql:
+/*示例 1: 查询 /lindb-storage Storage 集群当前存储的节点*/
+show Storage metadata from state_repo where type='LiveNode' and storage='/lindb-storage';
+
+/*示例 2: 查询 Master 状态机中数据库的配置信息*/
+show Master metadata from state_machine where type='DatabaseConfig';
+
+/*示例 3: Broker 节点应该读取到 Storage 集群的状态信息 */
+show Broker metadata from state_repo where type='StorageState';
+
+/*示例 4: Broker 节点状态机中实际的 Storage 集群的状态信息，
+  可以与 *示例 3* 的结果进行对比，以查询集群协调是否正确 */
+show Broker metadata from state_machine where type='StorageState';
+```
+
+## 自监控指标
+
+查询当前集群节点上自监控统计指标。
+
+**语法规则**
+
+```sql:
+show Broker|Storage metric where where_condition
+```
+
+**示例**
+
+```sql:
+/*查询 Broker 节点的 CPU/内存使用情况*/
+show broker metric where metric in ('lindb.monitor.system.cpu_stat','lindb.monitor.system.mem_stat');
+
+/*查询 /lindb-storage 集如群下节点磁盘使用情况*/
+show storage metric where storage='/lindb-storage' and metric in ('lindb.monitor.system.disk_usage_stats';
+```
+
+## 关键字
+
+```
+ALIVE          AND            AS             ASC            AVG            BETWEEN        
+BROKER         BY             COUNT          CREATE         DATABASE       DATABASES      
+DESC           DROP           EXPLAIN        FIELD          FIELDS         FILL           
+FIRST          FOR            FROM           GROUP          HAVING         IN             
+INTERVAL       IS             KEY            KEYS           KILL           LAST           
+LIKE           LIMIT          MASTER         MAX            METADATA       METRIC         
+METRICS        MIN            NAME           NAMESPACE      NAMESPACES     NODE           
+NOT            NOW            NULL           ON             OR             ORDER          
+QUANTILE       QUERIES        QUERY          RATE           REPLICATION    SCHEMAS        
+SELECT         SET            SHARD          SHOW           STATE_MACHINE  STATE_REPO     
+STATS          STDDDEV        STORAGE        STORAGES       SUM            TAG            
+TIME           TTL            TYPE           TYPES          UPDATE         USE            
+VALUE          VALUES         WHERE          WITH           
+```
+:::tip
+如果使用到了关键字作为指标名/标签/字段等命名方式，需要使用双引号。
+:::
