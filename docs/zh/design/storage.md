@@ -83,7 +83,7 @@ meta 和 index 相关结构请看[索引](index_.md)。
 - 时序为强时间相关性，更好的处理数据查询；
 - 方便处理 TTL ，数据如果过期，直接删除相应的目录即可；
 - 每个 shard 下面会存在多个 segment，每个 segment 根据对应 interval 来存储相应时间片的数据；
-- 为什么每个 segment 下面又按 interval 存储很多个 data family ？这个主要因为 LinDB 主要解决的问题是存储海量的监控数据，一般的监控数据基本是最新时间写入，基本不会写历史数据，而整个 LinDB 的数据存储类似 LSM 方式，所以为了减少数据文件之间的合并操作，导致写放大,所以最终衡量下来，再对 segment 时间片进行分片。
+- 为什么每个 segment 下面又按 interval 存储很多个 data family ？这是因为 LinDB 主要解决的问题是存储海量的监控数据，一般的监控数据基本是最新时间写入，基本不会写历史数据，而整个 LinDB 的数据存储类似 LSM 方式，为了减少数据文件之间的合并操作导致的写放大，选择对 segment 时间片进行再次分片。
  
 下面以 interval 为 10s 为例说明:
 1. segment 按天来存储；
@@ -126,7 +126,7 @@ meta 和 index 相关结构请看[索引](index_.md)。
 ![storage compaction](@images/design/storage_compaction.png)
 
 - 每个 KV Store 都会启一个 Goroutine 定期 Check 每个 Family Level 0  面的文件是否太多，满足 Compaction 的条件；
-- 如何满足条件，会通知对应 Family 执行 Compaction Job ，如果当前已经有 Compaction 正在执行，则忽略这次操作，整个操作只在一个 Goroutine 内完成，这样的好处是整个操作为无锁操作，因为 Compaction Job 是一个很重的操作，如果需要加锁则可能会影响新文件的写入
+- 当满足条件时，上述的 goroutine会 通知对应 Family 执行 Compaction Job ，如果当前已经有 Compaction 正在执行，则忽略这次操作，整个操作只在一个 Goroutine 内完成，这样的好处是整个操作为无锁操作，因为 Compaction Job 是一个很重的操作，如果需要加锁则可能会影响新文件的写入
 
 Compaction 主要是把 Level 0 中的文件合并到 Level 1 中，目前 LinDB 只有 2 级 Level，这个有别于 LevelDB。
 
@@ -170,7 +170,7 @@ Level 1:
 
 ![storage sstable](@images/design/storage_rollup.png)
 
-Rollup Job 是一种特殊的 Compact Job，主要处理数据降精度（ Downsampling ）,即 10s->5m->1h，其核心的逻辑和Compaction Job 一样，主要区别如下：
+Rollup Job 是一种特殊的 Compact Job，主要处理数据降精度（ DownSampling ）,即 10s->5m->1h，其核心的逻辑和Compaction Job 一样，主要区别如下：
 1. 是由 Source Family 把数据合并到 Target Family 操作 2 个 Family ；
 2. 合并完成后，把 Source Family Version 中需要 Rollup 的文件删除，在 Target Family Version 中记录已经 Rollup 过的文件，以防止重复数据合并；
 
@@ -179,7 +179,7 @@ Rollup Job 是一种特殊的 Compact Job，主要处理数据降精度（ Downs
 ![storage sstable](@images/design/storage_sstable.png)
 
 每个 SSTable 的结构如上图，主要有如下几部分组件：
-- Footer Block：主要存储 Margic Number(8 Bytes) + Version(1 byte) + Index Block Offset(4 bytes) + Offset Block Offset(4 bytes)，可以通过 Index Block Offset 和 Offset Block Offset 这两个 Offset 读取 Index Block 和 Offset Block 的内容；
+- Footer Block：存储 Magic Number(8 Bytes) + Version(1 byte) + Index Block Offset(4 bytes) + Offset Block Offset(4 bytes)，可以通过 Index Block Offset 和 Offset Block Offset 以读取 Index Block 和 Offset Block 的内容；
 - Index Block：使用 Roaring Bitmap 存储当前 SSTable 文件里面所有的 Keys ，因为所有的 Key 都是 uint32 ，所以可以直接用 Roaring Bitmap 来存储，这样的好处是，可以通过 Roaring Bitmap 来判断一个 Key 是否存在的同时，也可以知道这个 Key 在这个 Roaring Bitmap 中第几个位置；
 - Offset Block：存储所有的 Value Entry 的 Offset ，并且每个 Offset 都是以固定长度来存储，所以如果在 Index Block 找到是第 N 个位置，那个 Value Entry 的 Offset 就是 N * Offset Length 指向的数据；
 - Value Entry：存储每个 Key/Value 对应的 Value , 因为 Key 已经在 Index Block 存储了，所以 Value Entry 只需要存储 Key/Value 中的 Value 即可；
