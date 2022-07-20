@@ -1,4 +1,4 @@
-# index
+# Index
 
 The main function is to facilitate the `Filtering/Grouping` operation of `Tags` under a `Metric`, and also to improve the overall query efficiency.
 
