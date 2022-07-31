@@ -21,7 +21,14 @@ export const en: SidebarConfig = {
           ],
         },
         '/guide/lin-ql.md',
-        '/guide/write.md',
+        {
+          text: 'Client',
+          collapsible: true,
+          children: [
+            '/guide/client/README.md',
+            '/guide/client/go.md',
+          ],
+        },
         '/guide/cli.md',
         '/guide/api.md',
         '/guide/self-monitor.md',

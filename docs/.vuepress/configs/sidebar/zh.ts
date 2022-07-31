@@ -21,7 +21,14 @@ export const zh: SidebarConfig = {
           ],
         },
         '/zh/guide/lin-ql.md',
-        '/zh/guide/write.md',
+        {
+          text: 'Client',
+          collapsible: true,
+          children: [
+            '/zh/guide/client/README.md',
+            '/zh/guide/client/go.md',
+          ],
+        },
         '/zh/guide/cli.md',
         '/zh/guide/api.md',
         '/zh/guide/self-monitor.md',
