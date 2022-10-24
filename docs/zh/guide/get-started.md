@@ -1,9 +1,5 @@
 # 快速开始
 
-:::tip
-目前 LinDB 支持 MacOS 和 Linux，暂不支持 Windows。
-:::
-
 ## Standalone
 
 该模式把 Broker/Storage/ETCD 等组件统一集成在单进程中，以实现快速简单的部署。

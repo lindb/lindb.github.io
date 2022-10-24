@@ -314,7 +314,7 @@ url = "http://localhost:2379"
 
 ## 参考 Broker HTTP 相关对应参数
 [broker.http]
-k
+
 ## 参考 Broker GRPC 相关对应参数
 [broker.grpc]
 

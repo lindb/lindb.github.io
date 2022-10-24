@@ -263,6 +263,31 @@ show broker alive
 show storage alive
 ```
 
+### Replication
+
+查询当前集群各副本的状态信息。
+
+**语法规则**
+
+```sql:no-line-numbers
+/*查询各副本 WAL 的复制情况*/
+show replication where storage='/lindb-cluster' and database='_internal';
+
+/*查询各副本写入情况*/
+show memory database where storage='/lindb-cluster' and database='_internal';
+```
+
+### Request 
+
+查询当前集群中正在执行的 LinQL 语句。
+
+**语法规则**
+
+```sql:no-line-numbers
+show requests
+```
+
+
 ### Metadata
 
 查询当前集群协调的元数据信息，包括存储在 ETCD 中的信息，以及各状态机当前内存中的信息。
@@ -399,21 +424,25 @@ show storage metric where storage='/lindb-storage' and metric in ('lindb.monitor
 
 ## 关键字
 
-```
-ALIVE          AND            AS             ASC            AVG            BETWEEN        
-BROKER         BY             COUNT          CREATE         DATABASE       DATABASES      
-DESC           DROP           EXPLAIN        FIELD          FIELDS         FILL           
-FIRST          FOR            FROM           GROUP          HAVING         IN             
-INTERVAL       IS             KEY            KEYS           KILL           LAST           
-LIKE           LIMIT          MASTER         MAX            METADATA       METRIC         
-METRICS        MIN            NAME           NAMESPACE      NAMESPACES     NODE           
-NOT            NOW            NULL           ON             OR             ORDER          
-QUANTILE       QUERIES        QUERY          RATE           REPLICATION    SCHEMAS        
-SELECT         SET            SHARD          SHOW           STATE_MACHINE  STATE_REPO     
-STATS          STDDDEV        STORAGE        STORAGES       SUM            TAG            
-TIME           TTL            TYPE           TYPES          UPDATE         USE            
-VALUE          VALUES         WHERE          WITH           
-```
 :::tip
 如果使用到了关键字作为指标名/标签/字段等命名方式，需要使用双引号。
 :::
+
+```
+ALIVE          AND            AS             ASC            AVG            BETWEEN
+BROKER         BY             COUNT          CREATE         DATASBAE       DATASBAES
+DAY            DESC           DROP           EXPLAIN        FIELD          FIELDS
+FILL           FIRST          FOR            FROM           FUTURE_TTL     GROUP
+HAVING         HOUR           ID             IN             INFO           INTERVAL
+INTERVAL_NAME  IS             KEY            KEYS           KILL           LAST
+LIKE           LIMIT          LOG            MASTER         MAX            MEMORY
+METADATA       META_TTL       METRIC         METRICS        MIN            MINUTE
+MONTH          NAMESPACE      NAMESPACES     NODE           NOT            NOW
+NULL           ON             OR             ORDER          PASTTL         PREVIOUS
+PROFILE        QUANTILE       QUERIES        QUERY          RATE           REPLICATION
+REQUEST        REQUESTS       SCHEMAS        SECOND         SELECT         SET
+SHARD          SHOW           STATE_MACHINE  STATE_REPO     STATS          STDDEV
+STORAGE        STORAGES       SUM            TAG            TIME           TTL
+TYPE           TYPES          UPDATE         USE            VALUE          VALUES
+WEEK           WHERE          WITH           WITH_VALUE     YEAR
+```

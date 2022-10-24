@@ -1,4 +1,4 @@
-# Store
+# Storage 
 
 All data of `LinDB` will be stored on the local disk, and there are different storage structures according to different data types:
 - `Metirc Metadata`: store `Metric Name` and its underlying `Fields`/`Tag Keys`;
@@ -9,11 +9,11 @@ All data of `LinDB` will be stored on the local disk, and there are different st
 
 All the above data types are stored in a common underlying `KV Store`.
 
-## Time-Series Characteristics
+## Time-Series characteristics
 
 Before talking about storage, let's talk about the characteristics of time-series, as shown in the figure:
 
-![time series characteristic](../assets/images/design/time_series_characteristic.png)
+![time series characteristic](@images/design/time_series_characteristic.png)
 
 Time series data characteristics (according to its time characteristics, it can be divided into time-invariant and time-variant data)
 1. `Time Series` => `Metric + Tags`: This part of the data is basically a string, and this data occupies the bulk of the data packet, but it will not vary with time flows.
@@ -24,7 +24,7 @@ Converting these strings into numerical values for storage to reduce storage cos
 
 ### Database
 
-![storage database](../assets/images/design/storage_database.png)
+![storage database](@images/design/storage_database.png)
 
 - The data of a database are distributed on different nodes of the `Storage` cluster according to `Shard`;
 - A `Shard` can have multiple replicas, please see [Replication](replication.md) for details;
@@ -33,36 +33,36 @@ Converting these strings into numerical values for storage to reduce storage cos
 
 ```md:no-line-numbers
 ├─ db_test_1
-| ├─ meta
-| | ├─ namespace
-| ├─ metric
-| | ├─ field
-| | ├─ tagkey
-| └─ tagvalue
-| └─ shard
-| ├─ 1
-| ├─ inverted
-| ├─ forward
-|  | └─ segment
-|  | ├─ day
-|  | | ├─ 20190101
-|  | | | ├─ 01
-|  | | | ├─ 02
-|  | | | └─ 23
-|| | └─ 20190102
-|  | ├─ month
-|  | | ├─ 201901
-|  | | | ├─ 01
-|  | | | ├─ 02
-|  | | | └─ 31
-|  | | └─ 201902
-|  | └─ year
-|  | ├─ 2019
-|  | | ├─ 01
-|  | | ├─ 02
-|  | | └─ 12
-|  | └─ 2020
-| └─ 2
+|  ├─ meta
+|  |  ├─ namespace
+|  |  ├─ metric
+|  |  ├─ field
+|  |  ├─ tagkey
+|  |  └─ tagvalue
+|  └─ shard
+|     ├─ 1
+|     |  ├─ inverted
+|     |  ├─ forward
+|     |  └─ segment
+|     |     ├─ day
+|     |     |  ├─ 20190101
+|     |     |  |  ├─ 01
+|     |     |  |  ├─ 02
+|     |     |  |  └─ 23
+|     |     |  └─ 20190102
+|     |     ├─ month
+|     |     |  ├─ 201901
+|     |     |  |  ├─ 01
+|     |     |  |  ├─ 02
+|     |     |  |  └─ 31
+|     |     |  └─ 201902
+|     |     └─ year
+|     |        ├─ 2019
+|     |        |  ├─ 01
+|     |        |  ├─ 02
+|     |        |  └─ 12
+|     |        └─ 2020
+|     └─ 2
 └─ db_test_2
 ````
 
@@ -79,7 +79,7 @@ Taking the data structure of a single database on a single node as an example:
   * `index`: store forward and reverse indexes;
   * `segment`: store the data of each time slice;
 
-See [index](index_.md) for the structure of `meta` and `index`.
+See [Index](index_.md) for the structure of `meta` and `index`.
 
 All data are divided into different parts by the `Interval` of the database to store specific data in time slices:
 - The time series has strong time correlation, which makes it easier for querying;
@@ -91,7 +91,7 @@ The following is an example of `interval` being `10s`:
 1. `segment` is stored by day;
 2. Each `segment` is divided into `data family` by hour, one `family` per hour, and the files in each `family` store specific data in columns;
 
-## KV Store
+## KV store
 
 ```md:no-line-numbers
 └─ kv_store_1
@@ -100,15 +100,15 @@ The following is an example of `interval` being `10s`:
    ├─ MANIFEST-000010
    ├─ OPTIONS
    ├─ family_1
-   | ├─ 000001.sst
-   | ├─ 000002.sst
-   | ├─ 000004.sst
-| └─ 000008.sst
+   |  ├─ 000001.sst
+   |  ├─ 000002.sst
+   |  ├─ 000004.sst
+   |  └─ 000008.sst
    ├─ family_2
-   | ├─ 000011.sst
-   | ├─ 000012.sst
-   | ├─ 000014.sst
-| └─ 000018.sst
+   |  ├─ 000011.sst
+   |  ├─ 000012.sst
+   |  ├─ 000014.sst
+   |  └─ 000018.sst
    └─ family_3
 ````
 
@@ -125,7 +125,7 @@ The directory structure is very similar to `rocksdb` and supports `column family
 
 ### Compaction
 
-![storage compaction](../assets/images/design/storage_compaction.png)
+![storage compaction](@images/design/storage_compaction.png)
 
 - Each `KV Store` will start a `Goroutine` periodically to `Check` whether there are too many files in each `Family Level 0` and meet the conditions of `Compaction`;
 - When the conditions are met, the corresponding `Family` will be notified to execute `Compaction Job`, if another `Compaction` job is being executed, this operation will be ignored, all operations will only be done in one `Goroutine`,of which the benefit is lock-free , because `Compaction Job` is a very heavy operation, and if locking is required, it may affect the writing of new files
@@ -170,15 +170,15 @@ Level 1:
 
 ### Rollup
 
-![storage sstable](../assets/images/design/storage_rollup.png)
+![storage sstable](@images/design/storage_rollup.png)
 
 `Rollup Job` is a special `Compact Job`, which mainly deals with data reduction (`DownSampling`), namely `10s->5m->1h`, its core logic is same as `Compaction Job`, the main differences are as follows :
 1. `Source Family` merges data into `Target Family` to operate `2` `Family`;
 2. After the merging is completed, delete the files that need `Rollup` in `Source Family Version`, and record the files that have been `Rollup` in `Target Family Version` to prevent duplicate data merging;
 
-### SSTable Layout
+### SSTable layout
 
-![storage sstable](../assets/images/design/storage_sstable.png)
+![storage sstable](@images/design/storage_sstable.png)
 
 The structure of each `SSTable` is shown in the figure above, and it mainly has the following components:
 - `Footer Block`: Storing `Magic Number(8 Bytes) + Version(1 byte) + Index Block Offset(4 bytes) + Offset Block Offset(4 bytes)`, which can be accessed through both `Index Block Offset` and `Offset Block` to read contents of `Index Block` and `Offset Block`;
@@ -195,7 +195,8 @@ Based on the above storage structure, the entire query logic is as follows:
 
 If we want to do the `Scan` operation, just directly read the sequence based on the `Index Block` and `Offset Blcok`.
 
-#### refer to
+###### Reference
+
 1. [RoaringBitMap](http://roaringbitmap.org)
 2. [OpenTSDB UID](http://opentsdb.net/docs/build/html/user_guide/uids.html)
 3. [RocksDB](https://rocksdb.org/)

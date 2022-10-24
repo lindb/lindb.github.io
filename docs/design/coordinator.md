@@ -28,13 +28,11 @@ All scheduling operations are processed based on the basic framework logic of th
 - When the listening key is changed, the corresponding goroutine submits the event to the event-queue in State Manager. Then the State Manager will start a global thread to process the change work of all events uniformly, and store the processed result in the State Manager's State Store;
 - All external status information is obtained directly from the State Manager's State Store without ETCD, so LinDB will still work when ETCD is down;
 
-
 ## Master
 
 The Master is responsible for most Metadata changes, it is elected from currently surviving Broker nodes by preemptively election. In brief, each Broker node registers the Master KEY concurrently, the first node will become Master;
 
 At the same time, each Broker will also watch Master Key, If the information on Master Key is lost, the election will be re-initialized, so that each Broker will know who is the Master and able to forward requests to Master node;
-
 
 ```yaml:no-line-numbers
 Master KEY: /{broker namespace}/master/node
@@ -48,7 +46,7 @@ Master is responsible for the following state machines:
 2. Database Config State Machine;
 3. Shard Assignment State Machine;
 
-### Storage Config
+### Storage config
 
 ```yaml:no-line-numbers
 Watch KEY: /{broker namespace}/storage/config
@@ -58,14 +56,12 @@ Watch KEY: /{broker namespace}/storage/config
 - Master establishes a Storage-Live-Node State-Machine Watching mechanism for each Storage cluster based on the configuration information to trace the survival of each Storage cluster node;
 - Each Storage Cluster Watches the survival situation of Storage nodes, and write the overall storage status information to `/state/storage/cluster/{cluster name}` for usage by [Storage Cluster Status State Machine] (#storage-status);
 
-
 The Watch mechanism for each Storage Cluster is as follows:
 - Establish connection with ETCD of the Storage cluster based on the configuration information of the Storage cluster;
 - Watch Storage cluster node survival KEY: `/active/nodes` (note that unlike brokers `/active/nodes`, it corresponds to the storage registration information);
 - When each Storage node starts, registers the node information below the corresponding KEY:  `/live/nodes/{storage node id}`;
 
-
-### Database Config
+### Database config
 
 ```yaml:no-line-numbers
 Watch KEY: /{broker namespace}/database/config
@@ -88,8 +84,7 @@ Replicas: The information of all Replicas under the Shard corresponds to the inf
 ```
 :::
 
-
-### Shard Assignment
+### Shard assignment
 
 ```yaml:no-line-numbers
 Watch KEY: /{broker namespace}/database/assign
@@ -108,7 +103,6 @@ By watching survival status of each node of the corresponding Storage cluster, b
 - When a replica shard was down, then it will be removed from the list of surviving replicas;
 - When a new node was up, then it will be added to the list of surviving replicas, while the shard was already offline, this node will be elected as the new leader of this shard, then the shard will be marked as on-line again.
 
-
 ## Broker
 
 Broker is responsible for the following state machines:
@@ -117,7 +111,7 @@ Broker is responsible for the following state machines:
 2. Database Config State Machine;
 3. Storage Status State Machine;
 
-### Live Node
+### Live node
 
 ```yaml:no-line-numbers
 Watch KEY: /{broker namespace}/live/nodes
@@ -126,8 +120,7 @@ Watch KEY: /{broker namespace}/live/nodes
 - When the Broker starts, it will register its own information under the Watch KEY: `/live/nodes/{broker node}`;
 - Through the Watch KEY, each broker knows which nodes are alive in the current broker cluster;
 
-
-### Database Config
+### Database config
 
 ```yaml:no-line-numbers
 Watch KEY: /{broker namespace}/database/config
@@ -135,12 +128,11 @@ Watch KEY: /{broker namespace}/database/config
 
 - Through this watch key，Broker knows every database configuration.
 
-### Storage Status
+### Storage state
 
 ```yaml:no-line-numbers
 Watch KEY: /{broker namespace}/storage/state"
 ```  
-
 
 - Value of Watch KEY is written uniformly by the Master. The Master will watch the survival of each node in each Storage cluster, and write the final cluster information under the Watch KEY. For details, please refer to [Storage Live Node State Machine](# storage-live-node);
 - Through watching of this Watch KEY, overall status information of each Storage cluster will be known;
@@ -154,7 +146,7 @@ Storage is responsible for the following state machines:
 1. Live Node State Machine;
 2. Shard Assignment State Machine;
 
-### Live Node
+### Live node
 
 ```yaml:no-line-numbers
 Watch KEY: /{storage namespace}/live/nodes
@@ -163,7 +155,7 @@ Watch KEY: /{storage namespace}/live/nodes
 - When Storage starts, it will register its own information under the Watch KEY, namely `/live/nodes/{storage node}`;
 - By watching of this KEY, each Storage knows which nodes are surviving in the current Storage cluster;
 
-### Shard Assignment
+### Shard assignment
 
 ```yaml:no-line-numbers
 Watch KEY: /{storage namespace}/database/assign

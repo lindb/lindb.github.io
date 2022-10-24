@@ -4,7 +4,7 @@ The main function is to facilitate the `Filtering/Grouping` operation of `Tags` 
 
 The entire index is an inverted structure, similar to `Lucene`, but it is simpler, because there is no need to do word segmentation in scenarios such as time series.
 
-## structure
+## Structure
 
 ### Metadata
 
@@ -35,7 +35,7 @@ Field Name: field name
 Field Type: Field type, such as Sum/Min/Max, etc.
 ````
 
-#### Tag Key
+#### Tag key
 
 | Key | Value |
 | ---- | ---- |
@@ -47,13 +47,13 @@ Tag Key ID: It is unique under this Database, and this ID is used when storing I
 Tag Key : Tag Key(string value)
 ````
 
-#### Tag Value
+#### Tag value
 
 | Key | Value |
 | ---- | ---- |
-| Tag Key ID | Tag Values ​​Trie |
+| Tag Key ID | Tag Values Trie |
 
-Among them, `Tag Value` stores all the values ​​of `Tag Value` under the `Tag Key` in the `Trie` structure, and generates a unique value under the `Tag Key` for each `Tag Value` through the structure of `Tag` `Tag Value ID`.
+Among them, `Tag Value` stores all the values of `Tag Value` under the `Tag Key` in the `Trie` structure, and generates a unique value under the `Tag Key` for each `Tag Value` through the structure of `Tag` `Tag Value ID`.
 
 ### Index
 
@@ -127,15 +127,16 @@ So, if the forward data is not stored, how to solve the `Group By` operation by 
 
 As shown in the figure below, the forward data of a single `Tag Key` has been restored to `Tag Key/Value => Series IDs` for easy understanding.
 
-![index forward](../assets/images/design/forward_grouping.png)
+![index forward](@images/design/forward_grouping.png)
 
 Let's take the previous example to illustrate how to get the data of `Group By host, cpu` `2` `Tag Key`, as shown in the figure above, in fact, as you can see from the figure, the whole operation is a merge Operation, there are `2` methods.
-1. Because each data is sorted, it can be sorted by `2` heaps, that is, `host` and `cpu` are placed in one heap respectively, and each time a value is taken from each heap, If the values ​​are the same, it means that `2` is satisfied. For example, `host=dev, cpu=0` corresponding to `TSID = 0`, you can find the corresponding `Group By` data, and so on, after traversing `2` The data in each heap can be finally combined. This method will occupy `CPU` and occupy less memory;
+1. Because each data is sorted, it can be sorted by `2` heaps, that is, `host` and `cpu` are placed in one heap respectively, and each time a value is taken from each heap, If the values are the same, it means that `2` is satisfied. For example, `host=dev, cpu=0` corresponding to `TSID = 0`, you can find the corresponding `Group By` data, and so on, after traversing `2` The data in each heap can be finally combined. This method will occupy `CPU` and occupy less memory;
 2. Use something like `Counting Sort`, that is, pre-allocate a fixed-size array, and then put `Series IDs` in the corresponding array subscript, as follows: `1` also includes `2` tags The data of Key` is what we want, and so on, you can get all the data, `CPU` occupies less, but wastes memory;
 
 Combined with the structure of `Roaring Bitmap High/Low Container`, a `Container` can have up to `65536` `uint16` values, so the memory usage can also be controlled, so we use `Counting Sort` method to The corresponding forward data is derived, and the overall process can be processed in parallel by `Container`.
 
-#### References
+#### Reference
+
 1. [RoaringBitmap](http://roaringbitmap.org/)
 2. [Akumuli Inverted Index](https://akumuli.org/akumuli/2017/11/17/indexing/)
 3. [Counting Sort](https://en.wikipedia.org/wiki/Counting_sort)

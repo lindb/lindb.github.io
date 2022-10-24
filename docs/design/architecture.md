@@ -1,6 +1,6 @@
 # Architecture
 
-## Design Goals
+## Design goals
 
 - High Availability;
 - Easy Usability and Maintenance;
@@ -20,7 +20,7 @@ LinDB adopts the design of Separating compute and storage:
 - **Computation layer**: Broker cluster is responsible for handling read/write requests;
 - **Storage layer**: Storage cluster is responsible for data storage, which may be composed of multiple components. Each cluster acts as an independent storage unit;
 
-### Computation Layer
+### Computation layer
 
 Broker is a stateless service with horizontal expansion capability.
 
@@ -36,7 +36,7 @@ Master is a special Broker-Node,  who takes all modification of Metadata and dis
 
 Since the Master itself is only responsible for lightweight operations, and in order to simplify the architecture, master is elected from Broker node via preemption election.
 
-### Storage Layer
+### Storage layer
 
 Storage is a stateful service that stores data without the Metadata. It is also able to scale horizontally. The main responsibilities are as follows:
 
@@ -44,7 +44,7 @@ Storage is a stateful service that stores data without the Metadata. It is also 
 2. **Read**: Perform data filtering and some simple aggregation (aggregation of basic Field Type) and Down Sampling operations;
 3. **DDL**: Execute Metadata change task dispatched by Broker, such as database creation, data governance, etc.;
 
-### MetaData Layer
+### MetaData layer
 
 ETCD is the only external dependency of LinDB, it stores all metadata.
 

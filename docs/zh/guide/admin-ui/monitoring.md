@@ -51,6 +51,9 @@ Dashboard 为 LinDB 自带的自监控大盘，可以通过各组件相关 Dashb
 数据库副本状态信息主要包括如下状态：
 - 数据库的基本状态信息，如副本数；
 - 副本分布及当前副本的复制情况，如当前哪些复制通道有延时等；
+- 本地副本写入情况。
+
+### WAL
 
 其中副本状态可以有如下 2 种方式，可以通过 Replication State 右侧的按钮进行切换：
 - 模式 1：以副本在每个 Storage 节点的分布情况为视角展现，同时展现是否有复制延时，鼠标 Hover 到某个分片 Shard 上可以展现当前分片各通道的复制情况；
@@ -66,6 +69,20 @@ Dashboard 为 LinDB 自带的自监控大盘，可以通过各组件相关 Dashb
 
 ![replication families](@images/guide/admin_ui/replication_families.png)
 </image-window>
+
+### Write
+
+本地副本的写入情况：
+- 各`Leader`写入指针状态；
+- 各内存数据库的写入状态；
+
+TODO image
+
+## Request
+
+浏览当前集群中正在执行的 [LinQL](../lin-ql.md) 语句。
+
+TODO image
 
 ## Log View
 

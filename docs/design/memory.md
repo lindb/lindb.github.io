@@ -1,8 +1,8 @@
-# Memory Database
+# Memory database
 
-## memory structure
+## Memory structure
 
-![memory overview](../assets/images/design/memory_database.png)
+![memory overview](@images/design/memory_database.png)
 
 The entire memory structure is more like a memory sequential storage, which mainly consists of the following `2` blocks:
 1. `Metric Meta/Index`: It mainly stores the indexes of `Metric Metadata` and `Tags`;
@@ -14,16 +14,16 @@ The entire memory structure is more like a memory sequential storage, which main
 
 The `2` mapping relationships of the `2` data structures above are maintained in the entire memory structure.
 
-## Uniqueness of Series ID
+## Uniqueness of series ID
 
-Part of the design considers the idea of ​​`OpenTSDB String => Int`, and considering the characteristics of time series data, the `Metric Name + Tags` part of the data that occupies the bulk of the storage is stored in `Meta/Index`: `Filtering/Grouping` and other operations It will be based on this part of the data, and only store the `Series ID` when actually storing the data.
+Part of the design considers the idea of `OpenTSDB String => Int`, and considering the characteristics of time series data, the `Metric Name + Tags` part of the data that occupies the bulk of the storage is stored in `Meta/Index`: `Filtering/Grouping` and other operations It will be based on this part of the data, and only store the `Series ID` when actually storing the data.
 
-The uniqueness of each `Series` line under `Metric` is determined by `tags`: for `tags(ip=1.1.1.1, host=test.vm, zone=nt)`, first sort according to `tagKey` , get `host=test.vm,ip=1.1.1.1,zone=nt`. If the mapping relationship between `tags` text and `Series ID` is stored originally, it will waste too much storage space. After weighing the efficiency, `LinDB` records the `Series` by calculating the `hash` of the `tags`. For the collision probability, please refer to [Birthday Collision](https://www.johndcook.com/blog/2017/01/10/ probability-of-secure-hash-collisions/)
-
+The uniqueness of each `Series` line under `Metric` is determined by `tags`: for `tags(ip=1.1.1.1, host=test.vm, zone=nt)`, first sort according to `tagKey` , get `host=test.vm,ip=1.1.1.1,zone=nt`. If the mapping relationship between `tags` text and `Series ID` is stored originally, it will waste too much storage space. After weighing the efficiency, `LinDB` records the `Series` by calculating the `hash` of the `tags`. For the collision probability, please refer to [Birthday Collision](https://www.johndcook.com/blog/2017/01/10/probability-of-secure-hash-collisions/)
 
 The generalized hash collision probability formula is as follows:
 
-![Hash collision probability formula](https://www.wangbase.com/blogimg/asset/201809/bg2018090508.png)
+![Hash collision probability formula](@images/design/hash_formula.png)
+
 
 Through the above formula, the calculated collision probability of `64`-bit `hash` under different combinations of `tags` is shown in the following table. where `d` is the value space and `n` is the size of the dataset.
 In the monitoring field, the number of combinations of `tags` under `Metric` can rarely reach the level of `1M`, and even at this level, the collision probability is extremely low.
@@ -35,7 +35,6 @@ In the monitoring field, the number of combinations of `tags` under `Metric` can
 | 10M | 0.00000271 |
 | 100M | 0.000271 |
 | 1G | 0.0271 |
-
 
 ## Write
 
@@ -59,6 +58,8 @@ The system will periodically check whether each `Memory TSDB` in the current sys
 
 See [Storage SSTable](./storage.md#sstable-layout) for the file structure.
 
-#### refer to
+#### Reference
+
 1. [OpenTSDB UID](http://opentsdb.net/docs/build/html/user_guide/uids.html)
 2. [Probability of secure hash collisions](https://www.johndcook.com/blog/2017/01/10/probability-of-secure-hash-collisions/)
+3. [Hash collision probability formula](https://www.wangbase.com/blogimg/asset/201809/bg2018090508.png)

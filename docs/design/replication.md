@@ -40,7 +40,7 @@ Preconditions for multichannel replication:
 Since a major feature of time series data is time correlation, `LinDB` also shards data by time according to this feature when storing data. Each time shard is a storage unit, so the actual replication channel is also stored with Units correspond one-to-one.
 :::
 
-## Local Replication
+## Local replication
 
 ![local replication](@images/design/local_replication.png)
 
@@ -62,7 +62,7 @@ Here are a few things to note:
 2. The `Flush` goroutine is used to synchronize the `Ack Index` to notify which data has been written successfully;
 3. Since all write operations write into memory firstly, and then persist the data into corresponding file. If the system crashes during this process, as there is no `Ack Index`, even if the data in the memory is lost, but when the goroutine starts again, it consumes the data in the `WAL` channel with `Ack Index` as the current `Replica Index`. This consuming process achieved that data can be recovered after crashing;
 
-## Remote Replication
+## Remote replication
 
 Pick `Node 1` as `Leader` in the above figure with 3 Replications replicating data from `1-WAL` as an example:
 
@@ -101,4 +101,5 @@ To ensure the sequentiality of replication process, it is necessary to ensure th
 Since the entire writing and replication process is based on the `GRPC Stream` long connection and single-goroutine processing mechanism, the above conditions can basically be guaranteed.
 
 #### Reference
+
 1. [bigqueue](https://github.com/bulldog2011/bigqueue)

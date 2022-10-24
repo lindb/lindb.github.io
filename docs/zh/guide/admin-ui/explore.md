@@ -1,6 +1,6 @@
 # Data Explore
 
-Data Explore 提供数据浏览模式，为不熟悉 [Lin Query Language(LQL)](../lql.md) 的用户提供 UI 化的方式查询数据。
+Data Explore 提供数据浏览模式，为不熟悉 [Lin Query Language(LinQL)](../lin-ql.md) 的用户提供 UI 化的方式查询数据。
 - Database：需要查询的数据库，必选项；
 - Namespace：需要查询的 Namespace，可选项，如果不选择默认查询 `default-ns`； 
 - Metrics：需要查询的 Metrics Name，必选项；

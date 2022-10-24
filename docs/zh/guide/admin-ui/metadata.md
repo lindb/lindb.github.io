@@ -1,11 +1,17 @@
 # Metadata
 
+当前集群元数据配置管理。
+
 ## Storage
+
+当前集群下已经注册的`Storage`集群，每个`Storage`在启动的时候会完成自注册，正常情况不需要用户手动进行注册。
 
 <image-window>
 
 ![storage list](@images/guide/admin_ui/storage_list.png)
 </image-window>
+
+当`Storage`自注册失败时，可以通过手动方式注册相应的`Storage`配置信息。
 
 <image-window>
 
@@ -14,10 +20,14 @@
 
 ## Database
 
+当前集群下数据库列表。
+
 <image-window>
 
 ![database list](@images/guide/admin_ui/database_list.png)
 </image-window>
+
+创新或者修改对应数据库存配置信息。
 
 <image-window>
 
@@ -26,10 +36,14 @@
 
 ## Explore
 
+浏览当前集群`ETCD`中的各类型的配置信息，可以通过`Compare`按钮来对应内存中各状态机中的信息。
+
 <image-window>
 
 ![metadata explore](@images/guide/admin_ui/metadata_explore.png)
 </image-window>
+
+查看与内存状态机中信息的对比结果，是否存在状态机中的信息与配置不一致情况。
 
 <image-window>
 

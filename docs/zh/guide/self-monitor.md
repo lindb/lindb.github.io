@@ -417,6 +417,732 @@ LinDB 默认会定期把自监控的指标数据存储在 `_internal` 这个数�
 
 ### Concurrent
 
+<table>
+    <thead>
+        <tr>
+            <th>Metric Name</th>
+            <th>Tags</th>
+            <th>Fields</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+	<tbody>
+		<tr>
+			<td rowspan=6>lindb.concurrent.pool</td>
+			<td rowspan=6>pool_name</td>
+			<td>workers_alive</td>
+			<td>current workers count in use</td>
+		</tr>
+		<tr>
+			<td>workers_created</td>
+			<td>workers created count since start</td>
+		</tr>
+		<tr>
+			<td>workers_killed</td>
+			<td>workers killed count since start</td>
+		</tr>
+		<tr>
+			<td>tasks_consumed</td>
+			<td>workers consumed count</td>
+		</tr>
+		<tr>
+			<td>tasks_rejected</td>
+			<td>workers rejected count</td>
+		</tr>
+		<tr>
+			<td>tasks_panic</td>
+			<td>workers execute panic count</td>
+		</tr>
+		<tr>
+			<td>lindb.concurrent.pool.tasks_waiting_duration</td>
+			<td>pool_name</td>
+			<td>histogram</td>
+			<td>task waiting time</td>
+		</tr>
+		<tr>
+			<td>lindb.concurrent.pool.tasks_executing_duration</td>
+			<td>pool_name</td>
+			<td>histogram</td>
+			<td>task executing time with waiting period</td>
+		</tr>
+		<tr>
+			<td rowspan=3>lindb.concurrent.limit</td>
+			<td rowspan=3>type</td>
+			<td>throttle_requests</td>
+			<td>number of reaches the max-concurrency</td>
+		</tr>
+		<tr>
+			<td>timeout_requests</td>
+			<td>number pending and then timeout</td>
+		</tr>
+		<tr>
+			<td>processed</td>
+			<td>number of processed requests</td>
+		</tr>
+	</tbody>
+</table>
+
 ## Broker
 
+<table>
+    <thead>
+        <tr>
+            <th>Metric Name</th>
+            <th>Tags</th>
+            <th>Fields</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+	<tbody>
+		<tr>
+			<td rowspan=3>lindb.broker.state_manager</td>
+			<td rowspan=3>type</td>
+			<td>handle_events</td>
+			<td>handle coordinator event success count</td>
+		</tr>
+		<tr>
+			<td>handle_event_failures</td>
+			<td>handle coordinator event failure count</td>
+		</tr>
+		<tr>
+			<td>panics</td>
+			<td>panic count whne handle coordinator event</td>
+		</tr>
+		<tr>
+			<td rowspan=2>lindb.master.shard.leader</td>
+			<td rowspan=2>-</td>
+			<td>elections</td>
+			<td>shard leader elect successfully</td>
+		</tr>
+		<tr>
+			<td>elect_failures</td>
+			<td>shard leader elect failure</td>
+		</tr>
+		<tr>
+			<td rowspan=4>lindb.master.controller</td>
+			<td rowspan=4>-</td>
+			<td>failovers</td>
+			<td>master fail over successfully</td>
+		</tr>
+		<tr>
+			<td>failover_failures</td>
+			<td>master fail over failure</td>
+		</tr>
+		<tr>
+			<td>reassigns</td>
+			<td>master reassign successfully</td>
+		</tr>
+		<tr>
+			<td>reassign_failures</td>
+			<td>master reassign failure</td>
+		</tr>
+		<tr>
+			<td>lindb.http.ingest_duration</td>
+			<td>path</td>
+			<td>histogram</td>
+			<td>ingest duration(include count)</td>
+		</tr>
+		<tr>
+			<td rowspan=4>lindb.ingestion.proto</td>
+			<td rowspan=4>-</td>
+			<td>data_corrupted</td>
+			<td>corrupted when parse</td>
+		</tr>
+		<tr>
+			<td>ingested_metrics</td>
+			<td>ingested metrics</td>
+		</tr>
+		<tr>
+			<td>read_bytes</td>
+			<td>read data bytes</td>
+		</tr>
+		<tr>
+			<td>dropped_metrics</td>
+			<td>drop metrics when append</td>
+		</tr>
+		<tr>
+			<td rowspan=5>lindb.ingestion.flat</td>
+			<td rowspan=4>-</td>
+			<td>data_corrupted</td>
+			<td>corrupted when parse</td>
+		</tr>
+		<tr>
+			<td>ingested_metrics</td>
+			<td>ingested metrics</td>
+		</tr>
+		<tr>
+			<td>read_bytes</td>
+			<td>read data bytes</td>
+		</tr>
+		<tr>
+			<td>dropped_metrics</td>
+			<td>drop metrics when append</td>
+		</tr>
+		<tr>
+			<td>size</td>
+			<td>block</td>
+			<td>read data block size</td>
+		</tr>
+		<tr>
+			<td rowspan=6>lindb.ingestion.influx</td>
+			<td rowspan=6>-</td>
+			<td>data_corrupted</td>
+			<td>corrupted when parse</td>
+		</tr>
+		<tr>
+			<td>ingested_metrics</td>
+			<td>ingested metrics</td>
+		</tr>
+		<tr>
+			<td>ingested_fields</td>
+			<td>ingested fields</td>
+		</tr>
+		<tr>
+			<td>read_bytes</td>
+			<td>read data bytes</td>
+		</tr>
+		<tr>
+			<td>dropped_metrics</td>
+			<td>drop metrics when append</td>
+		</tr>
+		<tr>
+			<td>dropped_fields</td>
+			<td>drop fields when append</td>
+		</tr>
+		<tr>
+			<td rowspan=2>lindb.broker.database.write</td>
+			<td rowspan=2>db</td>
+			<td>out_of_time_range</td>
+			<td>timestamp of metrics out of acceptable write time range</td>
+		</tr>
+		<tr>
+			<td>shard_not_found</td>
+			<td>shard not found count</td>
+		</tr>
+		<tr>
+			<td rowspan=14>lindb.broker.family.write</td>
+			<td rowspan=14>db</td>
+			<td>active_families</td>
+			<td>number of current active replica family channel</td>
+		</tr>
+		<tr>
+			<td>batch_metrics</td>
+			<td>batch into memory chunk success count</td>
+		</tr>
+		<tr>
+			<td>batch_metrics_failures</td>
+			<td>batch into memory chunk failure count</td>
+		</tr>
+		<tr>
+			<td>pending_send</td>
+			<td>number of pending send message</td>
+		</tr>
+		<tr>
+			<td>send_success</td>
+			<td>send message success count</td>
+		</tr>
+		<tr>
+			<td>send_failures</td>
+			<td>send message failure count</td>
+		</tr>
+		<tr>
+			<td>send_size</td>
+			<td>bytes of send message</td>
+		</tr>
+		<tr>
+			<td>retry</td>
+			<td>retry count</td>
+		</tr>
+		<tr>
+			<td>retry_drop</td>
+			<td>number of drop message after too many retry</td>
+		</tr>
+		<tr>
+			<td>create_stream</td>
+			<td>create replica stream success count</td>
+		</tr>
+		<tr>
+			<td>create_stream_failures</td>
+			<td>create replica stream failure count</td>
+		</tr>
+		<tr>
+			<td>close_stream</td>
+			<td>close replica stream success count</td>
+		</tr>
+		<tr>
+			<td>close_stream_failures</td>
+			<td>close replica stream failure count</td>
+		</tr>
+		<tr>
+			<td>leader_changed</td>
+			<td>shard leader changed</td>
+		</tr>
+		<tr>
+			<td rowspan=9>lindb.broker.query</td>
+			<td rowspan=9>-</td>
+			<td>created_tasks</td>
+			<td>create query tasks</td>
+		</tr>
+		<tr>
+			<td>alive_tasks</td>
+			<td>current executing tasks(alive)</td>
+		</tr>
+		<tr>
+			<td>expire_tasks</td>
+			<td>task expire, long-term no response</td>
+		</tr>
+		<tr>
+			<td>emitted_responses</td>
+			<td>emit response to parent node</td>
+		</tr>
+		<tr>
+			<td>omitted_responses</td>
+			<td>omit response because task evicted</td>
+		</tr>
+		<tr>
+			<td>sent_requests</td>
+			<td>send request successfully</td>
+		</tr>
+		<tr>
+			<td>sent_requests_failures</td>
+			<td>send request failure</td>
+		</tr>
+		<tr>
+			<td>sent_responses</td>
+			<td>send response successfully</td>
+		</tr>
+		<tr>
+			<td>sent_responses_failures</td>
+			<td>send response successfully</td>
+		</tr>
+	</tbody>
+</table>
+
 ## Storage
+
+<table>
+    <thead>
+        <tr>
+            <th>Metric Name</th>
+            <th>Tags</th>
+            <th>Fields</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+	<tbody>
+		<tr>
+			<td rowspan=3>lindb.storage.state_manager</td>
+			<td rowspan=3>type</td>
+			<td>handle_events</td>
+			<td>handle coordinator event success count</td>
+		</tr>
+		<tr>
+			<td>handle_event_failures</td>
+			<td>handle coordinator event failure count</td>
+		</tr>
+		<tr>
+			<td>panics</td>
+			<td>panic count whne handle coordinator event</td>
+		</tr>
+		<tr>
+			<td rowspan=6>lindb.storage.wal</td>
+			<td rowspan=6>db<br/>shard</td>
+			<td>receive_write_bytes</td>
+			<td>receive write request bytes(broker-&gt;leader)</td>
+		</tr>
+		<tr>
+			<td>write_wal</td>
+			<td>write wal successfully(broker-&gt;leader)</td>
+		</tr>
+		<tr>
+			<td>write_wal_failures</td>
+			<td>write wal failure(broker-&gt;leader)</td>
+		</tr>
+		<tr>
+			<td>receive_replica_bytes</td>
+			<td>receive replica request bytes(storage leader-&gt;follower</td>
+		</tr>
+		<tr>
+			<td>replica_wal</td>
+			<td>replica wal successfully(storage leader-&gt;follower)</td>
+		</tr>
+		<tr>
+			<td>replica_wal_failures</td>
+			<td>replica wal failure(storage leader-&gt;follower)</td>
+		</tr>
+		<tr>
+			<td rowspan=7>lindb.storage.replicator.runner</td>
+			<td rowspan=7>type<br/>db<br/>shard</td>
+			<td>active_replicators</td>
+			<td>number of current active local replicators</td>
+		</tr>
+		<tr>
+			<td>replica_panics</td>
+			<td>replica panic count</td>
+		</tr>
+		<tr>
+			<td>consume_msg</td>
+			<td>get message successfully count</td>
+		</tr>
+		<tr>
+			<td>consume_msg_failures</td>
+			<td>get message failure count</td>
+		</tr>
+		<tr>
+			<td>replica_lag</td>
+			<td>replica lag message count</td>
+		</tr>
+		<tr>
+			<td>replica_bytes</td>
+			<td>bytes of replica data</td>
+		</tr>
+		<tr>
+			<td>replicas</td>
+			<td>replica success count</td>
+		</tr>
+		<tr>
+			<td rowspan=5>lindb.storage.replica.local</td>
+			<td rowspan=5>db<br/>shard</td>
+			<td>decompress_failures</td>
+			<td>decompress message failure count</td>
+		</tr>
+		<tr>
+			<td>replica_failures</td>
+			<td>replica failure count</td>
+		</tr>
+		<tr>
+			<td>replica_rows</td>
+			<td>row number of replica</td>
+		</tr>
+		<tr>
+			<td>ack_sequence</td>
+			<td>ack persist sequence count</td>
+		</tr>
+		<tr>
+			<td>invalid_sequence</td>
+			<td>invalid replica sequence count</td>
+		</tr>
+		<tr>
+			<td rowspan=20>lindb.storage.replica.remote</td>
+			<td rowspan=20>db<br/>shard</td>
+			<td>not_ready</td>
+			<td>remote replicator channel not ready</td>
+		</tr>
+		<tr>
+			<td>follower_offline</td>
+			<td>remote follower node offline</td>
+		</tr>
+		<tr>
+			<td>need_close_last_stream</td>
+			<td>need close last stream, when do re-connection</td>
+		</tr>
+		<tr>
+			<td>close_last_stream_failures</td>
+			<td>close last stream failure</td>
+		</tr>
+		<tr>
+			<td>create_replica_cli</td>
+			<td>create replica client successfully</td>
+		</tr>
+		<tr>
+			<td>create_replica_cli_failures</td>
+			<td>create replica client failure</td>
+		</tr>
+		<tr>
+			<td>create_replica_stream</td>
+			<td>create replica stream successfully</td>
+		</tr>
+		<tr>
+			<td>create_replica_stream_failures</td>
+			<td>create replica stream failure</td>
+		</tr>
+		<tr>
+			<td>get_last_ack_failures</td>
+			<td>get last ack sequence from remote follower failure</td>
+		</tr>
+		<tr>
+			<td>reset_follower_append_idx</td>
+			<td>reset follower append index successfully</td>
+		</tr>
+		<tr>
+			<td>reset_follower_append_idx_failures</td>
+			<td>reset follower append index failure</td>
+		</tr>
+		<tr>
+			<td>reset_append_idx</td>
+			<td>reset current leader local append index</td>
+		</tr>
+		<tr>
+			<td>reset_replica_idx</td>
+			<td>reset current leader replica index successfully</td>
+		</tr>
+		<tr>
+			<td>reset_replica_failures</td>
+			<td>reset current leader replica index failure</td>
+		</tr>
+		<tr>
+			<td>send_msg</td>
+			<td>send replica msg successfully</td>
+		</tr>
+		<tr>
+			<td>send_msg_failures</td>
+			<td>send replica msg failure</td>
+		</tr>
+		<tr>
+			<td>receive_msg</td>
+			<td>receive replica resp successfully</td>
+		</tr>
+		<tr>
+			<td>receive_msg_failures</td>
+			<td>receive replica resp failure</td>
+		</tr>
+		<tr>
+			<td>ack_sequence</td>
+			<td>ack replica successfully sequence count</td>
+		</tr>
+		<tr>
+			<td>invalid_ack_sequence</td>
+			<td>get wrong replica ack sequence from follower</td>
+		</tr>
+		<tr>
+			<td>lindb.tsdb.indexdb</td>
+			<td>db</td>
+			<td>build_inverted_index</td>
+			<td>build inverted index count</td>
+		</tr>
+		<tr>
+			<td rowspan=2>lindb.tsdb.memdb</td>
+			<td rowspan=2>db</td>
+			<td>allocated_pages</td>
+			<td>allocate temp memory page successfully</td>
+		</tr>
+		<tr>
+			<td>allocate_page_failures</td>
+			<td>allocate temp memory page failure</td>
+		</tr>
+		<tr>
+			<td>lindb.tsdb.database</td>
+			<td>db</td>
+			<td>metadb_flush_failures</td>
+			<td>flush metadata database failure</td>
+		</tr>
+		<tr>
+			<td>lindb.tsdb.database.metadb_flush_duration</td>
+			<td>db</td>
+			<td>histogram</td>
+			<td>flush metadata database duration(include count)</td>
+		</tr>
+		<tr>
+			<td rowspan=8>lindb.tsdb.metadb</td>
+			<td rowspan=8>db</td>
+			<td>gen_metric_ids</td>
+			<td>generate metric id successfully</td>
+		</tr>
+		<tr>
+			<td>gen_metric_id_failures</td>
+			<td>generate metric id failure</td>
+		</tr>
+		<tr>
+			<td>gen_tag_key_ids</td>
+			<td>generate tag key id successfully</td>
+		</tr>
+		<tr>
+			<td>gen_tag_key_id_failures</td>
+			<td>generate tag key id failure</td>
+		</tr>
+		<tr>
+			<td>gen_field_ids</td>
+			<td>generate field id successfully</td>
+		</tr>
+		<tr>
+			<td>gen_field_id_failures</td>
+			<td>generate field id failure</td>
+		</tr>
+		<tr>
+			<td>gen_tag_value_ids</td>
+			<td>generate tag value id successfully</td>
+		</tr>
+		<tr>
+			<td>gen_tag_value_id_failures</td>
+			<td>generate tag value id failure</td>
+		</tr>
+		<tr>
+			<td rowspan=10>lindb.tsdb.shard</td>
+			<td rowspan=10>db<br/>shard</td>
+			<td>active_families</td>
+			<td>number of current active families</td>
+		</tr>
+		<tr>
+			<td>write_batches</td>
+			<td>write batch count</td>
+		</tr>
+		<tr>
+			<td>write_metrics</td>
+			<td>write metric success count</td>
+		</tr>
+		<tr>
+			<td>write_fields</td>
+			<td>write field data point success count</td>
+		</tr>
+		<tr>
+			<td>write_metrics_failures</td>
+			<td>write metric failures</td>
+		</tr>
+		<tr>
+			<td>memdb_total_size</td>
+			<td>total memory size of memory database</td>
+		</tr>
+		<tr>
+			<td>active_memdbs</td>
+			<td>number of current active memory database</td>
+		</tr>
+		<tr>
+			<td>memdb_flush_failures</td>
+			<td>flush memory database failure</td>
+		</tr>
+		<tr>
+			<td>lookup_metric_meta_failures</td>
+			<td>lookup meta of metric failure</td>
+		</tr>
+		<tr>
+			<td>indexdb_flush_failures</td>
+			<td>flush index database failure</td>
+		</tr>
+		<tr>
+			<td>lindb.tsdb.shard.memdb_flush_duration</td>
+			<td>db<br/>shard</td>
+			<td>histogram</td>
+			<td>flush memory database duration(include count)</td>
+		</tr>
+		<tr>
+			<td>lindb.tsdb.shard.indexdb_flush_duration</td>
+			<td>db<br/>shard</td>
+			<td>indexdb_flush_duration</td>
+			<td>flush index database duration(include count)</td>
+		</tr>
+		<tr>
+			<td rowspan=6>lindb.kv.table.cache</td>
+			<td rowspan=6>-</td>
+			<td>evicts</td>
+			<td>evict reader from cache</td>
+		</tr>
+		<tr>
+			<td>cache_hits</td>
+			<td>get reader hit cache</td>
+		</tr>
+		<tr>
+			<td>cache_misses</td>
+			<td>get reader miss cache</td>
+		</tr>
+		<tr>
+			<td>closes</td>
+			<td>close reader successfully</td>
+		</tr>
+		<tr>
+			<td>close_failures</td>
+			<td>close reader failure</td>
+		</tr>
+		<tr>
+			<td>active_readers</td>
+			<td>number of active reader in cache</td>
+		</tr>
+		<tr>
+			<td rowspan=7>lindb.kv.table.read</td>
+			<td rowspan=7>-</td>
+			<td>gets</td>
+			<td>get data by key successfully</td>
+		</tr>
+		<tr>
+			<td>get_failures</td>
+			<td>get data by key failures</td>
+		</tr>
+		<tr>
+			<td>read_bytes</td>
+			<td>bytes of read data</td>
+		</tr>
+		<tr>
+			<td>mmaps</td>
+			<td>map file successfully</td>
+		</tr>
+		<tr>
+			<td>mmap_failures</td>
+			<td>map file failure</td>
+		</tr>
+		<tr>
+			<td>unmmaps</td>
+			<td>unmam file successfully</td>
+		</tr>
+		<tr>
+			<td>unmmap_failures</td>
+			<td>unmam file failure</td>
+		</tr>
+		<tr>
+			<td rowspan=3>lindb.kv.table.write</td>
+			<td rowspan=3>-</td>
+			<td>bad_keys</td>
+			<td>add bad key count</td>
+		</tr>
+		<tr>
+			<td>add_keys</td>
+			<td>add key successfully</td>
+		</tr>
+		<tr>
+			<td>write_bytes</td>
+			<td>bytes of write data</td>
+		</tr>
+		<tr>
+			<td rowspan=2>lindb.kv.compaction</td>
+			<td rowspan=2>type</td>
+			<td>compacting</td>
+			<td>number of compacting jobs</td>
+		</tr>
+		<tr>
+			<td>failure</td>
+			<td>compact failure</td>
+		</tr>
+		<tr>
+			<td>lindb.kv.compaction.duration</td>
+			<td>type</td>
+			<td>histogram</td>
+			<td>compact duration(include count)</td>
+		</tr>
+		<tr>
+			<td rowspan=2>lindb.kv.flush</td>
+			<td rowspan=2>-</td>
+			<td>flushing</td>
+			<td>number of flushing jobs</td>
+		</tr>
+		<tr>
+			<td>failure</td>
+			<td>flush job failure</td>
+		</tr>
+		<tr>
+			<td>lindb.kv.flush.duration</td>
+			<td>-</td>
+			<td>histogram</td>
+			<td>flush duration(include count)</td>
+		</tr>
+		<tr>
+			<td rowspan=5>lindb.storage.query</td>
+			<td rowspan=5>-</td>
+			<td>metric_queries</td>
+			<td>execute metric query successfully(just plan it)</td>
+		</tr>
+		<tr>
+			<td>metric_query_failures</td>
+			<td>execute metric query failure</td>
+		</tr>
+		<tr>
+			<td>meta_queries</td>
+			<td>metadata query successfully</td>
+		</tr>
+		<tr>
+			<td>meta_query_failures</td>
+			<td>metadata query failure</td>
+		</tr>
+		<tr>
+			<td>omitted_requests</td>
+			<td>omit request(task no belong to current node, wrong stream etc.)</td>
+		</tr>
+	</tbody>
+</table>

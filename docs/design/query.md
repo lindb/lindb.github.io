@@ -51,7 +51,6 @@ According to different query conditions, you can `Plan` the following types of e
 
 ## Cross-IDC Query
 
-
 ![cross idc query](@images/design/cross_idc_query.png)
 
 - LinDB's cross-IDC is done at the Query layer, so this kind of query can be understood as a re-aggregation operation after the above two queries are sent to each IDC
@@ -63,5 +62,6 @@ According to different query conditions, you can `Plan` the following types of e
 - normal exception handling;
 
 ###### Reference
+
 1. [M3DB: Building a Query Engine for High Cardinality Time Series Data](https://eng.uber.com/billion-data-point-challenge/)
 2. [Drill Query Execution](https://drill.apache.org/docs/drill-query-execution/)
