@@ -6,6 +6,10 @@ export const zh: NavbarConfig = [
     link: '/zh/guide/introduction',
   },
   {
+    text: 'API',
+    link: '/zh/api/openapi',
+  },
+  {
     text: '设计',
     link: '/zh/design/architecture',
   },

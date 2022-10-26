@@ -30,7 +30,6 @@ export const en: SidebarConfig = {
           ],
         },
         '/guide/cli.md',
-        '/guide/api.md',
         '/guide/self-monitor.md',
         '/guide/configuration.md',
       ],

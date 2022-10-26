@@ -30,7 +30,6 @@ export const zh: SidebarConfig = {
           ],
         },
         '/zh/guide/cli.md',
-        '/zh/guide/api.md',
         '/zh/guide/self-monitor.md',
         '/zh/guide/configuration.md',
       ],
