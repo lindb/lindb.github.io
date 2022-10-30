@@ -20,7 +20,7 @@
           </svg>
         </button>
         <div class="toc-items-wrap" :class="{ 'show-toc': isTocOpen }">
-          <div class="toc-nav-text">{{ themeLocaleData.tocNavText }}</div>
+-         <div class="toc-nav-text">{{ themeLocaleData.tocNavText }}</div>
           <ul class="toc-items">
             <li
               class="toc-item"
@@ -47,10 +47,7 @@ import { usePageData } from '@vuepress/client'
 import { PageHeader } from '@vuepress/shared'
 import { computed, defineComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 import { ComputedRef } from 'vue'
-import {
-  useThemeData,
-  useThemeLocaleData,
-} from '@vuepress/plugin-theme-data/lib/client/composables'
+import { useThemeData,useThemeLocaleData } from '@vuepress/plugin-theme-data/client'
 import { useRoute } from 'vue-router'
 import Scrollbar from './Scrollbar.vue'
 

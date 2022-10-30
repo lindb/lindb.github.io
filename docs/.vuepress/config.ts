@@ -1,12 +1,12 @@
-import { defineUserConfig } from 'vuepress'
+import { defineUserConfig } from '@vuepress/cli'
 import { docsearchPlugin } from '@vuepress/plugin-docsearch'
 import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
+import { webpackBundler } from '@vuepress/bundler-webpack'
 import { path } from '@vuepress/utils'
 import { navbar, sidebar } from './configs'
-import { localTheme } from './theme'
+import {linTheme} from "./theme"
 
 // layout ref: https://github.com/gavinliu6/vuepress-theme-mix/
-
 export default defineUserConfig({
   lang: 'zh-CN',
   title: 'LinDB',
@@ -25,19 +25,20 @@ export default defineUserConfig({
     },
   },
   markdown:{
-    extractHeaders:{
+    headers:{
       level:[2,3,4]
     },
   },
   alias: {
     '@images': path.resolve(__dirname, '../assets/images'),
   },
-  theme: localTheme({
+  bundler: webpackBundler({}),
+  theme: linTheme({
     logo: '/images/logo.png',
     logoDark:'/images/logo_dark.png',
     repo: 'lindb/lindb',
     docsRepo: 'lindb/lindb.github.io',
-    docsBranch: 'dev',
+    docsBranch: 'main',
     docsDir: 'docs',
     locales: {
       '/': {
@@ -72,7 +73,7 @@ export default defineUserConfig({
           '看起来我们进入了错误的链接',
         ],
         backToHome: '返回首页',
-        toggleDarkMode: '切换夜间模式',
+        toggleColorMode: '切换夜间模式',
         tocNavText: '本页导航',
       },
     },

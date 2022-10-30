@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useSidebarItems } from '@vuepress/theme-default/lib/client/composables'
+import { useSidebarItems } from '@vuepress/theme-default/client'
 import NavbarItems from '@theme/NavbarItems.vue'
 import SidebarItems from '@theme/SidebarItems.vue'
 import Scrollbar from './Scrollbar.vue'

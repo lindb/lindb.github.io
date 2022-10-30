@@ -19,7 +19,7 @@
     font-size: 16px;
     font-weight: normal;
     line-height: 24px;
-    padding-bottom: 10px;
+    // padding-bottom: 10px;
     display: inline-block;
 }
 
@@ -112,13 +112,13 @@
     display: block;
   }
 
-  .toc-nav-text{
-    display: none;
-  }
+  // .toc-nav-text{
+  //   display: none;
+  // }
 
-  .toc-title {
-    display: none;
-  }
+  // .toc-title {
+  //   display: none;
+  // }
 
   .mobile-toc-title {
     position: fixed;
@@ -140,7 +140,7 @@
     z-index: 10;
     max-width: 318px;
     border-radius: 0.25rem;
-    padding: 0.5rem;
+    padding: 1rem;
     background-color: var(--c-border);
 
     &::before {
