@@ -56,3 +56,9 @@
 .toggle-color-mode-button {
 	margin-left: 0;
 }
+
+::selection {
+    color: #fff;
+    text-shadow: none;
+    background: #ED8A65;
+}

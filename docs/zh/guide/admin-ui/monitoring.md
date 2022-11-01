@@ -4,6 +4,8 @@
 
 Dashboard 为 LinDB 自带的自监控大盘，可以通过各组件相关 Dashboard 了解其内部实时运行状态。
 
+具体的指标说明请参考[自监控](../self-monitor.md)。
+
 <image-window>
 
 ![dashboard](@images/guide/admin_ui/dashboard.png)
@@ -63,7 +65,7 @@ Dashboard 为 LinDB 自带的自监控大盘，可以通过各组件相关 Dashb
 ![replication shards](@images/guide/admin_ui/replication_shards.png)
 </image-window>
 
-- 模式 2：以所有分片 Shard 下所有复制通道为视角展现，展现当前所有复制通道的复制情况；
+- 模式 2：以所有分片 Shard 下所有复制通道为视角展现，展现当前所有复制通道的复制情况，支持 Shard/Family 相关的过滤筛选；
 
 <image-window>
 
@@ -73,16 +75,31 @@ Dashboard 为 LinDB 自带的自监控大盘，可以通过各组件相关 Dashb
 ### Write
 
 本地副本的写入情况：
-- 各`Leader`写入指针状态；
 - 各内存数据库的写入状态；
+- 各`Leader`写入指针状态；
 
-TODO image
+- 模式 1：以所有分片 Shard 下所有内存数据库为视角展现，展现当前所有内存库的写入状态，支持 Shard/Family 相关的过滤筛选；
+
+<image-window>
+
+![memory database write](@images/guide/admin_ui/memory_database_write.png)
+</image-window>
+
+- 模式 2：以所有分片 Shard 下所有活跃 Family 为视角展现，展现当前所有活跃 Family 各复制状态，支持 Shard/Family 相关的过滤筛选；
+
+<image-window>
+
+![memory database replica](@images/guide/admin_ui/memory_database_replica.png)
+</image-window>
 
 ## Request
 
 浏览当前集群中正在执行的 [LinQL](../lin-ql.md) 语句。
 
-TODO image
+<image-window>
+
+![memory database replica](@images/guide/admin_ui/request_list.png)
+</image-window>
 
 ## Log View
 

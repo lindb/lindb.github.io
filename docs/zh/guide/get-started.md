@@ -138,8 +138,6 @@ $ lind storage init-config
 
 ```toml:no-line-numbers
 [storage]
-## Storage 节点集群内唯一标识，必须确保其在当前存储集群内是唯一的
-indicator = 1
 ## broker 地址，用于自注册 storage 集群信息
 broker-endpoint = "http://192.168.1.10:9000"
 .......
@@ -158,8 +156,17 @@ url = "http://192.168.1.19:9000/api/flat/write?db=_internal"
 - 启动 Storage。
 
 ```sh:no-line-numbers
-$ lind storage run --config=storage.toml
+$ lind storage run --config=storage.toml --myid=1
 ```
+
+:::warning
+需要特别注意 **myid** 的取值，必须确保其值在当前存储集群内是唯一的，用于标示 Storage 节点集群内的唯一性，其中 myid 的设置方式有 2 种：
+- 如上可以在启命令中加上 **--myid=1** 参数该方式为设置 myid 的默认值，即在数据存储目录下是否有 myid 这个文件，如果存在该参数设置不生效，如果默认设置生效会把该值存储到 myid 文件中；
+- 通过新建或者修改数据存储目录下 myid 文件中的值；
+
+myid 的设计思路类似 zookeeper 的 myid。
+:::
+
 
 4. 通过任意一台 Broker 节点地址 [http://192.168.1.10:9000](http://127.0.0.1:9000) 访问 LinDB Admin Cosnole 界面来查看整体状态等，[更多 Admin Console 请参考](admin-ui/README.md)；
 
@@ -221,3 +228,15 @@ Use "lind [command] --help" for more information about a command.
 ```
 
 5. 可以通过编译出来的二进制包进行部署 [Standalone](#standalone) 和 [集群模式](#集群模式)。
+
+## 源码本地启动
+
+适用场景：主要运行 LinDB 的日常开发调试，及学习 LinDB 具体代码实现。
+
+1. 源码下载参考请[源码编译](#源码编译)。
+
+2. 快速运行，项目根目下运行如下命令即可。
+
+```sh:no-line-numbers
+make run
+```

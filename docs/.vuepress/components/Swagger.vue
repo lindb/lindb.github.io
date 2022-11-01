@@ -67,7 +67,10 @@ export default {
 	display: none;
 }
 .swagger-ui .info {
-	margin: 30px 0 0 0;
+	margin: 0;
+}
+.swagger-ui .info .description {
+	display: none;
 }
 .swagger-ui .info .title {
 	padding: 0;

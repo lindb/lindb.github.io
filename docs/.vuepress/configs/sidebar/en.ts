@@ -27,6 +27,7 @@ export const en: SidebarConfig = {
           children: [
             '/guide/client/README.md',
             '/guide/client/go.md',
+            '/guide/client/java.md',
           ],
         },
         '/guide/cli.md',

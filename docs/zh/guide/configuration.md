@@ -173,10 +173,7 @@ timeout = "5s"
 
 ## Storage 相关配置参数
 [storage]
-## Storage 节点集群内唯一标识，必须确保其在当前存储集群内是唯一的
-## 默认值：1
-indicator = 1
-## TTL 任务处理间隔时间
+## TTL 任务处理间隔时间
 ## 默认值：24h
 ttl-task-interval = "24h0m0s"
 ## Broker 对应的 HTTP 服务地址，用于 Storage 完成集群自注册

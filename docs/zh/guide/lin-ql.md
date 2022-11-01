@@ -428,7 +428,7 @@ show storage metric where storage='/lindb-storage' and metric in ('lindb.monitor
 如果使用到了关键字作为指标名/标签/字段等命名方式，需要使用双引号。
 :::
 
-```
+```:no-line-numbers
 ALIVE          AND            AS             ASC            AVG            BETWEEN
 BROKER         BY             COUNT          CREATE         DATASBAE       DATASBAES
 DAY            DESC           DROP           EXPLAIN        FIELD          FIELDS

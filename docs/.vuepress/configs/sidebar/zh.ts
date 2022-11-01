@@ -27,6 +27,7 @@ export const zh: SidebarConfig = {
           children: [
             '/zh/guide/client/README.md',
             '/zh/guide/client/go.md',
+            '/zh/guide/client/java.md',
           ],
         },
         '/zh/guide/cli.md',

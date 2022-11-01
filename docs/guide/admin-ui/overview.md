@@ -12,7 +12,7 @@ This page shows the overview of the entire cluster:
   - Broker alive time;
   - Broker's version;
   - CPU/Memory status of Broker nodes;
-- Alive Storage-Nodes list of current cluster,  see [Cluster Status Information](#Storage Cluster Status) for more information;
+- Alive Storage-Nodes list of current cluster,  see [Cluster Status Information](#storage-cluster-status) for more information;
   - Node status in the cluster;
   - Available databases;
   - Basic state of the replica;
@@ -38,7 +38,7 @@ Click the configuration icon on the right side of the Broker node or Storage nod
 
 Click either Storage name in the Storage cluster to query the basic status of the Storage cluster:
 - Basic cluster status;
-- See [configuration information](#Node Configuration) for active storage nodes in the cluster;
+- See [configuration information](#node-configuration) for active storage nodes in the cluster;
 - See [database replica status](./monitoring.md#replication) for status of available database in the cluster
 
 <image-window>
