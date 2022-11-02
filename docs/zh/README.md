@@ -20,12 +20,12 @@ tagline: null
   <intro-item 
     icon="iconshenjing"
     title="简单易用" 
-    summary="支持Metric + Tags + Fields的方式，无需提前定义Schema；可通过LinQL进行实时数据分析。"/>
+    summary="支持 Metric + Tags + Fields 的方式，无需提前定义 Schema；可通过 LinQL 进行实时数据分析。"/>
 
   <intro-item 
     icon="iconextend"
     title="水平扩展" 
-    summary="支持Tags级别的Sharding机制，可将任一Metric数据充分分散到多个存储节点，既避免了热点问题，又可通过增加服务器数量线性增加处理能力。"/>
+    summary="支持 Tags 级别的 Sharding 机制，可将任一 Metric 数据充分分散到多个存储节点，既避免了热点问题，又可通过增加服务器数量线性增加处理能力。"/>
 
   <intro-item 
     icon="iconshujuzhongxin"
@@ -34,7 +34,7 @@ tagline: null
 
   <intro-item 
     icon="iconchucun"
-    title="自动Rollup" 
-    summary="支持秒级数据写入后自动Rollup到分钟、小时和天的粒度，无需人工介入（如InfluxDB Continuous-Query）。"/>
+    title="自动 Rollup" 
+    summary="支持秒级数据写入后自动Rollup到分钟、小时和天的粒度，无需人工介入（如 InfluxDB Continuous-Query）。"/>
 
 </intro-list>

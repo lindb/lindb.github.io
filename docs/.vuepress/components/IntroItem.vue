@@ -50,8 +50,9 @@ export default {
 
   .intro-item__content {
     .intro-item__title {
-      margin-top: 0.2em;
+      margin-top: 0.2rem;
       font-size: 1.3rem;
+	  padding-top: 0;
       font-weight: bold;
     }
 

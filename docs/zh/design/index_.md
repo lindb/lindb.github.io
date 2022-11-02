@@ -35,7 +35,7 @@ Field Name: 字段名
 Field Type: 字段类型，如 Sum/Min/Max 等
 ```
 
-#### Tag Key
+#### Tag key
 
 |  Key  | Value |
 |  ----  | ----  |
@@ -47,7 +47,7 @@ Tag Key ID: 在该 Database 下是唯一的，存储 Index 的时候用该 ID
 Tag Key : Tag Key(string value)
 ```
 
-#### Tag Value
+#### Tag value
 
 |  Key  | Value |
 |  ----  | ----  |

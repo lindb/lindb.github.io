@@ -9,7 +9,7 @@ All data of `LinDB` will be stored on the local disk, and there are different st
 
 All the above data types are stored in a common underlying `KV Store`.
 
-## Time-Series characteristics
+## Time series characteristics
 
 Before talking about storage, let's talk about the characteristics of time-series, as shown in the figure:
 

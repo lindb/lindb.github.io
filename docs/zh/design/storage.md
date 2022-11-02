@@ -174,7 +174,7 @@ Rollup Job 是一种特殊的 Compact Job，主要处理数据降精度（ DownS
 1. 是由 Source Family 把数据合并到 Target Family 操作 2 个 Family ；
 2. 合并完成后，把 Source Family Version 中需要 Rollup 的文件删除，在 Target Family Version 中记录已经 Rollup 过的文件，以防止重复数据合并；
 
-### SSTable Layout
+### SSTable layout
 
 ![storage sstable](@images/design/storage_sstable.png)
 

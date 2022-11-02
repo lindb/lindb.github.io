@@ -1,3 +1,3 @@
-# Self Monitoring
+# Self monitoring
 
 TODO

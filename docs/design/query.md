@@ -55,7 +55,7 @@ According to different query conditions, you can `Plan` the following types of e
 
 - LinDB's cross-IDC is done at the Query layer, so this kind of query can be understood as a re-aggregation operation after the above two queries are sent to each IDC
 
-## Error Handle
+## Error handle
 
 - Query timeout or exception causes some nodes not returning data to the upstream node, so the task of the upstream node will at Pending state all the time. Therefore, each node will have a Task Manager to manage all the task states processed by each request to handle abnormal tasks.
 - Partial Storage nodes sometimes return Not Found because there is no corresponding data, and need to handle such exceptions;

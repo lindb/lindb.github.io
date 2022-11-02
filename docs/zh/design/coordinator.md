@@ -16,7 +16,6 @@
 - 运行时参数调整；
 - Storage/Broker 状态管理；
 
-
 ## 概述
 
 ![coordinator](@images/design/coordinator.png)
@@ -43,7 +42,7 @@ Master 主要负责以下几种状态机：
 2. Database Config State Machine;
 3. Shard Assignment State Machine;
 
-### Storage Config
+### Storage config
 
 ```yaml:no-line-numbers
 Watch KEY: /{broker namespace}/storage/config
@@ -58,7 +57,7 @@ Watch KEY: /{broker namespace}/storage/config
 - Watch Storage 集群节点存活的 KEY: `/active/nodes` (注意有别于与 Broker 的 `/active/nodes`，这里对应的是 Storage 将要注册的信息)；
 - 每个 Storage 节点启动的时候，需要注册节点信息到对应的 KEY 下:  `/live/nodes/{storage node id}`;
 
-### Database Config
+### Database config
 
 ```yaml:no-line-numbers
 Watch KEY: /{broker namespace}/database/config
@@ -81,7 +80,7 @@ Replicas: 该 Shard 下所有 Replicas 的信息，对应上面 Node ID 里面�
 ```
 :::
 
-### Shard Assignment
+### Shard assignment
 
 ```yaml:no-line-numbers
 Watch KEY: /{broker namespace}/database/assign
@@ -89,7 +88,7 @@ Watch KEY: /{broker namespace}/database/assign
 
 - Broker 通过 Watch 这个 KEY,  在数据分片数量变更时，根据目标 Storage 集群当前在线的节点情况，选举对应数据分成的 Leader 节点，并将选举结果信息下发至相应的节点；
 
-### Storage Live Node
+### Storage live node
 
 ```yaml:no-line-numbers
 Watch KEY: /{storage namespace}/live/nodes
@@ -107,7 +106,7 @@ Broker 主要负责以下几种状态机：
 2. Database Config State Machine;
 3. Storage Status State Machine;
 
-### Live Node
+### Live node
 
 ```yaml:no-line-numbers
 Watch KEY: /{broker namespace}/live/nodes
@@ -116,7 +115,7 @@ Watch KEY: /{broker namespace}/live/nodes
 - Broker 启动的时候都会把自己的信息注册到 Watch KEY 下面，即 `/live/nodes/{broker node}`；
 - 通过 Watch KEY 的变化，每个 Broker 都知道当前 Broker 集群中存活的节点有哪些；
 
-### Database Config
+### Database config
 
 ```yaml:no-line-numbers
 Watch KEY: /{broker namespace}/database/config
@@ -124,7 +123,7 @@ Watch KEY: /{broker namespace}/database/config
 
 - 通过 Watch KEY 的变化，Broker 知道当前集群有哪些 Database 及其配置的配置信息；
 
-### Storage Status
+### Storage status
 
 ```yaml:no-line-numbers
 Watch KEY: /{broker namespace}/storage/state"
@@ -141,7 +140,7 @@ Storage 主要负责以下几种状态机：
 1. Live Node State Machine;
 2. Shard Assignment State Machine;
 
-### Live Node
+### Live node
 
 ```yaml:no-line-numbers
 Watch KEY: /{storage namespace}/live/nodes
@@ -150,7 +149,7 @@ Watch KEY: /{storage namespace}/live/nodes
 - Storage 启动的时候都会把自己的信息注册到 Watch KEY 下面，即 `/live/nodes/{storage node}`；
 - 通过 Watch KEY 的变化，每个 Storage 都知道当前 Storage 集群中存活的节点有哪些；
 
-### Shard Assignment
+### Shard assignment
 
 ```yaml:no-line-numbers
 Watch KEY: /{storage namespace}/database/assign

@@ -22,7 +22,7 @@ Metric 下的每一条 Series 线的唯一性通过 tags 来确定：对于 tags
 
 一般化的哈希碰撞机率公式如下：
 
-![哈希碰撞机率公式](https://www.wangbase.com/blogimg/asset/201809/bg2018090508.png)
+![哈希碰撞机率公式](@images/design/hash_formula.png)
 
 通过以上公式，计算得 64 位 hash 在不同的 tags 组合数下的碰撞概率见下表。其中 d 为取值空间，n 为数据集规模。
 在监控领域下，Metric 下 tags 的组合数极少能达到 1M 量级，即使在该量级碰撞机率也极低。

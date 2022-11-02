@@ -1,6 +1,6 @@
 # Overview
 
-## Overview-page
+## Overview page
 
 This page shows the overview of the entire cluster:
 
@@ -24,7 +24,7 @@ This page shows the overview of the entire cluster:
 
 </image-window>
 
-## Node Configuration
+## Node configuration
 
 Click the configuration icon on the right side of the Broker node or Storage node, then the current configuration information of the node will be displayed:
 
@@ -34,7 +34,7 @@ Click the configuration icon on the right side of the Broker node or Storage nod
 
 </image-window>
 
-## Storage Cluster Status
+## Storage cluster status
 
 Click either Storage name in the Storage cluster to query the basic status of the Storage cluster:
 - Basic cluster status;
