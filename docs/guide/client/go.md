@@ -1,15 +1,15 @@
 # Go
 
-Use [Go Client](https://github.com/lindb/clieng_go) write data.
+Use [Go Client](https://github.com/lindb/client_go) write data.
 
 ## Installation
 
 - Go 1.18 or later is required;
-- Add the client package to your project dependencies (go.mod);
-  ```sh
+- Add the client package to your project dependencies (`go.mod`);
+  ```sh:no-line-numbers
   go get github.com/lindb/client_go
   ```
-- Add import github.com/lindb/client_go to your source code;
+- Add `import github.com/lindb/client_go` to your source code;
 
 ## Example
 
@@ -21,7 +21,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"time"
+	"time" 
 
 	lindb "github.com/lindb/client_go"
 	"github.com/lindb/client_go/api"

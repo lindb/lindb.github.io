@@ -1,12 +1,12 @@
 # Go
 
-使用 [Go Client](https://github.com/lindb/clieng_go) 写数据。
+使用 [Go Client](https://github.com/lindb/client_go) 写数据。
 
 ## 安装
 
 - 安装 `go 1.18` 及以上版本；
 - 添加在项目中添加 Client 依赖（go.mod）：
-  ```sh
+  ```sh:no-line-numbers
   go get github.com/lindb/client_go
   ```
 - 在代码中引用 `github.com/lindb/client_go`；

@@ -17,6 +17,7 @@ import SwaggerUI from 'swagger-ui';
 import 'swagger-ui/dist/swagger-ui.css';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+import ApiSpec from "./api.json";
 
 export default {
     name: "Swagger",
@@ -36,19 +37,24 @@ export default {
         Loading
     },
     mounted() {
-	  let vm = this;
-
-      vm.$nextTick(function () {
-		fetch(vm.spec)
-        	.then(r => r.json())
-        	.then(json => {
-				vm.isLoading = false;
-			    SwaggerUI({
-			    	spec: json,
-			        dom_id: '#swagger'
-			    });
-        	});
-      });
+		let vm = this;
+		SwaggerUI({
+			spec: ApiSpec,
+			dom_id: '#swagger'
+		});
+		vm.isLoading = false;
+		/*  */
+		/*       vm.$nextTick(function () { */
+		/* fetch(vm.spec) */
+		/*         	.then(r => r.json()) */
+		/*         	.then(json => { */
+		/* 		vm.isLoading = false; */
+		/* 	    SwaggerUI({ */
+		/* 	    	spec: api, */
+		/* 	        dom_id: '#swagger' */
+		/* 	    }); */
+		/*         	}); */
+		/*       }); */
     }
 }
 </script>
