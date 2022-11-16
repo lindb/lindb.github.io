@@ -1,14 +1,10 @@
 # 配置参数
 
-LinDB 采用 TOML 格式作为服务配置参数定义，主要分为以下 2 种配置参数：
-- Broker 相关配置；
-- Storage 相关配置；
-
-以下分别介绍对应的每个参数含义。
+LinDB 采用 TOML 格式作为服务配置文件，Broker 与 Storage 使用不同的配置，以下分别介绍对应的每个参数含义。
 
 ## Broker
 
-可以在 [config/broker.toml.example](https://github.com/lindb/lindb/tree/main/config/broker.toml.example) 找到默认值的配置文件，重命名为 broker.toml 即可作为 Storage 启动参数文件。
+可以在 [config/broker.toml.example](https://github.com/lindb/lindb/tree/main/config/broker.toml.example) 找到默认值的配置文件，重命名为 broker.toml 即可作为 Broker 启动参数文件。
 
 ```toml
 ## 状态存储及协调状态相关配置参数

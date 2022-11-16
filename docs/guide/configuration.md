@@ -1,6 +1,13 @@
 # Configuration
 
+LinDB uses the TOML format as the service configuration file.
+The broker and storage use different configurations.
+The following describes the meaning of each parameter.
+
 ## Broker
+
+You can find default configuration file at [config/broker.toml.example](https://github.com/lindb/lindb/tree/main/config/broker.toml.example) 
+, then rename it as broker.toml, it can be used as the broker startup config file.
 
 ```toml
 ## Coordinator related configuration.
@@ -133,7 +140,13 @@ maxbackups = 3
 ## Default: 7
 maxage = 7
 ```
+
 ## Storage
+
+
+You can find default configuration file at [config/storage.toml.example](https://github.com/lindb/lindb/tree/main/config/storage.toml.example)
+, then rename it as storage.toml, it can be used as the storage startup config file.
+
 
 ```toml
 ## Coordinator related configuration.
