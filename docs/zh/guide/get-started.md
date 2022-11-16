@@ -10,12 +10,15 @@
 
 2. 快速启动；
 
-只需如下命令即可使用默认配置启动 Standalone 模式进行体验，同时也可以快速生成默认配置文件并调整对应的参数，[更多参数请参考](configuration.md#standalone)。
+只需如下命令即可使用默认配置启动 Standalone
+模式进行体验，同时也可以快速生成默认配置文件并调整对应的参数，[更多参数请参考](configuration.md#standalone)。
+
 ```sh:no-line-numbers
 ./lind standalone run
 ```
 
 Standalone 命令行说明：
+
 ```sh:no-line-numbers
 ./lind standalone -h
 Run as a standalone node with embed broker, storage, etcd)
@@ -33,7 +36,8 @@ Flags:
 Use "lind standalone [command] --help" for more information about a command.
 ```
 
-3. 通过 [http://127.0.0.1:9000](http://127.0.0.1:9000) 访问 LinDB Admin Cosnole 界面来查看整体状态等，[更多 Admin Console 请参考](admin-ui/README.md)；
+3. 通过 [http://127.0.0.1:9000](http://127.0.0.1:9000) 访问 LinDB Admin Console
+   界面来查看整体状态等，[更多 Admin Console 请参考](admin-ui/README.md)；
 
 4. 同时也可以通过 Lin Cli 来查询状态及集群内数据，[更多 Cli 请参考](cli.md)；
 
@@ -41,25 +45,26 @@ Use "lind standalone [command] --help" for more information about a command.
 
 该模式需要把 LinDB 各组件进行独立部署。
 
-适用场景：主要运行于生产环境数据存储。
+适用场景：生产环境。
 
 :::tip
-以下环境以部署一个最小 LinDB 集群为例子来说明整个集群模式的部署方式，实际业务场景请根据具体的要求来选择集群节点配置及规模。
+以下环境以部署一个最小 LinDB 集群为例子来说明集群模式的部署方式，实际业务场景请根据具体的要求来选择集群节点配置及规模。
 
-以下示例中的 IP 为示例实例 IP，请以实际 IP 为准。
+以下示例中的 IP 仅作参考使用，请以实际 IP 为准。
 :::
 
 本示例以 3 台主机为例，每台主机上都部署 Broker/Storage/ETCD 3 个组件，主机 IP 如下：
+
 - 192.168.1.10
 - 192.168.1.11
 - 192.168.1.12
 
 组件部署顺序为 ETCD/Broker/Storage，组件信息如下：
-|  组件     | 配置 |
-|  ----    | --- | 
-| ETCD     | 默认端口 <br/> 默认配置 |
-| Broker   | 默认端口 <br/> 默认配置 |
-| Storage  | 默认端口 <br/> 调整各节点 ID，其他使用默认配置 |
+| 组件 | 配置 |
+| ---- | --- |
+| ETCD | 默认端口 <br/> 默认配置 |
+| Broker | 默认端口 <br/> 默认配置 |
+| Storage | 默认端口 <br/> 调整各节点 ID，其他使用默认配置 |
 
 1. 部署 ETCD，[具体 ETCD 安装请参考](https://etcd.io/docs/v3.5/install/)。
 
@@ -108,7 +113,7 @@ $ lind broker run --config=broker.toml
 :::tip
 通常情况下，需要在 Broker 前面放一个 VIP 或者 LB 来提供统一的入口地址。
 :::
-  
+
 3. 部署 Storage，相关命令行参数如下。
 
 ```sh:no-line-numbers
@@ -160,15 +165,18 @@ $ lind storage run --config=storage.toml --myid=1
 ```
 
 :::warning
-需要特别注意 **myid** 的取值，必须确保其值在当前存储集群内是唯一的，用于标示 Storage 节点集群内的唯一性，其中 myid 的设置方式有 2 种：
-- 如上可以在启命令中加上 **--myid=1** 参数该方式为设置 myid 的默认值，即在数据存储目录下是否有 myid 这个文件，如果存在该参数设置不生效，如果默认设置生效会把该值存储到 myid 文件中；
+需要特别注意 **myid** 的取值，必须确保其值在当前存储集群内是唯一的，用于标示 Storage 节点集群内的唯一性，其中 myid 的设置方式有
+2 种：
+
+- 如上可以在启动命令中加上 **--myid=1** 参数该方式为设置 myid 的默认值，即在数据存储目录下是否有 myid
+  这个文件，如果存在该参数设置不生效，如果默认设置生效会把该值存储到 myid 文件中；
 - 通过新建或者修改数据存储目录下 myid 文件中的值；
 
 myid 的设计思路类似 zookeeper 的 myid。
 :::
 
-
-4. 通过任意一台 Broker 节点地址 [http://192.168.1.10:9000](http://127.0.0.1:9000) 访问 LinDB Admin Cosnole 界面来查看整体状态等，[更多 Admin Console 请参考](admin-ui/README.md)；
+4. 通过任意一台 Broker 节点地址 [http://192.168.1.10:9000](http://127.0.0.1:9000) 访问 LinDB Admin Console
+   界面来查看整体状态等，[更多 Admin Console 请参考](admin-ui/README.md)；
 
 5. 同时也可以通过 Lin Cli 来查询状态及集群内数据，[更多 Cli 请参考](cli.md)；
 
@@ -193,6 +201,7 @@ cd lindb
 ```sh:no-line-numbers
 make build
 ```
+
 编译生成的二进制包在 `bin` 目录下。
 
 4. 在 `bin` 下测试对应环境的 `lind`。
