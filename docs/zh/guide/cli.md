@@ -12,9 +12,9 @@ Usage of ./lind-cli:
         Broker HTTP Endpoint (default "http://localhost:9000")
 ```
 
-cli 目前只提供了一个命令行参数：Broker 节点 HTTP 服务的地址。 连接至 Broker 节点后，可通过 LQL 来查询相关状态及数据。下面举几个简单的例子，更多细节请查看 [LQL](lin-ql.md) 。
+cli 目前只提供了一个命令行参数：Broker 节点 HTTP 服务的地址。 连接至 Broker 节点后，可通过 LinQL 来查询相关状态及数据。下面举几个简单的例子，更多细节请查看 [LinQL](lin-ql.md) 。
 
-:::tip 可以通过上下方向键快速浏览历史执行中的 LQL。
+:::tip 可以通过上下方向键快速浏览历史执行中的 LinQL。
 :::
 
 ##### 启动 cli
