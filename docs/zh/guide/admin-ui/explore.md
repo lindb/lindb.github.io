@@ -4,7 +4,7 @@ Data Explore 提供数据浏览模式，为不熟悉 [Lin Query Language(LinQL)]
 - Database：需要查询的数据库，必选项；
 - Namespace：需要查询的 Namespace，可选项，如果不选择默认查询 `default-ns`； 
 - Metrics：需要查询的 Metrics Name，必选项；
-- Show LQL：是否显示当前浏览数据对应的 LQL，并显示在 Execute LQL 中，点击 Execute LQL 可以跳转到 [Data Search](./search.md) 进行更活灵的数据分析；
+- Show LinQL：是否显示当前浏览数据对应的 LinQL，并显示在 `Execute LinQL` 中，点击 Execute LinQL 可以跳转到 [Data Search](./search.md) 进行更活灵的数据分析；
 - 指标区域：显示当前选择 Metrics 下的对应的 Fields/Tags 以及数据展示，其中 Fields/Tags 供进一步分析数据使用；
   - Field：需要查询哪些字段，必选项，可以提供多个 Fields 进行查询；
   - Filter：通过 Tags 进行过滤数据，可选项；

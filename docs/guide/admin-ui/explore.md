@@ -1,11 +1,11 @@
 # Data Explore
 
-Data Explore Page provides a UI-based way to query data for users who are not familiar with [Lin Query Language(LQL)](../lql.md).
+Data Explore Page provides a UI-based way to query data for users who are not familiar with [Lin Query Language(LinQL)](../lin-ql.md).
 
 - Database: the database to be queried, required;
 - Namespace: Namespace to be queried, optional, default namespace will be `default-ns` when input is omitted;
 - Metrics: Metrics Name to be queried, required;
-- Show LQL: When switch is on, LQL will be displayed, then you can click Execute LQL and jump to [Data Search](./search.md) for more flexible data analysis;
+- Show LinQL: When switch is on, LinQL will be displayed, then you can click `Execute LinQL` and jump to [Data Search](./search.md) for more flexible data analysis;
 - Metrics Area: Display the corresponding Fields/Tags and data of the selected Metrics, among which Fields/Tags are useful for further data analysis;
   - Field: required, multiple Fields are supported for querying`;
   - Filter: Filter data through Tags, optional;

@@ -16,11 +16,11 @@ Usage of ./lind-cli:
 
 At present, cli only receives one command line parameter: the endpoint of Broker's HTTP service.
 
-After connecting to the broker node, you can query the relevant status and data by LQL. Here are some simple examples.
+After connecting to the broker node, you can query the relevant status and data by LinQL. Here are some simple examples.
 
-For more details, see [LQL](lin-ql.md).
+For more details, see [LinQL](lin-ql.md).
 
-:::tip You can quickly browse the LQL executed before through the up/down direction-key.
+:::tip You can quickly browse the LinQL executed before through the up/down direction-key.
 :::
 
 ##### Cli Start-Up
