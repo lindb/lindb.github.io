@@ -10,9 +10,9 @@ LinDB is designed for high availability, high performance, query optimization, a
 components, which is suitable for medium and large-scale Internet enterprises to solve the pain-point of metric storage
 and analysis under massive data.
 
-## Main features
+## Key features
 
-The main features of LinDB are as follows:
+The key features of LinDB are as follows:
 
 - Simple for use and operate, only rely on ETCD, deployed as a binary file with stand-alone mode and cluster mode;
 - Support cluster mode, with good horizontal scalability;
