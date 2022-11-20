@@ -1,8 +1,8 @@
-# LinQL 
+# LinQL
 
 LinDB 为了让用户快速上手，提供类 SQL 语法 (LinQL) 来查询集群中的数据，同时也可以通过 LinQL 对集群或者数据库进行相关的操作。
 
-本文档主要说明 LinQL 相关的语法规则以及常用场景 LinQL 使用技巧。
+本文档主要说明 LinQL 的语法规则以及常用场景 LinQL 使用技巧。
 
 ## Database
 
@@ -90,8 +90,7 @@ show storage
 
 前提已经选中需要查询的数据库（使用 **USE** 或者通过 API 执行时指定了对应的数据库名。
 
-:::tip
-如果没有指定查询的 Namespace，使用默认 Namespace：`default-ns`
+:::tip 如果没有指定查询的 Namespace，使用默认 Namespace：`default-ns`
 :::
 
 ### 指标查询
@@ -124,7 +123,7 @@ select idle from monitor.system.cpu_stat where ip like '192.168.*' group by ip;
 /* 查询 IP 为 192.168.1.10 这台服务器 CPU 的使用率，并通过表达式转换成百分比 */
 select usage * 100.0 as usage_percent from monitor.system.cpu_stat where ip="192.168.1.10";
 
-/* 通过 SUM 函数计算最近 1 小时内订数，计算间隔为 1 分钟，即每分钟内的订单总数*/
+/* 通过 SUM 函数计算最近 1 小时内订单数，计算间隔为 1 分钟，即每分钟内的订单总数*/
 select sum(order) from order.system.monitoring where time>now()-1h group by time(1m);
 
 /* 查询 SELECT 语句执行过程的统计，如找到了多少 Series、执行步骤耗时、网络通信流量等 */
@@ -245,7 +244,7 @@ show master
 
 ### Broker
 
-查询当前集群存活的 Broker 节点信息。 
+查询当前集群存活的 Broker 节点信息。
 
 **语法规则**
 
@@ -255,7 +254,7 @@ show broker alive
 
 ### Storage
 
-查询当前集群存活的 Storage 集群，返回每个存活 Storage 的状态信息。 
+查询当前集群存活的 Storage 集群，返回每个存活 Storage 的状态信息。
 
 **语法规则**
 
@@ -277,7 +276,7 @@ show replication where storage='/lindb-cluster' and database='_internal';
 show memory database where storage='/lindb-cluster' and database='_internal';
 ```
 
-### Request 
+### Request
 
 查询当前集群中正在执行的 LinQL 语句。
 
@@ -286,7 +285,6 @@ show memory database where storage='/lindb-cluster' and database='_internal';
 ```sql:no-line-numbers
 show requests
 ```
-
 
 ### Metadata
 
@@ -418,14 +416,13 @@ show Broker|Storage metric where where_condition
 /*查询 Broker 节点的 CPU/内存使用情况*/
 show broker metric where metric in ('lindb.monitor.system.cpu_stat','lindb.monitor.system.mem_stat');
 
-/*查询 /lindb-storage 集如群下节点磁盘使用情况*/
+/*查询 /lindb-storage 集群下节点磁盘使用情况*/
 show storage metric where storage='/lindb-storage' and metric in ('lindb.monitor.system.disk_usage_stats';
 ```
 
 ## 关键字
 
-:::tip
-如果使用到了关键字作为指标名/标签/字段等命名方式，需要使用双引号。
+:::tip 如果使用到了关键字作为指标名/标签/字段等命名方式，需要使用双引号。
 :::
 
 ```:no-line-numbers
