@@ -17,4 +17,13 @@ export const zh: NavbarConfig = [
     text: '社区',
     link: '/zh/community/project-layout',
   },
+  {
+    text: '更新日志',
+    children: [
+      {
+        text: 'v0.x',
+        link: 'https://github.com/lindb/lindb/blob/main/CHANGELOG/CHANGELOG-1.0.md',
+      },
+    ],
+  },
 ]

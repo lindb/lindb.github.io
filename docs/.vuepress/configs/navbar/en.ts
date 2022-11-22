@@ -17,4 +17,13 @@ export const en: NavbarConfig = [
     text: 'Community',
     link: '/community/project-layout',
   },
+  {
+    text: 'Changelog',
+    children: [
+      {
+        text: 'v0.x',
+        link: 'https://github.com/lindb/lindb/blob/main/CHANGELOG/CHANGELOG-1.0.md',
+      },
+    ],
+  },
 ]
