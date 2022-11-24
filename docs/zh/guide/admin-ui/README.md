@@ -1,6 +1,7 @@
 # 简介
 
- Admin Console 是 LinDB 提供的图形化界面，可用于监控集群状态，及查询集群中的数据。Admin Console 内置于 LinDB 的 Broker 节点中，无需独立部署。
+Admin Console 是 LinDB 提供的图形化界面，可用于监控集群状态，及查询集群中的数据。Admin Console 内置于 LinDB 的 Broker
+节点中，无需独立部署。
 
 :::tip
 目前支持`dark`/`light`两种 UI 样式。
