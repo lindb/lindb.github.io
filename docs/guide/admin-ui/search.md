@@ -12,7 +12,7 @@ Query data from database in cluster via [LinQL](../lin-ql.md)
 
 ## Explain
 
-Analysis the execution plan and execution status of [LinQL](.. /lin-ql.md).
+Analysis the execution plan and execution status of [LinQL](../lin-ql.md).
 
 <image-window>
 
