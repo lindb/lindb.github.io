@@ -32,7 +32,7 @@ Please refer to [Data search](search.md) for more details.
 
 ## Data View
 
-View data in the cluster through the UI clickstream, and generate the corresponding [LinQL](./lin-ql.md).
+View data in the cluster through the UI clickstream, and generate the corresponding [LinQL](../lin-ql.md).
 
 Please refer to [Data Explore](explore.md) for more details.
 
