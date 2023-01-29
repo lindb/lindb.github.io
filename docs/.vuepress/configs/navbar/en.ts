@@ -7,7 +7,7 @@ export const en: NavbarConfig = [
   },
   {
     text: 'API',
-    link: '/api/openapi',
+    link: '/api/',
   },
   {
     text: 'Design',

@@ -10,7 +10,6 @@ export const en: SidebarConfig = {
         '/guide/concept.md',
         {
           text: 'Admin Console',
-          collapsible: true,
           children: [
             '/guide/admin-ui/README.md',
             '/guide/admin-ui/overview.md',
@@ -23,7 +22,6 @@ export const en: SidebarConfig = {
         '/guide/lin-ql.md',
         {
           text: 'Client',
-          collapsible: true,
           children: [
             '/guide/client/README.md',
             '/guide/client/go.md',
@@ -33,6 +31,17 @@ export const en: SidebarConfig = {
         '/guide/cli.md',
         '/guide/self-monitor.md',
         '/guide/configuration.md',
+      ],
+    },
+  ],
+  '/api/': [
+    {
+      text: 'API',
+      children: [
+        '/api/README.md',
+        '/api/lin-ql.md',
+        '/api/write.md',
+        '/api/state.md',
       ],
     },
   ],

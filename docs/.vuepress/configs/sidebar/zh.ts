@@ -10,7 +10,6 @@ export const zh: SidebarConfig = {
         '/zh/guide/concept.md',
         {
           text: 'Admin Console',
-          collapsible: true,
           children: [
             '/zh/guide/admin-ui/README.md',
             '/zh/guide/admin-ui/overview.md',
@@ -23,7 +22,6 @@ export const zh: SidebarConfig = {
         '/zh/guide/lin-ql.md',
         {
           text: 'Client',
-          collapsible: true,
           children: [
             '/zh/guide/client/README.md',
             '/zh/guide/client/go.md',
@@ -33,6 +31,17 @@ export const zh: SidebarConfig = {
         '/zh/guide/cli.md',
         '/zh/guide/self-monitor.md',
         '/zh/guide/configuration.md',
+      ],
+    },
+  ],
+  '/zh/api/': [
+    {
+      text: 'API',
+      children: [
+        '/zh/api/README.md',
+        '/zh/api/lin-ql.md',
+        '/zh/api/write.md',
+        '/zh/api/state.md',
       ],
     },
   ],

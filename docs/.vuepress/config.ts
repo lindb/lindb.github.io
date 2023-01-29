@@ -47,12 +47,6 @@ export default defineUserConfig({
         sidebar: sidebar.en,
         tocNavText: 'On this page',
       },
-      '/api/': {
-        navbar: navbar.en,
-      },
-      '/zh/api/': {
-        navbar: navbar.zh,
-      },
       '/zh/': {
         selectLanguageName: '简体中文',
         selectLanguageText: '选择语言',
