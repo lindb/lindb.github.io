@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "vuepress-cli dev docs --clean-cache",
-    "build": "vuepress-cli build docs --clean-cache --debug"
+    "build": "vuepress-cli build docs --clean-cache"
   },
   "license": "Apache-2.0",
   "repository": {
