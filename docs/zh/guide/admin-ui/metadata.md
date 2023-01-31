@@ -2,6 +2,38 @@
 
 当前集群元数据配置管理。
 
+## Broker
+
+在多机房/Region模式下，当前集群下已经注册的`Broker`集群。
+
+<image-window>
+
+![broker list](@images/guide/admin_ui/broker_list.png)
+</image-window>
+
+注册相应的`Broker`配置信息。
+
+<image-window>
+
+![create broker](@images/guide/admin_ui/create_broker.png)
+</image-window>
+
+## Logic Database
+
+当前集群下逻辑数据库列表。
+
+<image-window>
+
+![logic database list](@images/guide/admin_ui/list_logic_database.png)
+</image-window>
+
+创新或者修改对应逻辑数据库配置信息。
+
+<image-window>
+
+![create logic database](@images/guide/admin_ui/create_logic_database.png)
+</image-window>
+
 ## Storage
 
 当前集群下已经注册的`Storage`集群，每个`Storage`在启动的时候会完成自注册，正常情况不需要用户手动进行注册。
@@ -27,7 +59,7 @@
 ![database list](@images/guide/admin_ui/database_list.png)
 </image-window>
 
-创新或者修改对应数据库存配置信息。
+创新或者修改对应数据库配置信息。
 
 <image-window>
 

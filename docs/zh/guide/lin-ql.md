@@ -55,6 +55,37 @@ show schemas
 drop database database_name
 ```
 
+## Broker
+
+Broker 集群相关操作。
+
+### 创建注册 Broker 集群
+
+Broker 集群部署完成之后，需要注册到 Root 集群中才可以提供多机房/Region服务。
+
+**语法规则**
+
+```sql:no-line-numbers 
+create broker json_config
+```
+
+**示例**
+
+```sql:no-line-numbers
+/*Broker 配置信息为 JSON 格式，请注意 JSON 格式的正确性*/
+create broker {\"config\":{\"namespace\":\"/lindb-broker\",\"timeout\":10,\"dialTimeout\":10,\"leaseTTL\":10,\"endpoints\":[\"http://192.168.1.10:2379\"]}}
+```
+
+### 查询 Broker 集群
+
+查询当前存活的 Broker 集群配置信息。
+
+**语法规则**
+
+```sql:no-line-numbers
+show brokers
+```
+
 ## Storage
 
 Storage 集群相关操作。
@@ -83,7 +114,7 @@ create storage {\"config\":{\"namespace\":\"/lindb-storage\",\"timeout\":10,\"di
 **语法规则**
 
 ```sql:no-line-numbers
-show storage
+show storages
 ```
 
 ## 数据查询
@@ -242,6 +273,16 @@ show tag values from system.cpu_stat with key=ip where ip=192.168 limit 20;
 show master
 ```
 
+### Root
+
+查询当前集群存活的 Root 节点信息。
+
+**语法规则**
+
+```sql:no-line-numbers
+show root alive
+```
+
 ### Broker
 
 查询当前集群存活的 Broker 节点信息。
@@ -312,6 +353,22 @@ show metadata types
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td rowspan=3>Root</td>
+            <td>DatabaseConfig</td>
+            <td>/database/config</td>
+            <td>逻辑数据库配置信息，每个 Root 节点需要同步所有逻辑数据库的配置</td>
+        </tr>
+        <tr>
+            <td>LiveNode</td>
+            <td>/live/nodes</td>
+            <td>当前存活 Root 节点</td>
+        </tr>
+        <tr>
+            <td>BrokerState</td>
+            <td>BrokerState</td>
+            <td>当前存活 Broker 集群状态</td>
+        </tr>
         <tr>
             <td rowspan=3>Broker</td>
             <td>DatabaseConfig</td>
@@ -398,6 +455,9 @@ show Broker metadata from state_repo where type='StorageState';
 /*示例 4: Broker 节点状态机中实际的 Storage 集群的状态信息，
   可以与 *示例 3* 的结果进行对比，以查询集群协调是否正确 */
 show Broker metadata from state_machine where type='StorageState';
+
+/*示例 5: Root 节点应该读取到 Broker 集群的状态信息 */
+show Root metadata from state_machine where type='BrokerState' and broker='/lindb-broker';
 ```
 
 ## 自监控指标
@@ -407,12 +467,15 @@ show Broker metadata from state_machine where type='StorageState';
 **语法规则**
 
 ```sql:
-show Broker|Storage metric where where_condition
+show Root|Broker|Storage metric where where_condition
 ```
 
 **示例**
 
 ```sql:
+/*查询 Root 节点的 CPU/内存使用情况*/
+show root metric where metric in ('lindb.monitor.system.cpu_stat','lindb.monitor.system.mem_stat');
+
 /*查询 Broker 节点的 CPU/内存使用情况*/
 show broker metric where metric in ('lindb.monitor.system.cpu_stat','lindb.monitor.system.mem_stat');
 
@@ -426,20 +489,21 @@ show storage metric where storage='/lindb-storage' and metric in ('lindb.monitor
 :::
 
 ```:no-line-numbers
-ALIVE          AND            AS             ASC            AVG            BETWEEN
-BROKER         BY             COUNT          CREATE         DATASBAE       DATASBAES
-DAY            DESC           DROP           EXPLAIN        FIELD          FIELDS
-FILL           FIRST          FOR            FROM           FUTURE_TTL     GROUP
-HAVING         HOUR           ID             IN             INFO           INTERVAL
-INTERVAL_NAME  IS             KEY            KEYS           KILL           LAST
-LIKE           LIMIT          LOG            MASTER         MAX            MEMORY
-METADATA       META_TTL       METRIC         METRICS        MIN            MINUTE
-MONTH          NAMESPACE      NAMESPACES     NODE           NOT            NOW
-NULL           ON             OR             ORDER          PASTTL         PREVIOUS
-PROFILE        QUANTILE       QUERIES        QUERY          RATE           REPLICATION
-REQUEST        REQUESTS       SCHEMAS        SECOND         SELECT         SET
-SHARD          SHOW           STATE_MACHINE  STATE_REPO     STATS          STDDEV
-STORAGE        STORAGES       SUM            TAG            TIME           TTL
-TYPE           TYPES          UPDATE         USE            VALUE          VALUES
-WEEK           WHERE          WITH           WITH_VALUE     YEAR
+ALIVE          AND            AS             ASC            AVG            BETWEEN        
+BROKER         BROKERS        BY             COUNT          CREATE         DATASBAE       
+DATASBAES      DAY            DESC           DROP           EXPLAIN        FIELD          
+FIELDS         FILL           FIRST          FOR            FROM           FUTURE_TTL     
+GROUP          HAVING         HOUR           ID             IN             INFO           
+INTERVAL       INTERVAL_NAME  IS             KEY            KEYS           KILL           
+LAST           LIKE           LIMIT          LOG            MASTER         MAX            
+MEMORY         METADATA       META_TTL       METRIC         METRICS        MIN            
+MINUTE         MONTH          NAMESPACE      NAMESPACES     NODE           NOT            
+NOW            NULL           ON             OR             ORDER          PASTTL         
+PREVIOUS       PROFILE        QUANTILE       QUERIES        QUERY          RATE           
+REPLICATION    REQUEST        REQUESTS       ROOT           SCHEMAS        SECOND         
+SELECT         SET            SHARD          SHOW           STATE_MACHINE  STATE_REPO     
+STATS          STDDEV         STORAGE        STORAGES       SUM            TAG            
+TIME           TTL            TYPE           TYPES          UPDATE         USE            
+VALUE          VALUES         WEEK           WHERE          WITH           WITH_VALUE     
+YEAR           
 ```

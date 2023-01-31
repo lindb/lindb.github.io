@@ -8,7 +8,7 @@
       <Page v-else :key="page.path" />
     </template>
   </ParentLayout>
-  <div class="lin-footer">
+  <div class="lin-footer" v-if="!frontmatter.home">
     <div class="text">
       Copyright © {{new Date().getFullYear()}} LinDB. All Rights Reserved.
     </div>

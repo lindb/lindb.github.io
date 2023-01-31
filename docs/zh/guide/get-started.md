@@ -175,10 +175,62 @@ $ lind storage run --config=storage.toml --myid=1
 myid 的设计思路类似 zookeeper 的 myid。
 :::
 
-4. 通过任意一台 Broker 节点地址 [http://192.168.1.10:9000](http://127.0.0.1:9000) 访问 LinDB Admin Console
-   界面来查看整体状态等，[更多 Admin Console 请参考](admin-ui/README.md)；
+4. 通过任意一台 Broker 节点地址 [http://192.168.1.10:9000](http://192.168.1.10:9000) 访问 LinDB Admin Console 界面来查看整体状态等，[更多 Admin Console 请参考](admin-ui/README.md)；
 
 5. 同时也可以通过 Lin Cli 来查询状态及集群内数据，[更多 Cli 请参考](cli.md)；
+
+## 多机房/Region模式
+
+相对于集群模式，多机房/Region模式多了一个 `Root` 集群，用于查询汇聚各机房/Region所在集群中的数据，
+
+下面主要介绍 `Root` 集群的部署。
+
+1. 部署 ETCD，[具体 ETCD 安装请参考](https://etcd.io/docs/v3.5/install/)。
+
+2. 部署 Root，相关命令行参数如下。
+
+```sh:no-line-numbers
+$ bin/lind root 
+Run as a root compute node with multi idc/regions mode enabled
+
+Usage:
+  lind root [command]
+
+Available Commands:
+  init-config create a new default root-config
+  run         starts the root
+
+Flags:
+  -h, --help   help for root
+
+Use "lind root [command] --help" for more information about a command.
+```
+
+- [下载默认配置文件](https://github.com/lindb/lindb/blob/main/config/root.toml.example)，或者通过下面命令生成默认配置文件。
+
+```sh:no-line-numbers
+$ lind root init-config
+```
+
+- 修改配置参数，主要修改 ETCD 地址，其他可以使用默认配置，也可以根据实际场景进行修改。
+
+```toml:no-line-numbers
+[coordinator]
+## ETCD 注册 namespace
+namespace = "/lindb-root"
+## ETCD 地址
+endpoints = ["http://192.168.1.10:2379","http://192.168.1.11:2379","http://192.168.1.12:2379"]
+.......
+```
+
+- 启动 root。
+
+```sh:no-line-numbers
+$ lind root run --config=root.toml
+```
+- 通过任意一台 Root 节点地址 [http://192.168.1.10:3000](http://i192.168.1.10:3000) 访问 LinDB Admin Console 界面来查看整体状态等，[更多 Admin Console 请参考](admin-ui/README.md)；
+- 配置注册各机房/Region的 Broker 集群，[更多请参考](admin-ui/metadata.md#broker)；
+- 配置逻辑数据库，[更多请参考](admin-ui/metadata.md#logic-database)；
 
 ## 源码编译
 

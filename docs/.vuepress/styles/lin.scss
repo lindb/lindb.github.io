@@ -45,11 +45,14 @@
     min-height: calc(100vh - 50px);
 }
 .lin-footer{
-    text-align: center;
     font-size: 14px;
     height: 48px;
+	display: flex;
+	width: 100%;
+	justify-content: center;
     
     .text{
+    	text-align: center;
         padding-top: 16px;
     }
 }

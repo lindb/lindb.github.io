@@ -1,10 +1,100 @@
 # 配置参数
 
-LinDB 采用 TOML 格式作为服务配置文件，Broker 与 Storage 使用不同的配置，以下分别介绍对应的每个参数含义。
+LinDB 采用 TOML 格式作为服务配置文件，`Root`/`Broker`/`Storage` 使用不同的配置，以下分别介绍对应的每个参数含义。
+
+## Root 
+
+可以在 [config/root.toml.example](https://github.com/lindb/lindb/tree/main/config/root.toml.example) 找到默认值的配置文件，重命名为 root.toml 即可作为 `Root` 启动参数文件。
+
+```toml
+## 状态存储及协调状态相关配置参数
+[coordinator]
+## ETCD 中存储的 Namespace，通过 Namespace 来隔离各组件的元数据
+## 默认值：/lindb-cluster
+namespace = "/lindb-broker"
+## ETCD 地址
+## 默认值：["http://localhost:2379"]
+endpoints = ["http://localhost:2379"]
+## 类似 Zookeeper 临时节点租约超时时间，不能小于 5s
+## 默认值：10s
+lease-ttl = "10s"
+## 处理 ETCD 相关指令超时时间
+## 默认值：5s
+timeout = "5s"
+## ETCD 连接超时时间
+## 默认值：5s
+dial-timeout = "5s"
+## ETCD 认证用户名
+## 默认值：""
+username = ""
+## ETCD 认证密码
+## 默认值：""
+password = ""
+
+## 通用查询相关配置参数
+[query]
+## 查询请求最大处理并发数
+## 默认值：runtime.GOMAXPROCS(-1) * 2
+query-concurrency = 16
+## 查询处理协程空闲时间，超过空闲时间协程将被回收
+## 默认值：5s
+idle-timeout = "5s"
+## 查询超时时间
+## 默认值：5s
+timeout = "5s"
+
+## Root HTTP Server 相关配置参数
+[http]
+## Default: 5s
+read-timeout = "5s"
+## HTTP Server 监听端口
+## 默认值：3000
+port = 3000
+## 最大连接空闲时间
+## 默认值：2m
+idle-timeout = "2m0s"
+## 写请求响应超时时间
+## 默认值：5s
+write-timeout = "5s"	
+## 读请求超时时间
+## 默认值：5s
+read-timeout = "5s"
+
+## 自监控相关配置参数
+[monitor]
+## 通过 HTTP 方式上报指标超时时间
+## 默认值：3s
+push-timeout = "3s"
+## Default: 10s
+## 监控数据(cpu/memory/disk/process/go runtime等)采集上报间隔，设置为 0 时不上报监控数据
+## 默认值：10s
+report-interval = "10s"
+## 监控指标上报地址(Broker写入地址)
+## 默认值：http://127.0.0.1:9000/api/flat/write?db=_internal
+url = "http://127.0.0.1:9000/api/flat/write?db=_internal"
+
+## 日志相关配置参数
+[logging]
+## 日志存储目录
+## 默认值：/tmp/lindb/log
+dir = "/tmp/lindb/log"
+## 日志级别，对应的参数值：error/warn/info/debug
+## 默认值：info
+level = "info"
+## 单个日志文件大小
+## 默认值：100 MiB.
+maxsize = "100 MiB"
+## 保留多少个旧日志文件
+## 默认值：3
+maxbackups = 3
+## 保留多少天以前的日志文件，单位：天
+## 默认值：7
+maxage = 7
+```
 
 ## Broker
 
-可以在 [config/broker.toml.example](https://github.com/lindb/lindb/tree/main/config/broker.toml.example) 找到默认值的配置文件，重命名为 broker.toml 即可作为 Broker 启动参数文件。
+可以在 [config/broker.toml.example](https://github.com/lindb/lindb/tree/main/config/broker.toml.example) 找到默认值的配置文件，重命名为 broker.toml 即可作为 `Broker` 启动参数文件。
 
 ```toml
 ## 状态存储及协调状态相关配置参数
@@ -128,7 +218,7 @@ maxage = 7
 
 ## Storage
 
-可以在 [config/storage.toml.example](https://github.com/lindb/lindb/tree/main/config/storage.toml.example) 找到默认值的配置文件，重命名为 storage.toml 即可作为 Storage 启动参数文件。
+可以在 [config/storage.toml.example](https://github.com/lindb/lindb/tree/main/config/storage.toml.example) 找到默认值的配置文件，重命名为 storage.toml 即可作为 `Storage` 启动参数文件。
 
 ```toml
 ## 状态存储及协调状态相关配置参数

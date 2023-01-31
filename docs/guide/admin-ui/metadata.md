@@ -2,9 +2,40 @@
 
 Cluster metadata configuration management.
 
+## Broker
+
+For the `Broker` cluster that has been registered under multiple IDCs/Regions mode.
+<image-window>
+
+![broker list](@images/guide/admin_ui/broker_list.png)
+</image-window>
+
+Register `Broker` cluster.
+
+<image-window>
+
+![create broker](@images/guide/admin_ui/create_broker.png)
+</image-window>
+
+## Logic Database
+
+Logic Databases in Cluster
+
+<image-window>
+
+![logic database list](@images/guide/admin_ui/list_logic_database.png)
+</image-window>
+
+Update or edit configuration of corresponding logic database
+
+<image-window>
+
+![create logic database](@images/guide/admin_ui/create_logic_database.png)
+</image-window>
+
 ## Storage
 
-For the 'Storage' cluster that has been registered, each 'Storage' node will do
+For the `Storage` cluster that has been registered, each `Storage` node will do
 self-registration when it's started, users doesn't need to register manually.
 
 <image-window>
@@ -12,7 +43,7 @@ self-registration when it's started, users doesn't need to register manually.
 ![storage list](@images/guide/admin_ui/storage_list.png)
 </image-window>
 
-When the 'Storage' self-registration fails, you can perform manual registration.
+When the `Storage` self-registration fails, you can perform manual registration.
 
 <image-window>
 
@@ -37,7 +68,7 @@ Update or edit configuration of corresponding database
 
 ## Explore
 
-Browse each configuration of current cluster in 'ETCD', click the 'Compare' button to
+Browse each configuration of current cluster in `ETCD`, click the `Compare` button to
 view state machine in memory.
 
 <image-window>

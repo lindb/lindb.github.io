@@ -38,3 +38,5 @@ tagline: null
     summary="支持秒级数据写入后自动Rollup到分钟、小时和天的粒度，无需人工介入（如 InfluxDB Continuous-Query）。"/>
 
 </intro-list>
+ 
+<lin-footer/>

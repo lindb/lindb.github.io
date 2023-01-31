@@ -186,11 +186,67 @@ There are 2 ways to set myid:
 The design idea of myid is similar to that of zookeeper.
 :::
 
-4. Access LinDB Admin Console at [http://192.168.1.10:9000](http://127.0.0.1:9000)
+4. Access LinDB Admin Console at [http://192.168.1.10:9000](http://192.168.1.10:9000)
    The interface is used to view the overall status. [For more Admin Console, please refer to](admin-ui/README.md);
 
 5. At the same time, you can also query the status and data in the cluster through Lin
    Cli. [For more Cli, please refer to](cli.md);
+
+## Multiple IDCs/Regions Mode
+
+Compared with the cluster mode, the multiple IDCs/Regions mode has an additional `Root` cluster, which is used to query and aggregate data in each IDC/Region. 
+
+The following mainly introduces the deployment of the `Root` cluster.
+
+**1. Deploy ETCD，[For more ETCD details, refer to](https://etcd.io/docs/v3.5/install/)**
+
+**2. Deploy Root.**
+
+```sh:no-line-numbers
+$ bin/lind root 
+Run as a root compute node with multi idc/regions mode enabled
+
+Usage:
+  lind root [command]
+
+Available Commands:
+  init-config create a new default root-config
+  run         starts the root
+
+Flags:
+  -h, --help   help for root
+
+Use "lind root [command] --help" for more information about a command.
+```
+
+- [Download Default Config](https://github.com/lindb/lindb/blob/main/config/root.toml.example). Or you can generate a
+  new config example by next command.
+
+```sh:no-line-numbers
+$ lind root init-config
+```
+
+- Edit config，such as ETCD address and others according to the actual scenario.
+
+```toml:no-line-numbers
+[coordinator]
+## ETCD register namespace
+namespace = "/lindb-root"
+## ETCD address
+endpoints = ["http://192.168.1.10:2379","http://192.168.1.11:2379","http://192.168.1.12:2379"]
+.......
+```
+
+- Start Root.
+
+```sh:no-line-numbers
+$ lind root run --config=root.toml
+```
+
+- Access LinDB Admin Console at [http://192.168.1.10:3000](http://192.168.1.10:3000)
+   The interface is used to view the overall status. [For more Admin Console, please refer to](admin-ui/README.md);
+- Register Broker cluster，[please refer to](admin-ui/metadata.md#broker);
+- Configure logic database，[please refer to](admin-ui/metadata.md#logic-database);
 
 ## Compile
 

@@ -54,6 +54,35 @@ Delete database configuration and data in Storage cluster
 drop database database_name
 ```
 
+## Broker
+
+### Create Broker Cluster
+
+After deployment of Broker cluster, it should be registered to the Root cluster for providing multiple IDCs/Regions services.
+
+**Syntax**
+
+```sql:no-line-numbers
+create broker json_config
+```
+
+**Example**
+
+```sql:no-line-numbers
+/*Broker Configuration in JSON format*/
+create broker {\"config\":{\"namespace\":\"/lindb-broker\",\"timeout\":10,\"dialTimeout\":10,\"leaseTTL\":10,\"endpoints\":[\"http://192.168.1.10:2379\"]}}
+```
+
+### Show Brker Cluster
+
+Get configuration of current alive Broker cluster
+
+**Syntax**
+
+```sql:no-line-numbers
+show brokers
+```
+
 ## Storage
 
 ### Create Storage Cluster
@@ -83,7 +112,7 @@ Get configuration of current alive Storage cluster
 **Syntax**
 
 ```sql:no-line-numbers
-show storage
+show storages
 ```
 
 ## Query Data
@@ -243,6 +272,16 @@ query status of current master node
 show master
 ```
 
+### Root
+
+query status of alive roots of current cluster
+
+**Syntax**
+
+```sql:no-line-numbers
+show root alive
+```
+
 ### Broker
 
 query status of alive brokers of current cluster
@@ -316,6 +355,22 @@ refer to [Cluster Coordination](../design/coordinator.md)。
     </thead>
     <tbody>
         <tr>
+            <td rowspan=3>Root</td>
+            <td>DatabaseConfig</td>
+            <td>/database/config</td>
+            <td>Logic Database Configuration synced by each Root node</td>
+        </tr>
+        <tr>
+            <td>LiveNode</td>
+            <td>/live/nodes</td>
+            <td>Current Alive Root Node</td>
+        </tr>
+        <tr>
+            <td>BrokerState</td>
+            <td>BrokerState</td>
+            <td>Status of Current Broker Cluster</td>
+        </tr>
+        <tr>
             <td rowspan=3>Broker</td>
             <td>DatabaseConfig</td>
             <td>/database/config</td>
@@ -329,7 +384,7 @@ refer to [Cluster Coordination](../design/coordinator.md)。
         <tr>
             <td>StorageState</td>
             <td>/storage/state</td>
-            <td>Status of Current Storage Nodes</td>
+            <td>Status of Current Storage Cluster</td>
         </tr>
         <tr>
             <td rowspan=5>Master</td>
@@ -402,6 +457,9 @@ show Broker metadata from state_repo where type='StorageState';
 /*4: GET Metdata of Storage Cluster in Broker's State Machine,
   comparsion with 3 to check coordination */
 show Broker metadata from state_machine where type='StorageState';
+
+/*5: GET State of Storage Cluster in Root's State Machine */
+show Root metadata from state_machine where type='BrokerState' and broker='/lindb-broker';
 ```
 
 ## Self Monitoring
@@ -411,12 +469,15 @@ get statistics metrics of nodes in current Clusters
 **Syntax**
 
 ```sql:
-show Broker|Storage metric where where_condition
+show Root|Broker|Storage metric where where_condition
 ```
 
 **Example**
 
 ```sql:
+/*get Root's CPU/Memory Stats*/
+show root metric where metric in ('lindb.monitor.system.cpu_stat','lindb.monitor.system.mem_stat');
+
 /*get Broker's CPU/Memory Stats*/
 show broker metric where metric in ('lindb.monitor.system.cpu_stat','lindb.monitor.system.mem_stat');
 
@@ -430,20 +491,21 @@ show storage metric where storage='/lindb-storage' and metric in ('lindb.monitor
 :::
 
 ```:no-line-numbers
-ALIVE          AND            AS             ASC            AVG            BETWEEN
-BROKER         BY             COUNT          CREATE         DATASBAE       DATASBAES
-DAY            DESC           DROP           EXPLAIN        FIELD          FIELDS
-FILL           FIRST          FOR            FROM           FUTURE_TTL     GROUP
-HAVING         HOUR           ID             IN             INFO           INTERVAL
-INTERVAL_NAME  IS             KEY            KEYS           KILL           LAST
-LIKE           LIMIT          LOG            MASTER         MAX            MEMORY
-METADATA       META_TTL       METRIC         METRICS        MIN            MINUTE
-MONTH          NAMESPACE      NAMESPACES     NODE           NOT            NOW
-NULL           ON             OR             ORDER          PASTTL         PREVIOUS
-PROFILE        QUANTILE       QUERIES        QUERY          RATE           REPLICATION
-REQUEST        REQUESTS       SCHEMAS        SECOND         SELECT         SET
-SHARD          SHOW           STATE_MACHINE  STATE_REPO     STATS          STDDEV
-STORAGE        STORAGES       SUM            TAG            TIME           TTL
-TYPE           TYPES          UPDATE         USE            VALUE          VALUES
-WEEK           WHERE          WITH           WITH_VALUE     YEAR
+ALIVE          AND            AS             ASC            AVG            BETWEEN        
+BROKER         BROKERS        BY             COUNT          CREATE         DATASBAE       
+DATASBAES      DAY            DESC           DROP           EXPLAIN        FIELD          
+FIELDS         FILL           FIRST          FOR            FROM           FUTURE_TTL     
+GROUP          HAVING         HOUR           ID             IN             INFO           
+INTERVAL       INTERVAL_NAME  IS             KEY            KEYS           KILL           
+LAST           LIKE           LIMIT          LOG            MASTER         MAX            
+MEMORY         METADATA       META_TTL       METRIC         METRICS        MIN            
+MINUTE         MONTH          NAMESPACE      NAMESPACES     NODE           NOT            
+NOW            NULL           ON             OR             ORDER          PASTTL         
+PREVIOUS       PROFILE        QUANTILE       QUERIES        QUERY          RATE           
+REPLICATION    REQUEST        REQUESTS       ROOT           SCHEMAS        SECOND         
+SELECT         SET            SHARD          SHOW           STATE_MACHINE  STATE_REPO     
+STATS          STDDEV         STORAGE        STORAGES       SUM            TAG            
+TIME           TTL            TYPE           TYPES          UPDATE         USE            
+VALUE          VALUES         WEEK           WHERE          WITH           WITH_VALUE     
+YEAR           
 ```

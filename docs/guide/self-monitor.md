@@ -2,11 +2,11 @@
 
 Each component of LinDB provides self-monitoring metrics to help users understand running status.
 
-By default, LinDB regularly stores latest self-monitoring metric data into the '_internal' database.
+By default, LinDB regularly stores latest self-monitoring metric data into the `_internal` database.
 
 There are several types of metrics as below
 
-- [General](#General): General metrics, such as CPU, Mem, network, etc., applicable to Broker, Storage;
+- [General](#General): General metrics, such as CPU, Mem, network, etc., applicable to Root, Broker, Storage;
 - [Broker](#Broker): Broker internal monitoring metrics;
 - [Storage](#Storage): Storage internal monitoring metrics;
 
@@ -483,7 +483,7 @@ distinguish storage clusters, 'namespace' has been added to the metric under Sto
 	</tbody>
 </table>
 
-## Broker
+### Coordinator
 
 <table>
     <thead>
@@ -496,8 +496,8 @@ distinguish storage clusters, 'namespace' has been added to the metric under Sto
     </thead>
 	<tbody>
 		<tr>
-			<td rowspan=3>lindb.broker.state_manager</td>
-			<td rowspan=3>type</td>
+			<td rowspan=3>lindb.coordinator.state_manager</td>
+			<td rowspan=3>type,coordinator</td>
 			<td>handle_events</td>
 			<td>handle coordinator event success count</td>
 		</tr>
@@ -509,6 +509,78 @@ distinguish storage clusters, 'namespace' has been added to the metric under Sto
 			<td>panics</td>
 			<td>panic count whne handle coordinator event</td>
 		</tr>
+	</tbody>
+</table>
+
+### Query
+
+Applicable to Root, Broker.
+
+<table>
+    <thead>
+        <tr>
+            <th>Metric Name</th>
+            <th>Tags</th>
+            <th>Fields</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+	<tbody>
+		<tr>
+			<td rowspan=5>lindb.query</td>
+			<td rowspan=5>-</td>
+			<td>created_tasks</td>
+			<td>create query tasks</td>
+		</tr>
+		<tr>
+			<td>alive_tasks</td>
+			<td>current executing tasks(alive)</td>
+		</tr>
+		<tr>
+			<td>expire_tasks</td>
+			<td>task expire, long-term no response</td>
+		</tr>
+		<tr>
+			<td>emitted_responses</td>
+			<td>emit response to parent node</td>
+		</tr>
+		<tr>
+			<td>omitted_responses</td>
+			<td>omit response because task evicted</td>
+		</tr>
+		<tr>
+			<td rowspan=4>lindb.task.transport</td>
+			<td rowspan=4>-</td>
+			<td>sent_requests</td>
+			<td>send request successfully</td>
+		</tr>
+		<tr>
+			<td>sent_requests_failures</td>
+			<td>send request failure</td>
+		</tr>
+		<tr>
+			<td>sent_responses</td>
+			<td>send response successfully</td>
+		</tr>
+		<tr>
+			<td>sent_responses_failures</td>
+			<td>send response successfully</td>
+		</tr>
+	</tbody>
+</table>
+
+## Broker
+
+<table>
+    <thead>
+        <tr>
+            <th>Metric Name</th>
+            <th>Tags</th>
+            <th>Fields</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+	<tbody>
 		<tr>
 			<td rowspan=2>lindb.master.shard.leader</td>
 			<td rowspan=2>-</td>
@@ -678,44 +750,6 @@ distinguish storage clusters, 'namespace' has been added to the metric under Sto
 			<td>leader_changed</td>
 			<td>shard leader changed</td>
 		</tr>
-		<tr>
-			<td rowspan=9>lindb.broker.query</td>
-			<td rowspan=9>-</td>
-			<td>created_tasks</td>
-			<td>create query tasks</td>
-		</tr>
-		<tr>
-			<td>alive_tasks</td>
-			<td>current executing tasks(alive)</td>
-		</tr>
-		<tr>
-			<td>expire_tasks</td>
-			<td>task expire, long-term no response</td>
-		</tr>
-		<tr>
-			<td>emitted_responses</td>
-			<td>emit response to parent node</td>
-		</tr>
-		<tr>
-			<td>omitted_responses</td>
-			<td>omit response because task evicted</td>
-		</tr>
-		<tr>
-			<td>sent_requests</td>
-			<td>send request successfully</td>
-		</tr>
-		<tr>
-			<td>sent_requests_failures</td>
-			<td>send request failure</td>
-		</tr>
-		<tr>
-			<td>sent_responses</td>
-			<td>send response successfully</td>
-		</tr>
-		<tr>
-			<td>sent_responses_failures</td>
-			<td>send response successfully</td>
-		</tr>
 	</tbody>
 </table>
 
@@ -731,20 +765,6 @@ distinguish storage clusters, 'namespace' has been added to the metric under Sto
         </tr>
     </thead>
 	<tbody>
-		<tr>
-			<td rowspan=3>lindb.storage.state_manager</td>
-			<td rowspan=3>type</td>
-			<td>handle_events</td>
-			<td>handle coordinator event success count</td>
-		</tr>
-		<tr>
-			<td>handle_event_failures</td>
-			<td>handle coordinator event failure count</td>
-		</tr>
-		<tr>
-			<td>panics</td>
-			<td>panic count whne handle coordinator event</td>
-		</tr>
 		<tr>
 			<td rowspan=6>lindb.storage.wal</td>
 			<td rowspan=6>db<br/>shard</td>

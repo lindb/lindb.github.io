@@ -5,7 +5,7 @@ the data in the cluster. The Admin Console is built into LinDB's broker
 node, no independent deployment is required.
 
 :::tip
-The 'dark'/'light' UI styles are currently supported.
+The `dark`/`light` UI styles are currently supported.
 :::
 <image-window>
 
