@@ -24,7 +24,7 @@ LinDB 分布式时间序列数据库采用了计算、存储分离的设计，�
 - Storage Layer: Storage;
 - Metadata/Schedule Layout: ETCD;
 
-![architecture](../../assets/images/design/architecture.png)
+![architecture](@images/design/architecture.png)
 
 ## 适用场景
 

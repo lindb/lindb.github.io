@@ -10,6 +10,10 @@
 - application/protobuf
 - application/influx
 
+支持 `content-encoding` 如下；
+
+- gzip
+
 建议 [LinDB client](../guide/client/) 写数据。
 
 ```plaintext

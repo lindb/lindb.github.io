@@ -10,6 +10,10 @@ Support `content-type` as below:
 - application/protobuf
 - application/influx
 
+Support `content-encoding` as below:
+
+- gzip
+
 Recommend to use [LinDB client](../guide/client/) write data.
 
 ```plaintext
