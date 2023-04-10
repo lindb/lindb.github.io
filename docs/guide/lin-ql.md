@@ -156,6 +156,9 @@ select usage * 100.0 as usage_percent from monitor.system.cpu_stat where ip="192
 /* select orders of the last one hour with interval(1 minute)*/
 select sum(order) from order.system.monitoring where time>now()-1h group by time(1m);
 
+/* select total orders of the last one hour with interval(1 hour, based on query time range), return one data point*/
+select sum(order) from order.system.monitoring where time>now()-1h group by time();
+
 /* show statistics of processing select query, such as how many Series were found、time-cost of each steps、network traffic */
 explain select sum(order) from order.system.monitoring where time>now()-1h group by time(1m);
 ```
@@ -164,7 +167,7 @@ explain select sum(order) from order.system.monitoring where time>now()-1h group
 
 use **Show** to query meta of metrics
 
-### Namespace
+#### Namespace
 
 get namespaces of this cluster
 

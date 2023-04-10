@@ -157,6 +157,9 @@ select usage * 100.0 as usage_percent from monitor.system.cpu_stat where ip="192
 /* 通过 SUM 函数计算最近 1 小时内订单数，计算间隔为 1 分钟，即每分钟内的订单总数*/
 select sum(order) from order.system.monitoring where time>now()-1h group by time(1m);
 
+/* 通过 SUM 函数计算最近 1 小时内订单数，计算间隔为 1小时，即最近一小时的订单总数，返回一个数据点*/
+select sum(order) from order.system.monitoring where time>now()-1h group by time();
+
 /* 查询 SELECT 语句执行过程的统计，如找到了多少 Series、执行步骤耗时、网络通信流量等 */
 explain select sum(order) from order.system.monitoring where time>now()-1h group by time(1m);
 ```
