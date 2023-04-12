@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunklindb_doc=self.webpackChunklindb_doc||[]).push([[1902],{1902:(e,d,n)=>{n.r(d),n.d(d,{default:()=>l});var s=n(6252);const c={class:"image-window"},i={},l=(0,n(3744).Z)(i,[["render",function(e,d){return(0,s.wg)(),(0,s.iD)("div",c,[(0,s.WI)(e.$slots,"default")])}]])}}]);
