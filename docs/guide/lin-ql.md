@@ -24,6 +24,47 @@ create database json_config
 create database {\"option\":{\"intervals\":[{\"interval\":\"10s\",\"retention\":\"30d\"},{\"interval\":\"5m\",\"retention\":\"3M\"},{\"interval\":\"1h\",\"retention\":\"2y\"}],\"autoCreateNS\":true,\"behead\":\"1h\",\"ahead\":\"1h\"},\"name\":\"system_monitor\",\"storage\":\"/lindb-storage\",\"numOfShard\":3,\"replicaFactor\":2}
 ```
 
+Example: create a database named `system_monitor`, allocate 3 shards and 2 replicas to store in `/lindb-storage` storage cluster.
+```json:no-line-numbers
+{
+   "name":"system_monitor",
+   "storage":"/lindb-storage",
+   "numOfShard":3,
+   "replicaFactor":2,
+   "option":{
+      "intervals":[
+         {
+            "interval":"10s",
+            "retention":"30d"
+         },
+         {
+            "interval":"5m",
+            "retention":"3M"
+         },
+         {
+            "interval":"1h",
+            "retention":"2y"
+         }
+      ],
+      "autoCreateNS":true,
+      "behead":"1h",
+      "ahead":"1h"
+   }
+}
+```
+
+Configuration field description.
+
+| Field | Description |
+| ------- | -------- |
+| name | Required, database name |
+| storage | Required, Storage cluster(Storage Namespace) |
+| numOfShard | Required, number of shards |
+| replicaFactor | Required, number of replicas for each shard |
+| option.intervals | Required, data storage calculation period and storage ttl, max length is 3(Day/Month/Year) |
+| option.behead | How long in the past data can be written |
+| option.ahead | How long in the future data can be written |
+
 ### Show Database
 
 Get all database names of current cluster

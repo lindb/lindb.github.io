@@ -25,6 +25,48 @@ create database json_config
 create database {\"option\":{\"intervals\":[{\"interval\":\"10s\",\"retention\":\"30d\"},{\"interval\":\"5m\",\"retention\":\"3M\"},{\"interval\":\"1h\",\"retention\":\"2y\"}],\"autoCreateNS\":true,\"behead\":\"1h\",\"ahead\":\"1h\"},\"name\":\"system_monitor\",\"storage\":\"/lindb-storage\",\"numOfShard\":3,\"replicaFactor\":2}
 ```
 
+下面这个例子是创建一个数据库名为 `system_monitor`，分配 3 个分片 2 个副本存储在 `/lindb-storage` 这个存储集群中。
+
+```json:no-line-numbers
+{
+   "name":"system_monitor",
+   "storage":"/lindb-storage",
+   "numOfShard":3,
+   "replicaFactor":2,
+   "option":{
+      "intervals":[
+         {
+            "interval":"10s",
+            "retention":"30d"
+         },
+         {
+            "interval":"5m",
+            "retention":"3M"
+         },
+         {
+            "interval":"1h",
+            "retention":"2y"
+         }
+      ],
+      "autoCreateNS":true,
+      "behead":"1h",
+      "ahead":"1h"
+   }
+}
+```
+
+各字段说明
+
+| Field | Description |
+| ------- | -------- |
+| name | 必填，数据库名 |
+| storage | 必填，Storage 集群，对应其 Namespace |
+| numOfShard | 必填，分片数 |
+| replicaFactor | 必填，每个分片的副本数 |
+| option.intervals | 必填，数据存储计算周期及存储时长，最多可以填3个分别对应 Day/Month/Year |
+| option.behead | 在过去多久的数据可以写入 |
+| option.ahead | 在未来多久的数据可以写入 |
+
 ### 查询数据库名
 
 查询当前集群下所有的数据库名。
