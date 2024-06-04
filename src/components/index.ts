@@ -1,0 +1,10 @@
+export * from "./Sidebar";
+export * from "./BackgroundBeams";
+export * from "./DocsFooter";
+export * from "./Navbar";
+export * from "./TabBar";
+export * from "./Footer";
+export { CodeSnippet } from "./Snippet";
+export * from "./Heading";
+export * from "./DocHeader";
+export * from "./DocContainer";

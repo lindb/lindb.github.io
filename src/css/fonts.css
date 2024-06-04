@@ -1,0 +1,36 @@
+@font-face {
+  font-weight: 100 900;
+  font-family: "Inter var";
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-weight: 100 900;
+  font-family: "Inter var";
+  font-style: italic;
+  font-display: block;
+}
+
+@font-face {
+  font-weight: 300 700;
+  font-family: "Fira Code VF";
+  font-style: normal;
+}
+
+.font-mono {
+  font-variant-ligatures: none;
+}
+
+@font-face {
+  font-weight: 400;
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-weight: 700;
+  font-family: "Ubuntu Mono";
+  font-style: normal;
+}

@@ -1,15 +1,41 @@
 {
-  "compilerOptions": {
-	  "allowSyntheticDefaultImports": true,
-    "lib": ["DOM", "ES2020"],
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "noEmitOnError": true,
-    "noImplicitAny": false,
-    "skipLibCheck": true,
-    "target": "ES2020",
-    "baseUrl": "./docs/.vuepress",
-	  "types": ["vite/client","vue"]
-  },
-  "include": ["./docs/.vuepress"]
+	"compilerOptions": {
+		"lib": [
+			"dom",
+			"dom.iterable",
+			"esnext"
+		],
+		"noImplicitAny": false,
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"incremental": true,
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"paths": {
+			"@site/*": [
+				"./src/*"
+			]
+		}
+	},
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		"dist/types/**/*.ts"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }

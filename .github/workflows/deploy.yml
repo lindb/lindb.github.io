@@ -19,62 +19,42 @@ jobs:
     # Type of runner that this job wil run on -> Linux Ubuntu
     runs-on: ubuntu-latest
 
-    # Define which node version to use in the runner.
-    # Use node version 14.15.0, latest Node LTS version
     strategy:
       matrix:
-        node-version: [14.15.0]
+        node-version: [18.x]
 
     # Steps that are part of the build_and_deploy job
     # Steps represent a sequence of tasks that will be executed
     steps:
       # Action that will checkout repository so the workflow can
       # access the codebase
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: main
-
-        # Action allowing caching of node_modules to improve
-        # workflow execution time
-        # {{runner.os}} will use defined runner 'ubuntu-latest'
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name}}-${{hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
         # Sets node environment for use in action
         # {{matrix.node-version}} will use Github default Node.js
         # version
       - name: Node ${{matrix.node-version}}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.node-version}}
 
         # Run npm commands to install NPM packages
       - name: Install dependencies
-        run: npm install
+        run: yarn install
 
         # Run npm build command for Vue project
       - name: Build Project
-        run: npm run build
+        run: make build
 
       # please check out the docs of the workflow for more details
       # @see https://github.com/crazy-max/ghaction-github-pages
       - name: Deploy to GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v2
+        uses: crazy-max/ghaction-github-pages@v3
         with:
-          fqdn: lindb.io
           # deploy to gh-pages branch
           target_branch: release
           # deploy the default output dir of VuePress
-          build_dir: docs/.vuepress/dist
+          build_dir: build
         env:
-          # @see https://docs.github.com/en/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
-          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
