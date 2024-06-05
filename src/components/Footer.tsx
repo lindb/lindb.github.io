@@ -24,7 +24,7 @@ export const Footer = () => {
       <div className="mx-auto max-w-8xl px-4">
         <div className="grid gap-4 sm:gap-8 lg:grid-cols-8 lg:gap-12">
           <div className="col-span-4">
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-500 dark:text-gray-400">
               An open-source, cloud native, observabilty platform
             </p>
           </div>

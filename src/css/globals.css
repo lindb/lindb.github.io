@@ -18,6 +18,7 @@ under the License.
 
 @import url("fonts.css");
 @import url("mdx.css");
+@import url("shiki.css");
 
 @tailwind base;
 @tailwind components;

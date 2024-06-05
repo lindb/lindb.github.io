@@ -19,6 +19,7 @@ under the License.
 import React from "react";
 import clsx from "clsx";
 import Link from "next/link";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { PageInfo } from "@site/navs/documentation";
 import { usePathname } from "next/navigation";
 
@@ -38,51 +39,29 @@ export const DocsFooter: React.FC<{ pages: PageInfo[] }> = (props) => {
       <div className="mb-10 flex items-center font-semibold text-slate-700 dark:text-slate-200">
         {previousPage && (
           <div>
-            <div className="text-sm text-slate-900 dark:text-white">
+            <div className="ml-1 text-xs text-slate-900 dark:text-white">
               Previous
             </div>
             <Link
               href={previousPage.href || ""}
               className="group flex items-center text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"
             >
-              <svg
-                viewBox="0 0 3 6"
-                className="mr-3 h-1.5 w-auto overflow-visible text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300"
-              >
-                <path
-                  d="M3 0L0 3L3 6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <ChevronLeftIcon className="h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300" />
               {previousPage.title}
             </Link>
           </div>
         )}
         {nextPage && (
           <div className="ml-auto text-right">
-            <div className="text-sm text-slate-900 dark:text-white">Next</div>
+            <div className="mr-1 text-xs text-slate-900 dark:text-white">
+              Next
+            </div>
             <Link
               href={nextPage.href || ""}
               className="group flex items-center text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"
             >
               {nextPage.title}
-              <svg
-                viewBox="0 0 3 6"
-                className="ml-3 h-1.5 w-auto overflow-visible text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300"
-              >
-                <path
-                  d="M0 0L3 3L0 6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <ChevronRightIcon className="h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300" />
             </Link>
           </div>
         )}

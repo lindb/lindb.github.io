@@ -1,0 +1,120 @@
+---
+title: Write data 
+description: Plugins and configuration settings that can improve the developer experience when working with Tailwind CSS.
+---
+
+This page shows how to write data into LinDB using different programming languages and tools.
+
+## Client libraries 
+
+The [Client Libraries](/docs/lindb/reference/clients) provide user-friendly SDKs for a growing number of languages.
+
+### Examples
+
+Go client library [docs](https://pkg.go.dev/github.com/lindb/client_go#section-readme) and [repo](https://github.com/lindb/client_go).
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"time"
+
+	lindb "github.com/lindb/client_go"
+	"github.com/lindb/client_go/api"
+)
+
+func main() {
+	// create write client with options
+	cli := lindb.NewClientWithOptions(
+		"http://localhost:9000",
+		lindb.DefaultOptions().SetBatchSize(200).
+			SetReqTimeout(60).
+			SetRetryBufferLimit(100).
+			SetMaxRetries(3),
+	)
+	// get write client
+	w := cli.Write("_internal")
+	// get error chan
+	errCh := w.Errors()
+	go func() {
+		for err := range errCh {
+			fmt.Printf("got err:%s\n", err)
+		}
+	}()
+
+	// write some metric data
+	for i := 0; i < 10; i++ {
+		// write cpu data
+		w.AddPoint(context.TODO(), api.NewPoint("cpu").
+			AddTag("host", "host1").
+			AddField(api.NewSum("load", 10.0)).
+			AddField(api.NewLast("usage", 24.0)))
+		// write memory data
+		w.AddPoint(context.TODO(), api.NewPoint("memory").
+			AddTag("host", "host1").
+			AddField(api.NewLast("used", 10.0)).
+			AddField(api.NewLast("total", 24.0)))
+	}
+
+	// close write client
+	w.Close()
+}
+```
+
+Java client library [docs](https://github.com/lindb/client_java) and [Maven artifact](https://mvnrepository.com/artifact/io.lindb/lindb-client).
+
+- Maven 
+
+```xml
+<dependency>
+    <groupId>io.lindb</groupId>
+    <artifactId>lindb-client</artifactId>
+    <version>0.0.4</version>
+</dependency>
+```
+
+- Gradle
+
+```groovy
+dependencies {
+    implementation "io.lindb:lindb-client:0.0.4"
+}
+```
+
+```java
+package io.lindb.client.example;
+
+import io.lindb.client.Client;
+import io.lindb.client.ClientFactory;
+import io.lindb.client.Options;
+import io.lindb.client.api.Point;
+import io.lindb.client.api.Write;
+
+public class WritePoint {
+	public static void main(String[] args) throws Exception {
+		Options options = Options.builder()
+				.addDefaultTag("region", "shanghai")
+				.useGZip(true).batchSize(5).flushInterval(1000)
+				.build();
+		// create LinDB Client with broker endpoint
+		Client client = ClientFactory.create("http://localhost:9000", options);
+		// get write for database
+		Write write = client.write("_internal");
+
+		for (int i = 0; i < 10; i++) {
+			Point point = Point.builder("host.cpu").addLast("load", 1.0)
+					.addTag("ip", "1.1.1." + i).build();
+			boolean ok = write.put(point);
+			System.out.println("write status: " + ok);
+		}
+		// need close write after write done
+		write.close();
+		System.out.println("done");
+		client.close();
+	}
+}
+```
+
+## HTTP REST API

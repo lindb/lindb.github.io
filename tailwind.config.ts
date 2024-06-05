@@ -1,9 +1,27 @@
+/*
+Licensed to LinDB under one or more contributor
+license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright
+ownership. LinDB licenses this file to you under
+the Apache License, Version 2.0 (the "License"); you may
+not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+ 
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+*/
 import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
 import typography from "@tailwindcss/typography";
-import colors from "tailwindcss/colors";
+// import colors from "tailwindcss/colors";
 
 const config: Config = {
+  important: true,
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -150,9 +168,11 @@ const config: Config = {
             },
             pre: {
               color: theme("colors.slate.50"),
-              borderRadius: theme("borderRadius.xl"),
+              borderRadius: theme("borderRadius.md"),
               padding: theme("padding.5"),
-              boxShadow: theme("boxShadow.md"),
+              borderWidth: "1px",
+              borderColor: theme("colors.slate.200"),
+              // boxShadow: theme("boxShadow.md"),
               display: "flex",
               marginTop: `${20 / 14}em`,
               marginBottom: `${32 / 14}em`,
@@ -220,7 +240,8 @@ const config: Config = {
               opacity: "0.05",
             },
             pre: {
-              boxShadow: "inset 0 0 0 1px rgb(255 255 255 / 0.1)",
+              // boxShadow: "inset 0 0 0 1px rgb(255 255 255 / 0.1)",
+              borderColor: theme("colors.slate.600"),
             },
             "--tw-prose-bullets": theme("colors.slate.500"),
             a: {
@@ -268,6 +289,23 @@ const config: Config = {
       },
     },
   },
-  plugins: [typography],
+  plugins: [
+    typography,
+    function ({ addVariant }) {
+      addVariant(
+        "supports-backdrop-blur",
+        "@supports (backdrop-filter: blur(0)) or (-webkit-backdrop-filter: blur(0))",
+      );
+      addVariant(
+        "supports-scrollbars",
+        "@supports selector(::-webkit-scrollbar)",
+      );
+      addVariant("children", "& > *");
+      addVariant("scrollbar", "&::-webkit-scrollbar");
+      addVariant("scrollbar-track", "&::-webkit-scrollbar-track");
+      addVariant("scrollbar-thumb", "&::-webkit-scrollbar-thumb");
+      addVariant("demo-dark", ".demo-dark &");
+    },
+  ],
 };
 export default config;

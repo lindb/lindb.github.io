@@ -21,8 +21,9 @@ import React from "react";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Dialog, DialogPanel } from "@headlessui/react";
+import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 import { PageInfo } from "@site/navs/documentation";
+import { Bars3Icon } from "@heroicons/react/24/solid";
 
 export interface SidebarItem {
   title?: React.ReactNode;
@@ -38,7 +39,31 @@ const DocsSidebar: React.FC<{
 
   const renderPage = (page: PageInfo, isChild: boolean = true) => {
     const isActive = pathname === page.href;
-    const isPublished = false;
+    const isPublished = true;
+    if (!isChild) {
+      return (
+        <li key={page.title} className="mt-4">
+          <Link
+            href={page.href || ""}
+            className={clsx("-ml-px block", {
+              "text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300":
+                !isActive && isPublished,
+              "text-slate-400": !isActive && !isPublished,
+            })}
+          >
+            <h5
+              className={clsx("mb-2 font-semibold lg:mb-3", {
+                " text-slate-900 dark:text-slate-200 dark:hover:text-slate-50 hover:text-slate-700":
+                  !isActive,
+                "text-sky-500 dark:text-sky-400": isActive || mobile,
+              })}
+            >
+              {page.title}
+            </h5>
+          </Link>
+        </li>
+      );
+    }
     return (
       <li
         key={page.title || ""}
@@ -94,7 +119,7 @@ export const Sidebar: React.FC<{ sidebarItems: PageInfo[] }> = (props) => {
   const { sidebarItems } = props;
   return (
     <div>
-      <div className="fixed inset-0 left-[max(0px,calc(50%-45rem))] right-auto top-[3.8125rem] z-20 hidden w-[19rem] overflow-y-auto pb-10 pl-8 pr-6 lg:block">
+      <div className="fixed inset-0 left-[max(0px,calc(50%-45rem))] right-auto top-[3.8125rem] z-20 hidden w-52 overflow-y-auto pb-10 pl-8 lg:block xl:w-[19rem]">
         <nav className="relative pt-5 lg:text-sm lg:leading-6">
           <ul>
             <li>
@@ -137,44 +162,6 @@ export const Sidebar: React.FC<{ sidebarItems: PageInfo[] }> = (props) => {
           </ul>
         </nav>
       </div>
-      <Dialog
-        open={false}
-        onClose={() => {}}
-        className="fixed inset-0 z-50 overflow-y-auto lg:hidden"
-      >
-        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm dark:bg-slate-900/80"></div>
-        <svg viewBox="0 0 10 10" className="size-2.5 overflow-visible">
-          <path
-            d="M0 0L10 10M10 0L0 10"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </svg>
-        <DialogPanel className="relative w-80 max-w-[calc(100%-3rem)] bg-white px-4 py-2 dark:bg-slate-800">
-          <button
-            type="button"
-            className="absolute right-5 top-5 z-10 flex size-8 items-center justify-center text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
-          >
-            <span className="sr-only">Close navigation</span>
-            <svg viewBox="0 0 10 10" className="size-2.5 overflow-visible">
-              <path
-                d="M0 0L10 10M10 0L0 10"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
-          </button>
-          <nav className="relative lg:text-sm lg:leading-6">
-            <ul>
-              <DocsSidebar sidebarItems={sidebarItems} mobile />
-            </ul>
-          </nav>
-        </DialogPanel>
-      </Dialog>
     </div>
   );
 };

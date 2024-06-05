@@ -23,6 +23,9 @@ import rehypeShiki from "@shikijs/rehype";
 import remarkGfm from "remark-gfm";
 import clsx from "clsx";
 import { PageInfo } from "@site/navs/documentation";
+import { BookOpenIcon } from "@heroicons/react/24/solid";
+import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
+import { GithubIcon } from "@site/icons";
 
 export interface TOCItem {
   title: string;
@@ -31,9 +34,9 @@ export interface TOCItem {
 
 const TableOfContents = (props: { tocItems: TOCItem[] }) => {
   const { tocItems } = props;
-  return (
-    <div className="fixed bottom-0 right-[max(0px,calc(50%-45rem))] top-[3.8125rem] z-20 hidden w-[19.5rem] overflow-y-auto py-10 xl:block">
-      <div className="px-8">
+  const Content = () => {
+    return (
+      <div className="px-2 xl:px-8">
         <h5 className="mb-4 text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
           On this page
         </h5>
@@ -80,17 +83,28 @@ const TableOfContents = (props: { tocItems: TOCItem[] }) => {
             href={"/github"}
             className="flex items-center hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"
           >
-            <svg
-              viewBox="0 0 16 16"
-              className="size-5 pr-2"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
-            </svg>
+            <GithubIcon className="mr-2 size-4" />
             Edit this page on Github
           </Link>
         </div>
+      </div>
+    );
+  };
+  return (
+    <div>
+      <Popover className="group fixed bottom-0 right-6 top-16 z-20 block h-6 border border-slate-500 bg-white shadow-md lg:right-12 lg:top-24 xl:hidden dark:bg-slate-800">
+        <PopoverButton className="flex items-center gap-2">
+          <BookOpenIcon className="size-6 fill-slate-400/20 stroke-slate-600 dark:fill-slate-500/20 dark:stroke-slate-400" />
+        </PopoverButton>
+        <PopoverPanel
+          anchor="bottom"
+          className="z-20 mr-3 mt-1 w-full max-w-xs rounded-sm bg-white p-4  ring-1 ring-slate-900/10 dark:bg-slate-800 dark:text-slate-400  dark:ring-slate-500/20"
+        >
+          <Content />
+        </PopoverPanel>
+      </Popover>
+      <div className="fixed bottom-0 right-[max(0px,calc(50%-45rem))] top-[3.8125rem] z-20 hidden w-[19.5rem] overflow-y-auto py-10 xl:block">
+        <Content />
       </div>
     </div>
   );
@@ -143,7 +157,9 @@ export const DocContainer: React.FC<{
                   {
                     // ref: https://shiki.style/themes
                     themes: {
-                      light: "catppuccin-macchiato",
+                      // light: "github-light",
+                      light: "material-theme-lighter",
+                      // light: "catppuccin-latte",
                       dark: "catppuccin-macchiato",
                     },
                     colorReplacements: { "#24273a": "#1e293b" },

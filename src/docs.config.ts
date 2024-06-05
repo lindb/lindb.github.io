@@ -29,6 +29,24 @@ export const docs = {
             "getting-started/binaries",
           ],
         },
+        {
+          title: "Develop",
+          children: [
+            "develop/connect",
+            "develop/create-database",
+            "develop/write-data",
+            "develop/read-data",
+          ],
+        },
+        // {
+        //   title: "Deployment",
+        // },
+        // {
+        //   title: "Reference",
+        // },
+        // {
+        //   title: "Design",
+        // },
       ],
     },
   ],
