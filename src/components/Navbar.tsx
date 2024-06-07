@@ -135,7 +135,7 @@ export const Navbar: React.FC<{ sidebarItems?: PageInfo[] }> = (props) => {
   const { sidebarItems } = props;
 
   return (
-    <header className="sticky top-0 z-10 w-full flex-none bg-white/95 backdrop-blur supports-backdrop-blur:bg-white/60 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] dark:bg-transparent">
+    <header className="sticky top-0 z-40 w-full flex-none bg-white/95 backdrop-blur transition-colors duration-500 supports-backdrop-blur:bg-white/60 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] dark:bg-transparent">
       <div className="mx-auto max-w-8xl">
         <div className="mx-4 border-b border-slate-900/10 py-3 lg:mx-0 lg:border-0 lg:px-8 lg:py-4 dark:border-slate-300/10">
           <div className="relative flex items-center">

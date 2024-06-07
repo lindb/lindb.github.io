@@ -113,7 +113,7 @@ export const TableOfContents = (props: { tocItems: TOCItem[] }) => {
   };
   return (
     <div>
-      <Popover className="group fixed bottom-0 right-6 top-16 z-20 block h-6 border border-slate-500 bg-white shadow-md lg:right-12 lg:top-24 xl:hidden dark:bg-slate-800">
+      <Popover className="group fixed bottom-0 right-6 top-16 z-50 block h-6 border border-slate-500 bg-white shadow-md lg:right-12 lg:top-24 xl:hidden dark:bg-slate-800">
         <PopoverButton className="flex items-center gap-2">
           <BookOpenIcon className="size-6 fill-slate-400/20 stroke-slate-600 dark:fill-slate-500/20 dark:stroke-slate-400" />
         </PopoverButton>
