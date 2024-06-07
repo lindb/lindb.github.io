@@ -28,24 +28,28 @@ jobs:
     steps:
       # Action that will checkout repository so the workflow can
       # access the codebase
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: main
         # Sets node environment for use in action
         # {{matrix.node-version}} will use Github default Node.js
         # version
       - name: Node ${{matrix.node-version}}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{matrix.node-version}}
 
-        # Run npm commands to install NPM packages
-      - name: Install dependencies
-        run: yarn install
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 9
+          run_install: false
 
-        # Run npm build command for Vue project
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Build Project
-        run: make build
+        run: pnpm build
 
       # please check out the docs of the workflow for more details
       # @see https://github.com/crazy-max/ghaction-github-pages
@@ -55,6 +59,6 @@ jobs:
           # deploy to gh-pages branch
           target_branch: release
           # deploy the default output dir of VuePress
-          build_dir: build
+          build_dir: out
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
