@@ -15,6 +15,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
+import { DocSearch, Footer, Navbar } from "@site/components";
 import React from "react";
 
 export default async function IndexPage({
@@ -23,16 +24,20 @@ export default async function IndexPage({
   params: { lang: string };
 }) {
   return (
-    <div>
-      <p>Current locale: {lang}</p>
-      <p>This text is rendered on the server: </p>
-    </div>
+    <>
+      <Navbar />
+      <main className="flex-1 pt-4">
+        <div>
+          <DocSearch />
+          <p>Current locale: {lang}</p>
+          <p>This text is rendered on the server: </p>
+        </div>
+      </main>
+      <Footer />
+    </>
   );
 }
 
 export async function generateStaticParams() {
-  return [
-    { slug: "/en/docs/my-mdx-page", lang: "en" },
-    { slug: "hello", lang: "en" },
-  ];
+  return [{ slug: "hello", lang: "en" }];
 }

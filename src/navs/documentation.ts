@@ -130,41 +130,7 @@ export const getPath = (lang: string, slug: string[]) => {
   return "/" + [lang, docsPath, ...slug].join("/");
 };
 
-export const getDocPages = (lang: string, slug: string[]) => {
-  const result: PageInfo[] = [];
-  if (slug.length == 0) {
-    return result;
-  }
-  const product = slug[0];
-  const sidebarCfg =
-    docs.products.find((prod) => prod.name.toLowerCase() === product)
-      ?.sidebar || [];
-  sidebarCfg.forEach((item: string | object) => {
-    if (typeof item === "string") {
-      const href = "/" + [lang, docsPath, product, item].join("/");
-      const page = pages.get(href);
-      if (page) {
-        result.push(page);
-      }
-    } else if (typeof item === "object") {
-      const children = item["children"];
-      const title = item["title"];
-      if (title !== "" && children && children.length > 0) {
-        children.forEach((child: string) => {
-          const href = "/" + [lang, docsPath, product, child].join("/");
-          const page = pages.get(href);
-          if (page) {
-            result.push(page);
-          }
-        });
-      }
-    }
-  });
-
-  return result;
-};
-
-export const getSidebar = (lang: string, slug: string[]) => {
+export const getSidebar = (lang: string, slug: string[]): PageInfo[] => {
   const result: PageInfo[] = [];
   if (slug.length == 0) {
     return result;

@@ -15,12 +15,19 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
+import React from "react";
+import Head from "next/head";
 
-@import url("fonts.css");
-@import url("mdx.css");
-@import url("shiki.css");
-@import url("docsearch.css");
+export const MetaTitle: React.FC<{ suffix?: string; title: string }> = (
+  props,
+) => {
+  const { suffix = "Lin", title } = props;
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+  return (
+    <>
+      <Head>
+        <title key="title">{title + (suffix ? ` - ${suffix}` : "")}</title>
+      </Head>
+    </>
+  );
+};

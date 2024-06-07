@@ -62,6 +62,7 @@ const config: Config = {
             "h1, h2, h3": {
               letterSpacing: "-0.025em",
             },
+            p: { marginBottom: "0.75em", marginTop: "0.75em" },
             h2: {
               fontSize: "1.25em",
               fontWeight: "600",
@@ -105,8 +106,8 @@ const config: Config = {
             ul: {
               listStyleType: "none",
               paddingLeft: "1em",
-              marginTop: "1em",
-              marginBottom: "2em",
+              marginTop: "0.5em",
+              marginBottom: "0.5em",
             },
             "ul > li": {
               position: "relative",

@@ -18,7 +18,7 @@ under the License.
 import React from "react";
 import type { Metadata } from "next";
 import "@site/css/globals.css";
-import { BackgroundBeams, Footer, Navbar } from "@site/components";
+import { BackgroundBeams } from "@site/components";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -49,9 +49,7 @@ export default function RootLayout({
       </head>
       <body className="flex min-h-screen flex-col bg-white text-slate-500 antialiased dark:bg-slate-900 dark:text-slate-400">
         <BackgroundBeams />
-        <Navbar />
-        <main className="flex-1 pt-4">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

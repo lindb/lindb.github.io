@@ -17,25 +17,28 @@ under the License.
 */
 import React from "react";
 import clsx from "clsx";
+import { getHeadingId } from "@site/utils/utils";
+import Link from "next/link";
 
-export const Heading = ({
-  level,
-  children,
-  className = "",
-  hidden = false,
-  ignore = false,
-  style = {},
-  nextElement,
-  ...props
-}) => {
+export const Heading = ({ level, children, className = "", ...props }) => {
   if (typeof children !== "string") {
     return children;
   }
 
-  const Component = `h${level}`;
-  const idText = children.replace(/ /g, "_").toLowerCase();
+  const Component = `h${level}` as `h${1 | 2 | 3 | 4 | 5 | 6}`;
+  const idText = getHeadingId(children);
+  const renderContent = () => {
+    switch (children) {
+      case "Footnotes":
+        //HACK: mdx footnotes heading
+        return "Reference";
+      default:
+        return children;
+    }
+  };
   return (
-    <h2
+    <Component
+      // className={clsx({ "text-base": children === "Footnotes" })}
       // className={clsx("not-prose flex whitespace-pre-wrap", className, {
       //   "mb-2 text-sm leading-6 text-sky-500 font-semibold tracking-normal dark:text-sky-400":
       //     level === 2 &&
@@ -45,13 +48,10 @@ export const Heading = ({
       id={idText}
       // style={{ ...(hidden ? { marginBottom: 0 } : {}), ...style }}
       // data-docsearch-ignore={ignore ? "" : undefined}
-      // {...props}
+      {...props}
     >
-      <a
-        className={clsx(
-          "group relative border-none",
-          hidden ? "sr-only" : "lg:-ml-2 lg:pl-2",
-        )}
+      <Link
+        className={clsx("group relative border-none", "lg:-ml-2 lg:pl-2")}
         href={`#${idText}`}
       >
         <span className="absolute -ml-8 hidden items-center border-0 opacity-0 group-hover:opacity-100 group-focus:opacity-100 lg:flex">
@@ -73,7 +73,7 @@ export const Heading = ({
           </span>
         </span>
         {children}
-      </a>
-    </h2>
+      </Link>
+    </Component>
   );
 };

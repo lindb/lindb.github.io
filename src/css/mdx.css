@@ -25,9 +25,37 @@ under the License.
 }
 
 .markdown-table th {
-  @apply w-1/2 border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left;
+  @apply border border-slate-300 dark:border-slate-600 font-semibold p-2 text-slate-900 dark:text-slate-200 text-left;
 }
 
 .markdown-table td {
-  @apply border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400;
+  @apply border border-slate-300 dark:border-slate-700 p-2 text-slate-500 dark:text-slate-400;
+}
+
+.markdown-alert.markdown-alert-note {
+  @apply bg-blue-400/20 dark:bg-blue-400/10;
+}
+
+.markdown-alert.markdown-alert-tip {
+  @apply bg-green-400/20 dark:bg-green-400/10;
+}
+
+.markdown-alert.markdown-alert-important {
+  @apply bg-purple-400/20 dark:bg-purple-400/10;
+}
+
+.markdown-alert.markdown-alert-warning {
+  @apply bg-orange-400/20 dark:bg-orange-400/10;
+}
+
+.markdown-alert.markdown-alert-caution {
+  @apply bg-red-400/20 dark:bg-red-400/10;
+}
+
+.footnotes > h2 {
+  @apply text-base !important;
+}
+
+.footnotes > ol {
+  @apply text-sm italic !important;
 }

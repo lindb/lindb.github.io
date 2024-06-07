@@ -26,3 +26,6 @@ export * from "./Heading";
 export * from "./DocHeader";
 export * from "./DocContainer";
 export * from "./ThemeToggle";
+export * from "./DocSearch";
+export * from "./TOC";
+export * from "./Meta";

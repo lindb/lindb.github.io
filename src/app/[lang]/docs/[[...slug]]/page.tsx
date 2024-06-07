@@ -23,11 +23,12 @@ import { serialize } from "next-mdx-remote/serialize";
 import { visit } from "unist-util-visit";
 import {
   currentWorkingDirectory,
-  getDocPages,
   getPath,
+  getSidebar,
   pages,
 } from "@site/navs/documentation";
 import { Metadata } from "next";
+import { getDocPages, getHeadingId } from "@site/utils/utils";
 
 function toc(options: { export: { tocItems: TOCItem[] } }) {
   return (tree) => {
@@ -35,6 +36,7 @@ function toc(options: { export: { tocItems: TOCItem[] } }) {
     visit(tree, "heading", (node) => {
       if (node.depth >= 1 && node.depth <= 3) {
         headings.push({
+          id: getHeadingId(node.children[0].value),
           level: node.depth,
           title: node.children[0].value,
         });
@@ -70,7 +72,7 @@ export default async function DocsContent({
     },
   });
 
-  const docPages = getDocPages(params.lang, params.slug);
+  const docPages = getDocPages(getSidebar(params.lang, params.slug));
 
   return (
     <DocContainer

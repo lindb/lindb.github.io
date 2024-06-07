@@ -15,12 +15,18 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
+"use client";
 
-@import url("fonts.css");
-@import url("mdx.css");
-@import url("shiki.css");
-@import url("docsearch.css");
+import React from "react";
+import { DocSearch as Search } from "@docsearch/react";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+export const DocSearch = () => {
+  return (
+    <Search
+      appId="Z2Q2CCBG6Q"
+      indexName="lindb"
+      apiKey="a54e7b4183d11c7f6967d67dd9801ade"
+      placeholder="Search documentation"
+    />
+  );
+};

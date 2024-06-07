@@ -23,11 +23,7 @@ export const docs = {
         "introduction",
         {
           title: "Getting Started",
-          children: [
-            "getting-started/my-mdx-page",
-            "getting-started/docker",
-            "getting-started/binaries",
-          ],
+          children: ["getting-started/docker", "getting-started/binaries"],
         },
         {
           title: "Develop",
@@ -38,15 +34,53 @@ export const docs = {
             "develop/read-data",
           ],
         },
-        // {
-        //   title: "Deployment",
-        // },
-        // {
-        //   title: "Reference",
-        // },
-        // {
-        //   title: "Design",
-        // },
+        {
+          title: "Deployment",
+          children: ["deployment/kubernetes", "deployment/manual"],
+        },
+        {
+          title: "Client",
+          children: ["client/cli", "client/index", "client/go", "client/java"],
+        },
+        {
+          title: "Lin QL",
+          children: ["lin-ql/sql"],
+        },
+        {
+          title: "Admin UI",
+          children: [
+            "admin-ui/index",
+            "admin-ui/overview",
+            "admin-ui/search",
+            "admin-ui/explore",
+            "admin-ui/monitoring",
+            "admin-ui/metadata",
+          ],
+        },
+        {
+          title: "API",
+          children: ["api/index", "api/write", "api/query", "api/state"],
+        },
+        {
+          title: "Reference",
+          children: [
+            "reference/data-model",
+            "reference/metric",
+            "reference/configuration",
+          ],
+        },
+        {
+          title: "Design",
+          children: [
+            "design/architecture",
+            "design/coordinator",
+            "design/replication",
+            "design/query",
+            "design/storage",
+            "design/memory-database",
+            "design/inverted-index",
+          ],
+        },
       ],
     },
   ],

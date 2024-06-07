@@ -15,12 +15,23 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
+import React from "react";
+import type { AppProps } from "next/app";
+import "@site/css/globals.css";
+import { Navbar, Footer } from "@site/components";
 
-@import url("fonts.css");
-@import url("mdx.css");
-@import url("shiki.css");
-@import url("docsearch.css");
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+export default function RootApp({ Component, pageProps }: AppProps) {
+  return (
+    <>
+      <div className="flex min-h-screen flex-col">
+        <Navbar />
+        <div className="flex flex-auto overflow-auto">
+          <Component {...pageProps} />;
+        </div>
+        <div className="px-4 lg:px-8">
+          <Footer />
+        </div>
+      </div>
+    </>
+  );
+}

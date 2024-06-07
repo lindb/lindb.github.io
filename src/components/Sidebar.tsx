@@ -21,9 +21,7 @@ import React from "react";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 import { PageInfo } from "@site/navs/documentation";
-import { Bars3Icon } from "@heroicons/react/24/solid";
 
 export interface SidebarItem {
   title?: React.ReactNode;
@@ -40,6 +38,9 @@ const DocsSidebar: React.FC<{
   const renderPage = (page: PageInfo, isChild: boolean = true) => {
     const isActive = pathname === page.href;
     const isPublished = true;
+    if (!isChild && !page.href) {
+      return null;
+    }
     if (!isChild) {
       return (
         <li key={page.title} className="mt-4">
@@ -115,11 +116,24 @@ const DocsSidebar: React.FC<{
   return (sidebarItems || []).map((item: PageInfo) => render(item));
 };
 
-export const Sidebar: React.FC<{ sidebarItems: PageInfo[] }> = (props) => {
-  const { sidebarItems } = props;
+export const Sidebar: React.FC<{
+  sidebarItems: PageInfo[];
+  mobile?: boolean;
+}> = (props) => {
+  const { sidebarItems, mobile = false } = props;
   return (
     <div>
-      <div className="fixed inset-0 left-[max(0px,calc(50%-45rem))] right-auto top-[3.8125rem] z-20 hidden w-52 overflow-y-auto pb-10 pl-8 lg:block xl:w-[19rem]">
+      <div
+        className={clsx(
+          "z-20 w-52 overflow-y-auto pb-10 lg:block xl:w-[19rem]",
+          {
+            hidden: !mobile,
+            "pl-8 fixed inset-0 left-[max(0px,calc(50%-45rem))] right-auto top-[3.8125rem]":
+              !mobile,
+            "pl-4": mobile,
+          },
+        )}
+      >
         <nav className="relative pt-5 lg:text-sm lg:leading-6">
           <ul>
             <li>

@@ -71,7 +71,7 @@ export const ThemeToggle = () => {
   };
   return (
     <Menu>
-      <MenuButton className="ml-6 flex items-center border-l border-slate-200 pl-6 dark:border-slate-800">
+      <MenuButton className="flex items-center">
         <SunIcon className="h-5 fill-sky-400/20 stroke-sky-500 dark:hidden" />
         <MoonIcon className="hidden h-5 fill-sky-400/20 stroke-sky-500 dark:inline" />
       </MenuButton>

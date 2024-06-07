@@ -35,7 +35,10 @@ export const DocHeader: React.FC<{
   const { page } = props;
   if (!page.meta && !page.parent) return null;
   return (
-    <header id="header" className="relative z-20">
+    <header
+      id="header"
+      className="relative border-b border-gray-200 pb-4 dark:border-gray-800 "
+    >
       <div>
         {page.parent && (
           <p className="mb-2 hidden text-sm font-semibold leading-6 text-sky-500 lg:block dark:text-sky-400">

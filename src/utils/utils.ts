@@ -15,12 +15,22 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
+import { PageInfo } from "@site/navs/documentation";
 
-@import url("fonts.css");
-@import url("mdx.css");
-@import url("shiki.css");
-@import url("docsearch.css");
+export const getHeadingId = (heading: string) => {
+  return heading.replace(/ /g, "_").toLowerCase();
+};
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+export const getDocPages = (sidebarItems: PageInfo[]) => {
+  const result: PageInfo[] = [];
+  sidebarItems.forEach((page) => {
+    if (page.children && page.children.length > 0) {
+      page.children.forEach((child) => {
+        result.push(child);
+      });
+    } else {
+      result.push(page);
+    }
+  });
+  return result;
+};
