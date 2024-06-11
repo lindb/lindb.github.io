@@ -16,7 +16,7 @@ specific language governing permissions and limitations
 under the License.
 */
 import React from "react";
-import { MDXRemote } from "next-mdx-remote/rsc";
+import { MDXRemote } from "next-mdx-remote";
 import {
   DocsFooter,
   CodeSnippet,
@@ -41,7 +41,7 @@ import "remark-github-blockquote-alert/alert.css";
 
 export const DocContainer: React.FC<{
   page: PageInfo;
-  source: VFileCompatible;
+  source: any;
   tocItems?: TOCItem[];
   pages: PageInfo[];
 }> = (props) => {
@@ -60,7 +60,7 @@ export const DocContainer: React.FC<{
         className="prose prose-slate relative mt-8 dark:prose-dark"
       >
         <MDXRemote
-          source={source}
+          {...source}
           components={{
             CodeSnippet,
             ...headingComponents,
@@ -72,39 +72,7 @@ export const DocContainer: React.FC<{
             ),
           }}
           options={{
-            mdxOptions: {
-              remarkPlugins: [
-                [remarkAlert, {}],
-                [
-                  remarkGfm,
-                  {
-                    footnotes: { labelTagName: "h4" },
-                  },
-                ],
-              ],
-              rehypePlugins: [
-                [
-                  rehypeShiki,
-                  {
-                    // ref: https://shiki.style/themes
-                    themes: {
-                      // light: "github-light",
-                      light: "material-theme-lighter",
-                      // light: "catppuccin-latte",
-                      dark: "catppuccin-macchiato",
-                    },
-                    //ref: https://shiki.style/packages/transformers
-                    transformers: [
-                      transformerMetaHighlight(),
-                      transformerNotationDiff(),
-                      transformerNotationHighlight(),
-                      transformerNotationFocus(),
-                    ],
-                    colorReplacements: { "#24273a": "#1e293b" },
-                  },
-                ],
-              ],
-            },
+            mdxOptions: {},
             parseFrontmatter: true,
           }}
         />

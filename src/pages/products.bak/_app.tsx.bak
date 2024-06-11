@@ -19,11 +19,17 @@ import React from "react";
 import type { AppProps } from "next/app";
 import "@site/css/globals.css";
 import { Navbar, Footer } from "@site/components";
-import { DocContextProvider } from "@site/contexts";
+import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
+import "../i18n/i18n.ts";
 
 const RootApp = ({ Component, pageProps }: AppProps) => {
+  const router = useRouter();
+  const { i18n } = useTranslation();
+  i18n.changeLanguage(router.locale || "en");
+  console.log("app router", router);
   return (
-    <DocContextProvider>
+    <>
       <div className="flex min-h-screen flex-col">
         <Navbar />
         <div className="flex flex-auto overflow-auto">
@@ -33,7 +39,7 @@ const RootApp = ({ Component, pageProps }: AppProps) => {
           <Footer />
         </div>
       </div>
-    </DocContextProvider>
+    </>
   );
 };
 

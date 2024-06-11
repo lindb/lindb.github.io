@@ -28,7 +28,6 @@ export const docsPath = "docs";
 export interface PageInfo {
   product?: string;
   title?: string;
-  lang?: string;
   slug?: string[];
   href?: string;
   meta?: DocMeta;
@@ -59,12 +58,12 @@ const getLatestCommitInfo = (filePath: string): CommitInfo | undefined => {
 };
 
 const readDirRecursive = (
-  lang: string,
   product: string,
   baseDir: string,
   directory: string,
   pages: PageInfo[] = [],
 ): PageInfo[] => {
+  console.log("file..", directory);
   if (!fs.existsSync(directory)) {
     return pages;
   }
@@ -72,7 +71,7 @@ const readDirRecursive = (
   files.forEach((file) => {
     const filePath = path.join(directory, file);
     if (fs.statSync(filePath).isDirectory()) {
-      readDirRecursive(lang, product, baseDir, filePath, pages);
+      readDirRecursive(product, baseDir, filePath, pages);
     } else if (path.extname(file).toLowerCase() === ".mdx") {
       const commitInfo = getLatestCommitInfo(filePath);
       const source = fs.readFileSync(filePath);
@@ -84,14 +83,11 @@ const readDirRecursive = (
           .replaceAll(baseDir, "")
           .replaceAll(".mdx", "")
           .split("/")
-          .filter(
-            (item) => item.trim() !== "" && item !== lang && item !== docsPath,
-          ),
+          .filter((item) => item.trim() !== ""),
       ];
       pages.push({
         product: product,
         title: title,
-        lang: lang,
         slug: slug,
         href: filePath.replaceAll(baseDir, "").replaceAll(".mdx", ""),
         meta: meta,
@@ -103,22 +99,18 @@ const readDirRecursive = (
 };
 
 const buildDocPages = () => {
-  const baseDir = path.join(currentWorkingDirectory, "i18n");
+  const baseDir = path.join(currentWorkingDirectory, "docs");
   const pageCache = new Map<string, PageInfo>();
-  const locales = docs.i18n.locales || [];
-  locales.forEach((locale) => {
-    docs.products.forEach((product) => {
-      const pages = readDirRecursive(
-        locale,
-        product.name,
-        baseDir,
-        path.join(baseDir, locale, docsPath, product.name.toLowerCase()),
-      );
-      pages.forEach((page) => {
-        if (page.href) {
-          pageCache.set(page.href, page);
-        }
-      });
+  docs.products.forEach((product) => {
+    const pages = readDirRecursive(
+      product.name,
+      baseDir,
+      path.join(baseDir, product.name.toLowerCase()),
+    );
+    pages.forEach((page) => {
+      if (page.href) {
+        pageCache.set(page.href, page);
+      }
     });
   });
   return pageCache;
@@ -127,7 +119,7 @@ const buildDocPages = () => {
 export const pages = buildDocPages();
 
 export const getPath = (lang: string, slug: string[]) => {
-  return "/" + [lang, docsPath, ...slug].join("/");
+  return [lang, docsPath, ...slug].join("/");
 };
 
 export const getSidebar = (lang: string, slug: string[]): PageInfo[] => {
@@ -141,7 +133,8 @@ export const getSidebar = (lang: string, slug: string[]): PageInfo[] => {
       ?.sidebar || [];
   sidebarCfg.forEach((item: string | object) => {
     if (typeof item === "string") {
-      const href = "/" + [lang, docsPath, product, item].join("/");
+      const href = "/" + [product, item].join("/");
+      console.log("get page...", href);
       const page = pages.get(href);
       if (page) {
         result.push(page);
@@ -155,7 +148,7 @@ export const getSidebar = (lang: string, slug: string[]): PageInfo[] => {
         cate.children = cateChildren;
         result.push(cate);
         children.forEach((child: string) => {
-          const href = "/" + [lang, docsPath, product, child].join("/");
+          const href = "/" + [docsPath, product, child].join("/");
           const page = pages.get(href);
           if (page) {
             page.parent = cate;

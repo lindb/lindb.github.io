@@ -16,25 +16,9 @@ specific language governing permissions and limitations
 under the License.
 */
 import React from "react";
-import type { AppProps } from "next/app";
-import "@site/css/globals.css";
-import { Navbar, Footer } from "@site/components";
-import { DocContextProvider } from "@site/contexts";
 
-const RootApp = ({ Component, pageProps }: AppProps) => {
-  return (
-    <DocContextProvider>
-      <div className="flex min-h-screen flex-col">
-        <Navbar />
-        <div className="flex flex-auto overflow-auto">
-          <Component {...pageProps} />
-        </div>
-        <div className="px-4 lg:px-8">
-          <Footer />
-        </div>
-      </div>
-    </DocContextProvider>
-  );
+const Docs = () => {
+  return <div>home...</div>;
 };
 
-export default RootApp;
+export default Docs;

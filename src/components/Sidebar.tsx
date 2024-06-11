@@ -30,9 +30,10 @@ export interface SidebarItem {
 
 const DocsSidebar: React.FC<{
   sidebarItems: PageInfo[];
+  basePath: string;
   mobile?: boolean;
 }> = (props) => {
-  const { sidebarItems, mobile } = props;
+  const { sidebarItems, mobile, basePath } = props;
   const pathname = usePathname();
 
   const renderPage = (page: PageInfo, isChild: boolean = true) => {
@@ -45,7 +46,7 @@ const DocsSidebar: React.FC<{
       return (
         <li key={page.title} className="mt-4">
           <Link
-            href={page.href || ""}
+            href={basePath + page.href || ""}
             className={clsx("-ml-px block", {
               "text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300":
                 !isActive && isPublished,
@@ -118,9 +119,10 @@ const DocsSidebar: React.FC<{
 
 export const Sidebar: React.FC<{
   sidebarItems: PageInfo[];
+  basePath?: string;
   mobile?: boolean;
 }> = (props) => {
-  const { sidebarItems, mobile = false } = props;
+  const { sidebarItems, mobile = false, basePath = "/docs" } = props;
   return (
     <div>
       <div
@@ -172,7 +174,7 @@ export const Sidebar: React.FC<{
                 Community
               </a>
             </li>
-            <DocsSidebar sidebarItems={sidebarItems} />
+            <DocsSidebar sidebarItems={sidebarItems} basePath={basePath} />
           </ul>
         </nav>
       </div>

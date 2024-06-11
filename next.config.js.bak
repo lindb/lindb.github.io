@@ -15,36 +15,31 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { i18n } = require("./next-i18next.config");
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  // async redirects() {
-  //   return [
-  //     // Basic redirect
-  //     {
-  //       source: "/",
-  //       destination: "/products/lindb",
-  //       permanent: true,
-  //     },
-  //     // Wildcard path matching
-  //     {
-  //       source: "/blog/:slug",
-  //       destination: "/news/:slug",
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
-  // i18n,
-  // i18n: {
-  //   locales: ["en", "zh"],
-  //   defaultLocale: "en",
-  //   localeDetection: false,
-  // },
-  output: "export",
+module.exports = {
+  async redirects() {
+    return [
+      // Basic redirect
+      {
+        source: "/",
+        destination: "/products/lindb",
+        permanent: true,
+      },
+      // Wildcard path matching
+      {
+        source: "/blog/:slug",
+        destination: "/news/:slug",
+        permanent: true,
+      },
+    ];
+  },
+  i18n,
+  // output: "export",
   // Optional: Change the output directory `out` -> `dist`
   // Configure `pageExtensions` to include MDX files
   pageExtensions: ["js", "jsx", "ts", "tsx"],
   // Optionally, add any other Next.js config below
 };
-
-export default nextConfig;

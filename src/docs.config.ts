@@ -86,5 +86,6 @@ export const docs = {
   ],
   i18n: {
     locales: ["en", "zh"],
+    defaultLocale: "en",
   },
 };

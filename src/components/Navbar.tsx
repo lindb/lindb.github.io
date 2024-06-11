@@ -33,6 +33,7 @@ import { getDocPages } from "@site/utils/utils";
 import { Sidebar } from "./Sidebar";
 import { DocSearch } from "./DocSearch";
 import Link from "next/link";
+import { LocaleSelect } from "./LocaleSelect";
 
 const NavbarItems = () => {
   return (
@@ -147,9 +148,7 @@ export const Navbar: React.FC<{ sidebarItems?: PageInfo[] }> = (props) => {
                 </div>
               </nav>
               <div className="flex items-center gap-4">
-                <div className="w-36">
-                  <DocSearch />
-                </div>
+                <LocaleSelect />
                 <ThemeToggle />
                 <Link
                   href="https://github.com/lindb/lindb"
@@ -158,6 +157,9 @@ export const Navbar: React.FC<{ sidebarItems?: PageInfo[] }> = (props) => {
                   <span className="sr-only">LinDB on GitHub</span>
                   <GithubIcon />
                 </Link>
+                <div className="w-36">
+                  <DocSearch />
+                </div>
                 <NavPopover className="-my-1 lg:hidden" />
               </div>
             </div>

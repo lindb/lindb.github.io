@@ -63,7 +63,7 @@ export const ThemeToggle = () => {
     );
   };
   const themeIconCls = (t: string) => {
-    return clsx("h-5 ", {
+    return clsx("size-5 ", {
       "fill-slate-400/20 stroke-slate-400 dark:fill-slate-500/20 dark:stroke-slate-500":
         theme !== t,
       "fill-sky-400/20 stroke-sky-500": theme === t,
@@ -72,8 +72,8 @@ export const ThemeToggle = () => {
   return (
     <Menu>
       <MenuButton className="flex items-center">
-        <SunIcon className="h-5 fill-sky-400/20 stroke-sky-500 dark:hidden" />
-        <MoonIcon className="hidden h-5 fill-sky-400/20 stroke-sky-500 dark:inline" />
+        <SunIcon className="size-5 fill-sky-400/20 stroke-sky-500 dark:hidden" />
+        <MoonIcon className="hidden size-5 fill-sky-400/20 stroke-sky-500 dark:inline" />
       </MenuButton>
       <MenuItems
         anchor="bottom end"
