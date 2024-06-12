@@ -71,9 +71,6 @@ const product = {
 
 export default function Products({ params }: { params: { product: string } }) {
   const { t } = useTranslation();
-
-  // const router = useRouter();
-  console.log("params....", params);
   const features = product.features;
   return (
     <div className="flex flex-col items-center justify-between p-8">
@@ -131,8 +128,7 @@ export default function Products({ params }: { params: { product: string } }) {
   );
 }
 
-export const getStaticProps = (async (context) => {
-  console.log("context.....", context);
+export const getStaticProps = (async () => {
   return {
     props: {
       product: "lin test..",

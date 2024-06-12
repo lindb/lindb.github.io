@@ -22,6 +22,7 @@ const RootDocument = () => {
   return (
     <Html lang="en">
       <Head>
+        <link rel="icon" href="/img/logo.png" />
         <script
           dangerouslySetInnerHTML={{
             __html: `

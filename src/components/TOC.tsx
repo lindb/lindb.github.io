@@ -26,12 +26,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 import { GithubIcon } from "@site/icons";
-
-export interface TOCItem {
-  id: string;
-  title: string;
-  level: number;
-}
+import { TOCItem } from "@site/types";
 
 export const TableOfContents = (props: { tocItems: TOCItem[] }) => {
   const { tocItems } = props;

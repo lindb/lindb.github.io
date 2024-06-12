@@ -15,35 +15,25 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
+"use client";
+
 import React from "react";
-import { MDXRemote } from "next-mdx-remote";
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import {
   DocsFooter,
   CodeSnippet,
   Heading,
   DocHeader,
-  TOCItem,
   TableOfContents,
 } from "@site/components";
-import rehypeShiki from "@shikijs/rehype";
-import remarkGfm from "remark-gfm";
-import { remarkAlert } from "remark-github-blockquote-alert";
-import {
-  transformerNotationDiff,
-  transformerMetaHighlight,
-  transformerNotationHighlight,
-  transformerNotationFocus,
-} from "@shikijs/transformers";
-import { PageInfo } from "@site/navs/documentation";
-import { VFileCompatible } from "vfile";
-
+import { PageInfo, SidebarItem, TOCItem } from "@site/types";
 import "remark-github-blockquote-alert/alert.css";
 
 export const DocContainer: React.FC<{
   page: PageInfo;
-  source: any;
+  source: MDXRemoteSerializeResult;
   tocItems?: TOCItem[];
-  pages: PageInfo[];
+  pages: SidebarItem[];
 }> = (props) => {
   const { page, source, tocItems, pages } = props;
   const headingComponents: object = {};
@@ -70,10 +60,6 @@ export const DocContainer: React.FC<{
                 {props.children}
               </table>
             ),
-          }}
-          options={{
-            mdxOptions: {},
-            parseFrontmatter: true,
           }}
         />
       </div>

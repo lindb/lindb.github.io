@@ -15,19 +15,8 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-import { PageInfo } from "@site/navs/documentation";
+import { PageInfo } from "@site/types";
 import React from "react";
-
-export interface CommitInfo {
-  author: string;
-  date: string;
-}
-
-export interface DocMeta {
-  title?: string;
-  sidebar?: string;
-  description?: string;
-}
 
 export const DocHeader: React.FC<{
   page: PageInfo;
@@ -42,7 +31,7 @@ export const DocHeader: React.FC<{
       <div>
         {page.parent && (
           <p className="mb-2 hidden text-sm font-semibold leading-6 text-sky-500 lg:block dark:text-sky-400">
-            {page.parent.title}
+            {page.parent}
           </p>
         )}
         {page.meta && page.meta.title && (

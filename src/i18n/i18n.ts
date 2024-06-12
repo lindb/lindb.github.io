@@ -18,43 +18,20 @@ under the License.
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { docs } from "@site/docs.config";
+import resourcesToBackend from "i18next-resources-to-backend";
 
-const initI18N = (locale: string) => {
-  i18n
-    .use(initReactI18next) // passes i18n down to react-i18next
-    // detect user language
-    // learn more: https://github.com/i18next/i18next-browser-languageDetector
-    // .use(LanguageDetector)
-    .init({
-      // detection: {
-      //   order: ["path", "querystring", "htmlTag"],
-      //   lookupFromPathIndex: 0,
-      // },
-      // debug: true,
-      lng: locale,
-      supportedLngs: docs.i18n.locales,
-      // the translations
-      // (tip move them in a JSON file and import them,
-      // or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)
-      resources: {
-        zh: {
-          translation: {
-            docs: "zh Welcome to React and react-i18next",
-          },
-        },
-        en: {
-          translation: {
-            docs: "en Welcome to React and react-i18next",
-            product: "hahaha",
-          },
-        },
-      },
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .use(
+    resourcesToBackend((language: string, namespace: string) => {
+      return import(`@/i18n/${language}/${namespace}.json`);
+    }),
+  )
+  .init({
+    supportedLngs: docs.i18n.locales,
+    interpolation: {
+      escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
+    },
+  });
 
-      interpolation: {
-        escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
-      },
-    });
-  return i18n;
-};
-
-export default initI18N;
+export default i18n;

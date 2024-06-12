@@ -169,7 +169,7 @@ const config: Config = {
             },
             pre: {
               color: theme("colors.slate.50"),
-              borderRadius: theme("borderRadius.md"),
+              borderRadius: "0px",
               padding: theme("padding.5"),
               borderWidth: "1px",
               borderColor: theme("colors.slate.200"),

@@ -15,28 +15,28 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-"use client";
-
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { PageInfo } from "@site/navs/documentation";
-
-export interface SidebarItem {
-  title?: React.ReactNode;
-  children?: SidebarItem[];
-}
+import { PageInfo, SidebarItem } from "@site/types";
+import { useTranslation } from "react-i18next";
+import { Dialog, DialogPanel } from "@headlessui/react";
+import {
+  Bars3Icon,
+  ChevronRightIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/solid";
 
 const DocsSidebar: React.FC<{
-  sidebarItems: PageInfo[];
-  basePath: string;
+  sidebarItems: SidebarItem[];
   mobile?: boolean;
 }> = (props) => {
-  const { sidebarItems, mobile, basePath } = props;
+  const { sidebarItems, mobile } = props;
   const pathname = usePathname();
+  const { t } = useTranslation();
 
-  const renderPage = (page: PageInfo, isChild: boolean = true) => {
+  const renderPage = (page: SidebarItem, isChild: boolean = true) => {
     const isActive = pathname === page.href;
     const isPublished = true;
     if (!isChild && !page.href) {
@@ -46,7 +46,7 @@ const DocsSidebar: React.FC<{
       return (
         <li key={page.title} className="mt-4">
           <Link
-            href={basePath + page.href || ""}
+            href={page.href || ""}
             className={clsx("-ml-px block", {
               "text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300":
                 !isActive && isPublished,
@@ -87,18 +87,18 @@ const DocsSidebar: React.FC<{
             "text-slate-400": !isActive && !isPublished,
           })}
         >
-          {page.title}
+          {t(page.title)}
         </Link>
       </li>
     );
   };
 
-  const render = (page: PageInfo) => {
+  const render = (page: SidebarItem) => {
     if (page.children && page.children.length > 0) {
       return (
         <li key={page.title} className="mt-4">
           <h5 className="mb-2 font-semibold text-slate-900 lg:mb-3 dark:text-slate-200">
-            {page.title}
+            {t(page.title)}
           </h5>
           <ul
             className={clsx(
@@ -106,7 +106,7 @@ const DocsSidebar: React.FC<{
               mobile ? "dark:border-slate-700" : "dark:border-slate-800",
             )}
           >
-            {(page.children || []).map((item: PageInfo) => renderPage(item))}
+            {(page.children || []).map((item: SidebarItem) => renderPage(item))}
           </ul>
         </li>
       );
@@ -114,15 +114,62 @@ const DocsSidebar: React.FC<{
     return renderPage(page, false);
   };
 
-  return (sidebarItems || []).map((item: PageInfo) => render(item));
+  return (sidebarItems || []).map((item: SidebarItem) => render(item));
+};
+
+export const NavSidebar: React.FC<{
+  sidebarItems: SidebarItem[];
+  page: PageInfo;
+}> = (props) => {
+  const { sidebarItems, page } = props;
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="sticky top-[3.3rem] z-50 flex items-center border-b border-slate-900/10 bg-white/95 px-4 py-2 leading-6 backdrop-blur transition-colors duration-500 supports-backdrop-blur:bg-white/60 lg:hidden dark:border-slate-50/[0.06] dark:bg-transparent">
+      <button
+        type="button"
+        className="text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+        onClick={() => setOpen(true)}
+      >
+        <span className="sr-only">Navigation</span>
+        <Bars3Icon className="size-6" />
+      </button>
+      <Dialog as="div" open={open} onClose={() => setOpen(false)}>
+        <div className="fixed inset-0 z-50 w-screen overflow-y-auto ring-0 lg:hidden">
+          <div className="flex h-full">
+            <DialogPanel className="h-screen max-w-md bg-white  text-sm backdrop-blur-2xl dark:bg-slate-800">
+              <button
+                onClick={() => setOpen(false)}
+                type="button"
+                className="absolute right-5 top-5 z-10 flex size-8 items-center justify-center text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+              >
+                <span className="sr-only">Close navigation</span>
+                <XMarkIcon className="size-5" />
+              </button>
+              <Sidebar sidebarItems={sidebarItems} mobile={open} />
+            </DialogPanel>
+          </div>
+        </div>
+      </Dialog>
+      <ol className="ml-4 flex min-w-0 whitespace-nowrap text-sm leading-6">
+        {page.parent && (
+          <li className="flex items-center">
+            {page.parent}
+            <ChevronRightIcon className="size-5" />
+          </li>
+        )}
+        <li className="truncate font-semibold text-slate-900 dark:text-slate-200">
+          {page.title}
+        </li>
+      </ol>
+    </div>
+  );
 };
 
 export const Sidebar: React.FC<{
-  sidebarItems: PageInfo[];
-  basePath?: string;
+  sidebarItems: SidebarItem[];
   mobile?: boolean;
 }> = (props) => {
-  const { sidebarItems, mobile = false, basePath = "/docs" } = props;
+  const { sidebarItems, mobile = false } = props;
   return (
     <div>
       <div
@@ -174,7 +221,7 @@ export const Sidebar: React.FC<{
                 Community
               </a>
             </li>
-            <DocsSidebar sidebarItems={sidebarItems} basePath={basePath} />
+            <DocsSidebar sidebarItems={sidebarItems} />
           </ul>
         </nav>
       </div>

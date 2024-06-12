@@ -16,14 +16,14 @@ specific language governing permissions and limitations
 under the License.
 */
 import React, { createContext, useEffect, useState } from "react";
-import initI18N from "@site/i18n/i18n";
+import i18n from "@site/i18n/i18n";
 import { docs } from "@site/docs.config";
 import { useRouter } from "next/router";
 
 export const DocContext = createContext({
   locale: "",
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  changeLocale: (locale: string) => {},
+  changeLocale: (_locale: string) => {},
 });
 
 export const DocContextProvider: React.FC<{ children: React.ReactNode }> = (
@@ -31,7 +31,7 @@ export const DocContextProvider: React.FC<{ children: React.ReactNode }> = (
 ) => {
   const { children } = props;
   const router = useRouter();
-  const i18n = initI18N(`${router.query?.locale || docs.i18n.defaultLocale}`);
+  i18n.changeLanguage(`${router.query?.locale || docs.i18n.defaultLocale}`);
   const [locale, setLocale] = useState(i18n.language);
   const paths = router.asPath.split("/").filter((item) => item.trim() !== "");
 
@@ -41,17 +41,14 @@ export const DocContextProvider: React.FC<{ children: React.ReactNode }> = (
   };
 
   useEffect(() => {
-    console.log("paths.....", paths);
     if (paths.length <= 0) {
-      router.replace("/en/products/lindb", undefined, { shallow: true });
+      router.push("/en/products/lindb");
+    } else if (paths.length == 1 && docs.i18n.locales.includes(paths[0])) {
+      router.push("/" + paths[0] + "/products/lindb");
     } else if (!docs.i18n.locales.includes(paths[0])) {
-      router.replace("/" + [locale, ...paths].join("/"), undefined, {
-        shallow: true,
-      });
+      router.push("/" + [locale, ...paths].join("/"));
     } else if (locale !== paths[0]) {
-      router.replace("/" + [locale, ...paths.slice(1)].join("/"), undefined, {
-        shallow: true,
-      });
+      router.push("/" + [locale, ...paths.slice(1)].join("/"));
     }
   }, [locale, paths]);
 

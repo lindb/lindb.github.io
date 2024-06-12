@@ -18,6 +18,7 @@ under the License.
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ["next-mdx-remote"],
   // async redirects() {
   //   return [
   //     // Basic redirect

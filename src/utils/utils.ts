@@ -15,14 +15,15 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-import { PageInfo } from "@site/navs/documentation";
+import { docs } from "@site/docs.config";
+import { SidebarItem } from "@site/types";
 
 export const getHeadingId = (heading: string) => {
   return heading.replace(/ /g, "_").toLowerCase();
 };
 
-export const getDocPages = (sidebarItems: PageInfo[]) => {
-  const result: PageInfo[] = [];
+export const getDocPages = (sidebarItems: SidebarItem[]) => {
+  const result: SidebarItem[] = [];
   sidebarItems.forEach((page) => {
     if (page.children && page.children.length > 0) {
       page.children.forEach((child) => {
@@ -33,4 +34,19 @@ export const getDocPages = (sidebarItems: PageInfo[]) => {
     }
   });
   return result;
+};
+
+export const getLocale = (url: string) => {
+  const paths = url.split("/").filter((item) => item.trim() !== "");
+  if (paths.length <= 0) {
+    return "";
+  }
+  const locale = paths[0];
+  if (locale === docs.i18n.defaultLocale) {
+    return "";
+  }
+  if (docs.i18n.locales.includes(locale)) {
+    return locale;
+  }
+  return "";
 };

@@ -1,3 +1,7 @@
 # Redirects from what the browser requests to what we serve
 /                /en/products/lindb
+/en              /en/products/lindb
+/zh              /zh/products/lindb
+/products        /en/products
+/docs            /en/docs
 

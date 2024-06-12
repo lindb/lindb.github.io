@@ -15,14 +15,48 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-export const docs = {
-  products: [
-    {
-      name: "LinDB",
-    },
-  ],
-  i18n: {
-    locales: ["en", "zh"],
-    defaultLocale: "en",
-  },
-};
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
+
+export interface CommitInfo {
+  author: string;
+  date: string;
+}
+
+export interface SidebarItem {
+  index: number;
+  title: string;
+  href?: string;
+  children?: SidebarItem[];
+}
+
+export interface DocMeta {
+  title?: string;
+  sidebar?: string;
+  description?: string;
+}
+
+export interface PageInfo {
+  path: string;
+  product?: string;
+  slug?: string[];
+  title?: string;
+  meta?: DocMeta;
+  commitInfo?: CommitInfo;
+  parent?: string;
+}
+
+export interface TOCItem {
+  id: string;
+  title: string;
+  level: number;
+}
+
+export interface MDXFile {
+  content: string;
+  meta: DocMeta;
+}
+
+export interface MDX {
+  source: MDXRemoteSerializeResult;
+  toc: TOCItem[];
+}

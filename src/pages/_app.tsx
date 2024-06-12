@@ -18,20 +18,23 @@ under the License.
 import React from "react";
 import type { AppProps } from "next/app";
 import "@site/css/globals.css";
-import { Navbar, Footer } from "@site/components";
+import { Navbar, Footer, BackgroundBeams } from "@site/components";
 import { DocContextProvider } from "@site/contexts";
+import { useRouter } from "next/router";
 
 const RootApp = ({ Component, pageProps }: AppProps) => {
+  const router = useRouter();
   return (
     <DocContextProvider>
+      <BackgroundBeams />
       <div className="flex min-h-screen flex-col">
         <Navbar />
-        <div className="flex flex-auto overflow-auto">
-          <Component {...pageProps} />
-        </div>
-        <div className="px-4 lg:px-8">
-          <Footer />
-        </div>
+        <Component {...pageProps} />
+        {!router.pathname.startsWith("/[locale]/docs") && (
+          <div className="px-4 lg:px-8">
+            <Footer />
+          </div>
+        )}
       </div>
     </DocContextProvider>
   );

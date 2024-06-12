@@ -15,15 +15,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-"use client";
 import React from "react";
 import clsx from "clsx";
 import Link from "next/link";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { PageInfo } from "@site/navs/documentation";
+import { SidebarItem } from "@site/types";
 import { usePathname } from "next/navigation";
 
-export const DocsFooter: React.FC<{ pages: PageInfo[] }> = (props) => {
+export const DocsFooter: React.FC<{ pages: SidebarItem[] }> = (props) => {
   const { pages } = props;
   const pathname = usePathname();
   const currentPageIdx = pages.findIndex((p) => p.href === pathname);

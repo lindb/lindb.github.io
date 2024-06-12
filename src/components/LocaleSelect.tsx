@@ -15,13 +15,11 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { LanguageIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 import { docs } from "@site/docs.config";
-import { useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
 import { DocContext } from "@site/contexts";
 
 const mapping = {
@@ -41,17 +39,6 @@ export const LocaleSelect = () => {
     );
   };
 
-  // useEffect(() => {
-  //   console.log(router, "router....", paths);
-  //   if (paths.length > 0) {
-  //     if (docs.i18n.locales.includes(paths[0])) {
-  //       router.replace([locale, ...paths.splice(1)].join("/"), undefined, {
-  //         shallow: true,
-  //       });
-  //     }
-  //   }
-  //   i18n.changeLanguage(locale);
-  // }, [locale]);
   return (
     <Menu>
       <MenuButton className="flex items-center">
