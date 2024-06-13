@@ -76,13 +76,13 @@ const NavPopover: React.FC<{ className: string }> = (props) => {
 
 export const Navbar = () => {
   return (
-    <header className="sticky top-0 z-40 w-full flex-none bg-white/85 leading-8 backdrop-blur-sm lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] dark:bg-slate-900/85">
+    <header className="sticky top-0 z-40 w-full flex-none bg-white/95 leading-8 backdrop-blur-sm supports-backdrop-blur:bg-white/75 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] dark:bg-slate-900/95 supports-backdrop-blur:dark:bg-slate-900/75">
       <div className="mx-auto max-w-8xl">
         <div className="mx-4 border-b border-slate-900/10 py-3 lg:mx-0 lg:border-0 lg:px-8 lg:py-4 dark:border-slate-300/10">
           <div className="relative flex items-center">
             <div className="relative ml-auto flex flex-1 items-center">
               <nav className="flex flex-1 items-center text-sm font-semibold leading-6 text-slate-700 dark:text-slate-200">
-                <Link href="/">
+                <Link href="/" internal>
                   <img src="/img/logo.png" className="size-7" />
                 </Link>
                 <div className="hidden space-x-8 lg:ml-8 lg:flex">

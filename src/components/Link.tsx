@@ -20,7 +20,6 @@ under the License.
 import { addPathPrefix, getLocale } from "@site/utils/utils";
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid";
-import { useRouter } from "next/router";
 
 const Link: React.FC<{
   href?: string;
@@ -30,10 +29,7 @@ const Link: React.FC<{
   internal?: boolean;
 }> = (props) => {
   const { href = "", internal, locale, children, className } = props;
-  const router = useRouter();
-  // const { locale } = useContext(DocContext);
-  // const [target, setTarget] = useState(href);
-  const [isSameDomain, setIsSameDomain] = useState(false);
+  const [isSameDomain, setIsSameDomain] = useState(true);
   const ref = useRef() as MutableRefObject<HTMLAnchorElement>;
 
   useEffect(() => {
@@ -49,6 +45,7 @@ const Link: React.FC<{
       }
     }
   }, []);
+
   return (
     <a
       ref={ref}

@@ -124,7 +124,7 @@ export const NavSidebar: React.FC<{
   const { sidebarItems, page } = props;
   const [open, setOpen] = useState(false);
   return (
-    <div className="sticky top-[3.3rem] z-50 flex items-center border-b border-slate-900/10 bg-white/95 px-4 py-2 leading-6 backdrop-blur transition-colors duration-500 supports-backdrop-blur:bg-white/60 lg:hidden dark:border-slate-50/[0.06] dark:bg-transparent">
+    <div className="sticky top-[3.3rem] z-50 flex items-center border-b border-slate-900/10 bg-white/95 px-4 py-2 leading-6 backdrop-blur-sm supports-backdrop-blur:bg-white/75 lg:hidden dark:border-slate-50/[0.06] dark:bg-slate-900/90 supports-backdrop-blur:dark:bg-slate-900/80">
       <button
         type="button"
         className="text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"

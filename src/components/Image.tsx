@@ -26,14 +26,14 @@ export const Image = (props: {
   if (src.endsWith("#browser")) {
     return (
       <>
-        <div className="not-prose bg-slate-100/80  ring-1 ring-slate-300 dark:bg-slate-900/30 dark:ring-white/20">
-          <div className="flex gap-2 p-3">
+        <span className="not-prose flex flex-col bg-slate-100/80  ring-1 ring-slate-300 dark:bg-slate-900/30 dark:ring-white/20">
+          <span className="flex gap-2 bg-white/30 p-3 dark:bg-slate-800/50">
             <span className="block size-2.5 rounded-full bg-red-500" />
             <span className="block size-2.5 rounded-full bg-orange-500" />
             <span className="block size-2.5 rounded-full bg-green-500" />
-          </div>
+          </span>
           <img {...props} decoding="async" className="mx-auto" />
-        </div>
+        </span>
         {alt && (
           <span className="mt-2 flex flex-col text-center text-sm font-semibold italic">
             {alt}
