@@ -124,7 +124,7 @@ export const NavSidebar: React.FC<{
   const { sidebarItems, page } = props;
   const [open, setOpen] = useState(false);
   return (
-    <div className="sticky top-[3.3rem] z-50 flex items-center border-b border-slate-900/10 bg-white/95 px-4 py-2 leading-6 backdrop-blur-sm supports-backdrop-blur:bg-white/75 lg:hidden dark:border-slate-50/[0.06] dark:bg-slate-900/90 supports-backdrop-blur:dark:bg-slate-900/80">
+    <div className="sticky top-[3.3rem] z-50 flex items-center border-b border-slate-900/10 bg-white p-4 leading-6 backdrop-blur-sm supports-backdrop-blur:bg-white/75 lg:hidden dark:border-slate-50/[0.06] dark:bg-slate-900 supports-backdrop-blur:dark:bg-slate-900/80">
       <button
         type="button"
         className="text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
@@ -135,8 +135,8 @@ export const NavSidebar: React.FC<{
       </button>
       <Dialog as="div" open={open} onClose={() => setOpen(false)}>
         <div className="fixed inset-0 z-50 w-screen overflow-y-auto ring-0 lg:hidden">
-          <div className="flex h-full">
-            <DialogPanel className="h-screen max-w-md bg-white  text-sm backdrop-blur-2xl dark:bg-slate-800">
+          <div className="flex min-h-screen">
+            <DialogPanel className="max-w-md bg-white  text-sm backdrop-blur-2xl dark:bg-slate-800">
               <button
                 onClick={() => setOpen(false)}
                 type="button"

@@ -76,7 +76,7 @@ const NavPopover: React.FC<{ className: string }> = (props) => {
 
 export const Navbar = () => {
   return (
-    <header className="sticky top-0 z-40 w-full flex-none bg-white/95 leading-8 backdrop-blur-sm supports-backdrop-blur:bg-white/75 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] dark:bg-slate-900/95 supports-backdrop-blur:dark:bg-slate-900/75">
+    <header className="sticky top-0 z-40 w-full flex-none bg-white leading-8 backdrop-blur-sm supports-backdrop-blur:bg-white/75 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] dark:bg-slate-900 supports-backdrop-blur:dark:bg-slate-900/75">
       <div className="mx-auto max-w-8xl">
         <div className="mx-4 border-b border-slate-900/10 py-3 lg:mx-0 lg:border-0 lg:px-8 lg:py-4 dark:border-slate-300/10">
           <div className="relative flex items-center">

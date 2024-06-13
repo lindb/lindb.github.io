@@ -24,7 +24,6 @@ export const CodeSnippet = (props: {
   children?: ReactNode;
   className?: string;
 }) => {
-  console.log(".....", props);
   const findLanguage = () => {
     const classes = (props.className || "").split(" ");
     const languageClass = Array.isArray(classes)
