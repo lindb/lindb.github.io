@@ -15,7 +15,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-"use client";
 import React, { useState } from "react";
 import clsx from "clsx";
 import { Dialog, DialogPanel } from "@headlessui/react";
@@ -23,10 +22,8 @@ import { GithubIcon } from "@site/icons";
 import { ThemeToggle } from "./ThemeToggle";
 import { EllipsisVerticalIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { DocSearch } from "./DocSearch";
-import Link from "next/link";
+import Link from "./Link";
 import { LocaleSelect } from "./LocaleSelect";
-import { useRouter } from "next/router";
-import { getLocale } from "@site/utils/utils";
 
 const NavbarItems = () => {
   return (
@@ -78,17 +75,14 @@ const NavPopover: React.FC<{ className: string }> = (props) => {
 };
 
 export const Navbar = () => {
-  const router = useRouter();
-  const locale = getLocale(router.asPath);
-
   return (
-    <header className="sticky top-0 z-40 w-full flex-none bg-white/95 leading-8 backdrop-blur transition-colors duration-500 supports-backdrop-blur:bg-white/60 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] dark:bg-transparent">
+    <header className="sticky top-0 z-40 w-full flex-none bg-white/85 leading-8 backdrop-blur-sm lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] dark:bg-slate-900/85">
       <div className="mx-auto max-w-8xl">
         <div className="mx-4 border-b border-slate-900/10 py-3 lg:mx-0 lg:border-0 lg:px-8 lg:py-4 dark:border-slate-300/10">
           <div className="relative flex items-center">
             <div className="relative ml-auto flex flex-1 items-center">
               <nav className="flex flex-1 items-center text-sm font-semibold leading-6 text-slate-700 dark:text-slate-200">
-                <Link href={"/" + locale}>
+                <Link href="/">
                   <img src="/img/logo.png" className="size-7" />
                 </Link>
                 <div className="hidden space-x-8 lg:ml-8 lg:flex">
@@ -99,6 +93,7 @@ export const Navbar = () => {
                 <LocaleSelect />
                 <ThemeToggle />
                 <Link
+                  internal
                   href="https://github.com/lindb/lindb"
                   className="block text-slate-600 hover:text-slate-700 dark:text-gray-200 dark:hover:text-slate-300"
                 >

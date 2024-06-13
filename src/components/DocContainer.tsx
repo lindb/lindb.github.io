@@ -25,17 +25,20 @@ import {
   Heading,
   DocHeader,
   TableOfContents,
+  Image,
 } from "@site/components";
 import { PageInfo, SidebarItem, TOCItem } from "@site/types";
 import "remark-github-blockquote-alert/alert.css";
+import Link from "./Link";
 
 export const DocContainer: React.FC<{
+  locale: string;
   page: PageInfo;
   source: MDXRemoteSerializeResult;
   tocItems?: TOCItem[];
   pages: SidebarItem[];
 }> = (props) => {
-  const { page, source, tocItems, pages } = props;
+  const { page, locale, source, tocItems, pages } = props;
   const headingComponents: object = {};
   for (let i = 1; i <= 6; i++) {
     headingComponents[`h${i}`] = (props) => {
@@ -60,6 +63,13 @@ export const DocContainer: React.FC<{
                 {props.children}
               </table>
             ),
+            a: (props) => {
+              return <Link locale={locale} {...props} />;
+            },
+            pre: (props) => {
+              return <CodeSnippet {...props} />;
+            },
+            img: Image,
           }}
         />
       </div>

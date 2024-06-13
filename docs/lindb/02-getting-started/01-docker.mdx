@@ -19,7 +19,7 @@ Once Docker is installed, you will need to pull LinDB's image from
 command using `docker run`:
 
 ```shell
-docker run -p 9000:9000 lindata/lindb:v0.2.6 lind standalone run
+docker run -p 9000:9000 lindata/lindb:v0.3.1 lind standalone run
 ```
 
 ### Options
@@ -33,8 +33,8 @@ docker run -p 9000:9000 lindata/lindb:v0.2.6 lind standalone run
 
 This parameter will publish a port to the host, you can specify:
 
-- `-p 9000:9000` - [REST API](/docs/lindb/reference/api) and
-  [Admin UI](/docs/lindb/reference/admin-ui)
+- `-p 9000:9000` - [REST API](/docs/lindb/api/index) and
+  [Admin Console](/docs/lindb/admin-console/index)
 
 ## Container status
 
@@ -45,7 +45,7 @@ ports we published:
 docker ps
 ```
 
-```shell title="Result"
+```shell 
 CONTAINER ID        IMAGE                  COMMAND                 CREATED          STATUS            PORTS                    NAMES
 4edf08ac89dc        lindata/lindb:v0.2.6   "lind standalone run"   2 minutes ago    Up 2 minutes      0.0.0.0:9000->9000/tcp   lindb
 ```

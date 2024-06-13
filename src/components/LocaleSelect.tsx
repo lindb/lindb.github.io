@@ -32,7 +32,7 @@ export const LocaleSelect = () => {
 
   const languageBtnCls = (l: string) => {
     return clsx(
-      "group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-white/10",
+      "group flex w-full items-center gap-2 px-3 py-1.5 data-[focus]:bg-white/10",
       {
         "text-sky-500 bg-slate-400/10 dark:bg-slate-600/30": locale === l,
       },
@@ -46,7 +46,7 @@ export const LocaleSelect = () => {
       </MenuButton>
       <MenuItems
         anchor="bottom"
-        className="z-50 mt-6 w-40 origin-top-right rounded-sm bg-white p-1 text-sm/6 font-semibold text-slate-700 ring-1 ring-slate-900/10 [--anchor-gap:var(--spacing-1)] focus:outline-none dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-500/20"
+        className="z-50 mt-6 w-40 origin-top-right bg-white p-1 text-sm/6 font-semibold text-slate-700 ring-1 ring-slate-900/10 [--anchor-gap:var(--spacing-1)] focus:outline-none dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-500/20"
       >
         {docs.i18n.locales.map((localeItem) => (
           <MenuItem key={localeItem}>

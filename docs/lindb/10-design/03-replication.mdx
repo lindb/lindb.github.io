@@ -18,7 +18,7 @@ Written to `Leader` is successful, has the following problems:
 
 In order to solve the above problems and try to ensure that data is not lost, `LinDB` adopts a multichannel replication scheme, as shown in the following figure:
 
-![database replica](/img/lindb/design/storage_database.png)
+![Databae storage shard](/img/lindb/design/storage_database.png)
 
 Take the data shard `Shard 3` as an example:
 - When `Node 1` is a `Leader`, `1-WAL` write channel is enabled, `Node 1` receives new data and writes it to the `1-WAL` channel, and replicating the data into `1-WAL` channel of `Node 2` and `Node 4`;

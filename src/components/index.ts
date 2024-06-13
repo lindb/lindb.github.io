@@ -29,3 +29,5 @@ export * from "./ThemeToggle";
 export * from "./DocSearch";
 export * from "./TOC";
 export * from "./Meta";
+export * from "./Link";
+export * from "./Image";

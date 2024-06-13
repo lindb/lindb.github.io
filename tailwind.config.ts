@@ -131,7 +131,7 @@ const config: Config = {
             a: {
               fontWeight: theme("fontWeight.semibold"),
               textDecoration: "none",
-              borderBottom: `1px solid ${theme("colors.sky.300")}`,
+              borderBottom: `1px solid ${theme("colors.sky.500")}`,
             },
             "a:hover": {
               borderBottomWidth: "2px",
@@ -247,7 +247,7 @@ const config: Config = {
             "--tw-prose-bullets": theme("colors.slate.500"),
             a: {
               color: theme("colors.white"),
-              borderBottomColor: theme("colors.sky.400"),
+              borderBottomColor: theme("colors.sky.500"),
             },
             strong: {
               color: theme("colors.slate.200"),

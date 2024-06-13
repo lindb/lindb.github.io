@@ -44,17 +44,19 @@ const DocPage: React.FC<{
   source: MDXRemoteSerializeResult;
   tocItems: TOCItem[];
   sidebar: SidebarItem[];
+  locale: string;
 }> = (props) => {
-  const { page, source, tocItems, sidebar } = props;
+  const { page, source, tocItems, sidebar, locale } = props;
   return (
     <>
       <MetaTitle title={page.title || "Docs"} />
       <NavSidebar sidebarItems={sidebar} page={page} />
-      <main className="flex-1 pt-4">
-        <div className="mx-auto flex min-h-full max-w-8xl flex-col px-4 sm:px-6 md:px-8">
+      <main className="flex flex-1 pt-4">
+        <div className="mx-auto flex max-w-8xl flex-1 flex-col px-4 sm:px-6 md:px-8">
           <Sidebar sidebarItems={sidebar} />
           <div className="flex-1 lg:pl-36 xl:pl-[19.5rem]">
             <DocContainer
+              locale={locale}
               page={page}
               source={source}
               tocItems={tocItems}
@@ -91,6 +93,7 @@ export const getStaticProps = async (context: {
       source: mdx.source,
       tocItems: mdx.toc,
       sidebar: sidebar,
+      locale: locale,
     },
   };
 };

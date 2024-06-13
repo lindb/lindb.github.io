@@ -27,7 +27,7 @@ import {
 import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDX, MDXFile, TOCItem } from "@site/types";
-import { getHeadingId } from "./utils";
+import { getHeadingId, languagePrefix } from "./utils";
 import { visit } from "unist-util-visit";
 import fs from "fs";
 import { getFilePath } from "./navs";
@@ -49,6 +49,62 @@ function toc(options: { export: { tocItems: TOCItem[] } }) {
     if (options && options.export) {
       options.export.tocItems = headings;
     }
+  };
+}
+
+export const findLanguage = (parent, node) => {
+  if (!parent || parent.tagName !== "pre") {
+    return;
+  }
+  if (node.tagName !== "code" && !node.properties.class) {
+    return;
+  }
+  const classes = node.properties.class;
+  const languageClass = Array.isArray(classes)
+    ? classes.findLast(
+        (d) => typeof d === "string" && d.startsWith(languagePrefix),
+      )
+    : undefined;
+
+  const lang =
+    typeof languageClass === "string"
+      ? languageClass.slice(languagePrefix.length)
+      : "text";
+
+  if (!lang) {
+    return;
+  }
+};
+
+function addLanguageClass() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (tree: any) => {
+    visit(tree, "element", (node, _index, parent) => {
+      if (!parent || parent.tagName !== "pre") {
+        return;
+      }
+      if (node.tagName !== "code" && !node.properties.class) {
+        return;
+      }
+      const classes = node.properties.class;
+      const languageClass = Array.isArray(classes)
+        ? classes.findLast(
+            (d) => typeof d === "string" && d.startsWith(languagePrefix),
+          )
+        : undefined;
+
+      const lang =
+        typeof languageClass === "string"
+          ? languageClass.slice(languagePrefix.length)
+          : "text";
+
+      if (!lang) {
+        return;
+      }
+      parent.properties.class =
+        parent.properties.class + " " + languagePrefix + lang;
+      node.properties.class = languagePrefix + lang;
+    });
   };
 }
 
@@ -100,6 +156,7 @@ export const compile = async (content: string | Buffer): Promise<MDX> => {
               "json",
               "yaml",
             ],
+            addLanguageClass: true,
             // ref: https://shiki.style/themes
             themes: {
               light: "material-theme-lighter",
@@ -115,6 +172,8 @@ export const compile = async (content: string | Buffer): Promise<MDX> => {
             colorReplacements: { "#24273a": "#1e293b" },
           },
         ],
+        //issue ref: https://github.com/shikijs/shiki/issues/685
+        [addLanguageClass], // after shiki remove duplicate language
       ],
     },
   });

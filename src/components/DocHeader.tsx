@@ -17,11 +17,13 @@ under the License.
 */
 import { PageInfo } from "@site/types";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export const DocHeader: React.FC<{
   page: PageInfo;
 }> = (props) => {
   const { page } = props;
+  const { t } = useTranslation();
   if (!page.meta && !page.parent) return null;
   return (
     <header
@@ -31,7 +33,7 @@ export const DocHeader: React.FC<{
       <div>
         {page.parent && (
           <p className="mb-2 hidden text-sm font-semibold leading-6 text-sky-500 lg:block dark:text-sky-400">
-            {page.parent}
+            {t(page.parent)}
           </p>
         )}
         {page.meta && page.meta.title && (
@@ -45,11 +47,11 @@ export const DocHeader: React.FC<{
       {page.commitInfo && page.commitInfo.author && (
         <div className="mt-1 text-sm italic">
           Last updated on{" "}
-          <span className="font-medium text-slate-900 underline decoration-sky-600 dark:text-slate-200">
+          <span className="font-medium text-slate-900 underline decoration-sky-500 dark:text-slate-200">
             {page.commitInfo.date}
           </span>{" "}
           by{" "}
-          <span className="font-medium text-slate-900 underline decoration-sky-600 dark:text-slate-200">
+          <span className="font-medium text-slate-900 underline decoration-sky-500 dark:text-slate-200">
             {page.commitInfo.author}
           </span>
         </div>

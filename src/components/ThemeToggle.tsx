@@ -56,7 +56,7 @@ export const ThemeToggle = () => {
 
   const themeBtnCls = (t: string) => {
     return clsx(
-      "group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-white/10",
+      "group flex w-full items-center gap-2 px-3 py-1.5 data-[focus]:bg-white/10",
       {
         "text-sky-500 bg-slate-400/10 dark:bg-slate-600/30": theme === t,
       },

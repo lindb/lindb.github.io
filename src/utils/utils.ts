@@ -18,6 +18,8 @@ under the License.
 import { docs } from "@site/docs.config";
 import { SidebarItem } from "@site/types";
 
+export const languagePrefix = "language-";
+
 export const getHeadingId = (heading: string) => {
   return heading.replace(/ /g, "_").toLowerCase();
 };
@@ -36,17 +38,26 @@ export const getDocPages = (sidebarItems: SidebarItem[]) => {
   return result;
 };
 
-export const getLocale = (url: string) => {
+export const getLocale = (
+  url: string,
+): { locale: string; include: boolean } => {
   const paths = url.split("/").filter((item) => item.trim() !== "");
-  if (paths.length <= 0) {
-    return "";
-  }
-  const locale = paths[0];
-  if (locale === docs.i18n.defaultLocale) {
-    return "";
-  }
+  const locale = paths.length > 0 ? paths[0] : "";
   if (docs.i18n.locales.includes(locale)) {
-    return locale;
+    return { locale, include: true };
   }
-  return "";
+  return { locale: docs.i18n.defaultLocale, include: false };
 };
+
+// Scheme: https://tools.ietf.org/html/rfc3986#section-3.1
+// Absolute URL: https://tools.ietf.org/html/rfc3986#section-4.3
+const ABSOLUTE_URL_REGEX = /^[a-zA-Z][a-zA-Z\d+\-.]*?:/;
+export const isAbsoluteUrl = (url: string) => ABSOLUTE_URL_REGEX.test(url);
+
+/**
+ * Adds the provided prefix to the given path. It first ensures that the path
+ * is indeed starting with a slash.
+ */
+export function addPathPrefix(path: string, prefix?: string) {
+  return `/${prefix}${path}`;
+}
