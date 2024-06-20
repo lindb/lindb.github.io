@@ -17,7 +17,7 @@ under the License.
 */
 import React from "react";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
-import { PageInfo, SidebarItem, TOCItem } from "@site/types";
+import { PageInfo, ReleaseInfo, SidebarItem, TOCItem } from "@site/types";
 import { getDocStaticPaths, getDocStaticProps } from "@site/utils/docs";
 import { DocPage } from "@site/components";
 
@@ -27,7 +27,7 @@ const Docs: React.FC<{
   tocItems: TOCItem[];
   sidebar: SidebarItem[];
   locale: string;
-  releases?: object[];
+  releases?: ReleaseInfo[];
 }> = (props) => {
   return <DocPage {...props} />;
 };

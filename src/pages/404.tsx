@@ -18,13 +18,9 @@ under the License.
 import React from "react";
 import { MetaTitle } from "@site/components";
 import { useTranslation } from "next-i18next";
-import { initialI18NextConfig } from "@site/i18n/i18n";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { docs } from "@site/docs.config";
 
 const NotFoundPage = () => {
-  const { t, i18n } = useTranslation();
-  console.log("4040-...", i18n.language);
+  const { t } = useTranslation();
   const msg = t("This page could not be found");
   return (
     <>
@@ -40,34 +36,5 @@ const NotFoundPage = () => {
     </>
   );
 };
-//
-// export const getStaticProps = async (context: {
-//   params: { locale: string; product: string };
-// }) => {
-//   console.log(context, "kkkkkk");
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(
-//         docs.i18n.defaultLocale,
-//         ["translation"],
-//         initialI18NextConfig,
-//       )),
-//     },
-//   };
-// };
-
-// export const getStaticPaths = async () => {
-//   const paths = docs.i18n.locales.map((locale) => {
-//     return {
-//       params: {
-//         locale: locale,
-//       },
-//     };
-//   });
-//   return {
-//     paths,
-//     fallback: false, // false or "blocking"
-//   };
-// };
 
 export default NotFoundPage;

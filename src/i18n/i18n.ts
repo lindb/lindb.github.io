@@ -43,7 +43,6 @@ export const initialI18NextConfig: UserConfig = {
   fallbackLng: docs.i18n.defaultLocale,
   use: [
     resourcesToBackend((language: string, namespace: string) => {
-      console.log("hahahaha", language, namespace);
       return import(`@/i18n/${language}/${namespace}.json`);
     }),
   ],

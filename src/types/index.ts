@@ -65,7 +65,8 @@ export interface MDX {
 export interface ReleaseInfo {
   name: string;
   published_at: string;
-  body: string | MDXRemoteSerializeResult;
+  body: string;
+  mdxBody: MDXRemoteSerializeResult;
   assets: {
     name: string;
     size: number;

@@ -52,7 +52,8 @@ export const getDocStaticProps = async (slug: string[], locale?: string) => {
     const res = await fetch(url);
     releases = await res.json();
     for (const r of releases || []) {
-      r.body = (await compile(r.body)).source;
+      r.mdxBody = (await compile(r.body)).source;
+      r.body = "";
     }
     tocItem = (releases || []).map((r) => {
       return {

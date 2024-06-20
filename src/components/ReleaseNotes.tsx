@@ -63,7 +63,7 @@ export const ReleaseNotes = (props: { releases?: ReleaseInfo[] }) => {
               </span>
             </H>
             <div key={release.name} className="italic">
-              <MDXRemote {...(release.body as MDXRemoteSerializeResult)} />
+              <MDXRemote {...release.mdxBody} />
             </div>
 
             <div>
