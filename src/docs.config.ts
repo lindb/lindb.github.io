@@ -18,9 +18,40 @@ under the License.
 export const docs = {
   products: [
     {
+      name: "Linsight",
+      desc: "All-in-one observability platform",
+      logo: "/img/logos/linsight.svg",
+      href: "https://github.com/lindb/linsight",
+    },
+    {
+      name: "Lingo",
+      desc: "A lightweight, observability pipeline",
+      logo: "/img/logos/lingo.svg",
+      href: "https://github.com/lindb/lingo",
+    },
+    {
       name: "LinDB",
+      desc: "Distributed time-series database",
+      logo: "/img/logos/lindb.svg",
+      href: "/oss/lindb",
     },
   ],
+  navbar: {
+    logo: {
+      alt: "Lin Labs Logo",
+      src: "/img/logo.svg",
+    },
+    items: [
+      {
+        label: "Docs",
+        href: "/docs/lindb/introduction",
+      },
+      {
+        label: "Downloads",
+        href: "/downloads2",
+      },
+    ],
+  },
   i18n: {
     locales: ["en", "zh"],
     defaultLocale: "en",

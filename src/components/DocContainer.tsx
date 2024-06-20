@@ -27,9 +27,12 @@ import {
   TableOfContents,
   Image,
 } from "@site/components";
-import { PageInfo, SidebarItem, TOCItem } from "@site/types";
+import { PageInfo, ReleaseInfo, SidebarItem, TOCItem } from "@site/types";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import "remark-github-blockquote-alert/alert.css";
 import Link from "./Link";
+import { Footer } from "./Footer";
+import { ReleaseNotes } from "./ReleaseNotes";
 
 export const DocContainer: React.FC<{
   locale: string;
@@ -37,8 +40,9 @@ export const DocContainer: React.FC<{
   source: MDXRemoteSerializeResult;
   tocItems?: TOCItem[];
   pages: SidebarItem[];
+  releases?: ReleaseInfo[];
 }> = (props) => {
-  const { page, locale, source, tocItems, pages } = props;
+  const { page, source, tocItems, pages, releases } = props;
   const headingComponents: object = {};
   for (let i = 1; i <= 6; i++) {
     headingComponents[`h${i}`] = (props) => {
@@ -64,17 +68,44 @@ export const DocContainer: React.FC<{
               </table>
             ),
             a: (props) => {
-              return <Link locale={locale} {...props} />;
+              return <Link {...props} />;
             },
             pre: (props) => {
               return <CodeSnippet {...props} />;
             },
             img: Image,
+            TabGroup,
+            TabList: (props) => (
+              <TabList
+                className="border-b border-slate-200 dark:border-slate-200/5"
+                {...props}
+              >
+                {props.children}
+              </TabList>
+            ),
+            Tab: (props) => (
+              <Tab
+                {...props}
+                className="border-b border-sky-400/0 px-3 py-2 text-sm/6 font-semibold leading-6 text-white focus:outline-none data-[hover]:border-slate-300 data-[selected]:border-sky-400 data-[selected]:data-[hover]:text-sky-400 data-[selected]:text-sky-400 data-[hover]:dark:border-slate-700"
+              >
+                {props.children}
+              </Tab>
+            ),
+            TabPanels: (props) => (
+              <TabPanels {...props} className="m-3">
+                {props.children}
+              </TabPanels>
+            ),
+            TabPanel,
+            ReleaseNotes: (props) => (
+              <ReleaseNotes {...props} releases={releases} />
+            ),
           }}
         />
       </div>
       <DocsFooter pages={pages} />
-      {tocItems && <TableOfContents tocItems={tocItems} />}
+      {tocItems && <TableOfContents page={page} tocItems={tocItems} />}
+      <Footer />
     </div>
   );
 };

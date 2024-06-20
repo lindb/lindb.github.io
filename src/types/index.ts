@@ -33,6 +33,7 @@ export interface DocMeta {
   title?: string;
   sidebar?: string;
   description?: string;
+  sidebarHide?: boolean;
 }
 
 export interface PageInfo {
@@ -59,4 +60,15 @@ export interface MDXFile {
 export interface MDX {
   source: MDXRemoteSerializeResult;
   toc: TOCItem[];
+}
+
+export interface ReleaseInfo {
+  name: string;
+  published_at: string;
+  body: string | MDXRemoteSerializeResult;
+  assets: {
+    name: string;
+    size: number;
+    browser_download_url: string;
+  }[];
 }

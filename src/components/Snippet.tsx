@@ -43,9 +43,9 @@ export const CodeSnippet = (props: {
     return lang;
   };
   const language = findLanguage();
-  if (!language || (language !== "shell" && language !== "bash")) {
+  if (!["bash", "sh", "shell"].includes(language || "")) {
     return (
-      <pre {...props} className={clsx("mt-0 p-3", props.className)}>
+      <pre {...props} className={clsx("mt-0 grid p-3", props.className)}>
         {props.children}
       </pre>
     );
@@ -59,7 +59,10 @@ export const CodeSnippet = (props: {
           Terminal
         </div>
       </div>
-      <pre {...props} className={clsx("mt-0 border-0 p-3", props.className)}>
+      <pre
+        {...props}
+        className={clsx("mt-0 grid border-0 p-3", props.className)}
+      >
         {props.children}
       </pre>
     </div>

@@ -22,7 +22,7 @@ What information needs to be processed?
 
 ## Overview
 
-![coordinator](/img/lindb/design/coordinator.png)
+![Coordinator](/img/lindb/design/coordinator.png)
 
 All scheduling operations are processed based on the basic framework logic of the figure above, each role listens for its own interested data change operations in ETCD.
 
@@ -54,14 +54,14 @@ Master is responsible for the following state machines:
 Watch KEY: /{broker namespace}/storage/config
 ```  
 
-- The user can submit storage cluster configuration information to any broker node, then the Broker node just simply writes the configuration information to `/storage/config/{cluster name}`
+- The user can submit storage cluster configuration information to any broker node, then the Broker node just simply writes the configuration information to **/storage/config/\{cluster name\}**
 - Master establishes a Storage-Live-Node State-Machine Watching mechanism for each Storage cluster based on the configuration information to trace the survival of each Storage cluster node;
-- Each Storage Cluster Watches the survival situation of Storage nodes, and write the overall storage status information to `/state/storage/cluster/{cluster name}` for usage by [Storage Cluster Status State Machine] (#storage-status);
+- Each Storage Cluster Watches the survival situation of Storage nodes, and write the overall storage status information to **/state/storage/cluster/\{cluster name\}** for usage by [Storage Cluster Status State Machine](#storage-state);
 
 The Watch mechanism for each Storage Cluster is as follows:
 - Establish connection with ETCD of the Storage cluster based on the configuration information of the Storage cluster;
-- Watch Storage cluster node survival KEY: `/active/nodes` (note that unlike brokers `/active/nodes`, it corresponds to the storage registration information);
-- When each Storage node starts, registers the node information below the corresponding KEY:  `/live/nodes/{storage node id}`;
+- Watch Storage cluster node survival KEY: **/active/nodes** (note that unlike brokers **/active/nodes**, it corresponds to the storage registration information);
+- When each Storage node starts, registers the node information below the corresponding KEY:  **/live/nodes/\{storage node id\}**;
 
 ### Database config
 
@@ -118,7 +118,7 @@ Broker is responsible for the following state machines:
 Watch KEY: /{broker namespace}/live/nodes
 ```  
 
-- When the Broker starts, it will register its own information under the Watch KEY: `/live/nodes/{broker node}`;
+- When the Broker starts, it will register its own information under the Watch KEY: **/live/nodes/\{broker node\}**;
 - Through the Watch KEY, each broker knows which nodes are alive in the current broker cluster;
 
 ### Database config

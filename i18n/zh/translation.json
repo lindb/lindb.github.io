@@ -1,5 +1,23 @@
 {
+	"A lightweight, observability pipeline": "轻量级数据处理平台",
+	"Admin Console": "控制台",
+	"All-in-one observability platform": "一站式可观测平台",
+	"An open-source, cloud native, observabilty platform": "云原生开源可观测平台",
+	"Client": "客户端",
+	"Deployment": "集群部署",
+	"Design": "设计",
+	"Developer Guide": "开发手册",
+	"Distributed time-series database": "分布式时序数据库",
+	"Docs": "文档",
+	"Documentation": "文档",
+	"Downloads": "下载",
+	"Edit this page on Github": "在 GitHub 上编辑此页",
 	"Getting Started": "快速开始",
-	"Lin Ql": "Lin QL",
-	"Api": "API"
+	"Introduction": "介绍",
+	"On this page": "本页导航",
+	"Open source": "开源",
+	"Reference": "参考手册",
+	"Releases": "变更日志",
+	"Resources": "资源",
+	"This page could not be found": "找不到此页面"
 }

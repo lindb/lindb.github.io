@@ -1,0 +1,56 @@
+---
+title: 元数据管理
+sidebar: 元数据
+description: 当前集群元数据配置管理。
+---
+
+
+## Broker
+
+在多机房/Region模式下，当前集群下已经注册的**Broker**集群。
+
+![Broker list](/img/lindb/guide/admin_ui/broker_list.png#browser)
+
+注册相应的**Broker**配置信息。
+
+![Create broker](/img/lindb/guide/admin_ui/create_broker.png#browser)
+
+## Logic Database
+
+当前集群下逻辑数据库列表。
+
+![Logic database list](/img/lindb/guide/admin_ui/list_logic_database.png#browser)
+
+创新或者修改对应逻辑数据库配置信息。
+
+![Create logic database](/img/lindb/guide/admin_ui/create_logic_database.png#browser)
+
+## Storage
+
+当前集群下已经注册的**Storage**集群，每个**Storage**在启动的时候会完成自注册，正常情况不需要用户手动进行注册。
+
+![Storage list](/img/lindb/guide/admin_ui/storage_list.png#browser)
+
+当**Storage**自注册失败时，可以通过手动方式注册相应的**Storage**配置信息。
+
+![Create storage](/img/lindb/guide/admin_ui/create_storage.png#browser)
+
+## Database
+
+当前集群下数据库列表。
+
+![Database list](/img/lindb/guide/admin_ui/database_list.png#browser)
+
+创新或者修改对应数据库配置信息。
+
+![Create database](/img/lindb/guide/admin_ui/create_database.png#browser)
+
+## Explore
+
+浏览当前集群**ETCD**中的各类型的配置信息，可以通过**Compare**按钮来对应内存中各状态机中的信息。
+
+![Metadata explore](/img/lindb/guide/admin_ui/metadata_explore.png#browser)
+
+查看与内存状态机中信息的对比结果，是否存在状态机中的信息与配置不一致情况。
+
+![Metadata compare](/img/lindb/guide/admin_ui/metadata_explore_compare.png#browser)

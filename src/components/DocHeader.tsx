@@ -17,7 +17,7 @@ under the License.
 */
 import { PageInfo } from "@site/types";
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 
 export const DocHeader: React.FC<{
   page: PageInfo;

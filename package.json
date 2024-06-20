@@ -7,7 +7,8 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"export": "next export"
+		"export": "next export",
+		"scan": "npx i18next-scanner"
 	},
 	"dependencies": {
 		"next": "14.2.3",
@@ -42,6 +43,9 @@
 		"gray-matter": "^4.0.3",
 		"i18next": "^23.11.5",
 		"i18next-resources-to-backend": "^1.2.1",
+		"i18next-scanner": "^4.5.0",
+		"next-i18next": "^15.3.0",
+		"next-language-detector": "^1.1.0",
 		"next-mdx-remote": "^5.0.0",
 		"postcss": "^8.4.38",
 		"prettier": "^3.3.1",
@@ -49,6 +53,7 @@
 		"react-i18next": "^14.1.2",
 		"rehype-highlight": "^7.0.0",
 		"remark-gfm": "^4.0.0",
+		"remark-github": "^12.0.0",
 		"remark-github-blockquote-alert": "^1.2.1",
 		"stylelint": "^16.6.1",
 		"stylelint-config-rational-order": "^0.1.2",

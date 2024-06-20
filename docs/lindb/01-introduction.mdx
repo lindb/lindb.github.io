@@ -1,6 +1,7 @@
 ---
 title: Introduction
 description: Introduce the basic concepts and scenarios of LinDB.
+sidebarHide: true
 ---
 
 ## What is LinDB?
@@ -25,17 +26,6 @@ The key features of LinDB are as follows:
 - Self-monitoring capability, Fast FailOver;
 - Self-governance capability, Defensive capability against malicious users;
 
-## Architecture
-
-LinDB distributed time series database adopts the design of separation of computing and storage. LinDB is composed of
-three large modules, each communicates with each other, namely Broker, Storage, and ETCD.
-
-- Compute Layer: Broker;
-- Storage Layer: Storage;
-- Metadata/Schedule Layout: ETCD;
-
-<img src="/img/lindb/design/architecture.png" alt="LinDB Arachitectrue" width={1344} height={672} className="rounded-lg" />
-
 ## Scenarios
 
 ### Applicable scenarios
@@ -56,3 +46,15 @@ better understand the health of their devices.
 
 Currently, LinDB only supports recording numeric time series data, and the time accuracy is up to the second-level. If
 you have higher temporal accuracy or text-based data record demand, then LinDB is not a good choice.
+
+## Architecture
+
+LinDB distributed time series database adopts the design of separation of computing and storage. LinDB is composed of
+three large modules, each communicates with each other, namely Broker, Storage, and ETCD.
+
+- Compute Layer: Broker;
+- Storage Layer: Storage;
+- Metadata/Schedule Layout: ETCD;
+
+![Architecture](/img/lindb/design/architecture.png)
+

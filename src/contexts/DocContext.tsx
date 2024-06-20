@@ -16,9 +16,12 @@ specific language governing permissions and limitations
 under the License.
 */
 import React, { createContext, useEffect, useState } from "react";
-import i18n from "@site/i18n/i18n";
+// import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import resourcesToBackend from "i18next-resources-to-backend";
 import { docs } from "@site/docs.config";
 import { useRouter } from "next/router";
+import { getLocale } from "@site/utils/utils";
 
 export const DocContext = createContext({
   locale: "",
@@ -31,26 +34,55 @@ export const DocContextProvider: React.FC<{ children: React.ReactNode }> = (
 ) => {
   const { children } = props;
   const router = useRouter();
-  i18n.changeLanguage(`${router.query?.locale || docs.i18n.defaultLocale}`);
-  const [locale, setLocale] = useState(i18n.language);
   const paths = router.asPath.split("/").filter((item) => item.trim() !== "");
+  const [locale, setLocale] = useState(() => {
+    const locale = getLocale(router.asPath).locale;
+    return locale === docs.i18n.defaultLocale ? "" : locale;
+  });
+  console.log("ccccc.....", router);
 
-  const changeLocale = (locale: string) => {
-    i18n.changeLanguage(locale);
-    setLocale(locale);
+  // useEffect(() => {
+  //   i18n
+  //     .use(initReactI18next) // passes i18n down to react-i18next
+  //     .use(
+  //       resourcesToBackend((language: string, namespace: string) => {
+  //         return import(`@/i18n/${language}/${namespace}.json`);
+  //       }),
+  //     )
+  //     .init({
+  //       lng: getLocale(router.asPath).locale,
+  //       supportedLngs: docs.i18n.locales,
+  //     });
+  // }, []);
+
+  const changeLocale = (newLocale: string) => {
+    if (newLocale === locale) {
+      return;
+    }
+    // i18n.changeLanguage(newLocale, () => {
+    setLocale(newLocale === docs.i18n.defaultLocale ? "" : newLocale);
+    const { include } = getLocale(router.asPath);
+    if (newLocale !== docs.i18n.defaultLocale) {
+      if (include) {
+        router.push("/" + [newLocale, ...paths.slice(1)].join("/"));
+      } else {
+        router.push("/" + [newLocale, ...paths].join("/"));
+      }
+    } else {
+      if (include) {
+        router.push("/" + [...paths.slice(1)].join("/"));
+      }
+    }
+    // });
   };
 
   useEffect(() => {
-    if (paths.length <= 0) {
-      router.push("/en/products/lindb");
-    } else if (paths.length == 1 && docs.i18n.locales.includes(paths[0])) {
-      router.push("/" + paths[0] + "/products/lindb");
-    } else if (!docs.i18n.locales.includes(paths[0])) {
-      router.push("/" + [locale, ...paths].join("/"));
-    } else if (locale !== paths[0]) {
-      router.push("/" + [locale, ...paths.slice(1)].join("/"));
+    const { locale: newLocale } = getLocale(router.asPath);
+    if (newLocale !== locale) {
+      // i18n.changeLanguage(newLocale);
+      setLocale(newLocale);
     }
-  }, [locale, paths]);
+  }, [router]);
 
   return (
     <DocContext.Provider value={{ locale, changeLocale }}>

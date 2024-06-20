@@ -15,23 +15,38 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import { docs } from "@site/docs.config";
+// import i18n from "i18next";
+// import { initReactI18next } from "react-i18next";
+// import { docs } from "@site/docs.config";
 import resourcesToBackend from "i18next-resources-to-backend";
+//
+// i18n
+//   .use(initReactI18next) // passes i18n down to react-i18next
+//   .use(
+//     resourcesToBackend((language: string, namespace: string) => {
+//       return import(`@/i18n/${language}/${namespace}.json`);
+//     }),
+//   )
+//   .init({
+//     supportedLngs: docs.i18n.locales,
+//   });
+//
 
-i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
-  .use(
+import { docs } from "@site/docs.config";
+import { UserConfig } from "next-i18next";
+
+// export default i18n;
+export const initialI18NextConfig: UserConfig = {
+  // debug: true,
+  i18n: docs.i18n,
+  // localePath: "i18n",
+  fallbackLng: docs.i18n.defaultLocale,
+  use: [
     resourcesToBackend((language: string, namespace: string) => {
+      console.log("hahahaha", language, namespace);
       return import(`@/i18n/${language}/${namespace}.json`);
     }),
-  )
-  .init({
-    supportedLngs: docs.i18n.locales,
-    interpolation: {
-      escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
-    },
-  });
-
-export default i18n;
+  ],
+  defaultNS: "translation",
+  serializeConfig: false,
+};

@@ -17,8 +17,10 @@ under the License.
 */
 import Link from "next/link";
 import React from "react";
-import type { GetStaticPaths, GetStaticProps } from "next";
-import { useTranslation } from "react-i18next";
+import type { GetStaticPaths } from "next";
+import { useTranslation } from "next-i18next";
+import { getI18nProps } from "@site/utils/i18n";
+import { RocketIcon } from "@site/icons";
 
 const product = {
   name: "XXX",
@@ -111,6 +113,7 @@ export default function Products({ params }: { params: { product: string } }) {
               <div className="sm:ms-6 lg:ms-8">
                 <h2 className="mb-1 font-semibold dark:text-white">
                   {feature.title}
+                  <RocketIcon className="size-6" />
                 </h2>
                 <div className="text-gray-600 dark:text-slate-400 ">
                   <ul className="before:*:mr-2 before:*:text-sky-600 before:*:content-['>']">
@@ -128,15 +131,16 @@ export default function Products({ params }: { params: { product: string } }) {
   );
 }
 
-export const getStaticProps = (async () => {
+export const getStaticProps = async (context: {
+  params: { locale: string; product: string };
+}) => {
   return {
     props: {
-      product: "lin test..",
+      ...context.params,
+      ...(await getI18nProps(context.params.locale)),
     },
   };
-}) satisfies GetStaticProps<{
-  product: string;
-}>;
+};
 
 export const getStaticPaths = (async () => {
   return {
@@ -145,12 +149,6 @@ export const getStaticPaths = (async () => {
         params: {
           product: "lindb",
           locale: "en",
-        },
-      },
-      {
-        params: {
-          product: "lindb",
-          locale: "zh",
         },
       },
     ],

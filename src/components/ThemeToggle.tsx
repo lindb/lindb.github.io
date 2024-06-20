@@ -56,10 +56,10 @@ export const ThemeToggle = () => {
 
   const themeBtnCls = (t: string) => {
     return clsx(
-      "group flex w-full items-center gap-2 px-3 py-1.5 data-[focus]:bg-white/10",
       {
         "text-sky-500 bg-slate-400/10 dark:bg-slate-600/30": theme === t,
       },
+      "group flex w-full items-center gap-2 px-3 py-1.5 hover:bg-slate-400/10 dark:hover:bg-slate-600/30",
     );
   };
   const themeIconCls = (t: string) => {
@@ -72,7 +72,7 @@ export const ThemeToggle = () => {
   return (
     <Menu>
       <MenuButton className="flex items-center">
-        <SunIcon className="size-5 fill-sky-400/20 stroke-sky-500 dark:hidden" />
+        <SunIcon className="size-5 fill-sky-400/20 stroke-sky-500 dark:hidden " />
         <MoonIcon className="hidden size-5 fill-sky-400/20 stroke-sky-500 dark:inline" />
       </MenuButton>
       <MenuItems

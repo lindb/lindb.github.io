@@ -21,7 +21,7 @@ import { SidebarItem } from "@site/types";
 export const languagePrefix = "language-";
 
 export const getHeadingId = (heading: string) => {
-  return heading.replace(/ /g, "_").toLowerCase();
+  return heading.replace(/ /g, "-").toLowerCase();
 };
 
 export const getDocPages = (sidebarItems: SidebarItem[]) => {
@@ -59,5 +59,10 @@ export const isAbsoluteUrl = (url: string) => ABSOLUTE_URL_REGEX.test(url);
  * is indeed starting with a slash.
  */
 export function addPathPrefix(path: string, prefix?: string) {
+  if (!prefix) {
+    return path;
+  }
   return `/${prefix}${path}`;
 }
+
+export const isDev = () => process.env.NODE_ENV === "development";

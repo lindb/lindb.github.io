@@ -15,29 +15,37 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-import React from "react";
+import React, { useEffect } from "react";
 import type { AppProps } from "next/app";
 import "@site/css/globals.css";
 import { Navbar, Footer, BackgroundBeams } from "@site/components";
-import { DocContextProvider } from "@site/contexts";
 import { useRouter } from "next/router";
+import { appWithTranslation, useTranslation } from "next-i18next";
+import { initialI18NextConfig } from "@site/i18n/i18n";
+import languageDetector from "@site/i18n/language-detector";
 
 const RootApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
+  // HACK: fix static page language detect
+  const { i18n } = useTranslation();
+  useEffect(() => {
+    i18n.changeLanguage(languageDetector.detect());
+  }, [router]);
+
   return (
-    <DocContextProvider>
+    <>
       <BackgroundBeams />
       <div className="flex min-h-screen flex-col">
         <Navbar />
         <Component {...pageProps} />
-        {!router.pathname.startsWith("/[locale]/docs") && (
-          <div className="px-4 lg:px-8">
+        {!router.pathname.includes("/docs") && (
+          <div className="w-full">
             <Footer />
           </div>
         )}
       </div>
-    </DocContextProvider>
+    </>
   );
 };
 
-export default RootApp;
+export default appWithTranslation(RootApp, initialI18NextConfig);

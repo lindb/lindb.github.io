@@ -44,12 +44,12 @@ LinDB currently provides a variety of field types, which can be reported to the 
 SDK. All the original data will be aggregated according to the corresponding field types when they are persisted. The
 specific types are as follows:
 
-- [Sum](#sum)
-- [Min](#min)
-- [Max](#max)
-- [Last](#last)
-- [First](#first)
-- [Histogram](#histogram)
+- [Sum](/docs/lindb/reference/data-model#sum)
+- [Min](/docs/lindb/reference/data-model#min)
+- [Max](/docs/lindb/reference/data-model#max)
+- [Last](/docs/lindb/reference/data-model#last)
+- [First](/docs/lindb/reference/data-model#first)
+- [Histogram](/docs/lindb/reference/data-model#histogram)
 
 > [!tip] 
 > Data aggregation refers to a time window, such as 5/10 seconds and 1 minute values. For example, Sum can be used for calculating the sum value in 1 minute.
@@ -94,4 +94,4 @@ At the same time, Histogram can additionally record statistical values such as M
 Histogram can be used to record the delay of a service processing requests within a certain time.
 
 > [!important] 
-Histogram is widely used as a complex type, and has built-in statistics such as Min/Max/Sum, which means more server resources are needed to store and calculate Histograms.
+> Histogram is widely used as a complex type, and has built-in statistics such as Min/Max/Sum, which means more server resources are needed to store and calculate Histograms.

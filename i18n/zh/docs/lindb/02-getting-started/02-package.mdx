@@ -1,0 +1,98 @@
+---
+title: 使用安装快速安装 LinDB 
+sidebar: 安装包 
+description: 介绍如何使用安装包快速安装体验 LinDB。
+---
+
+## Install LinDB
+
+Select your platform:
+<TabGroup>
+	<TabList>
+  	<Tab>Linux</Tab>
+    <Tab>MacOS</Tab>
+    <Tab>Windows</Tab>
+  </TabList>
+  <TabPanels>
+    <TabPanel>
+			1. Download the package:
+				- [lindb-v0.3.1-linux-amd64.tar.gz](https://github.com/lindb/lindb/releases/download/v0.3.1/lindb-v0.3.1-linux-amd64.tar.gz)
+				- [lindb-v0.3.1-linux-arm64.tar.gz](https://github.com/lindb/lindb/releases/download/v0.3.1/lindb-v0.3.1-linux-arm64.tar.gz)
+			
+			2. Uncompress
+			```sh
+		  tar -zxvf lindb-v0.3.1-linux-amd64.tar.gz
+			```
+		  3. Run LinDB
+			```sh
+			./lind standalone run
+			```
+
+		</TabPanel>
+    <TabPanel>
+			1. Download the package:
+				- [lindb-v0.3.1-darwin-amd64.tar.gz](https://github.com/lindb/lindb/releases/download/v0.3.1/lindb-v0.3.1-darwin-amd64.tar.gz)
+				- [lindb-v0.3.1-darwim-arm64.tar.gz](https://github.com/lindb/lindb/releases/download/v0.3.1/lindb-v0.3.1-darwin-arm64.tar.gz)
+			
+			2. Uncompress
+			```sh
+		  tar -zxvf lindb-v0.3.1-darwin-amd64.tar.gz
+			```
+		  3. Run LinDB
+			```sh
+			./lind standalone run
+			```
+
+		</TabPanel>
+    <TabPanel>
+			1. Download the package:
+
+				[lindb-v0.3.1-windows-amd64.tar.gz](https://github.com/lindb/lindb/releases/download/v0.3.1/lindb-v0.3.1-windows-amd64.zip)
+			
+			2. Uncompress
+			```sh
+		  unzip lindb-v0.3.1-windows-amd64.zip
+			```
+		  3. Run LinDB
+			```sh
+			./lind standalone run
+			```
+		</TabPanel>
+  </TabPanels>
+</TabGroup>
+
+## Verify
+After the above installation are done and LinDB is already started, LinDB command-line interface **lind-cli** can be launched to access LinDB.
+
+```bash
+./lind-cli
+Welcome to the LinDB.
+Server version: 0.3.1
+lin@localhost:9000>
+lin@localhost:9000> show databases;
++-----------+
+| Database  |
++-----------+
+| _internal |
++-----------+
+1 rows in sets (4.218862ms)
+```
+
+## Enjoy LinDB
+
+Congratulations! 🎉 LinDB is now running.
+
+The LinDB Web Console is available by default at: http://localhost:9000.
+
+Also by default, LinDB will use the following ports:
+
+- `9000` - [REST API](/docs/lindb/api/index) and [Admin Console](/docs/lindb/admin-console/index)
+
+## Learn more
+
+Looking for next steps to write/read data, see:
+
+- [Connect](/docs/lindb/developer-guide/connect)
+- [Create database](/docs/lindb/developer-guide/create-database)
+- [Insert data](/docs/lindb/developer-guide/insert-data)
+- [Query data](/docs/lindb/developer-guide/query-data)

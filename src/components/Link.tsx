@@ -15,53 +15,50 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-"use client";
-
-import { addPathPrefix, getLocale } from "@site/utils/utils";
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import { addPathPrefix } from "@site/utils/utils";
+import React from "react";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
+import { useTranslation } from "next-i18next";
+import { docs } from "@site/docs.config";
 
-const Link: React.FC<{
+const isExtenal = (url: string) => {
+  const regex = new RegExp("^(http|https)://.*");
+  return regex.test(url);
+};
+
+export const DocLink: React.FC<{
   href?: string;
   children?: React.ReactNode;
   className?: string;
-  locale?: string;
   internal?: boolean;
 }> = (props) => {
-  const { href = "", internal, locale, children, className } = props;
-  const [isSameDomain, setIsSameDomain] = useState(true);
-  const ref = useRef() as MutableRefObject<HTMLAnchorElement>;
-
-  useEffect(() => {
-    const currentDomain = window.location.hostname;
-    const link = document.createElement("a");
-    link.href = href;
-    const isSameDomain = currentDomain === link.hostname;
-    setIsSameDomain(isSameDomain);
-    if (isSameDomain && ref && ref.current) {
-      const { include } = getLocale(href);
-      if (!include && locale) {
-        ref.current.href = addPathPrefix(href, locale);
-      }
-    }
-  }, []);
+  const { href = "", internal, children, className } = props;
+  const extenal = isExtenal(href);
+  const { i18n } = useTranslation();
 
   return (
-    <a
-      ref={ref}
-      href={href}
-      target={!isSameDomain ? "_blank" : "_self"}
-      rel="noreferrer"
+    <Link
+      href={
+        extenal
+          ? href
+          : addPathPrefix(
+              href,
+              i18n.language !== docs.i18n.defaultLocale ? i18n.language : "",
+            )
+      }
+      target={extenal ? "_blank" : "_self"}
       className={className}
+      prefetch={false}
     >
       {children}
-      {!internal && !isSameDomain && (
+      {!internal && extenal && !href.startsWith("https://github.com") && (
         <span className="ml-1 inline-flex">
           <ArrowTopRightOnSquareIcon className="size-4 fill-sky-500" />
         </span>
       )}
-    </a>
+    </Link>
   );
 };
 
-export default Link;
+export default DocLink;

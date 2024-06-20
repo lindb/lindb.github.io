@@ -19,33 +19,8 @@ under the License.
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ["next-mdx-remote"],
-  // async redirects() {
-  //   return [
-  //     // Basic redirect
-  //     {
-  //       source: "/",
-  //       destination: "/products/lindb",
-  //       permanent: true,
-  //     },
-  //     // Wildcard path matching
-  //     {
-  //       source: "/blog/:slug",
-  //       destination: "/news/:slug",
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
-  // i18n,
-  // i18n: {
-  //   locales: ["en", "zh"],
-  //   defaultLocale: "en",
-  //   localeDetection: false,
-  // },
   output: "export",
-  // Optional: Change the output directory `out` -> `dist`
-  // Configure `pageExtensions` to include MDX files
   pageExtensions: ["js", "jsx", "ts", "tsx"],
-  // Optionally, add any other Next.js config below
 };
 
 export default nextConfig;

@@ -17,15 +17,24 @@ under the License.
 */
 import React from "react";
 import clsx from "clsx";
-import Link from "next/link";
+import Link from "./Link";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { SidebarItem } from "@site/types";
 import { usePathname } from "next/navigation";
+import { addPathPrefix, getLocale } from "@site/utils/utils";
+import { docs } from "@site/docs.config";
 
 export const DocsFooter: React.FC<{ pages: SidebarItem[] }> = (props) => {
   const { pages } = props;
   const pathname = usePathname();
-  const currentPageIdx = pages.findIndex((p) => p.href === pathname);
+  const { include, locale } = getLocale(pathname);
+  const currentPageIdx = pages.findIndex(
+    (p) =>
+      addPathPrefix(
+        p.href || "",
+        include && locale !== docs.i18n.defaultLocale ? locale : "",
+      ) === pathname,
+  );
   const previousPage = currentPageIdx > 0 ? pages[currentPageIdx - 1] : null;
   const nextPage =
     currentPageIdx < pages.length ? pages[currentPageIdx + 1] : null;

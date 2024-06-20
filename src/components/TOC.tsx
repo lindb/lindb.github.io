@@ -15,22 +15,30 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-"use client";
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
+import Link from "./Link";
 import clsx from "clsx";
-import {
-  BookOpenIcon,
-  ChevronRightIcon,
-  ArrowUpRightIcon,
-} from "@heroicons/react/24/solid";
+import { ListBulletIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 import { GithubIcon } from "@site/icons";
-import { TOCItem } from "@site/types";
+import { PageInfo, TOCItem } from "@site/types";
+import { useTranslation } from "next-i18next";
+import { docs } from "@site/docs.config";
 
-export const TableOfContents = (props: { tocItems: TOCItem[] }) => {
-  const { tocItems } = props;
+export const TableOfContents = (props: {
+  page: PageInfo;
+  tocItems: TOCItem[];
+}) => {
+  const { tocItems, page } = props;
   const [activeId, setActiveId] = useState("");
+  const { t, i18n } = useTranslation();
+
+  const getPagePath = () => {
+    if (i18n.language === docs.i18n.defaultLocale) {
+      return page.path;
+    }
+    return "/i18n/" + i18n.language + page.path;
+  };
 
   useEffect(() => {
     let frameId = 0;
@@ -68,8 +76,8 @@ export const TableOfContents = (props: { tocItems: TOCItem[] }) => {
   const Content = () => {
     return (
       <div className="px-2 xl:px-8">
-        <h5 className="mb-4 text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
-          On this page
+        <h5 className="mb-2 text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+          {t("On this page")}
         </h5>
         <ul className="text-sm leading-6 text-slate-700">
           {tocItems.map((item: TOCItem, idx: number) => {
@@ -95,12 +103,14 @@ export const TableOfContents = (props: { tocItems: TOCItem[] }) => {
         </ul>
         <div className="border-t border-slate-200 pt-3 text-sm leading-6 text-slate-700 sm:flex dark:border-slate-200/5">
           <Link
-            href={"/github"}
+            href={
+              "https://github.com/lindb/lindb.github.io/edit/main" +
+              getPagePath()
+            }
             className="flex items-center gap-2 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"
           >
             <GithubIcon className="size-4" />
-            Edit this page on Github
-            <ArrowUpRightIcon className="size-4" />
+            {t("Edit this page on Github")}
           </Link>
         </div>
       </div>
@@ -108,13 +118,13 @@ export const TableOfContents = (props: { tocItems: TOCItem[] }) => {
   };
   return (
     <div>
-      <Popover className="group fixed bottom-0 right-6 top-16 z-50 block h-6 border border-slate-500 bg-white shadow-md lg:right-12 lg:top-24 xl:hidden dark:bg-slate-800">
-        <PopoverButton className="flex items-center gap-2">
-          <BookOpenIcon className="size-6 fill-slate-400/20 stroke-slate-600 dark:fill-slate-500/20 dark:stroke-slate-400" />
+      <Popover className="group fixed right-5 top-[4em] z-50 flex rounded bg-gray-200 p-1 shadow-md shadow-gray-200 ring-1 ring-gray-200 lg:right-6 lg:top-20 xl:hidden dark:bg-slate-800 dark:shadow-slate-600 dark:ring-slate-600">
+        <PopoverButton>
+          <ListBulletIcon className="size-6 fill-gray-400 stroke-gray-400 dark:fill-slate-500 dark:shadow-slate-600" />
         </PopoverButton>
         <PopoverPanel
-          anchor="bottom"
-          className="z-20 mr-3 mt-1 w-full max-w-xs rounded-sm bg-white p-4  ring-1 ring-slate-900/10 dark:bg-slate-800 dark:text-slate-400  dark:ring-slate-500/20"
+          anchor="bottom start"
+          className="z-20 mr-3 mt-3 w-full max-w-xs rounded-sm bg-white p-2  ring-1 ring-slate-900/10 dark:bg-slate-800 dark:text-slate-400  dark:ring-slate-500/20"
         >
           <Content />
         </PopoverPanel>

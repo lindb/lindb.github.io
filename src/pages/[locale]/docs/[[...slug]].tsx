@@ -17,105 +17,51 @@ under the License.
 */
 import React from "react";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
-import {
-  docsPath,
-  exportDocsPath,
-  getFilePath,
-  getLatestCommitInfo,
-  getPage,
-  getSidebar,
-} from "@site/utils/navs";
 import type { GetStaticPaths } from "next";
-import { getDocPages } from "@site/utils/utils";
-import { ParsedUrlQuery } from "querystring";
-import {
-  DocContainer,
-  Footer,
-  MetaTitle,
-  NavSidebar,
-  Sidebar,
-} from "@site/components";
 import { docs } from "@site/docs.config";
 import { PageInfo, SidebarItem, TOCItem } from "@site/types";
-import { compile, loadFile } from "@site/utils/mdx";
+import { DocPage } from "@site/components/DocPage";
+import { getDocStaticPaths, getDocStaticProps } from "@site/utils/docs";
+import { ParsedUrlQuery } from "querystring";
 
-const DocPage: React.FC<{
+const Docs: React.FC<{
   page: PageInfo;
   source: MDXRemoteSerializeResult;
   tocItems: TOCItem[];
   sidebar: SidebarItem[];
   locale: string;
 }> = (props) => {
-  const { page, source, tocItems, sidebar, locale } = props;
-  return (
-    <>
-      <MetaTitle title={page.title || "Docs"} />
-      <NavSidebar sidebarItems={sidebar} page={page} />
-      <main className="flex flex-1 pt-4">
-        <div className="mx-auto flex max-w-8xl flex-1 flex-col px-4 sm:px-6 md:px-8">
-          <Sidebar sidebarItems={sidebar} />
-          <div className="flex-1 lg:pl-36 xl:pl-[19.5rem]">
-            <DocContainer
-              locale={locale}
-              page={page}
-              source={source}
-              tocItems={tocItems}
-              pages={getDocPages(sidebar)}
-            />
-          </div>
-          <Footer className="flex lg:mx-8 lg:pl-36 xl:pl-[19.5rem]" />
-        </div>
-      </main>
-    </>
-  );
+  return <DocPage {...props} />;
 };
 
 export const getStaticProps = async (context: {
   params: { locale: string; slug: string[] };
 }) => {
-  const locale = context.params.locale;
-  const slug = context.params.slug;
-  const sidebar = getSidebar(locale, slug);
-  const page = getPage(locale, slug);
-  if (!page) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const mdxFile = loadFile(locale, page.path);
-  const mdx = await compile(mdxFile.content);
-  page.commitInfo = getLatestCommitInfo(getFilePath(locale, page.path));
-
-  return {
-    props: {
-      page: page,
-      source: mdx.source,
-      tocItems: mdx.toc,
-      sidebar: sidebar,
-      locale: locale,
-    },
-  };
+  return getDocStaticProps(context.params.slug, context.params.locale);
 };
 
-export const getStaticPaths = (() => {
-  const paths: Array<string | { params: ParsedUrlQuery; locale?: string }> = [];
-  const locales = docs.i18n.locales;
-  const docsPages = exportDocsPath(docsPath, [], []);
-  docsPages.forEach((page) => {
-    locales.forEach((locale) => {
-      paths.push({
+export const getStaticPaths = (async () => {
+  const locales: string[] = [...docs.i18n.locales];
+  locales.splice(
+    locales.findIndex((v) => v === docs.i18n.defaultLocale),
+    1,
+  );
+  const paths = await getDocStaticPaths();
+  const rs: Array<string | { params: ParsedUrlQuery; locale?: string }> = [];
+  locales.forEach((locale) => {
+    paths.forEach((p) => {
+      rs.push({
         params: {
           locale: locale,
-          slug: page,
+          slug: p.params.slug,
         },
       });
     });
   });
   return {
-    paths: paths,
-    fallback: false, // false or "blocking"
+    paths: rs,
+    fallback: false,
   };
 }) satisfies GetStaticPaths;
 
-export default DocPage;
+export default Docs;

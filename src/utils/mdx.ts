@@ -25,9 +25,10 @@ import {
   transformerNotationFocus,
 } from "@shikijs/transformers";
 import matter from "gray-matter";
+import remarkGithub from "remark-github";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDX, MDXFile, TOCItem } from "@site/types";
-import { getHeadingId, languagePrefix } from "./utils";
+import { getHeadingId, isDev, languagePrefix } from "./utils";
 import { visit } from "unist-util-visit";
 import fs from "fs";
 import { getFilePath } from "./navs";
@@ -113,7 +114,8 @@ const allDocsPages = new Map<string, MDXFile>();
 export const loadFile = (locale: string, filePath: string): MDXFile => {
   const p = getFilePath(locale, filePath);
   let f = allDocsPages.get(p);
-  if (!f) {
+  if (!f || isDev()) {
+    // dev model disable cache
     const fileContent = fs.readFileSync(p);
     const { data: meta, content } = matter(fileContent);
     f = {
@@ -127,6 +129,8 @@ export const loadFile = (locale: string, filePath: string): MDXFile => {
 
 export const compile = async (content: string | Buffer): Promise<MDX> => {
   const headingsRef = { tocItems: undefined };
+  // https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins
+  // https://github.com/remarkjs/remark/blob/main/doc/plugins.md#list-of-plugins
   const mdxSource = await serialize(content, {
     mdxOptions: {
       development: false,
@@ -137,6 +141,13 @@ export const compile = async (content: string | Buffer): Promise<MDX> => {
           remarkGfm,
           {
             footnotes: { labelTagName: "h4" },
+          },
+        ],
+        [
+          remarkGithub,
+          {
+            repository: "github.com/lindb/lindb", //TODO: change it?
+            mentionStrong: "italic",
           },
         ],
       ],

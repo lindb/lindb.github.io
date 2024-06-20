@@ -15,44 +15,24 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-import React from "react";
+import React, { ReactNode } from "react";
 import clsx from "clsx";
 import { getHeadingId } from "@site/utils/utils";
 import Link from "next/link";
 
-export const Heading = ({ level, children, className = "", ...props }) => {
-  if (typeof children !== "string") {
-    return children;
-  }
-
-  const Component = `h${level}` as `h${1 | 2 | 3 | 4 | 5 | 6}`;
-  const idText = getHeadingId(children);
-  const renderContent = () => {
-    switch (children) {
-      case "Footnotes":
-        //HACK: mdx footnotes heading
-        return "Reference";
-      default:
-        return children;
-    }
-  };
+export const H = (props: {
+  heading: number;
+  href?: string;
+  children: ReactNode;
+  className?: string;
+}) => {
+  const { heading, href, children } = props;
+  const Component = `h${heading}` as `h${1 | 2 | 3 | 4 | 5 | 6}`;
   return (
-    <Component
-      // className={clsx({ "text-base": children === "Footnotes" })}
-      // className={clsx("not-prose flex whitespace-pre-wrap", className, {
-      //   "mb-2 text-sm leading-6 text-sky-500 font-semibold tracking-normal dark:text-sky-400":
-      //     level === 2 &&
-      //     nextElement?.type === "heading" &&
-      //     nextElement?.depth === 3,
-      // })}
-      id={idText}
-      // style={{ ...(hidden ? { marginBottom: 0 } : {}), ...style }}
-      // data-docsearch-ignore={ignore ? "" : undefined}
-      {...props}
-    >
+    <Component {...props}>
       <Link
         className={clsx("group relative border-none", "lg:-ml-2 lg:pl-2")}
-        href={`#${idText}`}
+        href={href || ""}
       >
         <span className="absolute -ml-8 hidden items-center border-0 opacity-0 group-hover:opacity-100 group-focus:opacity-100 lg:flex">
           &#8203;
@@ -75,5 +55,19 @@ export const Heading = ({ level, children, className = "", ...props }) => {
         {children}
       </Link>
     </Component>
+  );
+};
+
+export const Heading = (props: { level: number; children: ReactNode }) => {
+  const { children, level } = props;
+  if (typeof children !== "string") {
+    return children;
+  }
+
+  const idText = getHeadingId(children);
+  return (
+    <H heading={level} href={"#" + idText}>
+      {children}
+    </H>
   );
 };

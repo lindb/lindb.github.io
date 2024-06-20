@@ -1,11 +1,10 @@
 ---
 title: Lin query language
+description: This document describes the Syntaxs of LinQL and common scenarios for using LinQL.
 ---
 
 In order to make it easier for user to get started quickly, LinDB provides SQL-like syntax (LinQL) to query data in the
 cluster, and can also perform related operations on the cluster or database through LinQL.
-
-This document describes the Syntaxs of LinQL and common scenarios for using LinQL.
 
 ## Database
 
@@ -26,7 +25,7 @@ create database json_config
 create database {\"option\":{\"intervals\":[{\"interval\":\"10s\",\"retention\":\"30d\"},{\"interval\":\"5m\",\"retention\":\"3M\"},{\"interval\":\"1h\",\"retention\":\"2y\"}],\"autoCreateNS\":true,\"behead\":\"1h\",\"ahead\":\"1h\"},\"name\":\"system_monitor\",\"storage\":\"/lindb-storage\",\"numOfShard\":3,\"replicaFactor\":2}
 ```
 
-Example: create a database named `system_monitor`, allocate 3 shards and 2 replicas to store in `/lindb-storage` storage cluster.
+Example: create a database named **system_monitor**, allocate 3 shards and 2 replicas to store in **/lindb-storage** storage cluster.
 ```json
 {
    "name":"system_monitor",
@@ -163,9 +162,8 @@ show storages
 The premise is that the database to be queried has been selected (database name is specified when executing using
 **USE** or calling API).
 
-:::tip 
-If namespace is not specified, the default namespace: `default-ns` will be used
-:::
+> [!tip] 
+> If namespace is not specified, the default namespace: **default-ns** will be used
 
 ### Metric Query
 
@@ -221,7 +219,7 @@ get namespaces of this cluster
 show namespaces (where namespace = prefix)? (limit n)?
 ```
 
-**Example**‘
+**Example**
 
 ```sql
 /* get 100 Namespace with ascii asecending */
@@ -389,9 +387,9 @@ show metadata types
 ```
 
 The metadata currently provided is as follows, for specific metadata usage and metadata-based cluster scheduling, please
-refer to [Cluster Coordination](../design/coordinator)。
+refer to [Cluster Coordination](/docs/lindb/design/coordinator)。
 
-<table class="markdown-table">
+<table className="markdown-table">
     <thead>
         <tr>
             <th>Role</th>
@@ -402,7 +400,7 @@ refer to [Cluster Coordination](../design/coordinator)。
     </thead>
     <tbody>
         <tr>
-            <td rowspan="3">Root</td>
+            <td rowSpan="3">Root</td>
             <td>DatabaseConfig</td>
             <td>/database/config</td>
             <td>Logic Database Configuration synced by each Root node</td>
@@ -418,7 +416,7 @@ refer to [Cluster Coordination](../design/coordinator)。
             <td>Status of Current Broker Cluster</td>
         </tr>
         <tr>
-            <td rowspan="3">Broker</td>
+            <td rowSpan="3">Broker</td>
             <td>DatabaseConfig</td>
             <td>/database/config</td>
             <td>Database Configuration synced by each Broker node</td>
@@ -434,7 +432,7 @@ refer to [Cluster Coordination](../design/coordinator)。
             <td>Status of Current Storage Cluster</td>
         </tr>
         <tr>
-            <td rowspan="5">Master</td>
+            <td rowSpan="5">Master</td>
             <td>DatabaseConfig</td>
             <td>/database/config</td>
             <td>The master allocates shards and replicas based on the database configuration</td>
@@ -460,7 +458,7 @@ refer to [Cluster Coordination](../design/coordinator)。
             <td>Storage Status of current cluster</td>
         </tr>
         <tr>
-            <td rowspan="2">Storage</td>
+            <td rowSpan="2">Storage</td>
             <td>LiveNode</td>
             <td>/live/nodes</td>
             <td>Alive Nodes of Storage Cluster</td>

@@ -42,7 +42,7 @@ GET /api/v1/log/list
 
 Example request:
 
-```shell
+```sh
 curl -G http://localhost:9000/api/v1/log/list
 ```
 
@@ -69,12 +69,12 @@ Parameters:
 
 | Attribute         | Type           | Description                                                             |
 |:------------------|:---------------|:------------------------------------------------------------------------|
-| `file`            | string         | File name                                                               |
-| `size`            | int            | Tail size                                                               |
+| **file**          | string         | File name                                                               |
+| **size**          | int            | Tail size                                                               |
 
 Example request:
 
-```shell
+```sh
 curl -G http://localhost:9000/api/v1/log/view?file=lind-standalone.log&size=262144
 ```
 

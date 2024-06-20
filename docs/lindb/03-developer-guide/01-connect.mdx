@@ -1,0 +1,46 @@
+---
+title: Connect
+---
+
+# Connect
+
+You can interact with a LinDB database by connecting to one of its various
+network endpoints.
+
+|Network Endpoint|Port|Inserting data|Querying data|
+|:---------------|:---|:-------------------------------------|:------------|
+|[Admin console](#admin-console)|9000| - |SQL **SELECT**, charting, self-monitoring, metdata|
+|[Client](#client)|9000|High performance writing, [Client libraries](/docs/lindb/client/client-libraries)| SQL **SELECT**|
+|[HTTP REST API](#http-rest-api)|9000|**INSERT**|SQL **SELECT**|
+
+
+> [!TIP]
+> All network ports may be [configured](/docs/lindb/reference/configuration).
+
+## Admin console
+
+The [Admin console](/docs/lindb/admin-console/index) is a general admin and query interface.
+
+Connect your web browser to http://[server-address]:9000/. When running locally, this will be **http://localhost:9000/**.
+
+
+![Cluster Overview](/img/lindb/guide/admin_ui/overview.png#browser)
+
+## Client 
+
+The fastest way to insert data into LinDB is using client libraries.
+
+For a more in-depth understanding, see our [client documentation](/docs/lindb/client/client-libraries).
+
+Find out how to:
+
+* [Write data](/docs/lindb/developer-guide/insert-data/#high-performance-writing)
+
+## HTTP REST API
+
+The HTTP interface that hosts the web console also provides a REST API for writting and querying data.
+
+Find out how to:
+
+* [Write data](/docs/lindb/developer-guide/insert-data/#http-rest-api)
+* [Query data](/docs/lindb/developer-guide/query-data/#http-rest-api)

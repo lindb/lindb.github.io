@@ -1,6 +1,7 @@
 ---
 title: 介绍
 description: 介绍 LinDB 主要特性及使用场景。
+sidebarHide: true
 ---
 
 ## LinDB 是什么？
@@ -20,15 +21,6 @@ LinDB 的主要特性如下：
 - 有一定的自监控能力，快速 FailOver；
 - 有一定的自治理能力，防御恶意用户；
 
-## 架构
-
-LinDB 分布式时间序列数据库采用了计算、存储分离的设计，分为3个大模块，每个模块之间互相通信，分别为 Broker、Storage、ETCD。
-- Compute Layer: Broker;
-- Storage Layer: Storage;
-- Metadata/Schedule Layout: ETCD;
-
-![整体架构](/img/lindb/design/architecture.png)
-
 ## 场景
 
 ### 适用场景
@@ -44,3 +36,12 @@ LinDB 使您能够更轻松快捷地分析物联网应用程序生成的时间�
 ### 不适用场景
 
 LinDB 目前仅支持记录数值型时序数据，时间精度支持到秒级。如果有更高时间精度、或者记录文本型数据的需求，那么 LinDB 并不是一个很好地选择。
+
+## 架构
+
+LinDB 分布式时间序列数据库采用了计算、存储分离的设计，分为3个大模块，每个模块之间互相通信，分别为 Broker、Storage、ETCD。
+- Compute Layer: Broker;
+- Storage Layer: Storage;
+- Metadata/Schedule Layout: ETCD;
+
+![整体架构](/img/lindb/design/architecture.png)

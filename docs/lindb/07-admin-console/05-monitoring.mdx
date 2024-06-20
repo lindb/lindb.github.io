@@ -8,9 +8,9 @@ sidebar: Cluster monitoring
 Dashboard is a self-monitoring page that comes with LinDB, the internal real-time status of each component is available
 in the relevant dashboards
 
-For specific metric descriptions, refer to [Self-monitoring](../self-monitor)
+For specific metric descriptions, refer to [Metric](/docs/reference/metric)
 
-![dashboard](/img/lindb/guide/admin_ui/dashboard.png)
+![Dashboard](/img/lindb/guide/admin_ui/dashboard.png#browser)
 
 ### Broker Dashboard
 
@@ -65,38 +65,38 @@ of the Replication State:
 - Mode 1: Perspective of the distribution of replicas in each Storage node, and show whether there is a
   replication delay, mouse hover to a shard will display replication of each channel in it;
 
-![replication shards](/img/lindb/guide/admin_ui/replication_shards.png)
+![Replication shards](/img/lindb/guide/admin_ui/replication_shards.png#browser)
 
 - Mode 2: Perspective of replication channels under all shards, Shard/Family related filtering and filtering is
   supported
 
-![replication families](/img/lindb/guide/admin_ui/replication_families.png)
+![Replication families](/img/lindb/guide/admin_ui/replication_families.png#browser)
 
 ### Write
 
 Write status of the local replica:
 
 - Write status of each memory-database;
-- Each `leader`'s writing pointer status;
+- Each **leader**'s writing pointer status;
 
 - Mode 1: Perspective of writing status of all memory databases under all shards,
   Shard/Family related filtering and filtering is supported
 
-![memory database write](/img/lindb/guide/admin_ui/memory_database_write.png)
+![Memory database write](/img/lindb/guide/admin_ui/memory_database_write.png#browser)
 
 - Mode 2: Perspective of all active families under all shards,
   Shard/Family related filtering and filtering is supported
 
-![memory database replica](/img/lindb/guide/admin_ui/memory_database_replica.png)
+![Memory database replica](/img/lindb/guide/admin_ui/memory_database_replica.png#browser)
 
 ## Request
 
-Browse for [LinQL](../lin-ql) that is currently executing in the cluster
+Browse for [LinQL](/docs/lindb/lin-ql/sql) that is currently executing in the cluster
 
-![memory database replica](/img/lindb/guide/admin_ui/request_list.png)
+![Memory database replica](/img/lindb/guide/admin_ui/request_list.png#browser)
 
 ## Log View
 
 Log View allows users to browse log files on all nodes in the cluster and displays related logs.
 
-![log view](/img/lindb/guide/admin_ui/log_view.png)
+![Log view](/img/lindb/guide/admin_ui/log_view.png#browser)

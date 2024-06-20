@@ -1,0 +1,75 @@
+---
+title: Create a database
+description: 
+  Guide showing how to create a database.
+---
+
+## Before begin
+
+Make sure LinDB is running and **Admin console** is available at http://localhost:9000, 
+if not please checkout the [quick start](/docs/lindb/getting-started/package).
+
+## Create a database
+
+Database can be created via:
+
+- [Admin console](#admin-console)
+- [CLI](#cli)
+
+### Admin console
+
+Create or edit configuration of corresponding database
+
+![Create database](/img/lindb/guide/admin_ui/create_database.png#browser)
+
+### CLI
+
+```sql
+/*configuration in JSON format*/
+create database {\"option\":{\"intervals\":[{\"interval\":\"10s\",\"retention\":\"30d\"},{\"interval\":\"5m\",\"retention\":\"3M\"},{\"interval\":\"1h\",\"retention\":\"2y\"}],\"autoCreateNS\":true,\"behead\":\"1h\",\"ahead\":\"1h\"},\"name\":\"system_monitor\",\"storage\":\"/lindb-storage\",\"numOfShard\":3,\"replicaFactor\":2}
+```
+
+Example: create a database named `system_monitor`, allocate 3 shards and 2 replicas to store in `/lindb-storage` storage cluster.
+```json
+{
+   "name":"system_monitor",
+   "storage":"/lindb-storage",
+   "numOfShard":3,
+   "replicaFactor":2,
+   "option":{
+      "intervals":[
+         {
+            "interval":"10s",
+            "retention":"30d"
+         },
+         {
+            "interval":"5m",
+            "retention":"3M"
+         },
+         {
+            "interval":"1h",
+            "retention":"2y"
+         }
+      ],
+      "autoCreateNS":true,
+      "behead":"1h",
+      "ahead":"1h"
+   }
+}
+```
+
+## Options
+
+| Field | Description |
+| ------- | -------- |
+| name | Required, database name |
+| storage | Required, Storage cluster(Storage Namespace) |
+| numOfShard | Required, number of shards |
+| replicaFactor | Required, number of replicas for each shard |
+| option.intervals | Required, data storage calculation period and storage ttl, max length is 3(Day/Month/Year) |
+| option.behead | How long in the past data can be written |
+| option.ahead | How long in the future data can be written |
+
+
+
+

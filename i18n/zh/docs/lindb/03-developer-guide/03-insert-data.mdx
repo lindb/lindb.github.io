@@ -1,16 +1,22 @@
 ---
-title: Write data 
-description: Plugins and configuration settings that can improve the developer experience when working with Tailwind CSS.
+title: 写入数据 
+description:
+  This page shows how to insert data into LinDB using different programming languages and tools.
 ---
 
-This page shows how to write data into LinDB using different programming languages and tools.
+## High Performance Writing 
 
-## Client libraries 
-
-The [Client Libraries](/docs/lindb/reference/clients) provide user-friendly SDKs for a growing number of languages.
+The [Client Libraries](/docs/lindb/client/client-libraries) provide user-friendly and high preformance SDKs for a growing number of languages.
 
 ### Examples
 
+<TabGroup>
+	<TabList>
+  	<Tab>Go</Tab>
+    <Tab>Java</Tab>
+  </TabList>
+  <TabPanels>
+    <TabPanel>
 Go client library [docs](https://pkg.go.dev/github.com/lindb/client_go#section-readme) and [repo](https://github.com/lindb/client_go).
 
 ```go
@@ -62,6 +68,8 @@ func main() {
 	w.Close()
 }
 ```
+    </TabPanel>
+    <TabPanel>
 
 Java client library [docs](https://github.com/lindb/client_java) and [Maven artifact](https://mvnrepository.com/artifact/io.lindb/lindb-client).
 
@@ -116,5 +124,18 @@ public class WritePoint {
 	}
 }
 ```
+    </TabPanel>
+  </TabPanels>
+</TabGroup>
 
 ## HTTP REST API
+
+### InfluxDB Line Protocol
+
+Example request:
+
+For more information about [InfluxDB line protocol](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_reference/).
+
+```shell
+curl -XPOST --header "Content-Type: application/influx" http://localhost:9000/api/v1/write?db=_internal --data-binary 'host.cpu,host=192.169.0.1 value=12'
+```

@@ -5,9 +5,9 @@ description:
   Guide showing how to use LinDB with Docker.
 ---
 
-LinDB has image for Linux on [Docker Hub](https://hub.docker.com/r/lindata/lindb).
-
 ## Install Docker
+
+LinDB has image for Linux on [Docker Hub](https://hub.docker.com/r/lindata/lindb).
 
 Before we start, you will need to install Docker. You can find guides for your
 platform on the [official documentation](https://docs.docker.com/get-docker/).
@@ -16,7 +16,7 @@ platform on the [official documentation](https://docs.docker.com/get-docker/).
 
 Once Docker is installed, you will need to pull LinDB's image from
 [Docker Hub](https://hub.docker.com/r/lindata/lindb) and create a container. You can do both in one
-command using `docker run`:
+command using **docker run**:
 
 ```shell
 docker run -p 9000:9000 lindata/lindb:v0.3.1 lind standalone run
@@ -26,15 +26,14 @@ docker run -p 9000:9000 lindata/lindb:v0.3.1 lind standalone run
 
 | Argument | Description                 |
 | -------- | --------------------------- |
-| `-p`     | Port to publish to the host |
+| **-p**     | Port to publish to the host |
 
 
-#### `-p` parameter
+#### **-p** parameter
 
 This parameter will publish a port to the host, you can specify:
 
-- `-p 9000:9000` - [REST API](/docs/lindb/api/index) and
-  [Admin Console](/docs/lindb/admin-console/index)
+- **-p 9000:9000** - [REST API](/docs/lindb/api/index) and [Admin Console](/docs/lindb/admin-console/index)
 
 ## Container status
 
@@ -47,5 +46,14 @@ docker ps
 
 ```shell 
 CONTAINER ID        IMAGE                  COMMAND                 CREATED          STATUS            PORTS                    NAMES
-4edf08ac89dc        lindata/lindb:v0.2.6   "lind standalone run"   2 minutes ago    Up 2 minutes      0.0.0.0:9000->9000/tcp   lindb
+4edf08ac89dc        lindata/lindb:v0.3.1   "lind standalone run"   2 minutes ago    Up 2 minutes      0.0.0.0:9000->9000/tcp   lindb
 ```
+
+## Learn more
+
+Looking for next steps to write/read data, see:
+
+- [Connect](/docs/lindb/developer-guide/connect)
+- [Create database](/docs/lindb/developer-guide/create-database)
+- [Insert data](/docs/lindb/developer-guide/insert-data)
+- [Query data](/docs/lindb/developer-guide/query-data)

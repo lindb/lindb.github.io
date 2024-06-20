@@ -15,26 +15,49 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-import React, { useContext } from "react";
+import React from "react";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { LanguageIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 import { docs } from "@site/docs.config";
-import { DocContext } from "@site/contexts";
+import languageDetector from "@site/i18n/language-detector";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { getLocale } from "@site/utils/utils";
 
 const mapping = {
   en: "English",
   zh: "简体中文",
 };
 
-export const LocaleSelect = () => {
-  const { locale, changeLocale } = useContext(DocContext);
+export const LocaleSelect: React.FC = () => {
+  const router = useRouter();
+  const paths = router.asPath.split("/").filter((item) => item.trim() !== "");
+
+  const getHref = (locale: string) => {
+    let href = router.asPath;
+    const { include } = getLocale(router.asPath);
+    if (locale !== docs.i18n.defaultLocale) {
+      if (include) {
+        href = "/" + [locale, ...paths.slice(1)].join("/");
+      } else {
+        href = "/" + [locale, ...paths].join("/");
+      }
+    } else {
+      if (include) {
+        href = "/" + [...paths.slice(1)].join("/");
+      }
+    }
+    return href;
+  };
 
   const languageBtnCls = (l: string) => {
+    const locale = languageDetector.detect();
     return clsx(
-      "group flex w-full items-center gap-2 px-3 py-1.5 data-[focus]:bg-white/10",
+      "group flex w-full items-center gap-2 px-3 py-1.5 hover:bg-slate-400/10 dark:hover:bg-slate-600/30",
       {
-        "text-sky-500 bg-slate-400/10 dark:bg-slate-600/30": locale === l,
+        "text-sky-500 bg-slate-400/10 dark:bg-slate-600/30":
+          locale === l || (l === docs.i18n.defaultLocale && !locale),
       },
     );
   };
@@ -46,16 +69,16 @@ export const LocaleSelect = () => {
       </MenuButton>
       <MenuItems
         anchor="bottom"
-        className="z-50 mt-6 w-40 origin-top-right bg-white p-1 text-sm/6 font-semibold text-slate-700 ring-1 ring-slate-900/10 [--anchor-gap:var(--spacing-1)] focus:outline-none dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-500/20"
+        className="z-50 mt-6 w-40 origin-top-right bg-white p-1 text-sm/6 font-semibold text-slate-700 ring-1 ring-slate-900/10 [--anchor-gap:var(--spacing-1)] focus:outline-none dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-500/20"
       >
         {docs.i18n.locales.map((localeItem) => (
           <MenuItem key={localeItem}>
-            <button
+            <Link
+              href={getHref(localeItem)}
               className={languageBtnCls(localeItem)}
-              onClick={() => changeLocale(localeItem)}
             >
               {mapping[localeItem]}
-            </button>
+            </Link>
           </MenuItem>
         ))}
       </MenuItems>

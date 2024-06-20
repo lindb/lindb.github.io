@@ -1,5 +1,5 @@
 ---
-title: Admin console introduction 
+title: Admin console 
 sidebar: Introduction
 description: Admin Console is a web interface provided by LinDB that can be used to monitor the status of the cluster and query	the data in the cluster. The Admin Console is built into LinDB's brokel	node, no independent deployment is required.
 ---
@@ -7,7 +7,7 @@ description: Admin Console is a web interface provided by LinDB that can be used
 > [!TIP]
 > The **dark**/**light** UI styles are currently supported.
 
-![overview](/img/lindb/guide/admin_ui/overview.png)
+![Overview](/img/lindb/guide/admin_ui/overview.png#browser)
 
 The main features of the Admin Console are listed below, which can be further learned by clicking on the links in the
 respective sections.
@@ -17,35 +17,35 @@ respective sections.
 Health status of the broker, storage components and the running status of the host on which they reside in the
 entire cluster are displayed
 
-See [Cluster Status](/docs/lindb/reference/admin-ui/overview) for more details.
+See [Cluster Status](/docs/lindb/admin-console/overview) for more details.
 
 ### Data Search
 
-Query data from cluster via [LinQL](/docs/lindb/reference/lin-ql), you can also use LinQL to see execution plan and execution status
+Query data from cluster via [LinQL](/docs/lindb/lin-ql/sql), you can also use LinQL to see execution plan and execution status
 statistics.
 
-Please refer to [Data search](/docs/lindb/reference/admin-ui/search) for more details.
+Please refer to [Data search](/docs/lindb/admin-console/search) for more details.
 
 ### Data View
 
-View data in the cluster through the UI clickstream, and generate the corresponding [LinQL](/docs/lindb/reference/lin-ql).
+View data in the cluster through the UI clickstream, and generate the corresponding [LinQL](/docs/lindb/lin-ql/sql).
 
-Please refer to [Data Explore](/docs/lindb/reference/admin-ui/explore) for more details.
+Please refer to [Data Explore](/docs/lindb/admin-console/explore) for more details.
 
 ### Monitoring
 
 No external components are required to monitor cluster components.
 
-- [Dashboard](/docs/lindb/reference/admin-ui/monitoring#dashboard)：Provides rich dashboards to monitor the running status of various components in
+- [Dashboard](/docs/lindb/admin-console/monitoring#dashboard)：Provides rich dashboards to monitor the running status of various components in
   the cluster；
-- [Replication](/docs/lindb/reference/admin-ui/monitoring#replication)：View the running status of each replica channel in real time, including the '
+- [Replication](/docs/lindb/admin-console/monitoring#replication)：View the running status of each replica channel in real time, including the '
   WAL' replication status and the in-memory write status;
-- [Request](/docs/lindb/reference/admin-ui/monitoring#request)：View execution query statements in real time;
-- [Log View](/docs/lindb/reference/admin-ui/monitoring#log-view)：Real-time view of log files on each component node of the cluster;
+- [Request](/docs/lindb/admin-console/monitoring#request)：View execution query statements in real time;
+- [Log View](/docs/lindb/admin-console/monitoring#log-view)：Real-time view of log files on each component node of the cluster;
 
 ### Meta Data Management
 
-- [Storage](/docs/lindb/reference/admin-ui/metadata#storage)：Management of the corresponding Storage cluster configuration;
-- [Database](/docs/lindb/reference/admin-ui/metadata#database)：Management of the corresponding database configuration;
-- [Explore](/docs/lindb/reference/admin-ui/metadata#explore)：Browse scheduling information in the cluster and the scheduling result status of each
+- [Storage](/docs/lindb/admin-console/metadata#storage)：Management of the corresponding Storage cluster configuration;
+- [Database](/docs/lindb/admin-console/metadata#database)：Management of the corresponding database configuration;
+- [Explore](/docs/lindb/admin-console/metadata#explore)：Browse scheduling information in the cluster and the scheduling result status of each
   component node's memory;

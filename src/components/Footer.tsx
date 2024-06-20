@@ -17,20 +17,24 @@ under the License.
 */
 import { GithubIcon, TwitterIcon } from "@site/icons";
 import clsx from "clsx";
-import Link from "next/link";
+import Link from "./Link";
 import React from "react";
+import { useTranslation } from "next-i18next";
+import { docs } from "@site/docs.config";
 
 export const Footer: React.FC<{ className?: string }> = (props) => {
   const { className } = props;
+  const { t } = useTranslation();
+  const { products } = docs;
   return (
     <footer className={clsx("justify-self-end py-4 lg:pt-8", className)}>
-      <div className="max-w-8xl px-4">
-        <div className="grid gap-4 sm:gap-8 lg:grid-cols-8 lg:gap-12">
+      <div className="mx-auto max-w-8xl">
+        <div className="mx-4 grid gap-4 sm:gap-8 lg:mx-0 lg:grid-cols-8 lg:gap-12 lg:px-8">
           <div className="col-span-4">
-            <p className="flex items-center gap-4 text-gray-500 dark:text-gray-400">
-              An open-source, cloud native, observabilty platform
+            <p className="flex items-center gap-4 font-semibold italic text-slate-900 dark:text-slate-100">
+              {t("An open-source, cloud native, observabilty platform")}
             </p>
-            <p className="flex items-center gap-2 pt-2">
+            <p className="flex items-center gap-2 pt-2 lg:gap-5 lg:pt-6">
               <Link
                 href="https://github.com/lindb/lindb"
                 className="block text-slate-600 hover:text-slate-700 dark:text-gray-200 dark:hover:text-slate-300"
@@ -39,29 +43,52 @@ export const Footer: React.FC<{ className?: string }> = (props) => {
                 <GithubIcon />
               </Link>
               <Link
-                href="https://github.com/lindb/lindb"
+                internal
+                href="https://x.com/lindb_io"
                 className="block text-slate-600 hover:text-slate-700 dark:text-gray-200 dark:hover:text-slate-300"
               >
-                <span className="sr-only">LinDB on GitHub</span>
+                <span className="sr-only">LinDB on Twitter</span>
                 <TwitterIcon className="size-5" />
               </Link>
             </p>
           </div>
           <div className="col-span-2">
-            <h3 className="mb-4 text-sm font-semibold text-gray-400 dark:text-white">
-              Open Source
+            <h3 className="mb-4 text-sm font-semibold text-slate-900 dark:text-slate-100">
+              {t("Open source")}
             </h3>
+            <ul>
+              {products.map((product) => (
+                <li className="mb-2" key={product.name}>
+                  <Link
+                    href={product.href}
+                    className="hover:text-stone-900 dark:hover:text-slate-300"
+                  >
+                    {product.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="col-span-2">
-            <h3 className="mb-4 text-sm font-semibold text-gray-400 dark:text-white">
-              Resources
+            <h3 className="mb-4 text-sm font-semibold text-slate-900 dark:text-slate-100">
+              {t("Resources")}
             </h3>
             <ul>
               <li className="mb-2">
-                <Link href={"/en/docs/lindb/introduction"}>Documentation</Link>
+                <Link
+                  href={"/en/docs/lindb/introduction"}
+                  className="hover:text-stone-900 dark:hover:text-slate-300"
+                >
+                  {t("Documentation")}
+                </Link>
               </li>
               <li className="mb-2">
-                <Link href={"/downloads"}>Downloads</Link>
+                <Link
+                  href={"/downloads"}
+                  className="hover:text-stone-900 dark:hover:text-slate-300"
+                >
+                  {t("Downloads")}
+                </Link>
               </li>
             </ul>
           </div>

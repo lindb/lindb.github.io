@@ -18,7 +18,6 @@ under the License.
 import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
 import typography from "@tailwindcss/typography";
-// import colors from "tailwindcss/colors";
 
 const config: Config = {
   important: true,

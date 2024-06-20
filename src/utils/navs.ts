@@ -27,15 +27,15 @@ export const docsPath = path.join(currentWorkingDirectory, "docs");
 const pageCache = new Map<string, PageInfo>();
 
 export const getPage = (
-  locale: string,
   slug: string[],
+  locale?: string,
 ): PageInfo | undefined => {
-  const urlPath = "/" + [locale, "docs", ...slug].join("/");
+  const defaultPath = "/" + ["docs", ...slug].join("/");
+  const urlPath = locale ? `/${locale}/${defaultPath}` : defaultPath;
   let page = pageCache.get(urlPath);
   if (!page) {
     // get default locale page
-    const urlPath = "/" + [docs.i18n.defaultLocale, "docs", ...slug].join("/");
-    page = pageCache.get(urlPath);
+    page = pageCache.get(defaultPath);
   }
   return page;
 };
@@ -110,32 +110,32 @@ const readDirRecursive = (
       children: [],
     };
     const filePath = path.join(directory, file);
+    let hide = false;
     if (fs.statSync(filePath).isDirectory()) {
       readDirRecursive(locale, filePath, sidebarItem);
       sidebarItem.children?.sort((a, b) => a.index - b.index);
     } else if (path.extname(file).toLowerCase() === ".mdx") {
       const pagePath = filePath.replace(currentWorkingDirectory, "");
-      sidebarItem.href =
-        "/" +
-        locale +
-        pagePath.replace(/\/\d+-(\w+)/g, "/$1").replace(/\.mdx$/, "");
+      sidebarItem.href = pagePath
+        .replace(/\/\d+-(\w+)/g, "/$1")
+        .replace(/\.mdx$/, "");
       const mdxFile = loadFile(locale, pagePath);
       sidebarItem.title = mdxFile.meta.sidebar
         ? mdxFile.meta.sidebar
         : mdxFile.meta.title
           ? mdxFile.meta.title
           : sidebarItem.title;
+
+      hide = mdxFile.meta.sidebarHide || false;
       // cache doc page meta info
-      if (!pageCache.has(sidebarItem.href)) {
-        pageCache.set(sidebarItem.href, {
-          path: pagePath,
-          meta: mdxFile.meta,
-          title: sidebarItem.title,
-          parent: parent?.title || "",
-        });
-      }
+      pageCache.set(sidebarItem.href, {
+        path: pagePath,
+        meta: mdxFile.meta,
+        title: sidebarItem.title,
+        parent: parent?.title || "",
+      });
     }
-    if (parent) {
+    if (parent && !hide) {
       parent.children?.push(sidebarItem);
     }
   });

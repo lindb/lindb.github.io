@@ -15,31 +15,37 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { i18n } = require("./next-i18next.config");
+import { getI18nProps } from "@site/utils/i18n";
+import { GetStaticPaths } from "next";
+import React from "react";
 
-/** @type {import('next').NextConfig} */
-module.exports = {
-  async redirects() {
-    return [
-      // Basic redirect
-      {
-        source: "/",
-        destination: "/products/lindb",
-        permanent: true,
-      },
-      // Wildcard path matching
-      {
-        source: "/blog/:slug",
-        destination: "/news/:slug",
-        permanent: true,
-      },
-    ];
-  },
-  i18n,
-  // output: "export",
-  // Optional: Change the output directory `out` -> `dist`
-  // Configure `pageExtensions` to include MDX files
-  pageExtensions: ["js", "jsx", "ts", "tsx"],
-  // Optionally, add any other Next.js config below
+const Downloads = () => {
+  return <div className="flex-auto">downloads</div>;
 };
+
+export const getStaticProps = async (context: {
+  params: { locale: string; product: string };
+}) => {
+  return {
+    props: {
+      ...context.params,
+      ...(await getI18nProps(context.params.locale)),
+    },
+  };
+};
+
+export const getStaticPaths = (async () => {
+  return {
+    paths: [
+      {
+        params: {
+          product: "lindb",
+          locale: "zh",
+        },
+      },
+    ],
+    fallback: false, // false or "blocking"
+  };
+}) satisfies GetStaticPaths;
+
+export default Downloads;

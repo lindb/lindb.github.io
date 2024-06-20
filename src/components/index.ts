@@ -31,3 +31,4 @@ export * from "./TOC";
 export * from "./Meta";
 export * from "./Link";
 export * from "./Image";
+export * from "./DocPage";

@@ -1,0 +1,64 @@
+/*
+Licensed to LinDB under one or more contributor
+license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright
+ownership. LinDB licenses this file to you under
+the Apache License, Version 2.0 (the "License"); you may
+not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+ 
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+*/
+import { getI18nProps } from "@site/utils/i18n";
+import { getLocale } from "@site/utils/utils";
+import { useRouter } from "next/router";
+import React from "react";
+const ErrorPage = (props) => {
+  console.log("error", props, props.statusCode);
+  // static getInitialProps({ res, err }) {
+  //   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
+  //   return { statusCode };
+  // }
+
+  return <p>error</p>;
+};
+
+ErrorPage.getInitialProps = async (ctx) => {
+  console.log("kkkk....iii", ctx.req.url);
+  const { locale } = getLocale(ctx.req.url);
+  let tt = {};
+  if (typeof window === "undefined") {
+    // We are on the server
+    tt = getI18nProps(locale);
+    // const fs = require("fs");
+    // fileContents = fs.readFileSync("/path/to/file", "utf8");
+  }
+  return {
+    locale,
+    ...tt,
+    // ...getI18nProps(locale),
+  };
+};
+
+export const getStaticProps = async (context) => {
+  console.log(context, "kkkkkk props.......");
+  return {
+    props: {
+      ...getI18nProps(context.locale),
+      //   };
+      // ...(await serverSideTranslations(
+      //   docs.i18n.defaultLocale,
+      //   ["translation"],
+      //   initialI18NextConfig,
+      // )),
+    },
+  };
+};
+
+export default ErrorPage;

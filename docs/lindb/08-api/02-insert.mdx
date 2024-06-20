@@ -1,22 +1,22 @@
 ---
-title: Write
+title: Insert 
 ---
 
 ## Ingest
 
-Write metric data, support `flat buffer`/`proto buffer`/`InfluxDB`.
+Write metric data, support **flat buffer**/**proto buffer**/**InfluxDB**.
 
-Support `content-type` as below:
+Support **content-type** as below:
 
 - application/flatbuffer
 - application/protobuf
 - application/influx
 
-Support `content-encoding` as below:
+Support **content-encoding** as below:
 
 - gzip
 
-Recommend to use [LinDB client](../clients) write data.
+Recommend to use [LinDB client](/docs/lindb/client/client-libraries) write data.
 
 ```plaintext
 PUT|PUST /api/v1/write
@@ -26,12 +26,12 @@ Parameters:
 
 | Attribute         | Type           | Description                                                             |
 |:------------------|:---------------|:------------------------------------------------------------------------|
-| `db`              | string         | Database name.                                                          |
-| `ns`              | string         | Namespace, default value: default-ns.                                   |
+| **db**            | string         | Database name.                                                          |
+| **ns**            | string         | Namespace, default value: default-ns.                                   |
 
 Body:
 
-`Metric Data`
+**Metric Data**
 
 Example request(InfluxDB):
 

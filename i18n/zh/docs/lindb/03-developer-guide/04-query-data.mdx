@@ -1,0 +1,117 @@
+---
+title: 查询数据 
+description:
+  This page shows how to query data from LinDB using different programming languages and tools.
+---
+
+## Client 
+
+The [Client Libraries](/docs/lindb/client/client-libraries) provide user-friendly and high preformance SDKs for a growing number of languages.
+
+### Examples
+
+<TabGroup>
+	<TabList>
+  	<Tab>Go</Tab>
+    <Tab>Java</Tab>
+  </TabList>
+  <TabPanels>
+    <TabPanel>
+Go client library [docs](https://pkg.go.dev/github.com/lindb/client_go#section-readme) and [repo](https://github.com/lindb/client_go).
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+
+	lindb "github.com/lindb/client_go"
+)
+
+func main() {
+	// create write client
+	cli := lindb.NewClient("http://localhost:9000")
+	query := cli.DataQuery()
+	// LinQL ref: https://lindb.io/guide/lin-ql.html#metric-query
+	data, err := query.DataQuery(context.TODO(),
+		"_internal",
+		"select heap_objects from lindb.runtime.mem where time>now()-2m and 'role' in ('Broker') group by node")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	// print table
+	_, table := data.ToTable()
+	fmt.Println(table)
+}
+```
+    </TabPanel>
+    <TabPanel>
+
+Java client library [docs](https://github.com/lindb/client_java) and [Maven artifact](https://mvnrepository.com/artifact/io.lindb/lindb-client).
+
+- Maven 
+
+```xml
+<dependency>
+    <groupId>io.lindb</groupId>
+    <artifactId>lindb-client</artifactId>
+    <version>0.0.4</version>
+</dependency>
+```
+
+- Gradle
+
+```groovy
+dependencies {
+    implementation "io.lindb:lindb-client:0.0.4"
+}
+```
+
+```java
+package io.lindb.client.example;
+
+import java.util.List;
+
+import io.lindb.client.Client;
+import io.lindb.client.ClientFactory;
+import io.lindb.client.Options;
+import io.lindb.client.api.DataQuery;
+import io.lindb.client.model.Field;
+import io.lindb.client.model.Metadata;
+import io.lindb.client.model.ResultSet;
+
+public class MetricDataQuery {
+
+	public static void main(String[] args) throws Exception {
+		Options options = Options.builder().build();
+		// create LinDB Client with broker endpoint
+		Client client = ClientFactory.create("http://localhost:9000", options);
+		// create metric data query
+		DataQuery query = client.dataQuery();
+		ResultSet rs = query.dataQuery("_internal",
+				"select heap_objects from lindb.runtime.mem where 'role' in ('Broker') group by node");
+		System.out.println(rs);
+		Metadata<List<String>> tags = query.metadataQuery("_internal", "show tag keys from lindb.runtime.mem");
+		System.out.println(tags);
+		Metadata<List<Field>> fields = query.metadataQuery("_internal", "show fields from lindb.runtime.mem");
+		System.out.println(fields);
+		client.close();
+	}
+}
+```
+    </TabPanel>
+  </TabPanels>
+</TabGroup>
+
+## HTTP REST API
+
+### Lin Query language
+
+Example request:
+```shell
+curl -G http://localhost:9000/api/v1/exec?db=_internal --data-urlencode "sql=select heap_inuse from lindb.runtime.mem  where 'role' in ('Broker') group by node"
+```
+
+For more information about [Lin query language](/docs/lindb/lin-ql/sql).
