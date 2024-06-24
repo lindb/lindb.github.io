@@ -1,6 +1,5 @@
 # Redirects from what the browser requests to what we serve
-/                /en/oss/lindb
-/en              /en/oss/lindb
+/                /oss/lindb
 /zh              /zh/oss/lindb
 /docs            /docs/lindb/introduction
 /guide/get-started.html /docs/lindb/getting-started/docker

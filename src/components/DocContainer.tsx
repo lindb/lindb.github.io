@@ -87,7 +87,6 @@ export const DocContainer: React.FC<{
                   setSelected(idx);
                 }
               }, [tab]);
-              console.log(tab);
               return (
                 <TabGroup
                   {...props}
