@@ -25,7 +25,7 @@ const highlightCode = async (code: string, lang: string) => {
   if (!shikiHighlighter) {
     shikiHighlighter = await getHighlighter({
       themes: ["material-theme-lighter", "catppuccin-macchiato"],
-      langs: [lang],
+      langs: ["sh", "sql"],
     });
   }
   const highlightedLines = shikiHighlighter.codeToHtml(code, {
