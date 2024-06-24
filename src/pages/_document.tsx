@@ -16,12 +16,20 @@ specific language governing permissions and limitations
 under the License.
 */
 import React from "react";
-import { Html, Head, Main, NextScript } from "next/document";
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+} from "next/document";
+import { getLocale } from "@site/utils/utils";
 
-const RootDocument = () => {
+const RootDocument = (props: { locale: string }) => {
+  const { locale } = props;
   return (
     <Html
-      lang="en"
+      lang={locale}
       className="dark [--scroll-mt:9.875rem] [scrollbar-gutter:stable] lg:[--scroll-mt:6.3125rem]"
     >
       <Head>
@@ -47,6 +55,11 @@ const RootDocument = () => {
       </body>
     </Html>
   );
+};
+RootDocument.getInitialProps = async (ctx: DocumentContext) => {
+  const initialProps = await Document.getInitialProps(ctx);
+  const { locale } = getLocale(ctx.asPath || "");
+  return { ...initialProps, locale: locale };
 };
 
 export default RootDocument;
