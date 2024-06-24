@@ -88,7 +88,7 @@ const product = {
         },
         {
           name: "Inverted index",
-          href: "/docs/lindb/design/intervted-index",
+          href: "/docs/lindb/design/inverted-index",
         },
       ],
     },
