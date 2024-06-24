@@ -21,6 +21,7 @@ import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { docs } from "@site/docs.config";
+import { useRouter } from "next/router";
 
 const isExtenal = (url: string) => {
   const regex = new RegExp("^(http|https)://.*");
@@ -36,17 +37,26 @@ export const DocLink: React.FC<{
   const { href = "", internal, children, className } = props;
   const extenal = isExtenal(href);
   const { i18n } = useTranslation();
+  const router = useRouter();
+  const path = router.asPath;
+
+  const getHref = () => {
+    if (extenal) {
+      return href;
+    }
+    if (href.startsWith("#")) {
+      const p = path.split("#");
+      return `${p[0]}${href}`;
+    }
+    return addPathPrefix(
+      href,
+      i18n.language !== docs.i18n.defaultLocale ? i18n.language : "",
+    );
+  };
 
   return (
     <Link
-      href={
-        extenal
-          ? href
-          : addPathPrefix(
-              href,
-              i18n.language !== docs.i18n.defaultLocale ? i18n.language : "",
-            )
-      }
+      href={getHref()}
       target={extenal ? "_blank" : "_self"}
       className={className}
       prefetch={false}

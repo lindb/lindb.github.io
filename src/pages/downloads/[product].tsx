@@ -15,37 +15,23 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-import { getI18nProps } from "@site/utils/i18n";
-import { GetStaticPaths } from "next";
-import React from "react";
+import Products, {
+  getStaticProps,
+} from "@site/pages/[locale]/downloads/[product]";
 
-const Downloads = () => {
-  return <div className="flex-auto">downloads</div>;
-};
+export { getStaticProps };
+export default Products;
 
-export const getStaticProps = async (context: {
-  params: { locale: string; product: string };
-}) => {
-  return {
-    props: {
-      ...context.params,
-      ...(await getI18nProps(context.params.locale)),
-    },
-  };
-};
-
-export const getStaticPaths = (async () => {
-  return {
-    paths: [
-      {
-        params: {
-          product: "lindb",
-          locale: "zh",
-        },
+export const getStaticPaths = () => {
+  const paths = [
+    {
+      params: {
+        product: "lindb",
       },
-    ],
+    },
+  ];
+  return {
+    paths: paths,
     fallback: false, // false or "blocking"
   };
-}) satisfies GetStaticPaths;
-
-export default Downloads;
+};

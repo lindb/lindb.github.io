@@ -16,6 +16,7 @@ specific language governing permissions and limitations
 under the License.
 */
 export const docs = {
+  docRepo: "https://github.com/lindb/lindb.github.io/edit/main",
   products: [
     {
       name: "Linsight",
@@ -48,7 +49,7 @@ export const docs = {
       },
       {
         label: "Downloads",
-        href: "/downloads2",
+        href: "/downloads/lindb",
       },
     ],
   },

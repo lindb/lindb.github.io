@@ -24,3 +24,23 @@ under the License.
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.beams-0 {
+  background-image: url("../img/beams/1.jpg");
+  background-size: 122.375rem 100%;
+}
+
+html.dark .beams-0 {
+  background-image: url("../img/beams/1-dark@tinypng.png");
+  background-size: 125.5rem 100%;
+}
+
+.beams-1 {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(15 23 42 / 0.02)'><path d='M0 .5H31.5V32'/></svg>");
+  background-size: 2rem;
+}
+
+html.dark .beams-1 {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(241 245 249 / 0.02)'><path d='M0 .5H31.5V32'/></svg>");
+  background-size: 2rem;
+}

@@ -17,7 +17,7 @@ under the License.
 */
 import { ReleaseInfo } from "@site/types";
 import React from "react";
-import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
+import { MDXRemote } from "next-mdx-remote";
 import Link from "./Link";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
 import { H } from "./Heading";
@@ -56,7 +56,12 @@ export const ReleaseNotes = (props: { releases?: ReleaseInfo[] }) => {
             key={release.name}
             className="border-b pb-6 dark:border-gray-800"
           >
-            <H heading={2} href={"#" + release.name} className="italic">
+            <H
+              id={release.name}
+              heading={2}
+              href={"#" + release.name}
+              className="italic"
+            >
               🎉 {release.name}
               <span className="ml-2 bg-green-500 p-1 text-sm dark:bg-green-900">
                 {release.published_at}

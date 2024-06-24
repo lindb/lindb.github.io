@@ -16,6 +16,7 @@ specific language governing permissions and limitations
 under the License.
 */
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
+import { ReactNode } from "react";
 
 export interface CommitInfo {
   author: string;
@@ -26,6 +27,7 @@ export interface SidebarItem {
   index: number;
   title: string;
   href?: string;
+  icon?: ReactNode;
   children?: SidebarItem[];
 }
 
@@ -64,6 +66,7 @@ export interface MDX {
 
 export interface ReleaseInfo {
   name: string;
+  tag_name: string;
   published_at: string;
   body: string;
   mdxBody: MDXRemoteSerializeResult;

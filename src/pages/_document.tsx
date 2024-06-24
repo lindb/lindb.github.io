@@ -20,9 +20,16 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 const RootDocument = () => {
   return (
-    <Html lang="en">
+    <Html
+      lang="en"
+      className="dark [--scroll-mt:9.875rem] [scrollbar-gutter:stable] lg:[--scroll-mt:6.3125rem]"
+    >
       <Head>
         <link rel="icon" href="/img/logo.png" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/instantsearch.css@8/themes/satellite-min.css"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `

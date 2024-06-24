@@ -36,7 +36,7 @@ const NavbarItems = () => {
     <>
       <ul className="flex space-x-6">
         <Popover>
-          <PopoverButton className="text-sm/6 font-semibold  focus:outline-none data-[hover]:text-sky-500 dark:data-[hover]:text-sky-400">
+          <PopoverButton className="font-semibold  focus:outline-none data-[hover]:text-sky-500 dark:data-[hover]:text-sky-400">
             {t("Open source")}
           </PopoverButton>
           <PopoverPanel
@@ -93,7 +93,7 @@ const NavPopover: React.FC<{ className: string }> = (props) => {
         <EllipsisVerticalIcon className="size-5" />
       </button>
       <Dialog as="div" open={open} onClose={() => setOpen(false)}>
-        <div className="fixed inset-0 top-12 z-20 w-screen overflow-y-auto ring-0 lg:hidden">
+        <div className="fixed inset-0 top-12 z-50 w-screen overflow-y-auto ring-0 lg:hidden">
           <div className="flex h-10">
             <DialogPanel className="min-h-20 w-full bg-white p-6 text-base font-semibold  text-slate-900 backdrop-blur-2xl dark:bg-slate-800 dark:text-slate-400">
               <button
@@ -140,7 +140,7 @@ export const Navbar = () => {
                   <span className="sr-only">LinDB on GitHub</span>
                   <GithubIcon />
                 </Link>
-                <div className="w-36">
+                <div className="w-32 lg:w-48">
                   <DocSearch />
                 </div>
                 <NavPopover className="-my-1 lg:hidden" />

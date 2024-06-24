@@ -30,6 +30,16 @@ import { getI18nProps } from "./i18n";
 import { isDev } from "./utils";
 import { ReleaseInfo } from "@site/types";
 
+export const getReleases = async () => {
+  let url = "https://api.github.com/repos/lindb/lindb/releases";
+  if (isDev()) {
+    url =
+      "https://raw.githubusercontent.com/stone1100/lindb.github.io/new_doc/src/pages/downloads/releases.json";
+  }
+  const res = await fetch(url);
+  return await res.json();
+};
+
 export const getDocStaticProps = async (slug: string[], locale?: string) => {
   const sidebar = getSidebar(locale || "", slug);
   const page = getPage(slug, locale);
@@ -44,13 +54,7 @@ export const getDocStaticProps = async (slug: string[], locale?: string) => {
   let releases: ReleaseInfo[] | null = null;
   let tocItem = mdx.toc;
   if (slug[slug.length - 1] === "release-notes") {
-    let url = "https://api.github.com/repos/lindb/lindb/releases";
-    if (isDev()) {
-      url =
-        "https://raw.githubusercontent.com/stone1100/lindb.github.io/new_doc/src/pages/downloads/releases.json";
-    }
-    const res = await fetch(url);
-    releases = await res.json();
+    releases = await getReleases();
     for (const r of releases || []) {
       r.mdxBody = (await compile(r.body)).source;
       r.body = "";

@@ -23,8 +23,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { docs } from "@site/docs.config";
 
 const NotFoundPage = () => {
-  const { t, i18n } = useTranslation();
-  console.log("4040-...", i18n.language);
+  const { t } = useTranslation();
   const msg = t("This page could not be found");
   return (
     <>
@@ -44,7 +43,6 @@ const NotFoundPage = () => {
 export const getStaticProps = async (context: {
   params: { locale: string; product: string };
 }) => {
-  console.log(context, "kkkkkk");
   return {
     props: {
       ...(await serverSideTranslations(

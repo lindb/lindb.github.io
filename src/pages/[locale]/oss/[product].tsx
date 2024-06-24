@@ -15,21 +15,106 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-import Link from "next/link";
-import React from "react";
-import type { GetStaticPaths } from "next";
+import { DocLink } from "@site/components";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
+import { docs } from "@site/docs.config";
 import { getI18nProps } from "@site/utils/i18n";
-import { RocketIcon } from "@site/icons";
+import {
+  EasyIcon,
+  EfficientIcon,
+  IDCIcon,
+  RocketIcon,
+  RollupIcon,
+  ScaleIcon,
+} from "@site/icons";
+import { LockClosedIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
+import { TypingEffectCodeBlock } from "@site/components/TypingEffectCodeBlock";
+import { CommandLineIcon } from "@heroicons/react/24/outline";
 
 const product = {
-  name: "XXX",
-  title: "What's xxx?",
+  name: "LinDB",
+  title: "What's LinDB?",
   subTitle:
     "An open-source, cloud native, horizontally scalable, distributed time-series database.",
   github: "https://github.com/lindb/lindb",
+  why: "Why LinDB?",
+  resources: [
+    {
+      title: "Getting Started",
+      items: [
+        {
+          name: "Deployment",
+          href: "/docs/lindb/getting-started/package",
+        },
+        {
+          name: "Insert data",
+          href: "/docs/lindb/developer-guide/insert-data",
+        },
+        {
+          name: "Query data",
+          href: "/docs/lindb/developer-guide/query-data",
+        },
+      ],
+    },
+    {
+      title: "Get Help",
+      items: [
+        {
+          name: "Feature request",
+          href: "https://github.com/lindb/lindb/issues/new?assignees=&labels=feature&projects=&template=feature-request.md&title=%5Bfeature%5D%3A",
+        },
+        {
+          name: "Bug report",
+          href: "https://github.com/lindb/lindb/issues/new?assignees=&labels=bug&projects=&template=bug-report.md&title=%5Bbug%5D%3A",
+        },
+        {
+          name: "Ask a Question",
+          href: "https://github.com/lindb/lindb/issues/new?assignees=&labels=question&projects=&template=ask-a-question.md&title=%5Bquestion%5D%3A",
+        },
+      ],
+    },
+    {
+      title: "Inside LinDB",
+      items: [
+        {
+          name: "Architecture",
+          href: "/docs/lindb/design/architecture",
+        },
+        {
+          name: "Storage",
+          href: "/docs/lindb/design/storage",
+        },
+        {
+          name: "Inverted index",
+          href: "/docs/lindb/design/intervted-index",
+        },
+      ],
+    },
+    {
+      title: "Learn More",
+      items: [
+        {
+          name: "Developer Guide",
+          href: "/docs/lindb/developer-guide/connect",
+        },
+        {
+          name: "Admin Console",
+          href: "/docs/lindb/admin-console/index",
+        },
+        {
+          name: "LinQL",
+          href: "/docs/lindb/lin-ql/sql",
+        },
+      ],
+    },
+  ],
   features: [
     {
+      icon: (
+        <RocketIcon className="size-12 stroke-indigo-500 dark:stroke-indigo-400" />
+      ),
       title: "High performance",
       items: [
         "A single server could easily support more than one million write TPS.",
@@ -37,12 +122,18 @@ const product = {
       ],
     },
     {
+      icon: (
+        <EfficientIcon className="size-12 stroke-indigo-500 dark:stroke-indigo-400" />
+      ),
       title: "High availability",
       items: [
         "The multi-channel replication protocol supports any amount of nodes, ensures the system availability.",
       ],
     },
     {
+      icon: (
+        <EasyIcon className="size-12 stroke-indigo-500 dark:stroke-indigo-400" />
+      ),
       title: "Easy to use",
       items: [
         "Schema-free multi-dimensional data model with Metric, Tags, and Fields.",
@@ -50,6 +141,9 @@ const product = {
       ],
     },
     {
+      icon: (
+        <ScaleIcon className="size-12 stroke-indigo-500 dark:stroke-indigo-400" />
+      ),
       title: "Horizontal scalability",
       items: [
         "Horizontal scalable is made simple by adding more new broker and storage nodes without too much thinking and manual operations Schema-free multi-dimensional data model with Metric, Tags, and Fields.",
@@ -57,12 +151,18 @@ const product = {
       ],
     },
     {
+      icon: (
+        <IDCIcon className="size-12 fill-indigo-500  dark:fill-indigo-400 " />
+      ),
       title: "Cross Multiple IDCs",
       items: [
         "LinDB is designed to work under a Multi-Active IDCs cloud architecture. The compute layer of LinDB, called brokers, supports efficient Multi-IDCs aggregation query.",
       ],
     },
     {
+      icon: (
+        <RollupIcon className="size-12 fill-indigo-500 dark:fill-indigo-400" />
+      ),
       title: "Auto Rollup",
       items: [
         "LinDB supports rollup in specific intervals(minute, hour and day) automatically after creating the database(unlike the Continuous-Query of InfluxDB).",
@@ -71,87 +171,231 @@ const product = {
   ],
 };
 
-export default function Products({ params }: { params: { product: string } }) {
+const sqls = [
+  `# create database
+CREATE DATABASE system_monitoring 
+WITH ( numOfShard: 1, 
+  replicaFactor: 1, 
+  behead: 1h, 
+  ahead: 2h) 
+ROLLUP ( 
+  (interval: 10s, retention: 30d), 
+  (interval: 10m, retention: 180d));
+`,
+  `# query data
+SELECT cpu_usage 
+FROM system_monitoring
+WHERE time > now() - 1h AND time < now()
+  AND host="us-east-host-1";`,
+  `# aggregate data and grouping region
+SELECT max(cpu_usage) 
+FROM system_monitoring
+WHERE time > now() - 1h AND time < now()
+GROUP BY region`,
+  `# grouping/having
+SELECT max(cpu_usage) as max_cpu
+FROM system_monitoring
+WHERE time > now() - 1h AND time < now()
+  AND host like "us-east-host*"
+GROUP BY region
+HAVING max_cpu > 0.5`,
+];
+
+const Carousel = (props: { items: { img: string; title: string }[] }) => {
+  const { items } = props;
+  const [item, setItem] = useState(items[0]);
   const { t } = useTranslation();
-  const features = product.features;
+
+  useEffect(() => {
+    let c = 0;
+    const interval = setInterval(() => {
+      setItem(items[c % items.length]);
+      c++;
+    }, 2000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
-    <div className="flex flex-col items-center justify-between p-8">
-      <div>Home: {t("docs")}</div>
-      <div className="relative sm:pt-12 lg:pt-18">
-        <p className="inline bg-gradient-to-r from-indigo-200 via-sky-400 to-indigo-200 bg-clip-text text-2xl tracking-tight text-transparent sm:text-3xl lg:text-5xl">
-          {product.title}
-        </p>
-        <p className="mt-3 tracking-tight text-slate-400 sm:text-lg lg:text-2xl">
-          {product.subTitle}
-        </p>
-        <div>{t("product")}</div>
-        <div className="mt-8 flex justify-center gap-4">
-          <a
-            className="rounded-full bg-sky-300 px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-sky-200 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300/50 active:bg-sky-500"
-            href={product.github}
-          >
-            Get started
-          </a>
-          <Link
-            className="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/50 active:text-slate-400"
-            href={product.github}
-            target="_blank"
-          >
-            View on GitHub
-          </Link>
-        </div>
+    <div className="max-w-8xl p-8 py-12 lg:py-16">
+      <div className="pb-7 text-center text-4xl font-semibold text-indigo-500 dark:text-indigo-400">
+        {t("Key Features")}
       </div>
-      <div className="relative pb-24 pt-6">
-        <div className="py-6 text-center sm:mt-6 lg:mt-10">
-          <span className="bg-gradient-to-tl from-blue-600 to-purple-400 bg-clip-text text-xl font-bold text-transparent sm:text-2xl lg:text-3xl">
-            Why {product.name}?
-          </span>
+      <div className="mb-6 flex flex-col items-center lg:grid lg:grid-cols-12 lg:gap-8">
+        <div className="mb-6 h-80 w-full bg-slate-200/20 ring-1  ring-slate-300 lg:col-span-5 dark:bg-slate-700/20 dark:ring-white/20">
+          <div className="border-b border-slate-300  p-2 text-xs text-slate-900 dark:border-b-white/20 dark:text-sky-300">
+            <div className="flex flex-none items-center gap-1 ">
+              <CommandLineIcon className="size-4" />
+              Terminal
+            </div>
+          </div>
+          <TypingEffectCodeBlock codes={sqls} lang="sql" />
         </div>
-        <div className="mx-auto grid max-w-[85rem] gap-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-3 lg:gap-8 ">
-          {features.map((feature, index) => (
-            <div className="relative flex sm:pe-6" key={index}>
-              <div className="sm:ms-6 lg:ms-8">
-                <h2 className="mb-1 font-semibold dark:text-white">
-                  {feature.title}
-                  <RocketIcon className="size-6" />
-                </h2>
-                <div className="text-gray-600 dark:text-slate-400 ">
-                  <ul className="before:*:mr-2 before:*:text-sky-600 before:*:content-['>']">
-                    {feature.items.map((item, idx) => (
-                      <li key={idx}>{item}</li>
-                    ))}
-                  </ul>
+        <div className="relative bg-gradient-to-b ring-1 ring-slate-900/5 sm:max-h-none lg:col-span-7 dark:bg-slate-700 dark:ring-1 dark:ring-inset dark:ring-white/10 dark:backdrop-blur">
+          <div className="relative flex flex-col shadow-xl">
+            <div className="flex-none border-b border-slate-500/30">
+              <div className="flex h-10 items-center space-x-1.5 px-3">
+                <div className="size-2.5 rounded-full bg-[#EC6A5F]"></div>
+                <div className="ml-1.5 size-2.5 rounded-full bg-[#F4BF50]"></div>
+                <div className="ml-1.5 size-2.5 rounded-full bg-[#61C454]"></div>
+                <div className="mx-auto flex w-full items-center justify-start rounded-md bg-slate-100 py-1 pl-3 text-xs font-medium leading-5 ring-1 ring-inset ring-slate-900/5 dark:bg-slate-800 dark:text-slate-500">
+                  <LockClosedIcon className="mr-2 size-3.5 text-slate-300 dark:text-slate-500" />
+                  {item.title}
                 </div>
               </div>
             </div>
-          ))}
+            <img src={item.img} className="lg:h-96" />
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+const Products = () => {
+  const features = product.features;
+  const { t } = useTranslation();
+  return (
+    <>
+      <div className="flex flex-col items-center justify-between">
+        <div className="relative p-8 sm:pt-12 lg:pt-18">
+          <p className="inline bg-gradient-to-r from-indigo-400 via-sky-400 to-indigo-400 bg-clip-text text-4xl font-semibold tracking-tight text-transparent sm:text-3xl lg:text-5xl dark:from-indigo-200 dark:via-sky-400 dark:to-indigo-200">
+            {t(product.title)}
+          </p>
+          <p className="m-4 text-3xl italic tracking-tight text-slate-600 dark:text-slate-400">
+            {t(product.subTitle)}
+          </p>
+          <div className="mt-16 flex justify-center gap-4 font-semibold">
+            <Link
+              className="w-36 rounded-lg bg-blue-600 p-3 text-center  text-white hover:bg-blue-700"
+              href={product.github}
+            >
+              {t("Getting Started")}
+            </Link>
+            <Link
+              className="w-36 rounded-lg bg-neutral-800 p-3 text-center text-white hover:bg-neutral-900"
+              href={product.github}
+              target="_blank"
+            >
+              {t("View on GitHub")}
+            </Link>
+          </div>
+        </div>
+        <Carousel
+          items={[
+            {
+              img: "/img/lindb/guide/admin_ui/overview.png",
+              title: "cluster overview",
+            },
+            {
+              img: "/img/lindb/guide/admin_ui/data_search.png",
+              title: "data search",
+            },
+            {
+              img: "/img/lindb/guide/admin_ui/data_search_explain.png",
+              title: "search explain",
+            },
+            {
+              img: "/img/lindb/guide/admin_ui/data_explore.png",
+              title: "data explore",
+            },
+            {
+              img: "/img/lindb/guide/admin_ui/dashboard.png",
+              title: "dashboard",
+            },
+            {
+              img: "/img/lindb/guide/admin_ui/replication_families.png",
+              title: "replication",
+            },
+            {
+              img: "/img/lindb/guide/admin_ui/replication_shards.png",
+              title: "replication",
+            },
+            {
+              img: "/img/lindb/guide/admin_ui/metadata_explore_compare.png",
+              title: "metadata compare",
+            },
+          ]}
+        />
+        <div className="beams-0 w-full">
+          <div className="beams-1 relative p-8 pb-10 lg:pb-20">
+            <div className="py-8 text-center lg:py-12">
+              <span className="bg-gradient-to-tl from-blue-600 to-purple-400 bg-clip-text text-4xl font-semibold text-transparent">
+                {t(product.why)}
+              </span>
+            </div>
+            <div className="mx-auto grid max-w-[85rem] gap-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-3 lg:gap-8 ">
+              {features.map((feature, index) => (
+                <div className="relative flex sm:pe-6" key={index}>
+                  <div className="sm:ms-6 lg:ms-8">
+                    <h1 className="mb-3 flex flex-col items-center gap-3 text-2xl font-semibold text-slate-900 dark:text-white">
+                      {feature.icon}
+                      {t(feature.title)}
+                    </h1>
+                    <div className="text-slate-600 dark:text-slate-400 ">
+                      <ul className="before:*:mr-2 before:*:text-indigo-500  before:*:content-['>'] dark:before:*:text-indigo-400">
+                        {feature.items.map((item, idx) => (
+                          <li key={idx}>{t(item)}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="my-12 grid w-full max-w-8xl  grid-cols-2 gap-6 px-12 lg:grid-cols-4 lg:gap-8 lg:px-16">
+          {product.resources.map((resource, index) => (
+            <div
+              className="relative flex flex-col items-start sm:pe-6 lg:items-center"
+              key={index}
+            >
+              <h1 className="mb-4 text-2xl font-semibold text-indigo-600 dark:text-indigo-500">
+                {t(resource.title)}
+              </h1>
+              <ul>
+                {resource.items.map((item, idx) => (
+                  <li key={idx} className="prose mb-2 dark:prose-invert">
+                    <DocLink href={item.href} internal>
+                      {t(item.name)}
+                    </DocLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};
 
 export const getStaticProps = async (context: {
-  params: { locale: string; product: string };
+  params: { product: string; locale: string };
 }) => {
   return {
     props: {
-      ...context.params,
-      ...(await getI18nProps(context.params.locale)),
+      product: context.params.product,
+      ...(await getI18nProps(context.params.locale || docs.i18n.defaultLocale)),
     },
   };
 };
 
-export const getStaticPaths = (async () => {
-  return {
-    paths: [
-      {
-        params: {
-          product: "lindb",
-          locale: "en",
-        },
+export const getStaticPaths = () => {
+  const paths = [
+    {
+      params: {
+        product: "lindb",
+        locale: "zh",
       },
-    ],
+    },
+  ];
+  return {
+    paths: paths,
     fallback: false, // false or "blocking"
   };
-}) satisfies GetStaticPaths;
+};
+
+export default Products;

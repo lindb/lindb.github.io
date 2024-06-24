@@ -29,12 +29,12 @@ export const Footer: React.FC<{ className?: string }> = (props) => {
   return (
     <footer className={clsx("justify-self-end py-4 lg:pt-8", className)}>
       <div className="mx-auto max-w-8xl">
-        <div className="mx-4 grid gap-4 sm:gap-8 lg:mx-0 lg:grid-cols-8 lg:gap-12 lg:px-8">
-          <div className="col-span-4">
+        <div className="mx-8 grid gap-4 sm:gap-8 lg:mx-0 lg:grid-cols-8 lg:gap-12 lg:px-8">
+          <div className="col-span-4 mb-6 lg:mb-0">
             <p className="flex items-center gap-4 font-semibold italic text-slate-900 dark:text-slate-100">
               {t("An open-source, cloud native, observabilty platform")}
             </p>
-            <p className="flex items-center gap-2 pt-2 lg:gap-5 lg:pt-6">
+            <p className="flex items-center gap-2 pt-3 lg:gap-5 lg:pt-6">
               <Link
                 href="https://github.com/lindb/lindb"
                 className="block text-slate-600 hover:text-slate-700 dark:text-gray-200 dark:hover:text-slate-300"
@@ -76,7 +76,7 @@ export const Footer: React.FC<{ className?: string }> = (props) => {
             <ul>
               <li className="mb-2">
                 <Link
-                  href={"/en/docs/lindb/introduction"}
+                  href={"/docs/lindb/introduction"}
                   className="hover:text-stone-900 dark:hover:text-slate-300"
                 >
                   {t("Documentation")}
@@ -84,7 +84,7 @@ export const Footer: React.FC<{ className?: string }> = (props) => {
               </li>
               <li className="mb-2">
                 <Link
-                  href={"/downloads"}
+                  href={"/downloads/lindb"}
                   className="hover:text-stone-900 dark:hover:text-slate-300"
                 >
                   {t("Downloads")}

@@ -38,3 +38,7 @@ html.dark .shiki span {
   font-style: var(--shiki-dark-font-style) !important;
   text-decoration: var(--shiki-dark-text-decoration) !important;
 }
+
+.code-block pre {
+  @apply p-2 border-0 h-full;
+}

@@ -17,7 +17,7 @@ under the License.
 */
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import {
   DocsFooter,
@@ -33,6 +33,7 @@ import "remark-github-blockquote-alert/alert.css";
 import Link from "./Link";
 import { Footer } from "./Footer";
 import { ReleaseNotes } from "./ReleaseNotes";
+import { useRouter } from "next/router";
 
 export const DocContainer: React.FC<{
   locale: string;
@@ -74,19 +75,43 @@ export const DocContainer: React.FC<{
               return <CodeSnippet {...props} />;
             },
             img: Image,
-            TabGroup,
-            TabList: (props) => (
-              <TabList
-                className="border-b border-slate-200 dark:border-slate-200/5"
-                {...props}
-              >
-                {props.children}
-              </TabList>
-            ),
+            TabGroup: (props) => {
+              const router = useRouter();
+              const tab = router.query.tab;
+              // eslint-disable-next-line react/prop-types
+              const { items = [] } = props;
+              const [selected, setSelected] = useState(0);
+              useEffect(() => {
+                const idx = items.findIndex((v: string) => v === tab);
+                if (idx >= 0) {
+                  setSelected(idx);
+                }
+              }, [tab]);
+              console.log(tab);
+              return (
+                <TabGroup
+                  {...props}
+                  selectedIndex={selected}
+                  onChange={setSelected}
+                >
+                  {props.children}
+                </TabGroup>
+              );
+            },
+            TabList: (props) => {
+              return (
+                <TabList
+                  className="border-b border-slate-200 dark:border-slate-200/5"
+                  {...props}
+                >
+                  {props.children}
+                </TabList>
+              );
+            },
             Tab: (props) => (
               <Tab
                 {...props}
-                className="border-b border-sky-400/0 px-3 py-2 text-sm/6 font-semibold leading-6 text-white focus:outline-none data-[hover]:border-slate-300 data-[selected]:border-sky-400 data-[selected]:data-[hover]:text-sky-400 data-[selected]:text-sky-400 data-[hover]:dark:border-slate-700"
+                className="border-b border-sky-400/0 px-3 py-2 text-sm/6 font-semibold leading-6 text-slate-900 focus:outline-none data-[hover]:border-slate-300 data-[selected]:border-sky-400 data-[selected]:data-[hover]:text-sky-400 data-[selected]:text-sky-400 dark:text-white data-[hover]:dark:border-slate-700"
               >
                 {props.children}
               </Tab>

@@ -103,10 +103,7 @@ export const TableOfContents = (props: {
         </ul>
         <div className="border-t border-slate-200 pt-3 text-sm leading-6 text-slate-700 sm:flex dark:border-slate-200/5">
           <Link
-            href={
-              "https://github.com/lindb/lindb.github.io/edit/main" +
-              getPagePath()
-            }
+            href={docs.docRepo + getPagePath()}
             className="flex items-center gap-2 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"
           >
             <GithubIcon className="size-4" />

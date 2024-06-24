@@ -23,6 +23,7 @@ import Link from "next/link";
 export const H = (props: {
   heading: number;
   href?: string;
+  id?: string;
   children: ReactNode;
   className?: string;
 }) => {
@@ -66,7 +67,7 @@ export const Heading = (props: { level: number; children: ReactNode }) => {
 
   const idText = getHeadingId(children);
   return (
-    <H heading={level} href={"#" + idText}>
+    <H id={idText} heading={level} href={"#" + idText}>
       {children}
     </H>
   );
