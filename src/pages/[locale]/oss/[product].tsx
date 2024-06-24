@@ -244,8 +244,11 @@ const Carousel = (props: { items: { img: string; title: string }[] }) => {
               </div>
             </div>
           </div>
-          <div className="h-96 overflow-hidden">
-            <img src={item.img} className="size-full object-cover" />
+          <div className="h-60 overflow-hidden lg:h-96">
+            <img
+              src={item.img}
+              className="size-full object-cover object-left"
+            />
           </div>
         </div>
       </div>
@@ -263,7 +266,7 @@ const Products = () => {
           <p className="inline bg-gradient-to-r from-indigo-400 via-sky-400 to-indigo-400 bg-clip-text text-4xl font-semibold tracking-tight text-transparent sm:text-3xl lg:text-5xl dark:from-indigo-200 dark:via-sky-400 dark:to-indigo-200">
             {t(product.title)}
           </p>
-          <p className="m-4 text-3xl italic tracking-tight text-slate-600 dark:text-slate-400">
+          <p className="m-4 text-2xl italic tracking-tight text-slate-600 lg:text-3xl dark:text-slate-400">
             {t(product.subTitle)}
           </p>
           <div className="mt-16 flex justify-center gap-4 font-semibold">
@@ -319,7 +322,7 @@ const Products = () => {
           ]}
         />
         <div className="beams-0 w-full">
-          <div className="beams-1 relative p-8 lg:pb-20">
+          <div className="beams-1 relative px-8 lg:pb-20">
             <div className="py-8 text-center lg:py-12">
               <span className="bg-gradient-to-tl from-blue-600 to-purple-400 bg-clip-text text-4xl font-semibold text-transparent">
                 {t(product.why)}
