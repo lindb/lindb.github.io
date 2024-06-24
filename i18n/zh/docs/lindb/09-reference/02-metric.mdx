@@ -36,8 +36,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
     </thead>
     <tbody>
         <tr>
-            <td rowspan="2">lindb.runtime</td>
-            <td rowspan="2">-</td>
+            <td rowSpan="2">lindb.runtime</td>
+            <td rowSpan="2">-</td>
             <td>go_goroutines</td>
             <td>the number of goroutines</td>
         </tr>
@@ -46,8 +46,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
             <td>the number of records in the thread creation profile</td>
         </tr>
         <tr>
-            <td rowspan="24">lindb.runtime.mem</td>
-            <td rowspan="24">-</td>
+            <td rowSpan="24">lindb.runtime.mem</td>
+            <td rowSpan="24">-</td>
             <td>alloc</td>
             <td>bytes of allocated heap objects</td>
         </tr>
@@ -159,8 +159,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
     </thead>
     <tbody>
         <tr>
-            <td rowspan="8">lindb.monitor.system.cpu_stat</td>
-            <td rowspan="8">-</td>
+            <td rowSpan="8">lindb.monitor.system.cpu_stat</td>
+            <td rowSpan="8">-</td>
             <td>idle</td>
             <td>CPU time that's not actively being used</td>
         </tr>
@@ -193,8 +193,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
             <td>It marks time spent waiting for input or output operations</td>
         </tr>
         <tr>
-            <td rowspan="4">lindb.monitor.system.mem_stat</td>
-            <td rowspan="4">-</td>
+            <td rowSpan="4">lindb.monitor.system.mem_stat</td>
+            <td rowSpan="4">-</td>
             <td>total</td>
             <td>Total amount of RAM on this system</td>
         </tr>
@@ -211,8 +211,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
             <td>Percentage of RAM used by programs</td>
         </tr>
         <tr>
-            <td rowspan="4">lindb.monitor.system.disk_usage_stats</td>
-            <td rowspan="4">-</td>
+            <td rowSpan="4">lindb.monitor.system.disk_usage_stats</td>
+            <td rowSpan="4">-</td>
             <td>total</td>
             <td>Total amount of disk</td>
         </tr>
@@ -229,8 +229,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
             <td>Percentage of disk used by programs</td>
         </tr>
         <tr>
-            <td rowspan="4">lindb.monitor.system.disk_inodes_stats</td>
-            <td rowspan="4">-</td>
+            <td rowSpan="4">lindb.monitor.system.disk_inodes_stats</td>
+            <td rowSpan="4">-</td>
             <td>total</td>
             <td>Total amount of inode</td>
         </tr>
@@ -247,8 +247,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
             <td>Percentage of inode used by programs</td>
         </tr>
         <tr>
-            <td rowspan="8">lindb.monitor.system.net_stat</td>
-            <td rowspan="8">interface</td>
+            <td rowSpan="8">lindb.monitor.system.net_stat</td>
+            <td rowSpan="8">interface</td>
             <td>bytes_sent</td>
             <td>number of bytes sent</td>
         </tr>
@@ -296,8 +296,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
     </thead>
     <tbody>
         <tr>
-            <td rowspan="11">lindb.traffic.tcp</td>
-            <td rowspan="11">addr</td>
+            <td rowSpan="11">lindb.traffic.tcp</td>
+            <td rowSpan="11">addr</td>
             <td>accept_conns</td>
             <td>accept total count</td>
         </tr>
@@ -366,8 +366,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
             <td>grpc unary server handle msg duration</td>
         </tr>
         <tr>
-            <td rowspan="2">lindb.traffic.grpc_client.stream</td>
-            <td rowspan="2">grpc_service<br/>grpc_service<br/>grpc_method</td>
+            <td rowSpan="2">lindb.traffic.grpc_client.stream</td>
+            <td rowSpan="2">grpc_service<br/>grpc_service<br/>grpc_method</td>
             <td>msg_received_failures</td>
             <td>grpc cliet receive msg failure</td>
         </tr>
@@ -388,8 +388,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
             <td>grpc client send msg duration, include send total count</td>
         </tr>
         <tr>
-            <td rowspan="2">lindb.traffic.grpc_server.stream</td>
-            <td rowspan="2">grpc_service<br/>grpc_service<br/>grpc_method</td>
+            <td rowSpan="2">lindb.traffic.grpc_server.stream</td>
+            <td rowSpan="2">grpc_service<br/>grpc_service<br/>grpc_method</td>
             <td>msg_received_failures</td>
             <td>grpc server receive msg failure</td>
         </tr>
@@ -431,8 +431,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
     </thead>
 	<tbody>
 		<tr>
-			<td rowspan="6">lindb.concurrent.pool</td>
-			<td rowspan="6">pool_name</td>
+			<td rowSpan="6">lindb.concurrent.pool</td>
+			<td rowSpan="6">pool_name</td>
 			<td>workers_alive</td>
 			<td>current workers count in use</td>
 		</tr>
@@ -469,8 +469,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>task executing time with waiting period</td>
 		</tr>
 		<tr>
-			<td rowspan="3">lindb.concurrent.limit</td>
-			<td rowspan="3">type</td>
+			<td rowSpan="3">lindb.concurrent.limit</td>
+			<td rowSpan="3">type</td>
 			<td>throttle_requests</td>
 			<td>number of reaches the max-concurrency</td>
 		</tr>
@@ -498,8 +498,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
     </thead>
 	<tbody>
 		<tr>
-			<td rowspan="3">lindb.coordinator.state_manager</td>
-			<td rowspan="3">type,coordinator</td>
+			<td rowSpan="3">lindb.coordinator.state_manager</td>
+			<td rowSpan="3">type,coordinator</td>
 			<td>handle_events</td>
 			<td>handle coordinator event success count</td>
 		</tr>
@@ -529,8 +529,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
     </thead>
 	<tbody>
 		<tr>
-			<td rowspan="5">lindb.query</td>
-			<td rowspan="5">-</td>
+			<td rowSpan="5">lindb.query</td>
+			<td rowSpan="5">-</td>
 			<td>created_tasks</td>
 			<td>create query tasks</td>
 		</tr>
@@ -551,8 +551,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>omit response because task evicted</td>
 		</tr>
 		<tr>
-			<td rowspan="4">lindb.task.transport</td>
-			<td rowspan="4">-</td>
+			<td rowSpan="4">lindb.task.transport</td>
+			<td rowSpan="4">-</td>
 			<td>sent_requests</td>
 			<td>send request successfully</td>
 		</tr>
@@ -584,8 +584,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
     </thead>
 	<tbody>
 		<tr>
-			<td rowspan="2">lindb.master.shard.leader</td>
-			<td rowspan="2">-</td>
+			<td rowSpan="2">lindb.master.shard.leader</td>
+			<td rowSpan="2">-</td>
 			<td>elections</td>
 			<td>shard leader elect successfully</td>
 		</tr>
@@ -594,8 +594,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>shard leader elect failure</td>
 		</tr>
 		<tr>
-			<td rowspan="4">lindb.master.controller</td>
-			<td rowspan="4">-</td>
+			<td rowSpan="4">lindb.master.controller</td>
+			<td rowSpan="4">-</td>
 			<td>failovers</td>
 			<td>master fail over successfully</td>
 		</tr>
@@ -618,8 +618,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>ingest duration(include count)</td>
 		</tr>
 		<tr>
-			<td rowspan="4">lindb.ingestion.proto</td>
-			<td rowspan="4">-</td>
+			<td rowSpan="4">lindb.ingestion.proto</td>
+			<td rowSpan="4">-</td>
 			<td>data_corrupted</td>
 			<td>corrupted when parse</td>
 		</tr>
@@ -636,8 +636,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>drop metrics when append</td>
 		</tr>
 		<tr>
-			<td rowspan="5">lindb.ingestion.flat</td>
-			<td rowspan="4">-</td>
+			<td rowSpan="5">lindb.ingestion.flat</td>
+			<td rowSpan="4">-</td>
 			<td>data_corrupted</td>
 			<td>corrupted when parse</td>
 		</tr>
@@ -659,8 +659,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>read data block size</td>
 		</tr>
 		<tr>
-			<td rowspan="6">lindb.ingestion.influx</td>
-			<td rowspan="6">-</td>
+			<td rowSpan="6">lindb.ingestion.influx</td>
+			<td rowSpan="6">-</td>
 			<td>data_corrupted</td>
 			<td>corrupted when parse</td>
 		</tr>
@@ -685,8 +685,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>drop fields when append</td>
 		</tr>
 		<tr>
-			<td rowspan="2">lindb.broker.database.write</td>
-			<td rowspan="2">db</td>
+			<td rowSpan="2">lindb.broker.database.write</td>
+			<td rowSpan="2">db</td>
 			<td>out_of_time_range</td>
 			<td>timestamp of metrics out of acceptable write time range</td>
 		</tr>
@@ -695,8 +695,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>shard not found count</td>
 		</tr>
 		<tr>
-			<td rowspan="14">lindb.broker.family.write</td>
-			<td rowspan="14">db</td>
+			<td rowSpan="14">lindb.broker.family.write</td>
+			<td rowSpan="14">db</td>
 			<td>active_families</td>
 			<td>number of current active replica family channel</td>
 		</tr>
@@ -768,8 +768,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
     </thead>
 	<tbody>
 		<tr>
-			<td rowspan="6">lindb.storage.wal</td>
-			<td rowspan="6">db<br/>shard</td>
+			<td rowSpan="6">lindb.storage.wal</td>
+			<td rowSpan="6">db<br/>shard</td>
 			<td>receive_write_bytes</td>
 			<td>receive write request bytes(broker-&gt;leader)</td>
 		</tr>
@@ -794,8 +794,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>replica wal failure(storage leader-&gt;follower)</td>
 		</tr>
 		<tr>
-			<td rowspan="7">lindb.storage.replicator.runner</td>
-			<td rowspan="7">type<br/>db<br/>shard</td>
+			<td rowSpan="7">lindb.storage.replicator.runner</td>
+			<td rowSpan="7">type<br/>db<br/>shard</td>
 			<td>active_replicators</td>
 			<td>number of current active local replicators</td>
 		</tr>
@@ -824,8 +824,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>replica success count</td>
 		</tr>
 		<tr>
-			<td rowspan="5">lindb.storage.replica.local</td>
-			<td rowspan="5">db<br/>shard</td>
+			<td rowSpan="5">lindb.storage.replica.local</td>
+			<td rowSpan="5">db<br/>shard</td>
 			<td>decompress_failures</td>
 			<td>decompress message failure count</td>
 		</tr>
@@ -846,8 +846,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>invalid replica sequence count</td>
 		</tr>
 		<tr>
-			<td rowspan="20">lindb.storage.replica.remote</td>
-			<td rowspan="20">db<br/>shard</td>
+			<td rowSpan="20">lindb.storage.replica.remote</td>
+			<td rowSpan="20">db<br/>shard</td>
 			<td>not_ready</td>
 			<td>remote replicator channel not ready</td>
 		</tr>
@@ -934,8 +934,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>build inverted index count</td>
 		</tr>
 		<tr>
-			<td rowspan="2">lindb.tsdb.memdb</td>
-			<td rowspan="2">db</td>
+			<td rowSpan="2">lindb.tsdb.memdb</td>
+			<td rowSpan="2">db</td>
 			<td>allocated_pages</td>
 			<td>allocate temp memory page successfully</td>
 		</tr>
@@ -956,8 +956,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>flush metadata database duration(include count)</td>
 		</tr>
 		<tr>
-			<td rowspan="8">lindb.tsdb.metadb</td>
-			<td rowspan="8">db</td>
+			<td rowSpan="8">lindb.tsdb.metadb</td>
+			<td rowSpan="8">db</td>
 			<td>gen_metric_ids</td>
 			<td>generate metric id successfully</td>
 		</tr>
@@ -990,8 +990,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>generate tag value id failure</td>
 		</tr>
 		<tr>
-			<td rowspan="10">lindb.tsdb.shard</td>
-			<td rowspan="10">db<br/>shard</td>
+			<td rowSpan="10">lindb.tsdb.shard</td>
+			<td rowSpan="10">db<br/>shard</td>
 			<td>active_families</td>
 			<td>number of current active families</td>
 		</tr>
@@ -1044,8 +1044,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>flush index database duration(include count)</td>
 		</tr>
 		<tr>
-			<td rowspan="6">lindb.kv.table.cache</td>
-			<td rowspan="6">-</td>
+			<td rowSpan="6">lindb.kv.table.cache</td>
+			<td rowSpan="6">-</td>
 			<td>evicts</td>
 			<td>evict reader from cache</td>
 		</tr>
@@ -1070,8 +1070,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>number of active reader in cache</td>
 		</tr>
 		<tr>
-			<td rowspan="7">lindb.kv.table.read</td>
-			<td rowspan="7">-</td>
+			<td rowSpan="7">lindb.kv.table.read</td>
+			<td rowSpan="7">-</td>
 			<td>gets</td>
 			<td>get data by key successfully</td>
 		</tr>
@@ -1100,8 +1100,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>unmam file failure</td>
 		</tr>
 		<tr>
-			<td rowspan="3">lindb.kv.table.write</td>
-			<td rowspan="3">-</td>
+			<td rowSpan="3">lindb.kv.table.write</td>
+			<td rowSpan="3">-</td>
 			<td>bad_keys</td>
 			<td>add bad key count</td>
 		</tr>
@@ -1114,8 +1114,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>bytes of write data</td>
 		</tr>
 		<tr>
-			<td rowspan="2">lindb.kv.compaction</td>
-			<td rowspan="2">type</td>
+			<td rowSpan="2">lindb.kv.compaction</td>
+			<td rowSpan="2">type</td>
 			<td>compacting</td>
 			<td>number of compacting jobs</td>
 		</tr>
@@ -1130,8 +1130,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>compact duration(include count)</td>
 		</tr>
 		<tr>
-			<td rowspan="2">lindb.kv.flush</td>
-			<td rowspan="2">-</td>
+			<td rowSpan="2">lindb.kv.flush</td>
+			<td rowSpan="2">-</td>
 			<td>flushing</td>
 			<td>number of flushing jobs</td>
 		</tr>
@@ -1146,8 +1146,8 @@ LinDB 默认会定期把自监控的指标数据存储在 **_internal** 这个�
 			<td>flush duration(include count)</td>
 		</tr>
 		<tr>
-			<td rowspan="5">lindb.storage.query</td>
-			<td rowspan="5">-</td>
+			<td rowSpan="5">lindb.storage.query</td>
+			<td rowSpan="5">-</td>
 			<td>metric_queries</td>
 			<td>execute metric query successfully(just plan it)</td>
 		</tr>
