@@ -218,7 +218,7 @@ const Carousel = (props: { items: { img: string; title: string }[] }) => {
   }, []);
 
   return (
-    <div className="max-w-8xl p-8 py-12 lg:py-16">
+    <div className="w-full p-8 lg:max-w-8xl lg:py-16">
       <div className="pb-7 text-center text-4xl font-semibold text-indigo-500 dark:text-indigo-400">
         {t("Key Features")}
       </div>
@@ -319,7 +319,7 @@ const Products = () => {
           ]}
         />
         <div className="beams-0 w-full">
-          <div className="beams-1 relative p-8 pb-10 lg:pb-20">
+          <div className="beams-1 relative p-8 lg:pb-20">
             <div className="py-8 text-center lg:py-12">
               <span className="bg-gradient-to-tl from-blue-600 to-purple-400 bg-clip-text text-4xl font-semibold text-transparent">
                 {t(product.why)}
