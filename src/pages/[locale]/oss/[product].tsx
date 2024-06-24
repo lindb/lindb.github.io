@@ -232,20 +232,20 @@ const Carousel = (props: { items: { img: string; title: string }[] }) => {
           </div>
           <TypingEffectCodeBlock codes={sqls} lang="sql" />
         </div>
-        <div className="relative bg-gradient-to-b ring-1 ring-slate-900/5 sm:max-h-none lg:col-span-7 dark:bg-slate-700 dark:ring-1 dark:ring-inset dark:ring-white/10 dark:backdrop-blur">
-          <div className="relative flex flex-col shadow-xl">
-            <div className="flex-none border-b border-slate-500/30">
-              <div className="flex h-10 items-center space-x-1.5 px-3">
-                <div className="size-2.5 rounded-full bg-[#EC6A5F]"></div>
-                <div className="ml-1.5 size-2.5 rounded-full bg-[#F4BF50]"></div>
-                <div className="ml-1.5 size-2.5 rounded-full bg-[#61C454]"></div>
-                <div className="mx-auto flex w-full items-center justify-start rounded-md bg-slate-100 py-1 pl-3 text-xs font-medium leading-5 ring-1 ring-inset ring-slate-900/5 dark:bg-slate-800 dark:text-slate-500">
-                  <LockClosedIcon className="mr-2 size-3.5 text-slate-300 dark:text-slate-500" />
-                  {item.title}
-                </div>
+        <div className="relative flex flex-col bg-gradient-to-b ring-1 ring-slate-900/5 sm:max-h-none lg:col-span-7 dark:bg-slate-700 dark:ring-1 dark:ring-inset dark:ring-white/10 dark:backdrop-blur">
+          <div className="flex-none border-b border-slate-500/30">
+            <div className="flex h-10 items-center space-x-1.5 px-3">
+              <div className="size-2.5 rounded-full bg-[#EC6A5F]"></div>
+              <div className="ml-1.5 size-2.5 rounded-full bg-[#F4BF50]"></div>
+              <div className="ml-1.5 size-2.5 rounded-full bg-[#61C454]"></div>
+              <div className="mx-auto flex w-full items-center justify-start rounded-md bg-slate-100 py-1 pl-3 text-xs font-medium leading-5 ring-1 ring-inset ring-slate-900/5 dark:bg-slate-800 dark:text-slate-500">
+                <LockClosedIcon className="mr-2 size-3.5 text-slate-300 dark:text-slate-500" />
+                {item.title}
               </div>
             </div>
-            <img src={item.img} className="lg:h-96" />
+          </div>
+          <div className="h-96 overflow-hidden">
+            <img src={item.img} className="size-full object-cover" />
           </div>
         </div>
       </div>
@@ -269,7 +269,7 @@ const Products = () => {
           <div className="mt-16 flex justify-center gap-4 font-semibold">
             <Link
               className="w-36 rounded-lg bg-blue-600 p-3 text-center  text-white hover:bg-blue-700"
-              href={product.github}
+              href={"/docs/lindb/getting-started/docker"}
             >
               {t("Getting Started")}
             </Link>
