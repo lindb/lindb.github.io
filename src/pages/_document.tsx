@@ -26,10 +26,6 @@ const RootDocument = () => {
     >
       <Head>
         <link rel="icon" href="/img/logo.png" />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/instantsearch.css@8/themes/satellite-min.css"
-        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
