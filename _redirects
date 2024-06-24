@@ -1,0 +1,6 @@
+# Redirects from what the browser requests to what we serve
+/                /oss/lindb
+/zh              /zh/oss/lindb
+/docs            /docs/lindb/introduction
+/guide/get-started.html /docs/lindb/getting-started/docker
+
