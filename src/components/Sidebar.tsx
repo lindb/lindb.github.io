@@ -148,7 +148,7 @@ export const NavSidebar: React.FC<{
               <button
                 onClick={() => setOpen(false)}
                 type="button"
-                className="fixed right-5 top-5 z-10 flex size-8 items-center justify-center text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+                className="fixed left-40 top-4 z-10 flex size-8 items-center justify-center text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
               >
                 <span className="sr-only">Close navigation</span>
                 <XMarkIcon className="size-5" />
