@@ -132,7 +132,7 @@ export const NavSidebar: React.FC<{
   const { sidebarItems, topSidebar, locale, page } = props;
   const [open, setOpen] = useState(false);
   return (
-    <div className="sticky top-[3.3rem] z-50 flex items-center border-b border-slate-900/10 bg-white p-4 leading-6 lg:hidden lg:bg-white/75 lg:backdrop-blur-sm dark:border-slate-50/[0.06] dark:bg-slate-900 lg:dark:bg-transparent">
+    <div className="sticky top-[3.3rem] z-40 flex items-center border-b border-slate-900/10 bg-white p-4 leading-6 lg:hidden lg:bg-white/75 lg:backdrop-blur-sm dark:border-slate-50/[0.06] dark:bg-slate-900 lg:dark:bg-transparent">
       <button
         type="button"
         className="text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
@@ -142,8 +142,8 @@ export const NavSidebar: React.FC<{
         <Bars3Icon className="size-6" />
       </button>
       <Dialog as="div" open={open} onClose={() => setOpen(false)}>
-        <div className="fixed inset-0 z-40 w-screen overflow-y-auto ring-0 lg:hidden">
-          <div className="flex min-h-screen">
+        <div className="fixed inset-0 z-40 overflow-y-auto ring-0 lg:hidden">
+          <div className="min-h-screen w-52">
             <DialogPanel className="max-w-md bg-white  text-sm backdrop-blur-2xl dark:bg-slate-800">
               <button
                 onClick={() => setOpen(false)}
