@@ -29,13 +29,30 @@ import { docs } from "@site/docs.config";
 import { getI18nProps } from "./i18n";
 import { isDev } from "./utils";
 import { ReleaseInfo } from "@site/types";
+import fs from "fs";
 
 export const getReleases = async () => {
-  let url = "https://api.github.com/repos/lindb/lindb/releases";
   if (isDev()) {
-    url =
-      "https://raw.githubusercontent.com/stone1100/lindb.github.io/new_doc/src/pages/downloads/releases.json";
+    if (isDev()) {
+      const file = fs.readFileSync(process.cwd() + "/src/utils/releases.json");
+      const data = JSON.parse(file.toString());
+      return data;
+    }
   }
+  const url = "https://api.github.com/repos/lindb/lindb/releases?per_page=100";
+  const res = await fetch(url);
+  return await res.json();
+};
+
+export const getContributors = async () => {
+  if (isDev()) {
+    const file = fs.readFileSync(
+      process.cwd() + "/src/utils/contributors.json",
+    );
+    const data = JSON.parse(file.toString());
+    return data;
+  }
+  const url = "https://api.github.com/repos/lindb/lindb/contributors";
   const res = await fetch(url);
   return await res.json();
 };
@@ -54,10 +71,24 @@ export const getDocStaticProps = async (slug: string[], locale?: string) => {
   let releases: ReleaseInfo[] | null = null;
   let tocItem = mdx.toc;
   if (slug[slug.length - 1] === "release-notes") {
+    const contributors = await getContributors();
+    const contributorMap = new Map(contributors.map((obj) => [obj.login, obj]));
     releases = await getReleases();
     for (const r of releases || []) {
+      const regex = /.* by @(\S+) /g;
+      let match;
+
+      const rContributros = new Map();
+      // console.log(r.name, r.body);
+      while ((match = regex.exec(r.body)) !== null) {
+        const k = match[1];
+        if (!rContributros.has(k) && contributorMap.has(k)) {
+          rContributros.set(k, contributorMap.get(k));
+        }
+      }
       r.mdxBody = (await compile(r.body)).source;
       r.body = "";
+      r.contributors = Array.from(rContributros.values());
     }
     tocItem = (releases || []).map((r) => {
       return {

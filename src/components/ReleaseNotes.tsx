@@ -70,6 +70,27 @@ export const ReleaseNotes = (props: { releases?: ReleaseInfo[] }) => {
             <div key={release.name} className="italic">
               <MDXRemote {...release.mdxBody} />
             </div>
+            {release.contributors && release.contributors.length > 0 && (
+              <div>
+                <h3 className="italic">🍻 Contributors</h3>
+                <div className="flex gap-1">
+                  {release.contributors.map((c) => (
+                    <Link
+                      href={c.html_url}
+                      key={c.login}
+                      className="m-0 flex flex-col items-center border-0"
+                    >
+                      <img
+                        src={c.avatar_url}
+                        className="m-0 size-8 rounded-full leading-8"
+                        title={c.login}
+                        alt={c.login}
+                      />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div>
               <h3 className="italic">📦 Packages downloads</h3>

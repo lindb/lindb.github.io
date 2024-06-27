@@ -17,13 +17,13 @@ under the License.
 */
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
-import { getHighlighter } from "shiki";
+import { getSingletonHighlighter } from "shiki";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let shikiHighlighter: any = null;
 
 const highlightCode = async (code: string, lang: string) => {
   if (!shikiHighlighter) {
-    shikiHighlighter = await getHighlighter({
+    shikiHighlighter = await getSingletonHighlighter({
       themes: ["material-theme-lighter", "catppuccin-macchiato"],
       langs: ["sh", "sql"],
     });
