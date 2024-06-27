@@ -75,4 +75,9 @@ export interface ReleaseInfo {
     size: number;
     browser_download_url: string;
   }[];
+  contributors: {
+    login: string;
+    html_url: string;
+    avatar_url: string;
+  }[];
 }
