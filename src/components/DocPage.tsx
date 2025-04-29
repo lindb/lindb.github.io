@@ -51,6 +51,7 @@ export const DocPage: React.FC<{
       ),
     },
   ];
+  console.log("sidebar", sidebar);
   return (
     <>
       <MetaTitle title={page.title || "Docs"} />

@@ -29,6 +29,115 @@ import {
 import Link from "./Link";
 import { addPathPrefix } from "@site/utils/utils";
 import { docs } from "@site/docs.config";
+import { RightArrowIcon, DownArrowIcon } from "@site/icons";
+
+const DocsSidebarItem: React.FC<{
+  item: SidebarItem;
+  level: number;
+  mobile?: boolean;
+  locale?: string;
+  isChild?: boolean;
+}> = (props) => {
+  const { item, level, mobile, locale, isChild = true } = props;
+  const pathname = usePathname();
+  const { t } = useTranslation();
+  const checkActive = (item: SidebarItem) =>
+    pathname ===
+    addPathPrefix(
+      item.href || "",
+      locale !== docs.i18n.defaultLocale ? locale : "",
+    );
+  const isActive = checkActive(item);
+  const [collapsed, setCollapsed] = useState(
+    // chekc if has child active
+    () => !item.children?.some((item) => checkActive(item)),
+  );
+
+  if (!isChild && !item.href) {
+    return null;
+  }
+
+  if (!isChild) {
+    return (
+      <li key={item.title} className="mt-4">
+        <Link
+          href={item.href || ""}
+          className={clsx("-ml-px block", {
+            "text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300":
+              !isActive,
+            "text-slate-400": !isActive,
+          })}
+        >
+          <h5
+            className={clsx("mb-2 font-semibold lg:mb-3", {
+              " text-slate-900 dark:text-slate-200 dark:hover:text-slate-50 hover:text-slate-700":
+                !isActive,
+              "text-sky-500 dark:text-sky-400": isActive || mobile,
+            })}
+          >
+            {item.title}
+          </h5>
+        </Link>
+      </li>
+    );
+  }
+  if (item.children && item.children.length > 0) {
+    return (
+      <li
+        key={item.title || ""}
+        className={clsx({
+          "space-y-2 border-l  border-slate-100 dark:border-slate-800":
+            !isChild,
+        })}
+      >
+        <div
+          className="flex items-center px-4 hover:cursor-pointer hover:text-slate-900 dark:hover:text-slate-300"
+          onClick={() => setCollapsed(!collapsed)}
+        >
+          <span className="flex-1">{t(item.title)}</span>
+          {collapsed ? <RightArrowIcon /> : <DownArrowIcon />}
+        </div>
+        <ul className={clsx("mt-2 space-y-2", collapsed ? "hidden" : "block")}>
+          {(item.children || []).map((item: SidebarItem) => (
+            <DocsSidebarItem
+              key={item.title}
+              item={item}
+              level={level + 1}
+              mobile
+            />
+          ))}
+        </ul>
+      </li>
+    );
+  }
+  const plClass =
+    ["pl-4", "pl-8", "pl-12", "pl-16", "pl-20", "pl-24", "pl-28", "pl-32"][
+      level
+    ] || "pl-4";
+  return (
+    <li
+      key={item.title || ""}
+      className={clsx({
+        "space-y-2 border-l border-slate-100 dark:border-slate-800": !isChild,
+      })}
+    >
+      <Link
+        href={item.href || ""}
+        className={clsx("-ml-px block border-l", plClass, {
+          "text-sky-500 border-current font-semibold dark:text-sky-400":
+            isActive || mobile,
+          "border-transparent hover:border-slate-400 dark:hover:border-slate-500":
+            !isActive,
+          "text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300":
+            !isActive,
+          "text-slate-400": !isActive,
+        })}
+      >
+        {t(item.title)}
+      </Link>
+    </li>
+  );
+};
 
 const DocsSidebar: React.FC<{
   sidebarItems: SidebarItem[];
@@ -36,68 +145,7 @@ const DocsSidebar: React.FC<{
   locale?: string;
 }> = (props) => {
   const { sidebarItems, mobile, locale } = props;
-  const pathname = usePathname();
   const { t } = useTranslation();
-  const renderPage = (page: SidebarItem, isChild: boolean = true) => {
-    if (!isChild && !page.href) {
-      return null;
-    }
-    const isActive =
-      pathname ===
-      addPathPrefix(
-        page.href || "",
-        locale !== docs.i18n.defaultLocale ? locale : "",
-      );
-    const isPublished = true;
-    if (!isChild) {
-      return (
-        <li key={page.title} className="mt-4">
-          <Link
-            href={page.href || ""}
-            className={clsx("-ml-px block", {
-              "text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300":
-                !isActive && isPublished,
-              "text-slate-400": !isActive && !isPublished,
-            })}
-          >
-            <h5
-              className={clsx("mb-2 font-semibold lg:mb-3", {
-                " text-slate-900 dark:text-slate-200 dark:hover:text-slate-50 hover:text-slate-700":
-                  !isActive,
-                "text-sky-500 dark:text-sky-400": isActive || mobile,
-              })}
-            >
-              {page.title}
-            </h5>
-          </Link>
-        </li>
-      );
-    }
-    return (
-      <li
-        key={page.title || ""}
-        className={clsx({
-          "space-y-2 border-l border-slate-100 lg:space-y-2 dark:border-slate-800":
-            !isChild,
-        })}
-      >
-        <Link
-          href={page.href || ""}
-          className={clsx("-ml-px block border-l pl-4", {
-            "text-sky-500 border-current font-semibold dark:text-sky-400":
-              isActive || mobile,
-            "border-transparent hover:border-slate-400 dark:hover:border-slate-500":
-              !isActive,
-            "text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300":
-              !isActive && isPublished,
-            "text-slate-400": !isActive && !isPublished,
-          })}
-        >
-          {t(page.title)}
-        </Link>
-      </li>
-    );
-  };
 
   const render = (page: SidebarItem) => {
     if (page.children && page.children.length > 0) {
@@ -112,12 +160,21 @@ const DocsSidebar: React.FC<{
               mobile ? "dark:border-slate-700" : "dark:border-slate-800",
             )}
           >
-            {(page.children || []).map((item: SidebarItem) => renderPage(item))}
+            {(page.children || []).map((item: SidebarItem) => (
+              <DocsSidebarItem
+                key={item.title}
+                item={item}
+                level={0}
+                locale={locale}
+              />
+            ))}
           </ul>
         </li>
       );
     }
-    return renderPage(page, false);
+    return (
+      <DocsSidebarItem item={page} level={0} isChild={false} locale={locale} />
+    );
   };
 
   return (sidebarItems || []).map((item: SidebarItem) => render(item));

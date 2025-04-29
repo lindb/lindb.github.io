@@ -381,3 +381,39 @@ export const WindowsIcon = (props: { className?: string }) => (
     <path d="M22 2 11.2 3.6v8l10.8-.1V2zM10.2 12.5 2 12.4v6.8l8.1 1.1.1-7.8zM2 4.8v6.8h8.1V3.7L2 4.8zm9.1 7.7v7.9L22 22v-9.4l-10.9-.1z"></path>
   </svg>
 );
+
+export const RightArrowIcon = (props: { className?: string }) => (
+  <svg
+    data-testid="geist-icon"
+    height="16"
+    strokeLinejoin="round"
+    viewBox="0 0 16 16"
+    width="16"
+    className={clsx(props.className, { "size-4": !props.className })}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M5.50001 1.93933L6.03034 2.46966L10.8536 7.29288C11.2441 7.68341 11.2441 8.31657 10.8536 8.7071L6.03034 13.5303L5.50001 14.0607L4.43935 13L4.96968 12.4697L9.43935 7.99999L4.96968 3.53032L4.43935 2.99999L5.50001 1.93933Z"
+      fill="currentColor"
+    ></path>
+  </svg>
+);
+
+export const DownArrowIcon = (props: { className?: string }) => (
+  <svg
+    data-testid="geist-icon"
+    height="16"
+    strokeLinejoin="round"
+    viewBox="0 0 16 16"
+    width="16"
+    className={clsx(props.className, { "size-4": !props.className })}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M14.0607 5.49999L13.5303 6.03032L8.7071 10.8535C8.31658 11.2441 7.68341 11.2441 7.29289 10.8535L2.46966 6.03032L1.93933 5.49999L2.99999 4.43933L3.53032 4.96966L7.99999 9.43933L12.4697 4.96966L13 4.43933L14.0607 5.49999Z"
+      fill="currentColor"
+    ></path>
+  </svg>
+);

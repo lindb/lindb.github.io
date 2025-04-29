@@ -23,6 +23,7 @@ export default Docs;
 
 export const getStaticPaths = async () => {
   const paths = await getDocStaticPaths();
+  console.log("paths", JSON.stringify(paths));
   return {
     paths: paths,
     fallback: false,
