@@ -1,20 +1,20 @@
-/*
-Licensed to LinDB under one or more contributor
-license agreements. See the NOTICE file distributed with
-this work for additional information regarding copyright
-ownership. LinDB licenses this file to you under
-the Apache License, Version 2.0 (the "License"); you may
-not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
-*/
+/**
+ * Licensed to LinDB under one or more contributor
+ * license agreements. See the NOTICE file distributed with
+ * this work for additional information regarding copyright
+ * ownership. LinDB licenses this file to you under
+ * the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 import { ReleaseInfo } from "@site/types";
 import { getReleases } from "@site/utils/docs";
 import { getI18nProps } from "@site/utils/i18n";
@@ -166,7 +166,7 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
   };
   return (
     <div className="flex w-full flex-1 justify-center lg:my-6 lg:px-12">
-      <div className="m-8 flex max-w-8xl flex-1 flex-col gap-4">
+      <div className="max-w-8xl m-8 flex flex-1 flex-col gap-4">
         <h2 className="mb-6 text-3xl font-bold text-neutral-900 lg:text-4xl dark:text-white">
           {t("Downloads")} LinDB
         </h2>
@@ -183,7 +183,7 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
                 >
                   {selected.name}
                   <ChevronDownIcon
-                    className="fill-current/60 group pointer-events-none absolute right-2.5 top-2.5 size-4 dark:fill-white"
+                    className="group pointer-events-none absolute top-2.5 right-2.5 size-4 fill-current/60 dark:fill-white"
                     aria-hidden="true"
                   />
                 </ListboxButton>
@@ -201,7 +201,7 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
                         key={release.name}
                         value={release}
                         onSelect={() => setSelected(release)}
-                        className="group flex cursor-default select-none items-center py-1.5  data-[focus]:bg-white/10"
+                        className="group flex cursor-default items-center py-1.5 select-none  data-[focus]:bg-white/10"
                       >
                         <CheckIcon className="invisible mx-2 size-4 fill-current group-data-[selected]:visible dark:fill-white" />
                         <div className="text-sm/6 text-current dark:text-white">

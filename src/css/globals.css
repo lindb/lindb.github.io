@@ -16,14 +16,17 @@ specific language governing permissions and limitations
 under the License.
 */
 
-@import url("fonts.css");
-@import url("mdx.css");
-@import url("shiki.css");
-@import url("docsearch.css");
+@import "tailwindcss";
+@import "./fonts.css";
+@import "./mdx.css";
+@import "./shiki.css";
+@import "./docsearch.css";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@plugin '@tailwindcss/typography';
+
+@config "../../tailwind.config.js";
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 .beams-0 {
   background-image: url("../img/beams/1.jpg");

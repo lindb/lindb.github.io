@@ -1,20 +1,20 @@
-/*
-Licensed to LinDB under one or more contributor
-license agreements. See the NOTICE file distributed with
-this work for additional information regarding copyright
-ownership. LinDB licenses this file to you under
-the Apache License, Version 2.0 (the "License"); you may
-not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
-*/
+/**
+ * Licensed to LinDB under one or more contributor
+ * license agreements. See the NOTICE file distributed with
+ * this work for additional information regarding copyright
+ * ownership. LinDB licenses this file to you under
+ * the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 import React, { useState } from "react";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
@@ -70,7 +70,7 @@ const DocsSidebarItem: React.FC<{
         >
           <h5
             className={clsx("mb-2 font-semibold lg:mb-3", {
-              " text-slate-900 dark:text-slate-200 dark:hover:text-slate-50 hover:text-slate-700":
+              "text-slate-900 dark:text-slate-200 dark:hover:text-slate-50 hover:text-slate-700":
                 !isActive,
               "text-sky-500 dark:text-sky-400": isActive || mobile,
             })}
@@ -205,7 +205,7 @@ export const NavSidebar: React.FC<{
               <button
                 onClick={() => setOpen(false)}
                 type="button"
-                className="fixed left-40 top-4 z-10 flex size-8 items-center justify-center text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+                className="fixed top-4 left-40 z-10 flex size-8 items-center justify-center text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
               >
                 <span className="sr-only">Close navigation</span>
                 <XMarkIcon className="size-5" />
@@ -220,7 +220,7 @@ export const NavSidebar: React.FC<{
           </div>
         </div>
       </Dialog>
-      <ol className="ml-4 flex min-w-0 whitespace-nowrap text-sm leading-6">
+      <ol className="ml-4 flex min-w-0 text-sm leading-6 whitespace-nowrap">
         {page.parent && (
           <li className="flex items-center">
             {page.parent}

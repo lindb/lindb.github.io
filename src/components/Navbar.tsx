@@ -1,20 +1,20 @@
-/*
-Licensed to LinDB under one or more contributor
-license agreements. See the NOTICE file distributed with
-this work for additional information regarding copyright
-ownership. LinDB licenses this file to you under
-the Apache License, Version 2.0 (the "License"); you may
-not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
-*/
+/**
+ * Licensed to LinDB under one or more contributor
+ * license agreements. See the NOTICE file distributed with
+ * this work for additional information regarding copyright
+ * ownership. LinDB licenses this file to you under
+ * the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 import React, { useState } from "react";
 import clsx from "clsx";
 import { Dialog, DialogPanel } from "@headlessui/react";
@@ -55,7 +55,7 @@ const NavbarItems = () => {
                     <p className="font-semibold text-slate-900 dark:text-white">
                       {product.name}
                     </p>
-                    <p className="italic text-slate-600 dark:text-white/50">
+                    <p className="text-slate-600 italic dark:text-white/50">
                       {t(product.desc)}
                     </p>
                   </span>
@@ -99,7 +99,7 @@ const NavPopover: React.FC<{ className: string }> = (props) => {
               <button
                 onClick={() => setOpen(false)}
                 type="button"
-                className="absolute right-5 top-5 z-10 flex size-8 items-center justify-center text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+                className="absolute top-5 right-5 z-10 flex size-8 items-center justify-center text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
               >
                 <span className="sr-only">Close navigation</span>
                 <XMarkIcon className="size-5" />
@@ -117,11 +117,11 @@ export const Navbar = () => {
   const { logo } = docs.navbar;
   return (
     <header className="sticky top-0 z-40 w-full flex-none bg-white leading-8 lg:z-50 lg:border-b lg:border-slate-900/10 lg:bg-white/75 lg:backdrop-blur-sm dark:border-slate-50/[0.06] dark:bg-slate-900 lg:dark:bg-transparent">
-      <div className="mx-auto max-w-8xl">
+      <div className="max-w-8xl mx-auto">
         <div className="mx-4 border-b border-slate-900/10 py-3 lg:mx-0 lg:border-0 lg:px-8 lg:py-4 dark:border-slate-300/10">
           <div className="relative flex items-center">
             <div className="relative ml-auto flex flex-1 items-center">
-              <nav className="flex flex-1 items-center text-sm font-semibold leading-6 text-slate-700 dark:text-slate-200">
+              <nav className="flex flex-1 items-center text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200">
                 <Link href="/" internal>
                   <img src={logo.src} alt={logo.alt} className="size-7" />
                 </Link>

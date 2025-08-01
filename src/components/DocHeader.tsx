@@ -1,20 +1,20 @@
-/*
-Licensed to LinDB under one or more contributor
-license agreements. See the NOTICE file distributed with
-this work for additional information regarding copyright
-ownership. LinDB licenses this file to you under
-the Apache License, Version 2.0 (the "License"); you may
-not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
-*/
+/**
+ * Licensed to LinDB under one or more contributor
+ * license agreements. See the NOTICE file distributed with
+ * this work for additional information regarding copyright
+ * ownership. LinDB licenses this file to you under
+ * the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 import { PageInfo } from "@site/types";
 import React from "react";
 import { useTranslation } from "next-i18next";
@@ -32,7 +32,7 @@ export const DocHeader: React.FC<{
     >
       <div>
         {page.parent && (
-          <p className="mb-2 hidden text-sm font-semibold leading-6 text-sky-500 lg:block dark:text-sky-400">
+          <p className="mb-2 hidden text-sm leading-6 font-semibold text-sky-500 lg:block dark:text-sky-400">
             {t(page.parent)}
           </p>
         )}
@@ -57,7 +57,7 @@ export const DocHeader: React.FC<{
         </div>
       )}
       {page.meta && page.meta.description && (
-        <p className="mt-2 text-base italic text-slate-700 dark:text-slate-400">
+        <p className="mt-2 text-base text-slate-700 italic dark:text-slate-400">
           {page.meta.description}
         </p>
       )}

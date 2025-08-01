@@ -1,20 +1,20 @@
-/*
-Licensed to LinDB under one or more contributor
-license agreements. See the NOTICE file distributed with
-this work for additional information regarding copyright
-ownership. LinDB licenses this file to you under
-the Apache License, Version 2.0 (the "License"); you may
-not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
-*/
+/**
+ * Licensed to LinDB under one or more contributor
+ * license agreements. See the NOTICE file distributed with
+ * this work for additional information regarding copyright
+ * ownership. LinDB licenses this file to you under
+ * the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 import { GithubIcon, TwitterIcon } from "@site/icons";
 import clsx from "clsx";
 import Link from "./Link";
@@ -28,10 +28,10 @@ export const Footer: React.FC<{ className?: string }> = (props) => {
   const { products } = docs;
   return (
     <footer className={clsx("justify-self-end py-4 lg:pt-8", className)}>
-      <div className="mx-auto max-w-8xl">
+      <div className="max-w-8xl mx-auto">
         <div className="mx-8 grid gap-4 sm:gap-8 lg:mx-0 lg:grid-cols-8 lg:gap-12 lg:px-8">
           <div className="col-span-4 mb-6 lg:mb-0">
-            <p className="flex items-center gap-4 font-semibold italic text-slate-900 dark:text-slate-100">
+            <p className="flex items-center gap-4 font-semibold text-slate-900 italic dark:text-slate-100">
               {t("An open-source, cloud native, observabilty platform")}
             </p>
             <p className="flex items-center gap-2 pt-3 lg:gap-5 lg:pt-6">

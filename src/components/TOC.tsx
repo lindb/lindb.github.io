@@ -1,20 +1,20 @@
-/*
-Licensed to LinDB under one or more contributor
-license agreements. See the NOTICE file distributed with
-this work for additional information regarding copyright
-ownership. LinDB licenses this file to you under
-the Apache License, Version 2.0 (the "License"); you may
-not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
-*/
+/**
+ * Licensed to LinDB under one or more contributor
+ * license agreements. See the NOTICE file distributed with
+ * this work for additional information regarding copyright
+ * ownership. LinDB licenses this file to you under
+ * the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 import React, { useEffect, useState } from "react";
 import Link from "./Link";
 import clsx from "clsx";
@@ -76,7 +76,7 @@ export const TableOfContents = (props: {
   const Content = () => {
     return (
       <div className="px-2 xl:px-8">
-        <h5 className="mb-2 text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+        <h5 className="mb-2 text-sm leading-6 font-semibold text-slate-900 dark:text-slate-100">
           {t("On this page")}
         </h5>
         <ul className="text-sm leading-6 text-slate-700">
@@ -115,18 +115,18 @@ export const TableOfContents = (props: {
   };
   return (
     <div>
-      <Popover className="group fixed right-5 top-[4em] z-50 flex rounded bg-gray-200 p-1 shadow-md shadow-gray-200 ring-1 ring-gray-200 lg:right-6 lg:top-20 xl:hidden dark:bg-slate-800 dark:shadow-slate-600 dark:ring-slate-600">
+      <Popover className="group fixed top-[4em] right-5 z-50 flex rounded bg-gray-200 p-1 shadow-md ring-1 shadow-gray-200 ring-gray-200 lg:top-20 lg:right-6 xl:hidden dark:bg-slate-800 dark:shadow-slate-600 dark:ring-slate-600">
         <PopoverButton>
           <ListBulletIcon className="size-6 fill-gray-400 stroke-gray-400 dark:fill-slate-500 dark:shadow-slate-600" />
         </PopoverButton>
         <PopoverPanel
           anchor="bottom start"
-          className="z-20 mr-3 mt-3 w-full max-w-xs rounded-sm bg-white p-2  ring-1 ring-slate-900/10 dark:bg-slate-800 dark:text-slate-400  dark:ring-slate-500/20"
+          className="z-20 mt-3 mr-3 w-full max-w-xs rounded-sm bg-white p-2  ring-1 ring-slate-900/10 dark:bg-slate-800 dark:text-slate-400  dark:ring-slate-500/20"
         >
           <Content />
         </PopoverPanel>
       </Popover>
-      <div className="fixed bottom-0 right-[max(0px,calc(50%-45rem))] top-[3.8125rem] z-20 hidden w-[19.5rem] overflow-y-auto py-10 xl:block">
+      <div className="fixed top-[3.8125rem] right-[max(0px,calc(50%-45rem))] bottom-0 z-20 hidden w-[19.5rem] overflow-y-auto py-10 xl:block">
         <Content />
       </div>
     </div>

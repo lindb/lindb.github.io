@@ -17,15 +17,15 @@ under the License.
 */
 /* stylelint-disable selector-class-pattern */
 .DocSearch-Button {
-  @apply w-full flex items-center text-sm leading-6 text-slate-400 rounded-sm ring-1 ring-slate-900/10 shadow-sm pl-2 pr-3 dark:bg-slate-800 dark:hover:bg-slate-700;
+  @apply flex w-full items-center rounded-sm pr-3 pl-2 text-sm leading-6 text-slate-400 shadow-sm ring-1 ring-slate-900/10 dark:bg-slate-800 dark:hover:bg-slate-700;
 }
 
 .DocSearch-Button .DocSearch-Button-Container {
-  @apply flex items-center flex-1 gap-1.5;
+  @apply flex flex-1 items-center gap-1.5;
 }
 
 .DocSearch-Button .DocSearch-Button-Keys {
-  @apply flex gap-1 pl-4 text-sky-500 text-sm items-center dark:text-sky-400;
+  @apply flex items-center gap-1 pl-4 text-sm text-sky-500 dark:text-sky-400;
 }
 
 .DocSearch-Button-Key:first-child {
@@ -37,11 +37,11 @@ under the License.
 }
 
 .DocSearch--active {
-  @apply overflow-hidden !important;
+  @apply overflow-hidden;
 }
 
 .DocSearch-Container {
-  @apply w-screen h-screen fixed z-[200] top-0 left-0 cursor-auto flex flex-col bg-black/20 backdrop-blur-sm p-4 sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-slate-900/80;
+  @apply fixed top-0 left-0 z-[200] flex h-screen w-screen cursor-auto flex-col bg-black/20 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-slate-900/80;
 }
 
 .DocSearch-LoadingIndicator svg {
@@ -68,11 +68,13 @@ under the License.
   min-height: 0;
   margin: 0 auto;
   background: white;
-  border-radius: theme("borderRadius.lg");
-  box-shadow: theme("boxShadow.lg");
+
+  @apply rounded-lg shadow-lg;
 
   .dark & {
-    background: theme("colors.slate.800");
+    /* background: var("--colors-slate-800"); */
+    @apply bg-slate-800;
+
     box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 5%);
   }
 }
@@ -81,11 +83,11 @@ under the License.
   z-index: 1;
   padding: 0 1rem;
 
-  @apply flex-none relative flex items-center border-b border-slate-100 dark:border-slate-200/5;
+  @apply relative flex flex-none items-center border-b border-slate-100 dark:border-slate-200/5;
 }
 
 .DocSearch-Form {
-  @apply flex-auto flex items-center min-w-0;
+  @apply flex min-w-0 flex-auto items-center;
 }
 
 .DocSearch-Dropdown-Container {
@@ -97,7 +99,7 @@ under the License.
 }
 
 .DocSearch-Hit--Result {
-  @apply mx-6 relative;
+  @apply relative mx-6;
 }
 
 .DocSearch-Hit--Result.DocSearch-Hit--Child {
@@ -110,26 +112,24 @@ under the License.
   bottom: -0.25rem;
   left: -1rem;
   width: 1px;
-  background: theme("colors.slate.200");
   content: "";
 
-  @apply dark:bg-slate-700;
+  @apply bg-slate-200 dark:bg-slate-700;
 }
 
 .DocSearch-Hit > a {
   position: relative;
   font-size: 0.875rem;
-  border-bottom: 1px solid theme("colors.slate.100");
 
-  @apply dark:border-slate-200/5;
+  @apply border-b-1 border-slate-200 dark:border-slate-200/5;
 }
 
 .DocSearch-Hit--Result {
-  @apply border-b-0 !important;
+  @apply border-b-0;
 }
 
 .DocSearch-MagnifierLabel {
-  @apply flex-none w-6 h-6 bg-contain;
+  @apply h-6 w-6 flex-none bg-contain;
 
   background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath vector-effect='non-scaling-stroke' d='m19 19-3.5-3.5' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle vector-effect='non-scaling-stroke' cx='11' cy='11' r='6' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 
@@ -152,12 +152,11 @@ under the License.
   height: 3.5rem;
   margin-right: 1rem;
   margin-left: 0.75rem;
-  color: theme("colors.slate.900");
   font-size: 1rem;
   background: transparent;
   appearance: none;
 
-  @apply dark:text-slate-200;
+  @apply text-slate-900 dark:text-slate-200;
 }
 
 @screen sm {
@@ -196,7 +195,7 @@ under the License.
   border-radius: 0.375rem;
   appearance: none;
 
-  @apply ring-1 ring-slate-900/5 shadow-sm hover:ring-slate-900/10 hover:shadow dark:ring-0 dark:bg-slate-600;
+  @apply shadow-sm ring-1 ring-slate-900/5 hover:shadow hover:ring-slate-900/10 dark:bg-slate-600 dark:ring-0;
 
   .dark & {
     background-image: url("data:image/svg+xml,%3Csvg width='16' height='7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M.506 6h3.931V4.986H1.736v-1.39h2.488V2.583H1.736V1.196h2.69V.182H.506V6ZM8.56 1.855h1.18C9.721.818 8.87.102 7.574.102c-1.276 0-2.21.705-2.205 1.762-.003.858.602 1.35 1.585 1.585l.634.159c.633.153.986.335.988.727-.002.426-.406.716-1.03.716-.64 0-1.1-.295-1.14-.878h-1.19c.03 1.259.931 1.91 2.343 1.91 1.42 0 2.256-.68 2.259-1.745-.003-.969-.733-1.483-1.744-1.71l-.523-.125c-.506-.117-.93-.304-.92-.722 0-.375.332-.65.934-.65.588 0 .949.267.994.724ZM15.78 2.219C15.618.875 14.6.102 13.254.102c-1.537 0-2.71 1.086-2.71 2.989 0 1.898 1.153 2.989 2.71 2.989 1.492 0 2.392-.992 2.526-2.063l-1.244-.006c-.117.623-.606.98-1.262.98-.883 0-1.483-.656-1.483-1.9 0-1.21.591-1.9 1.492-1.9.673 0 1.159.389 1.253 1.028h1.244Z' fill='%2394a3b8'/%3E%3C/svg%3E");
@@ -210,12 +209,13 @@ under the License.
 .DocSearch-Hit-source {
   margin: 0 1.5rem 1rem;
   padding-top: 2.5rem;
-  color: theme("colors.slate.900");
   font-weight: 600;
   line-height: 1.5rem;
 
+  @apply text-slate-900;
+
   .dark & {
-    color: theme("colors.slate.200");
+    @apply text-slate-200;
   }
 }
 
@@ -247,9 +247,8 @@ under the License.
   background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.75 1v10M8.25 1v10M1 3.75h10M1 8.25h10' stroke='%2394A3B8' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center center;
-  border-radius: theme("borderRadius.md");
 
-  @apply bg-white ring-1 ring-slate-900/5 shadow-sm dark:bg-slate-700 dark:ring-0;
+  @apply rounded-md bg-white shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-700 dark:ring-0;
 }
 
 .DocSearch-Hit--Parent .DocSearch-Hit-icon {
@@ -272,14 +271,12 @@ under the License.
 .DocSearch-Hit-path {
   align-self: flex-start;
   padding: 0 0.375rem;
-  color: theme("colors.slate.700");
   font-weight: 600;
   font-size: 0.75rem;
   line-height: 1.5rem;
-  background: theme("colors.slate.100");
   border-radius: 999px;
 
-  @apply dark:bg-slate-700/50 dark:text-slate-400;
+  @apply bg-slate-100 text-slate-700 dark:bg-slate-700/50 dark:text-slate-400;
 }
 
 .DocSearch-Hit[aria-selected="true"] .DocSearch-Hit-icon {
@@ -296,7 +293,7 @@ under the License.
 }
 
 .DocSearch-Hit-title {
-  @apply text-slate-700 leading-6 truncate dark:text-slate-400;
+  @apply truncate leading-6 text-slate-700 dark:text-slate-400;
 }
 
 .DocSearch-Hit-title + .DocSearch-Hit-path {
@@ -304,7 +301,7 @@ under the License.
 }
 
 .DocSearch-Hit-action {
-  @apply flex-none ml-3.5;
+  @apply ml-3.5 flex-none;
 }
 
 .DocSearch-Hit--Result {
@@ -313,7 +310,7 @@ under the License.
   }
 
   .DocSearch-Hit-action {
-    @apply w-6 h-6;
+    @apply h-6 w-6;
 
     background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m11 9 3 3-3 3' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
@@ -351,11 +348,11 @@ under the License.
 }
 
 .DocSearch-Hit > a {
-  @apply block py-4 px-6;
+  @apply block px-6 py-4;
 }
 
 .DocSearch-Hit--Result {
-  @apply py-3 px-4 !important;
+  @apply px-4 py-3;
 }
 
 .DocSearch-Hit {
@@ -367,7 +364,7 @@ under the License.
 }
 
 .DocSearch-Hit--Result {
-  @apply border-t-0 !important;
+  @apply border-t-0;
 }
 
 .DocSearch-Hit + .DocSearch-Hit .DocSearch-Hit--Result {
@@ -375,7 +372,7 @@ under the License.
 }
 
 .DocSearch-Hit--Result {
-  @apply bg-slate-50 rounded-lg dark:bg-slate-700/30;
+  @apply rounded-lg bg-slate-50 dark:bg-slate-700/30;
 }
 
 .DocSearch-Hit[aria-selected="true"] > a {
@@ -387,17 +384,17 @@ under the License.
 }
 
 .DocSearch-Hit--FirstChild::before {
-  @apply top-0 !important;
+  @apply top-0;
 }
 
 .DocSearch-Hit--LastChild::before {
-  @apply bottom-0 !important;
+  @apply bottom-0;
 }
 
 .DocSearch-Hits mark {
   background: none;
 
-  @apply text-sky-600 font-semibold border-b-2 border-sky-300 dark:text-white dark:border-0;
+  @apply border-b-2 border-sky-300 font-semibold text-sky-600 dark:border-0 dark:text-white;
 }
 
 .DocSearch-Hit-path mark {
@@ -410,7 +407,7 @@ under the License.
 }
 
 .DocSearch-Footer {
-  @apply flex-none flex justify-end border-t border-slate-100 py-4 px-6 dark:border-slate-200/5;
+  @apply flex flex-none justify-end border-t border-slate-100 px-6 py-4 dark:border-slate-200/5;
 }
 
 .DocSearch-Commands {
@@ -418,7 +415,7 @@ under the License.
 }
 
 .DocSearch-Logo a {
-  @apply flex items-center text-slate-400 text-xs font-medium dark:text-slate-600;
+  @apply flex items-center text-xs font-medium text-slate-400 dark:text-slate-600;
 }
 
 .DocSearch-Logo svg {
@@ -436,46 +433,43 @@ under the License.
 }
 
 .DocSearch-Title {
-  @apply text-lg leading-6 mb-10;
+  @apply mb-10 text-lg leading-6;
 }
 
 .DocSearch-Title strong {
-  @apply text-slate-900 font-normal dark:text-slate-200;
+  @apply font-normal text-slate-900 dark:text-slate-200;
 }
 
 .DocSearch-StartScreen .DocSearch-Help {
-  @apply text-center text-slate-400 py-16 px-6;
+  @apply px-6 py-16 text-center text-slate-400;
 }
 
 .DocSearch-NoResults {
-  @apply pt-10 pb-8 px-4;
+  @apply px-4 pt-10 pb-8;
 }
 
 .DocSearch-NoResults .DocSearch-Title {
-  color: theme("colors.slate.400");
-  text-align: center;
+  @apply text-center text-slate-400;
 }
 
 .DocSearch-NoResults-Prefill-List .DocSearch-Help {
-  @apply text-sm leading-6 font-semibold mb-3 text-slate-900 dark:text-slate-200;
+  @apply mb-3 text-sm leading-6 font-semibold text-slate-900 dark:text-slate-200;
 }
 
 .DocSearch-NoResults-Prefill-List ul {
-  @apply rounded-lg bg-slate-50 border border-slate-200 dark:bg-slate-700/30 dark:border-slate-700 overflow-hidden;
+  @apply overflow-hidden rounded-lg border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-700/30;
 }
 
 .DocSearch-NoResults-Prefill-List button {
   display: block;
   width: 100%;
   padding: 0.5rem 0.75rem;
-  font-size: theme("fontSize.sm");
-  line-height: theme("lineHeight.6");
   text-align: left;
   background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m11 9 3 3-3 3' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
 
-  @apply text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-white/[0.02];
+  @apply text-sm leading-6 text-slate-700 dark:text-slate-400 dark:hover:bg-white/[0.02] dark:hover:text-slate-200;
 }
 
 .DocSearch-NoResults-Prefill-List li + li button {
@@ -483,11 +477,11 @@ under the License.
 }
 
 .DocSearch-NoResults-Prefill-List + .DocSearch-Help {
-  @apply text-xs leading-6 mt-3;
+  @apply mt-3 text-xs leading-6;
 }
 
 .DocSearch-NoResults-Prefill-List + .DocSearch-Help a {
-  @apply text-sky-500 font-semibold dark:text-sky-400;
+  @apply font-semibold text-sky-500 dark:text-sky-400;
 }
 
 .DocSearch-Hit-action [title="Save this search"],
@@ -534,7 +528,7 @@ under the License.
 }
 
 .DocSearch-Hit-action [title="Remove this search from favorites"]::before {
-  @apply absolute inset-0 content-[''] pointer-events-none bg-sky-50 dark:bg-slate-700/30;
+  @apply pointer-events-none absolute inset-0 bg-sky-50 content-[''] dark:bg-slate-700/30;
 }
 
 .DocSearch-Hit[aria-selected="true"]
@@ -547,7 +541,8 @@ under the License.
   width: calc(4.5rem + 1px);
   height: 1.5rem;
   margin-left: calc(-3rem - 1px);
-  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' fill='%230EA5E9' stroke='%230EA5E9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' fill='%230EA5E9' stroke='%230EA5E9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg width='1' height='1' fill='%23e2e8f0' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17 7 7 17M7 7l10 10' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat, repeat-y, no-repeat;
@@ -556,26 +551,29 @@ under the License.
   pointer-events: none;
 
   .dark & {
-    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' fill='%230EA5E9' stroke='%230EA5E9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
+    background-image:
+      url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' fill='%230EA5E9' stroke='%230EA5E9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
       url("data:image/svg+xml,%3Csvg width='1' height='1' fill='%23e2e8f0' opacity='0.05' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1'/%3E%3C/svg%3E"),
       url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17 7 7 17M7 7l10 10' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   }
 }
 
 .DocSearch-Hit-action [title="Remove this search from favorites"]:hover::after {
-  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' fill='%230EA5E9' stroke='%230EA5E9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' fill='%230EA5E9' stroke='%230EA5E9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg width='1' height='1' fill='%23e2e8f0' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17 7 7 17M7 7l10 10' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 
   .dark & {
-    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' fill='%230EA5E9' stroke='%230EA5E9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
+    background-image:
+      url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' fill='%230EA5E9' stroke='%230EA5E9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
       url("data:image/svg+xml,%3Csvg width='1' height='1' fill='%23e2e8f0' opacity='0.05' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1'/%3E%3C/svg%3E"),
       url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17 7 7 17M7 7l10 10' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   }
 }
 
 .DocSearch-Hit-action + .DocSearch-Hit-action {
-  @apply ml-3 pl-3 border-l border-slate-200 dark:border-slate-200/5;
+  @apply ml-3 border-l border-slate-200 pl-3 dark:border-slate-200/5;
 }
 
 .DocSearch-Hit--TailwindUI .DocSearch-Hit-icon {

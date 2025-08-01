@@ -1,20 +1,20 @@
-/*
-Licensed to LinDB under one or more contributor
-license agreements. See the NOTICE file distributed with
-this work for additional information regarding copyright
-ownership. LinDB licenses this file to you under
-the Apache License, Version 2.0 (the "License"); you may
-not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
-*/
+/**
+ * Licensed to LinDB under one or more contributor
+ * license agreements. See the NOTICE file distributed with
+ * this work for additional information regarding copyright
+ * ownership. LinDB licenses this file to you under
+ * the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 import { DocLink } from "@site/components";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
@@ -218,7 +218,7 @@ const Carousel = (props: { items: { img: string; title: string }[] }) => {
   }, []);
 
   return (
-    <div className="w-full p-8 lg:max-w-8xl lg:py-16">
+    <div className="lg:max-w-8xl w-full p-8 lg:py-16">
       <div className="pb-7 text-center text-4xl font-semibold text-indigo-500 dark:text-indigo-400">
         {t("Key Features")}
       </div>
@@ -232,13 +232,13 @@ const Carousel = (props: { items: { img: string; title: string }[] }) => {
           </div>
           <TypingEffectCodeBlock codes={sqls} lang="sql" />
         </div>
-        <div className="relative flex flex-col bg-gradient-to-b ring-1 ring-slate-900/5 sm:max-h-none lg:col-span-7 dark:bg-slate-700 dark:ring-1 dark:ring-inset dark:ring-white/10 dark:backdrop-blur">
+        <div className="relative flex flex-col bg-gradient-to-b ring-1 ring-slate-900/5 sm:max-h-none lg:col-span-7 dark:bg-slate-700 dark:ring-1 dark:ring-white/10 dark:backdrop-blur dark:ring-inset">
           <div className="flex-none border-b border-slate-500/30">
             <div className="flex h-10 items-center space-x-1.5 px-3">
               <div className="size-2.5 rounded-full bg-[#EC6A5F]"></div>
               <div className="ml-1.5 size-2.5 rounded-full bg-[#F4BF50]"></div>
               <div className="ml-1.5 size-2.5 rounded-full bg-[#61C454]"></div>
-              <div className="mx-auto flex w-full items-center justify-start rounded-md bg-slate-100 py-1 pl-3 text-xs font-medium leading-5 ring-1 ring-inset ring-slate-900/5 dark:bg-slate-800 dark:text-slate-500">
+              <div className="mx-auto flex w-full items-center justify-start rounded-md bg-slate-100 py-1 pl-3 text-xs leading-5 font-medium ring-1 ring-slate-900/5 ring-inset dark:bg-slate-800 dark:text-slate-500">
                 <LockClosedIcon className="mr-2 size-3.5 text-slate-300 dark:text-slate-500" />
                 {item.title}
               </div>
@@ -266,7 +266,7 @@ const Products = () => {
           <p className="inline bg-gradient-to-r from-indigo-400 via-sky-400 to-indigo-400 bg-clip-text text-4xl font-semibold tracking-tight text-transparent sm:text-3xl lg:text-5xl dark:from-indigo-200 dark:via-sky-400 dark:to-indigo-200">
             {t(product.title)}
           </p>
-          <p className="m-4 text-2xl italic tracking-tight text-slate-600 lg:text-3xl dark:text-slate-400">
+          <p className="m-4 text-2xl tracking-tight text-slate-600 italic lg:text-3xl dark:text-slate-400">
             {t(product.subTitle)}
           </p>
           <div className="mt-16 flex justify-center gap-4 font-semibold">
@@ -349,7 +349,7 @@ const Products = () => {
             </div>
           </div>
         </div>
-        <div className="my-12 grid w-full max-w-8xl  grid-cols-2 gap-6 px-12 lg:grid-cols-4 lg:gap-8 lg:px-16">
+        <div className="max-w-8xl my-12 grid w-full  grid-cols-2 gap-6 px-12 lg:grid-cols-4 lg:gap-8 lg:px-16">
           {product.resources.map((resource, index) => (
             <div
               className="relative flex flex-col items-start sm:pe-6 lg:items-center"

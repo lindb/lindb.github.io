@@ -53,9 +53,9 @@ under the License.
 }
 
 .footnotes > h2 {
-  @apply text-base !important;
+  @apply text-base;
 }
 
 .footnotes > ol {
-  @apply text-sm italic !important;
+  @apply text-sm italic;
 }
