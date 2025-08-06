@@ -16,9 +16,9 @@
  * under the License.
  */
 import React, { ReactNode } from "react";
-import clsx from "clsx";
 import { getHeadingId } from "@site/utils/utils";
 import Link from "next/link";
+import classNames from "classnames";
 
 export const H = (props: {
   heading: number;
@@ -26,48 +26,61 @@ export const H = (props: {
   id?: string;
   children: ReactNode;
   className?: string;
+  disableHref?: boolean;
 }) => {
-  const { heading, href, children } = props;
+  const { disableHref, ...newProps } = props;
+  const { href, heading, children } = newProps;
   const Component = `h${heading}` as `h${1 | 2 | 3 | 4 | 5 | 6}`;
+  if (disableHref) {
+    return <Component {...newProps}>{children}</Component>;
+  }
   return (
-    <Component {...props}>
+    <Component {...newProps}>
       <Link
-        className={clsx("group relative border-none", "lg:-ml-2 lg:pl-2")}
+        className={classNames(
+          "flex items-center gap-2 group relative border-none",
+          "lg:-ml-2 lg:pl-2",
+        )}
         href={href || ""}
       >
-        <span className="absolute -ml-8 hidden items-center border-0 opacity-0 group-hover:opacity-100 group-focus:opacity-100 lg:flex">
-          &#8203;
-          <span
-            className={clsx(
-              "flex size-6 items-center justify-center rounded-md text-slate-400 shadow-sm ring-1 ring-slate-900/5 hover:text-slate-700 hover:shadow hover:ring-slate-900/10",
-              "dark:bg-slate-800 dark:text-slate-400 dark:shadow-none dark:ring-0 dark:hover:bg-slate-700 dark:hover:text-slate-200",
-            )}
+        <span className="border border-base-content/10 bg-base-content/5 p-1 group-hover:border-primary">
+          <svg
+            width="12"
+            height="12"
+            className="text-base-content/10 group-hover:text-primary"
           >
-            <svg width="12" height="12" fill="none" aria-hidden="true">
-              <path
-                d="M3.75 1v10M8.25 1v10M1 3.75h10M1 8.25h10"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          </span>
+            <path
+              d="M3.75 1v10M8.25 1v10M1 3.75h10M1 8.25h10"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
         </span>
-        {children}
+        <span>{children}</span>
       </Link>
     </Component>
   );
 };
 
-export const Heading = (props: { level: number; children: ReactNode }) => {
-  const { children, level } = props;
+export const Heading = (props: {
+  level: number;
+  children: ReactNode;
+  disableHref?: boolean;
+}) => {
+  const { children, level, disableHref } = props;
   if (typeof children !== "string") {
     return children;
   }
 
   const idText = getHeadingId(children);
   return (
-    <H id={idText} heading={level} href={"#" + idText}>
+    <H
+      id={idText}
+      heading={level}
+      href={"#" + idText}
+      disableHref={disableHref}
+    >
       {children}
     </H>
   );

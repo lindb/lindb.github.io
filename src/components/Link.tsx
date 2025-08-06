@@ -64,7 +64,7 @@ export const DocLink: React.FC<{
       {children}
       {!internal && extenal && !href.startsWith("https://github.com") && (
         <span className="ml-1 inline-flex">
-          <ArrowTopRightOnSquareIcon className="size-4 fill-sky-500" />
+          <ArrowTopRightOnSquareIcon className="size-4 fill-primary" />
         </span>
       )}
     </Link>

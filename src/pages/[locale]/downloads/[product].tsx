@@ -165,7 +165,7 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
     }
   };
   return (
-    <div className="flex w-full flex-1 justify-center lg:my-6 lg:px-12">
+    <div>
       <div className="max-w-8xl m-8 flex flex-1 flex-col gap-4">
         <h2 className="mb-6 text-3xl font-bold text-neutral-900 lg:text-4xl dark:text-white">
           {t("Downloads")} LinDB

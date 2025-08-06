@@ -70,7 +70,7 @@ export const getDocStaticProps = async (slug: string[], locale?: string) => {
   const mdx = await compile(mdxFile.content);
   let releases: ReleaseInfo[] | null = null;
   let tocItem = mdx.toc;
-  if (slug[slug.length - 1] === "release-notes") {
+  if (slug[slug.length - 1] === "change-logs") {
     const contributors = await getContributors();
     const contributorMap = new Map(contributors.map((obj) => [obj.login, obj]));
     releases = await getReleases();

@@ -16,7 +16,6 @@
  * under the License.
  */
 import React from "react";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { LanguageIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 import { docs } from "@site/docs.config";
@@ -54,34 +53,40 @@ export const LocaleSelect: React.FC = () => {
   const languageBtnCls = (l: string) => {
     const locale = languageDetector.detect();
     return clsx(
-      "group flex w-full items-center gap-2 px-3 py-1.5 hover:bg-slate-400/10 dark:hover:bg-slate-600/30",
+      "group flex w-full items-center gap-2 px-3 py-1.5 hover:bg-base-content/10",
       {
-        "text-sky-500 bg-slate-400/10 dark:bg-slate-600/30":
+        "text-primary bg-base-content/10":
           locale === l || (l === docs.i18n.defaultLocale && !locale),
       },
     );
   };
 
   return (
-    <Menu>
-      <MenuButton className="flex items-center">
+    <div className="dropdown dropdown-end">
+      <div tabIndex={0}>
         <LanguageIcon className="size-5" />
-      </MenuButton>
-      <MenuItems
-        anchor="bottom"
-        className="z-50 mt-6 w-40 origin-top-right bg-white p-1 text-sm/6 font-semibold text-slate-700 ring-1 ring-slate-900/10 [--anchor-gap:var(--spacing-1)] focus:outline-none dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-500/20"
+      </div>
+      <ul
+        tabIndex={1}
+        className="dropdown-content z-30 mt-2 flex w-36 flex-col gap-1 border border-base-content/10 bg-base-100 p-2"
       >
         {docs.i18n.locales.map((localeItem) => (
-          <MenuItem key={localeItem}>
+          <li key={localeItem}>
             <Link
               href={getHref(localeItem)}
               className={languageBtnCls(localeItem)}
+              onClick={() => {
+                const el = document.activeElement as HTMLElement;
+                if (el && el.blur) {
+                  el.blur();
+                }
+              }}
             >
               {mapping[localeItem]}
             </Link>
-          </MenuItem>
+          </li>
         ))}
-      </MenuItems>
-    </Menu>
+      </ul>
+    </div>
   );
 };

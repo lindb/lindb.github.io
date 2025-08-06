@@ -17,7 +17,7 @@ under the License.
 */
 /* stylelint-disable selector-class-pattern */
 .DocSearch-Button {
-  @apply flex w-full items-center rounded-sm pr-3 pl-2 text-sm leading-6 text-slate-400 shadow-sm ring-1 ring-slate-900/10 dark:bg-slate-800 dark:hover:bg-slate-700;
+  @apply flex w-full items-center rounded-sm pr-3 pl-2 text-sm leading-6 text-slate-400 shadow-sm ring-1 ring-slate-900/10;
 }
 
 .DocSearch-Button .DocSearch-Button-Container {
@@ -25,7 +25,7 @@ under the License.
 }
 
 .DocSearch-Button .DocSearch-Button-Keys {
-  @apply flex items-center gap-1 pl-4 text-sm text-sky-500 dark:text-sky-400;
+  @apply flex items-center gap-1 pl-4 text-sm text-primary;
 }
 
 .DocSearch-Button-Key:first-child {
@@ -113,8 +113,6 @@ under the License.
   left: -1rem;
   width: 1px;
   content: "";
-
-  @apply bg-slate-200 dark:bg-slate-700;
 }
 
 .DocSearch-Hit > a {

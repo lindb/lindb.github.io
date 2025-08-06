@@ -17,16 +17,19 @@
  */
 import React from "react";
 import clsx from "clsx";
-import Link from "./Link";
+import Link from "../Link";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { SidebarItem } from "@site/types";
 import { usePathname } from "next/navigation";
 import { addPathPrefix, getLocale } from "@site/utils/utils";
 import { docs } from "@site/docs.config";
+import { useTranslation } from "next-i18next";
 
 export const DocsFooter: React.FC<{ pages: SidebarItem[] }> = (props) => {
   const { pages } = props;
   const pathname = usePathname();
+  const { t } = useTranslation();
+
   const { include, locale } = getLocale(pathname);
   const currentPageIdx = pages.findIndex(
     (p) =>
@@ -41,35 +44,27 @@ export const DocsFooter: React.FC<{ pages: SidebarItem[] }> = (props) => {
   return (
     <div
       className={clsx(
-        "mt-12 border-t border-slate-200 pt-6 text-sm leading-6 dark:border-slate-800",
+        "mt-12 border-t border-base-content/10 pt-6 text-sm leading-6",
       )}
     >
-      <div className="mb-10 flex items-center font-semibold text-slate-700 dark:text-slate-200">
+      <div className="mb-10 flex items-center font-semibold">
         {previousPage && (
-          <div>
-            <div className="ml-1 text-xs text-slate-900 dark:text-white">
-              Previous
+          <div className="rounded-sm px-2 hover:bg-base-content/10">
+            <div className="ml-1 text-xs text-base-content/50">
+              {t("Previous")}
             </div>
-            <Link
-              href={previousPage.href || ""}
-              className="group flex items-center text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"
-            >
-              <ChevronLeftIcon className="h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300" />
+            <Link href={previousPage.href || ""} className="flex items-center">
+              <ChevronLeftIcon className="h-4" />
               {previousPage.title}
             </Link>
           </div>
         )}
         {nextPage && (
-          <div className="ml-auto text-right">
-            <div className="mr-1 text-xs text-slate-900 dark:text-white">
-              Next
-            </div>
-            <Link
-              href={nextPage.href || ""}
-              className="group flex items-center text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"
-            >
+          <div className="ml-auto rounded-sm px-2 text-right hover:bg-base-content/10">
+            <div className="mr-1 text-xs text-base-content/50">{t("Next")}</div>
+            <Link href={nextPage.href || ""} className="flex items-center">
               {nextPage.title}
-              <ChevronRightIcon className="h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300" />
+              <ChevronRightIcon className="h-4" />
             </Link>
           </div>
         )}

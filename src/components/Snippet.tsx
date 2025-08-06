@@ -17,8 +17,8 @@
  */
 import React, { ReactNode } from "react";
 import { languagePrefix } from "@site/utils/utils";
-import clsx from "clsx";
 import { CommandLineIcon } from "@heroicons/react/24/outline";
+import classNames from "classnames";
 
 export const CodeSnippet = (props: {
   children?: ReactNode;
@@ -45,15 +45,15 @@ export const CodeSnippet = (props: {
   const language = findLanguage();
   if (!["bash", "sh", "shell"].includes(language || "")) {
     return (
-      <pre {...props} className={clsx("mt-0 grid p-3", props.className)}>
+      <pre {...props} className={classNames("mt-0 grid p-3", props.className)}>
         {props.children}
       </pre>
     );
   }
 
   return (
-    <div className="bg-slate-100/80  ring-1 ring-slate-300 dark:bg-slate-700/80 dark:ring-white/20">
-      <div className="border-b border-slate-300  p-2 text-xs text-slate-900 dark:border-b-white/20 dark:text-sky-300">
+    <div className="bg-base-content/5 ring-1 ring-base-content/10">
+      <div className="border-b border-base-content/10 p-2 text-xs text-slate-900 dark:border-b-white/20 dark:text-sky-300">
         <div className="flex flex-none items-center gap-1 ">
           <CommandLineIcon className="size-4" />
           Terminal
@@ -61,7 +61,7 @@ export const CodeSnippet = (props: {
       </div>
       <pre
         {...props}
-        className={clsx("mt-0 grid border-0 p-3", props.className)}
+        className={classNames("mt-0 grid border-0 p-3", props.className)}
       >
         {props.children}
       </pre>

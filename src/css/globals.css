@@ -22,11 +22,17 @@ under the License.
 @import "./shiki.css";
 @import "./docsearch.css";
 
+@plugin "daisyui" {
+  themes:
+    light --default,
+    dark --prefersdark;
+}
+
 @plugin '@tailwindcss/typography';
 
 @config "../../tailwind.config.js";
 
-@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 .beams-0 {
   background-image: url("../img/beams/1.jpg");

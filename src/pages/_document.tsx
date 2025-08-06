@@ -30,7 +30,8 @@ const RootDocument = (props: { locale: string }) => {
   return (
     <Html
       lang={locale}
-      className="dark [--scroll-mt:9.875rem] [scrollbar-gutter:stable] lg:[--scroll-mt:6.3125rem]"
+      data-theme="light"
+      className="[--scroll-mt:9.875rem] [scrollbar-gutter:stable] lg:[--scroll-mt:6.3125rem]"
     >
       <Head>
         <link rel="icon" href="/img/logo.png" />
@@ -39,17 +40,17 @@ const RootDocument = (props: { locale: string }) => {
             __html: `
                 try {
                   if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                    document.documentElement.classList.add('dark')
+      							document.documentElement.setAttribute("data-theme", "dark");
                     document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0B1120')
                   } else {
-                    document.documentElement.classList.remove('dark')
+      							document.documentElement.setAttribute("data-theme", "light");
                   }
                 } catch (_) {}
               `,
           }}
         />
       </Head>
-      <body className="flex min-h-screen flex-col bg-white text-slate-500 antialiased dark:bg-slate-900 dark:text-slate-400">
+      <body className="flex min-h-screen flex-col antialiased">
         <Main />
         <NextScript />
       </body>

@@ -15,20 +15,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-export * from "./Sidebar";
 export * from "./BackgroundBeams";
-export * from "./DocsFooter";
 export * from "./Navbar";
 export * from "./Footer";
 export { CodeSnippet } from "./Snippet";
-export * from "./Heading";
-export * from "./DocHeader";
-export * from "./DocContainer";
+export * from "./docs";
 export * from "./ThemeToggle";
 export * from "./DocSearch";
-export * from "./TOC";
 export * from "./Meta";
 export * from "./Link";
 export * from "./Image";
-export * from "./DocPage";
 export * from "./CodeBlock";

@@ -17,39 +17,39 @@ under the License.
 */
 
 .markdown-table {
-  @apply border-collapse w-full border border-slate-400 dark:border-slate-500 bg-white dark:bg-slate-800 text-sm shadow-sm;
+  @apply w-full bg-base-100 text-sm;
 }
 
 .markdown-table thead {
-  @apply bg-slate-50 dark:bg-slate-700;
+  @apply bg-base-content/5;
 }
 
 .markdown-table th {
-  @apply border border-slate-300 dark:border-slate-600 font-semibold p-2 text-slate-900 dark:text-slate-200 text-left;
+  @apply border border-base-content/10 p-2 text-left font-semibold;
 }
 
 .markdown-table td {
-  @apply border border-slate-300 dark:border-slate-700 p-2 text-slate-500 dark:text-slate-400;
+  @apply border border-base-content/10 p-2;
 }
 
 .markdown-alert.markdown-alert-note {
-  @apply bg-blue-400/20 dark:bg-blue-400/10;
+  @apply bg-info/70;
 }
 
 .markdown-alert.markdown-alert-tip {
-  @apply bg-green-400/20 dark:bg-green-400/10;
+  @apply bg-success/50;
 }
 
 .markdown-alert.markdown-alert-important {
-  @apply bg-purple-400/20 dark:bg-purple-400/10;
+  @apply bg-primary/40;
 }
 
 .markdown-alert.markdown-alert-warning {
-  @apply bg-orange-400/20 dark:bg-orange-400/10;
+  @apply bg-warning;
 }
 
 .markdown-alert.markdown-alert-caution {
-  @apply bg-red-400/20 dark:bg-red-400/10;
+  @apply bg-error/30;
 }
 
 .footnotes > h2 {

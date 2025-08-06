@@ -18,11 +18,12 @@
 import React, { useEffect } from "react";
 import type { AppProps } from "next/app";
 import "@site/css/globals.css";
-import { Navbar, Footer, BackgroundBeams } from "@site/components";
+import { Navbar, Footer } from "@site/components";
 import { useRouter } from "next/router";
 import { appWithTranslation, useTranslation } from "next-i18next";
 import { initialI18NextConfig } from "@site/i18n/i18n";
 import languageDetector from "@site/i18n/language-detector";
+import { DocContextProvider } from "@site/contexts";
 
 const RootApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -34,15 +35,16 @@ const RootApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <>
-      <BackgroundBeams />
       <div className="flex min-h-screen flex-col">
-        <Navbar />
-        <Component {...pageProps} />
-        {!router.pathname.includes("/docs") && (
-          <div className="w-full">
-            <Footer />
-          </div>
-        )}
+        <DocContextProvider>
+          <Navbar />
+          <Component {...pageProps} />
+          {!router.pathname.includes("/docs") && (
+            <div className="w-full">
+              <Footer />
+            </div>
+          )}
+        </DocContextProvider>
       </div>
     </>
   );

@@ -16,14 +16,13 @@
  * under the License.
  */
 import React, { useEffect, useState } from "react";
-import Link from "./Link";
-import clsx from "clsx";
+import Link from "../Link";
 import { ListBulletIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 import { GithubIcon } from "@site/icons";
 import { PageInfo, TOCItem } from "@site/types";
 import { useTranslation } from "next-i18next";
 import { docs } from "@site/docs.config";
+import classNames from "classnames";
 
 export const TableOfContents = (props: {
   page: PageInfo;
@@ -32,6 +31,7 @@ export const TableOfContents = (props: {
   const { tocItems, page } = props;
   const [activeId, setActiveId] = useState("");
   const { t, i18n } = useTranslation();
+  const [open, setOpen] = useState(false);
 
   const getPagePath = () => {
     if (i18n.language === docs.i18n.defaultLocale) {
@@ -75,36 +75,35 @@ export const TableOfContents = (props: {
 
   const Content = () => {
     return (
-      <div className="px-2 xl:px-8">
-        <h5 className="mb-2 text-sm leading-6 font-semibold text-slate-900 dark:text-slate-100">
+      <div>
+        <h5 className="mb-2 text-sm leading-6 font-semibold">
           {t("On this page")}
         </h5>
-        <ul className="text-sm leading-6 text-slate-700">
+        <ul className="text-sm leading-6">
           {tocItems.map((item: TOCItem, idx: number) => {
             return (
-              <li key={idx}>
+              <li key={idx} onClick={() => setOpen(false)}>
                 <Link
                   href={`#${item.id}`}
-                  className={clsx("flex items-center gap-1 py-1", {
-                    "text-sky-500 font-semibold dark:text-sky-400 dark:hover:text-sky-300 hover:text-sky-400":
-                      activeId === item.id,
+                  className={classNames("flex items-center gap-1 py-1", {
+                    "text-primary font-semibold": activeId === item.id,
                     "ml-4": item.level > 2,
                     "group flex items-start py-1": item.level > 2,
-                    "hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300":
-                      activeId !== item.id,
                   })}
                 >
-                  {item.level > 2 && <ChevronRightIcon className="size-3" />}
-                  {item.title}
+                  <span className="flex h-[24px] items-center">
+                    {item.level > 2 && <ChevronRightIcon className="size-3" />}
+                  </span>
+                  <span>{item.title}</span>
                 </Link>
               </li>
             );
           })}
         </ul>
-        <div className="border-t border-slate-200 pt-3 text-sm leading-6 text-slate-700 sm:flex dark:border-slate-200/5">
+        <div className="border-t border-base-content/10 pt-3 text-sm leading-6">
           <Link
             href={docs.docRepo + getPagePath()}
-            className="flex items-center gap-2 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"
+            className="flex items-center gap-2"
           >
             <GithubIcon className="size-4" />
             {t("Edit this page on Github")}
@@ -114,21 +113,35 @@ export const TableOfContents = (props: {
     );
   };
   return (
-    <div>
-      <Popover className="group fixed top-[4em] right-5 z-50 flex rounded bg-gray-200 p-1 shadow-md ring-1 shadow-gray-200 ring-gray-200 lg:top-20 lg:right-6 xl:hidden dark:bg-slate-800 dark:shadow-slate-600 dark:ring-slate-600">
-        <PopoverButton>
-          <ListBulletIcon className="size-6 fill-gray-400 stroke-gray-400 dark:fill-slate-500 dark:shadow-slate-600" />
-        </PopoverButton>
-        <PopoverPanel
-          anchor="bottom start"
-          className="z-20 mt-3 mr-3 w-full max-w-xs rounded-sm bg-white p-2  ring-1 ring-slate-900/10 dark:bg-slate-800 dark:text-slate-400  dark:ring-slate-500/20"
-        >
-          <Content />
-        </PopoverPanel>
-      </Popover>
-      <div className="fixed top-[3.8125rem] right-[max(0px,calc(50%-45rem))] bottom-0 z-20 hidden w-[19.5rem] overflow-y-auto py-10 xl:block">
+    <>
+      <div className="drawer drawer-end">
+        <input
+          id="toc-drawer"
+          type="checkbox"
+          className="drawer-toggle"
+          checked={open}
+          readOnly
+        />
+        <div className="fixed top-[72px] right-2 z-45 drawer-content flex items-center bg-base-content/10 lg:hidden">
+          <label htmlFor="toc-drawer" onClick={() => setOpen(true)}>
+            <ListBulletIcon className="size-6" />
+          </label>
+        </div>
+        <div className="drawer-side z-100 ">
+          <label
+            htmlFor="toc-drawer"
+            aria-label="close sidebar"
+            className="drawer-overlay"
+            onClick={() => setOpen(false)}
+          ></label>
+          <div className="min-h-full w-[80%] bg-base-100 p-2 text-base-content">
+            <Content />
+          </div>
+        </div>
+      </div>
+      <div className="fixed top-[80px] right-0 hidden overflow-y-auto lg:block lg:w-72">
         <Content />
       </div>
-    </div>
+    </>
   );
 };

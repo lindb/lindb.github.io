@@ -17,7 +17,11 @@ under the License.
 */
 
 .shiki .line.highlighted {
-  @apply border-sky-400 border-l-4 bg-sky-300/[0.15] -mx-5  inline-block w-[calc(100%+(theme(spacing.5)+theme(spacing.5)))] pl-4 pr-5;
+  @apply -mx-5 inline-block w-[calc(100%+(theme(spacing.5)+theme(spacing.5)))] border-l-4  border-sky-400 bg-sky-300/[0.15] pr-5 pl-4;
+}
+
+.shiki code {
+  @apply overflow-x-auto;
 }
 
 html.dark .shiki {
@@ -40,5 +44,5 @@ html.dark .shiki span {
 }
 
 .code-block pre {
-  @apply p-2 border-0 h-full;
+  @apply h-full border-0 p-2;
 }

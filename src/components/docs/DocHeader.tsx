@@ -26,19 +26,16 @@ export const DocHeader: React.FC<{
   const { t } = useTranslation();
   if (!page.meta && !page.parent) return null;
   return (
-    <header
-      id="header"
-      className="relative border-b border-gray-200 pb-4 dark:border-gray-800 "
-    >
+    <header className="border-b border-base-content/10 pb-2">
       <div>
         {page.parent && (
-          <p className="mb-2 hidden text-sm leading-6 font-semibold text-sky-500 lg:block dark:text-sky-400">
+          <p className="mb-2 hidden text-sm leading-6 font-semibold">
             {t(page.parent)}
           </p>
         )}
         {page.meta && page.meta.title && (
           <div className="flex items-center">
-            <h1 className="inline-block text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl dark:text-slate-200">
+            <h1 className="inline-block text-2xl font-extrabold tracking-tight  sm:text-3xl">
               {page.meta.title}
             </h1>
           </div>
@@ -47,19 +44,17 @@ export const DocHeader: React.FC<{
       {page.commitInfo && page.commitInfo.author && (
         <div className="mt-1 text-sm italic">
           Last updated on{" "}
-          <span className="font-medium text-slate-900 underline decoration-sky-500 dark:text-slate-200">
+          <span className="font-medium underline decoration-primary">
             {page.commitInfo.date}
           </span>{" "}
           by{" "}
-          <span className="font-medium text-slate-900 underline decoration-sky-500 dark:text-slate-200">
+          <span className="font-medium underline decoration-primary">
             {page.commitInfo.author}
           </span>
         </div>
       )}
       {page.meta && page.meta.description && (
-        <p className="mt-2 text-base text-slate-700 italic dark:text-slate-400">
-          {page.meta.description}
-        </p>
+        <p className="mt-2 text-sm italic">{page.meta.description}</p>
       )}
     </header>
   );

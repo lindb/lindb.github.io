@@ -18,10 +18,11 @@
 import React from "react";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { getDocPages } from "@site/utils/utils";
-import { DocContainer, MetaTitle, NavSidebar, Sidebar } from "@site/components";
+import { DocContainer, MetaTitle, TableOfContents } from "@site/components";
 import { PageInfo, ReleaseInfo, SidebarItem, TOCItem } from "@site/types";
 import { RocketLaunchIcon, BookOpenIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "next-i18next";
+import { NavSidebar, Sidebar } from "./DocSidebar";
 
 export const DocPage: React.FC<{
   page: PageInfo;
@@ -44,14 +45,13 @@ export const DocPage: React.FC<{
     },
     {
       index: 2,
-      title: t("Releases"),
-      href: "/docs/lindb/release-notes",
+      title: t("Change Logs"),
+      href: "/docs/lindb/change-logs",
       icon: (
         <RocketLaunchIcon className="size-4 fill-violet-400 group-hover:fill-violet-500" />
       ),
     },
   ];
-  console.log("sidebar", sidebar);
   return (
     <>
       <MetaTitle title={page.title || "Docs"} />
@@ -61,24 +61,29 @@ export const DocPage: React.FC<{
         locale={locale}
         topSidebar={topSidebar}
       />
-      <main className="flex flex-1 pt-4">
-        <div className="mx-auto flex max-w-screen-xl flex-1 flex-col px-4 sm:px-6 md:px-8">
+      <main className="flex w-full">
+        <div className="lg:w-72">
           <Sidebar
             sidebarItems={sidebar}
             locale={locale}
             topSidebar={topSidebar}
           />
-          <div className="flex-1 lg:pl-36 xl:pl-[19.5rem]">
-            <DocContainer
-              releases={releases}
-              locale={locale}
-              page={page}
-              source={source}
-              tocItems={tocItems}
-              pages={getDocPages(sidebar)}
-            />
-          </div>
         </div>
+        <div className="mx-2 mt-4 flex-1 lg:mx-8">
+          <DocContainer
+            releases={releases}
+            locale={locale}
+            page={page}
+            source={source}
+            tocItems={tocItems}
+            pages={getDocPages(sidebar)}
+          />
+        </div>
+        {tocItems && (
+          <div className="lg:w-72">
+            <TableOfContents page={page} tocItems={tocItems} />
+          </div>
+        )}
       </main>
     </>
   );

@@ -22,7 +22,7 @@ module.exports = {
         DEFAULT: {
           css: {
             th: {
-              textAlign: "inherit", // 或 'inherit'，或直接删掉
+              textAlign: "inherit",
             },
             td: {
               textAlign: "inherit",
@@ -32,7 +32,7 @@ module.exports = {
         lin: {
           css: {
             maxWidth: "none",
-            color: "var(--color-slate-700)",
+            color: "var(--color-base-content)",
             hr: {
               borderColor: "var(--color-slate-100)",
               marginTop: "3em",
@@ -44,8 +44,8 @@ module.exports = {
             },
             "h1, h2, h3": {
               letterSpacing: "-0.025em",
-              marginTop: `1em`,
-              marginBottom: `100px`,
+              // marginTop: `1em`,
+              // marginBottom: `100px`,
             },
             p: { marginBottom: "0.75em", marginTop: "0.75em" },
             h2: {
@@ -54,12 +54,12 @@ module.exports = {
             },
             h3: {
               fontSize: "1.125em",
-              marginTop: "2.4em",
-              marginBottom: "1em",
+              // marginTop: "2.4em",
+              // marginBottom: "1em",
             },
             h4: {
-              marginTop: "2.5em",
-              marginBottom: "0.75em",
+              // marginTop: "2.5em",
+              // marginBottom: "0.75em",
               fontSize: "1em",
               fontWeight: "600",
             },
@@ -83,6 +83,7 @@ module.exports = {
             },
             code: {
               fontWeight: "var(--font-weight-semibold)",
+              borderRadius: "0px !important",
             },
             strong: {
               color: "var(--color-slate-900)",
@@ -97,7 +98,6 @@ module.exports = {
         },
         dark: {
           css: {
-            color: "var(--color-slate-400)",
             "--tw-prose-lead": "var(--color-slate-400)",
             "h1, h2, h3, h4, thead th": {
               color: "var(--color-slate-200)",

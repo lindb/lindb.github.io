@@ -18,9 +18,9 @@
 import { ReleaseInfo } from "@site/types";
 import React from "react";
 import { MDXRemote } from "next-mdx-remote";
-import Link from "./Link";
+import Link from "../Link";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
-import { H } from "./Heading";
+import { H, Heading } from "./Heading";
 
 export const ReleaseNotes = (props: { releases?: ReleaseInfo[] }) => {
   const { releases = [] } = props;
@@ -48,31 +48,34 @@ export const ReleaseNotes = (props: { releases?: ReleaseInfo[] }) => {
     const i = Math.floor(Math.log(bytes) / Math.log(1024));
     return (bytes / Math.pow(1024, i)).toFixed(2) + " " + units[i];
   };
+  const headingComponents: object = {};
+  for (let i = 1; i <= 6; i++) {
+    headingComponents[`h${i}`] = (props) => {
+      return <Heading disableHref level={i} {...props} />;
+    };
+  }
   return (
     <div>
-      {releases.map((release: ReleaseInfo) => {
+      {(releases || []).map((release: ReleaseInfo) => {
         return (
-          <div
-            key={release.name}
-            className="border-b pb-6 dark:border-gray-800"
-          >
-            <H
-              id={release.name}
-              heading={2}
-              href={"#" + release.name}
-              className="italic"
-            >
+          <div key={release.name}>
+            <H id={release.name} heading={2} href={"#" + release.name}>
               🎉 {release.name}
-              <span className="ml-2 bg-green-500 p-1 text-sm dark:bg-green-900">
+              <span className="ml-2 bg-success p-1 text-sm text-white">
                 {release.published_at}
               </span>
             </H>
-            <div key={release.name} className="italic">
-              <MDXRemote {...release.mdxBody} />
+            <div key={release.name} className="text-sm text-base-content">
+              <MDXRemote
+                {...release.mdxBody}
+                components={{
+                  ...headingComponents,
+                }}
+              />
             </div>
             {release.contributors && release.contributors.length > 0 && (
               <div>
-                <h3 className="italic">🍻 Contributors</h3>
+                <h3>🍻 Contributors</h3>
                 <div className="flex gap-1">
                   {release.contributors.map((c) => (
                     <Link
@@ -82,7 +85,7 @@ export const ReleaseNotes = (props: { releases?: ReleaseInfo[] }) => {
                     >
                       <img
                         src={c.avatar_url}
-                        className="m-0 size-8 rounded-full leading-8"
+                        className="not-prose m-0 size-8 rounded-full"
                         title={c.login}
                         alt={c.login}
                       />
@@ -93,26 +96,27 @@ export const ReleaseNotes = (props: { releases?: ReleaseInfo[] }) => {
             )}
 
             <div>
-              <h3 className="italic">📦 Packages downloads</h3>
-              <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
+              <h3>📦 Packages downloads</h3>
+              <div className="flex flex-col gap-1">
                 {release.assets.map((asset) => {
                   return (
                     <div
                       key={asset.name}
-                      className="border border-slate-300 p-2 dark:border-white/20 dark:bg-slate-800"
+                      className="border border-base-content/10 bg-base-content/1 p-2 text-xs"
                     >
                       <div className="italic">
-                        {os(asset.name)}
-                        <span className="pl-1 text-sm">
-                          ({arch(asset.name)})
-                        </span>
+                        <span>{os(asset.name)}</span>
+                        <span className="pl-1">({arch(asset.name)})</span>
                       </div>
                       <Link
                         href={asset.browser_download_url}
-                        className="flex gap-1 text-sm"
+                        className="flex items-center gap-1"
                       >
-                        <ArrowDownTrayIcon className="size-4" />
-                        {asset.name}
+                        <span className="flex flex-1 items-center">
+                          <ArrowDownTrayIcon className="size-3" />
+
+                          <span>{asset.name}</span>
+                        </span>
                         <span>({formatBytes(asset.size)})</span>
                       </Link>
                     </div>

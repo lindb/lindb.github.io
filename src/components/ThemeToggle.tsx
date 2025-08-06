@@ -17,13 +17,12 @@
  */
 "use client";
 import React, { useEffect, useState } from "react";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import {
   MoonIcon,
   SunIcon,
   ComputerDesktopIcon,
 } from "@heroicons/react/24/solid";
-import clsx from "clsx";
+import classNames from "classnames";
 
 export const ThemeToggle = () => {
   const [theme, setTheme] = useState("");
@@ -38,75 +37,70 @@ export const ThemeToggle = () => {
 
   const toggleTheme = (theme: string) => {
     if (theme === "dark") {
-      document.documentElement.classList.add("dark");
+      document.documentElement.setAttribute("data-theme", "dark");
       localStorage.theme = "dark";
       setTheme("dark");
     } else if (theme === "light") {
-      document.documentElement.classList.remove("dark");
+      document.documentElement.setAttribute("data-theme", "light");
       localStorage.theme = "light";
       setTheme("light");
     } else {
       if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        document.documentElement.classList.add("dark");
+        document.documentElement.setAttribute("data-theme", "dark");
       }
       localStorage.removeItem("theme");
       setTheme("system");
     }
+    // close dropdown
+    const el = document.activeElement as HTMLElement;
+    if (el && el.blur) {
+      el.blur();
+    }
   };
 
   const themeBtnCls = (t: string) => {
-    return clsx(
+    return classNames(
       {
-        "text-sky-500 bg-slate-400/10 dark:bg-slate-600/30": theme === t,
+        "text-primary bg-base-content/10": theme === t,
       },
-      "group flex w-full items-center gap-2 px-3 py-1.5 hover:bg-slate-400/10 dark:hover:bg-slate-600/30",
+      "flex w-full items-center gap-2 px-3 py-1.5 hover:bg-base-content/10",
     );
   };
   const themeIconCls = (t: string) => {
-    return clsx("size-5 ", {
-      "fill-slate-400/20 stroke-slate-400 dark:fill-slate-500/20 dark:stroke-slate-500":
-        theme !== t,
-      "fill-sky-400/20 stroke-sky-500": theme === t,
+    return classNames("size-[20px] flex items-center", {
+      "fill-base-content/70": theme !== t,
+      "fill-primary": theme === t,
     });
   };
   return (
-    <Menu>
-      <MenuButton className="flex items-center">
-        <SunIcon className="size-5 fill-sky-400/20 stroke-sky-500 dark:hidden " />
-        <MoonIcon className="hidden size-5 fill-sky-400/20 stroke-sky-500 dark:inline" />
-      </MenuButton>
-      <MenuItems
-        anchor="bottom end"
-        className="z-50 mt-6 w-40 origin-top-right rounded-sm bg-white p-1 text-sm/6 font-semibold text-slate-700 ring-1 ring-slate-900/10 [--anchor-gap:var(--spacing-1)] focus:outline-none dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-500/20"
+    <div className="dropdown dropdown-end">
+      <div tabIndex={0} className="flex items-center">
+        <MoonIcon className="hidden size-5 fill-primary dark:inline" />
+        <SunIcon className="size-5 fill-primary dark:hidden " />
+      </div>
+      <ul
+        tabIndex={1}
+        className="dropdown-content z-99 mt-2 flex w-36 flex-col gap-1 border border-base-content/10 bg-base-100 p-2"
       >
-        <MenuItem>
-          <button
-            onClick={() => toggleTheme("light")}
-            className={themeBtnCls("light")}
-          >
-            <SunIcon className={themeIconCls("light")} />
-            Light
-          </button>
-        </MenuItem>
-        <MenuItem>
-          <button
-            onClick={() => toggleTheme("dark")}
-            className={themeBtnCls("dark")}
-          >
-            <MoonIcon className={themeIconCls("dark")} />
-            Dark
-          </button>
-        </MenuItem>
-        <MenuItem>
-          <button
-            onClick={() => toggleTheme("system")}
-            className={themeBtnCls("system")}
-          >
-            <ComputerDesktopIcon className={themeIconCls("system")} />
-            System
-          </button>
-        </MenuItem>
-      </MenuItems>
-    </Menu>
+        <li
+          onClick={() => toggleTheme("light")}
+          className={themeBtnCls("light")}
+        >
+          <SunIcon className={themeIconCls("light")} />
+          Light
+        </li>
+        <li onClick={() => toggleTheme("dark")} className={themeBtnCls("dark")}>
+          <MoonIcon className={themeIconCls("dark")} />
+          Dark
+        </li>
+        <li
+          onClick={() => toggleTheme("system")}
+          className={classNames("cursor-pointer", themeBtnCls("system"))}
+        >
+          <ComputerDesktopIcon className={themeIconCls("system")} />
+          System
+        </li>
+      </ul>
+    </div>
   );
 };

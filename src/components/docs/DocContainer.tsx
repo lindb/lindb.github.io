@@ -24,14 +24,13 @@ import {
   CodeSnippet,
   Heading,
   DocHeader,
-  TableOfContents,
   Image,
 } from "@site/components";
 import { PageInfo, ReleaseInfo, SidebarItem, TOCItem } from "@site/types";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import "remark-github-blockquote-alert/alert.css";
-import Link from "./Link";
-import { Footer } from "./Footer";
+import Link from "../Link";
+import { Footer } from "../Footer";
 import { ReleaseNotes } from "./ReleaseNotes";
 import { useRouter } from "next/router";
 
@@ -43,7 +42,7 @@ export const DocContainer: React.FC<{
   pages: SidebarItem[];
   releases?: ReleaseInfo[];
 }> = (props) => {
-  const { page, source, tocItems, pages, releases } = props;
+  const { page, source, pages, releases } = props;
   const headingComponents: object = {};
   for (let i = 1; i <= 6; i++) {
     headingComponents[`h${i}`] = (props) => {
@@ -51,12 +50,9 @@ export const DocContainer: React.FC<{
     };
   }
   return (
-    <div className="mx-auto max-w-3xl xl:mr-[15.5rem] xl:ml-0 xl:max-w-none xl:pr-16">
+    <div className="flex flex-col">
       <DocHeader page={page} />
-      <div
-        id="content-wrapper"
-        className="relative prose mt-8 prose-slate dark:prose-dark"
-      >
+      <div className="relative prose prose-lin mt-8 prose-slate dark:prose-dark">
         <MDXRemote
           {...source}
           components={{
@@ -109,7 +105,7 @@ export const DocContainer: React.FC<{
             Tab: (props) => (
               <Tab
                 {...props}
-                className="border-b border-sky-400/0 px-3 py-2 text-sm/6 leading-6 font-semibold text-slate-900 focus:outline-none data-[hover]:border-slate-300 data-[selected]:border-sky-400 data-[selected]:text-sky-400 data-[selected]:data-[hover]:text-sky-400 dark:text-white data-[hover]:dark:border-slate-700"
+                className="border-b border-sky-400/0 px-3 py-2 text-sm/6 leading-6 font-semibold text-slate-900 focus:outline-none data-[hover]:border-slate-300 data-[selected]:border-primary data-[selected]:text-primary  dark:text-white"
               >
                 {props.children}
               </Tab>
@@ -127,7 +123,6 @@ export const DocContainer: React.FC<{
         />
       </div>
       <DocsFooter pages={pages} />
-      {tocItems && <TableOfContents page={page} tocItems={tocItems} />}
       <Footer />
     </div>
   );

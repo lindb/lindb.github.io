@@ -20,7 +20,7 @@ import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import type { GetStaticPaths } from "next";
 import { docs } from "@site/docs.config";
 import { PageInfo, SidebarItem, TOCItem } from "@site/types";
-import { DocPage } from "@site/components/DocPage";
+import { DocPage } from "@site/components";
 import { getDocStaticPaths, getDocStaticProps } from "@site/utils/docs";
 import { ParsedUrlQuery } from "querystring";
 
