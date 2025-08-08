@@ -15,11 +15,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { ReleaseInfo } from "@site/types";
 import React from "react";
+
 import { MDXRemote } from "next-mdx-remote";
-import Link from "../Link";
+
 import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
+
+import { ReleaseInfo } from "@site/types";
+
+import Link from "../Link";
 import { H, Heading } from "./Heading";
 
 export const ReleaseNotes = (props: { releases?: ReleaseInfo[] }) => {

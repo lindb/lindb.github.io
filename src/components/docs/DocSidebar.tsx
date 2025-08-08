@@ -16,16 +16,20 @@
  * under the License.
  */
 import React, { useContext, useEffect, useState } from "react";
+
 import { usePathname } from "next/navigation";
-import { PageInfo, SidebarItem } from "@site/types";
 import { useTranslation } from "next-i18next";
+
 import { Bars3Icon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import Link from "../Link";
-import { addPathPrefix } from "@site/utils/utils";
-import { docs } from "@site/docs.config";
-import { RightArrowIcon, DownArrowIcon } from "@site/icons";
 import classNames from "classnames";
+
 import { DocContext } from "@site/contexts";
+import { docs } from "@site/docs.config";
+import { DownArrowIcon, RightArrowIcon } from "@site/icons";
+import { PageInfo, SidebarItem } from "@site/types";
+import { addPathPrefix } from "@site/utils/utils";
+
+import Link from "../Link";
 
 const DocsSidebarItem: React.FC<{
   item: SidebarItem;
@@ -188,7 +192,10 @@ export const NavSidebar: React.FC<{
           <label htmlFor="sidebar-drawer">
             <ol className="flex min-w-0 items-center text-sm leading-6 whitespace-nowrap">
               <li className="mr-2 flex items-center">
-                <button type="button" onClick={() => setSidebarOpen(true)}>
+                <button
+                  type="button"
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
+                >
                   <span className="sr-only">Navigation</span>
                   <Bars3Icon className="size-6" />
                 </button>
@@ -203,14 +210,14 @@ export const NavSidebar: React.FC<{
             </ol>
           </label>
         </div>
-        <div className="drawer-side z-40">
+        <div className="drawer-side z-40 mt-[105px]">
           <label
             htmlFor="toc-drawer"
             aria-label="close sidebar"
             className="drawer-overlay"
             onClick={() => setSidebarOpen(false)}
           ></label>
-          <div className="min-h-full w-[80%] bg-base-200 p-2 text-base-content">
+          <div className="min-h-full w-full bg-base-200 p-2 text-base-content">
             <Sidebar
               topSidebar={topSidebar}
               sidebarItems={sidebarItems}

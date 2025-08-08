@@ -15,8 +15,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import clsx from "clsx";
 import React, { useEffect, useState } from "react";
+
+import classNames from "classnames";
 import { getSingletonHighlighter } from "shiki";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let shikiHighlighter: any = null;
@@ -53,7 +54,7 @@ export const CodeBlock = (props: {
 
   return (
     <div
-      className={clsx("code-block prose grid", className)}
+      className={classNames("code-block prose grid", className)}
       dangerouslySetInnerHTML={{ __html: highlightedCode }}
     />
   );

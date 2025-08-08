@@ -16,11 +16,13 @@
  * under the License.
  */
 import React from "react";
-import { MetaTitle } from "@site/components";
+
 import { useTranslation } from "next-i18next";
-import { initialI18NextConfig } from "@site/i18n/i18n";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
+import { MetaTitle } from "@site/components";
 import { docs } from "@site/docs.config";
+import { initialI18NextConfig } from "@site/i18n/i18n";
 
 const NotFoundPage = () => {
   const { t } = useTranslation();

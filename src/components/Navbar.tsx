@@ -16,17 +16,21 @@
  * under the License.
  */
 import React, { useContext, useEffect, useState } from "react";
-import { GithubIcon } from "@site/icons";
-import { ThemeToggle } from "./ThemeToggle";
+
+import { usePathname } from "next/navigation";
+import { useTranslation } from "next-i18next";
+
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import classNames from "classnames";
+
+import { DocContext } from "@site/contexts";
+import { docs } from "@site/docs.config";
+import { GithubIcon } from "@site/icons";
+
 import { DocSearch } from "./DocSearch";
 import Link from "./Link";
 import { LocaleSelect } from "./LocaleSelect";
-import { docs } from "@site/docs.config";
-import { useTranslation } from "next-i18next";
-import classNames from "classnames";
-import { usePathname } from "next/navigation";
-import { DocContext } from "@site/contexts";
+import { ThemeToggle } from "./ThemeToggle";
 
 const NavbarItems = () => {
   const { items } = docs.navbar;
@@ -83,6 +87,7 @@ const NavbarItems = () => {
 
 const NavPopover: React.FC<{ className: string }> = (props) => {
   const { className } = props;
+  const { setSidebarOpen } = useContext(DocContext);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   useEffect(() => {
@@ -95,6 +100,7 @@ const NavPopover: React.FC<{ className: string }> = (props) => {
         type="button"
         className="flex items-center justify-center"
         onClick={() => {
+          setSidebarOpen(false);
           setOpen(true);
         }}
       >
@@ -115,7 +121,7 @@ const NavPopover: React.FC<{ className: string }> = (props) => {
           <button
             onClick={() => setOpen(false)}
             type="button"
-            className="flex items-center justify-center text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+            className="flex items-center justify-center"
           >
             <span className="sr-only">Close navigation</span>
             <XMarkIcon className="size-5" />
@@ -128,12 +134,10 @@ const NavPopover: React.FC<{ className: string }> = (props) => {
 
 export const Navbar = () => {
   const { logo } = docs.navbar;
-  const { sidebarOpen } = useContext(DocContext);
   return (
     <div
       className={classNames(
-        "sticky top-0 navbar border-b border-base-content/8 bg-base-100 px-2 lg:px-8",
-        { "z-30": sidebarOpen, "z-50": !sidebarOpen },
+        "sticky top-0 navbar z-50 border-b border-base-content/8 bg-base-100 px-2 lg:px-8",
       )}
     >
       <div className="navbar-start">

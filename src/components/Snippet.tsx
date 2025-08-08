@@ -16,9 +16,11 @@
  * under the License.
  */
 import React, { ReactNode } from "react";
-import { languagePrefix } from "@site/utils/utils";
+
 import { CommandLineIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
+
+import { languagePrefix } from "@site/utils/utils";
 
 export const CodeSnippet = (props: {
   children?: ReactNode;

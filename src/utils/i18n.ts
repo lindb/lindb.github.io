@@ -15,9 +15,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 import { docs } from "@site/docs.config";
 import { initialI18NextConfig } from "@site/i18n/i18n";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export const getI18nProps = async (locale: string, ns = ["translation"]) => {
   return {

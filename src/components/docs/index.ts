@@ -15,9 +15,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-export * from "./DocHeader";
-export * from "./DocsFooter";
 export * from "./DocContainer";
+export * from "./DocHeader";
 export * from "./DocPage";
-export * from "./TOC";
+export * from "./DocsFooter";
 export * from "./Heading";
+export * from "./TOC";

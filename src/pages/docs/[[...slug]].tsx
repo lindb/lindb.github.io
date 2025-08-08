@@ -15,8 +15,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { getDocStaticPaths } from "@site/utils/docs";
 import Docs, { getStaticProps } from "@site/pages/[locale]/docs/[[...slug]]";
+import { getDocStaticPaths } from "@site/utils/docs";
 
 export { getStaticProps };
 export default Docs;

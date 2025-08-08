@@ -16,14 +16,17 @@
  * under the License.
  */
 import React, { useEffect } from "react";
+
 import type { AppProps } from "next/app";
-import "@site/css/globals.css";
-import { Navbar, Footer } from "@site/components";
 import { useRouter } from "next/router";
 import { appWithTranslation, useTranslation } from "next-i18next";
+
+import { Footer, Navbar } from "@site/components";
+import { DocContextProvider } from "@site/contexts";
 import { initialI18NextConfig } from "@site/i18n/i18n";
 import languageDetector from "@site/i18n/language-detector";
-import { DocContextProvider } from "@site/contexts";
+
+import "@site/css/globals.css";
 
 const RootApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();

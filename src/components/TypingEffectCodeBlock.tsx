@@ -23,8 +23,8 @@ import React, {
   useRef,
   useState,
 } from "react";
+
 import { CodeBlock } from "./CodeBlock";
-import clsx from "clsx";
 
 export const TypingEffectCodeBlock: React.FC<{
   className?: string;
@@ -75,7 +75,7 @@ export const TypingEffectCodeBlock: React.FC<{
   }, [type]);
 
   return (
-    <div className={clsx(className)}>
+    <div className={className}>
       <CodeBlock code={displayedCode} lang={lang} />
     </div>
   );

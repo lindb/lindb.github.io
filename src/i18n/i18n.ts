@@ -18,7 +18,10 @@
 // import i18n from "i18next";
 // import { initReactI18next } from "react-i18next";
 // import { docs } from "@site/docs.config";
+import { UserConfig } from "next-i18next";
+
 import resourcesToBackend from "i18next-resources-to-backend";
+
 //
 // i18n
 //   .use(initReactI18next) // passes i18n down to react-i18next
@@ -31,9 +34,7 @@ import resourcesToBackend from "i18next-resources-to-backend";
 //     supportedLngs: docs.i18n.locales,
 //   });
 //
-
 import { docs } from "@site/docs.config";
-import { UserConfig } from "next-i18next";
 
 // export default i18n;
 export const initialI18NextConfig: UserConfig = {

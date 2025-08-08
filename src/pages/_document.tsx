@@ -16,13 +16,15 @@
  * under the License.
  */
 import React from "react";
+
 import Document, {
-  Html,
+  DocumentContext,
   Head,
+  Html,
   Main,
   NextScript,
-  DocumentContext,
 } from "next/document";
+
 import { getLocale } from "@site/utils/utils";
 
 const RootDocument = (props: { locale: string }) => {

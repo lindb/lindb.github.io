@@ -15,11 +15,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { GithubIcon, TwitterIcon } from "@site/icons";
-import Link from "./Link";
 import React from "react";
+
 import { useTranslation } from "next-i18next";
+
 import { docs } from "@site/docs.config";
+import { GithubIcon, TwitterIcon } from "@site/icons";
+
+import Link from "./Link";
 
 export const Footer: React.FC<{ className?: string }> = () => {
   const { t } = useTranslation();

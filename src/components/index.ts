@@ -16,13 +16,13 @@
  * under the License.
  */
 export * from "./BackgroundBeams";
-export * from "./Navbar";
-export * from "./Footer";
-export { CodeSnippet } from "./Snippet";
-export * from "./docs";
-export * from "./ThemeToggle";
-export * from "./DocSearch";
-export * from "./Meta";
-export * from "./Link";
-export * from "./Image";
 export * from "./CodeBlock";
+export * from "./docs";
+export * from "./DocSearch";
+export * from "./Footer";
+export * from "./Image";
+export * from "./Link";
+export * from "./Meta";
+export * from "./Navbar";
+export { CodeSnippet } from "./Snippet";
+export * from "./ThemeToggle";

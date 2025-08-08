@@ -16,9 +16,12 @@
  * under the License.
  */
 import { useEffect } from "react";
+
 import { useRouter } from "next/router";
-import languageDetector from "./language-detector";
+
 import { docs } from "@site/docs.config";
+
+import languageDetector from "./language-detector";
 
 export const useRedirect = (to?: string) => {
   const router = useRouter();

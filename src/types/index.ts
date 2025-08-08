@@ -15,8 +15,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { ReactNode } from "react";
+
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
 
 export interface CommitInfo {
   author: string;

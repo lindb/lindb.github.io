@@ -15,11 +15,17 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { DocLink } from "@site/components";
 import React, { useEffect, useState } from "react";
+
+import Link from "next/link";
 import { useTranslation } from "next-i18next";
+
+import { CommandLineIcon } from "@heroicons/react/24/outline";
+import { LockClosedIcon } from "@heroicons/react/24/solid";
+
+import { DocLink } from "@site/components";
+import { TypingEffectCodeBlock } from "@site/components/TypingEffectCodeBlock";
 import { docs } from "@site/docs.config";
-import { getI18nProps } from "@site/utils/i18n";
 import {
   EasyIcon,
   EfficientIcon,
@@ -28,10 +34,7 @@ import {
   RollupIcon,
   ScaleIcon,
 } from "@site/icons";
-import { LockClosedIcon } from "@heroicons/react/24/solid";
-import Link from "next/link";
-import { TypingEffectCodeBlock } from "@site/components/TypingEffectCodeBlock";
-import { CommandLineIcon } from "@heroicons/react/24/outline";
+import { getI18nProps } from "@site/utils/i18n";
 
 const product = {
   name: "LinDB",

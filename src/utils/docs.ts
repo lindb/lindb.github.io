@@ -15,6 +15,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import fs from "fs";
+import { ParsedUrlQuery } from "querystring";
+
+import { docs } from "@site/docs.config";
+import { ReleaseInfo } from "@site/types";
+
+import { getI18nProps } from "./i18n";
+import { compile, loadFile } from "./mdx";
 import {
   docsPath,
   exportDocsPath,
@@ -23,13 +31,7 @@ import {
   getPage,
   getSidebar,
 } from "./navs";
-import { compile, loadFile } from "./mdx";
-import { ParsedUrlQuery } from "querystring";
-import { docs } from "@site/docs.config";
-import { getI18nProps } from "./i18n";
 import { isDev } from "./utils";
-import { ReleaseInfo } from "@site/types";
-import fs from "fs";
 
 export const getReleases = async () => {
   if (isDev()) {

@@ -16,13 +16,16 @@
  * under the License.
  */
 import React from "react";
-import { MDXRemoteSerializeResult } from "next-mdx-remote";
+
 import type { GetStaticPaths } from "next";
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
+
+import { ParsedUrlQuery } from "querystring";
+
+import { DocPage } from "@site/components";
 import { docs } from "@site/docs.config";
 import { PageInfo, SidebarItem, TOCItem } from "@site/types";
-import { DocPage } from "@site/components";
 import { getDocStaticPaths, getDocStaticProps } from "@site/utils/docs";
-import { ParsedUrlQuery } from "querystring";
 
 const Docs: React.FC<{
   page: PageInfo;

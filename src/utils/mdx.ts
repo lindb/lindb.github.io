@@ -15,23 +15,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import rehypeShiki from "@shikijs/rehype";
-import remarkGfm from "remark-gfm";
-import { remarkAlert } from "remark-github-blockquote-alert";
-import {
-  transformerNotationDiff,
-  transformerMetaHighlight,
-  transformerNotationHighlight,
-  transformerNotationFocus,
-} from "@shikijs/transformers";
-import matter from "gray-matter";
-import remarkGithub from "remark-github";
 import { serialize } from "next-mdx-remote/serialize";
-import { MDX, MDXFile, TOCItem } from "@site/types";
-import { getHeadingId, isDev, languagePrefix } from "./utils";
-import { visit } from "unist-util-visit";
+
+import rehypeShiki from "@shikijs/rehype";
+import {
+  transformerMetaHighlight,
+  transformerNotationDiff,
+  transformerNotationFocus,
+  transformerNotationHighlight,
+} from "@shikijs/transformers";
 import fs from "fs";
+import matter from "gray-matter";
+import remarkGfm from "remark-gfm";
+import remarkGithub from "remark-github";
+import { remarkAlert } from "remark-github-blockquote-alert";
+import { visit } from "unist-util-visit";
+
+import { MDX, MDXFile, TOCItem } from "@site/types";
+
 import { getFilePath } from "./navs";
+import { getHeadingId, isDev, languagePrefix } from "./utils";
 
 function toc(options: { export: { tocItems: TOCItem[] } }) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

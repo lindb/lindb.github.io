@@ -15,13 +15,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { addPathPrefix } from "@site/utils/utils";
 import React from "react";
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid";
+
 import Link from "next/link";
-import { useTranslation } from "next-i18next";
-import { docs } from "@site/docs.config";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid";
+
+import { docs } from "@site/docs.config";
+import { addPathPrefix } from "@site/utils/utils";
 
 const isExtenal = (url: string) => {
   const regex = new RegExp("^(http|https)://.*");

@@ -16,12 +16,15 @@
  * under the License.
  */
 import React from "react";
-import { LanguageIcon } from "@heroicons/react/24/solid";
-import clsx from "clsx";
-import { docs } from "@site/docs.config";
-import languageDetector from "@site/i18n/language-detector";
+
 import Link from "next/link";
 import { useRouter } from "next/router";
+
+import { LanguageIcon } from "@heroicons/react/24/solid";
+import classNames from "classnames";
+
+import { docs } from "@site/docs.config";
+import languageDetector from "@site/i18n/language-detector";
 import { getLocale } from "@site/utils/utils";
 
 const mapping = {
@@ -52,7 +55,7 @@ export const LocaleSelect: React.FC = () => {
 
   const languageBtnCls = (l: string) => {
     const locale = languageDetector.detect();
-    return clsx(
+    return classNames(
       "group flex w-full items-center gap-2 px-3 py-1.5 hover:bg-base-content/10",
       {
         "text-primary bg-base-content/10":

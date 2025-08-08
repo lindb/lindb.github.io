@@ -16,6 +16,7 @@
  * under the License.
  */
 import React from "react";
+
 import Head from "next/head";
 
 export const MetaTitle: React.FC<{ suffix?: string; title: string }> = (

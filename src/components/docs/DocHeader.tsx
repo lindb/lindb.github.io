@@ -15,9 +15,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { PageInfo } from "@site/types";
 import React from "react";
+
 import { useTranslation } from "next-i18next";
+
+import { PageInfo } from "@site/types";
 
 export const DocHeader: React.FC<{
   page: PageInfo;

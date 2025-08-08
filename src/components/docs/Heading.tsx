@@ -16,9 +16,12 @@
  * under the License.
  */
 import React, { ReactNode } from "react";
-import { getHeadingId } from "@site/utils/utils";
+
 import Link from "next/link";
+
 import classNames from "classnames";
+
+import { getHeadingId } from "@site/utils/utils";
 
 export const H = (props: {
   heading: number;

@@ -16,14 +16,18 @@
  * under the License.
  */
 import React from "react";
-import clsx from "clsx";
-import Link from "../Link";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { SidebarItem } from "@site/types";
+
 import { usePathname } from "next/navigation";
-import { addPathPrefix, getLocale } from "@site/utils/utils";
-import { docs } from "@site/docs.config";
 import { useTranslation } from "next-i18next";
+
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import classNames from "classnames";
+
+import { docs } from "@site/docs.config";
+import { SidebarItem } from "@site/types";
+import { addPathPrefix, getLocale } from "@site/utils/utils";
+
+import Link from "../Link";
 
 export const DocsFooter: React.FC<{ pages: SidebarItem[] }> = (props) => {
   const { pages } = props;
@@ -43,7 +47,7 @@ export const DocsFooter: React.FC<{ pages: SidebarItem[] }> = (props) => {
     currentPageIdx < pages.length ? pages[currentPageIdx + 1] : null;
   return (
     <div
-      className={clsx(
+      className={classNames(
         "mt-12 border-t border-base-content/10 pt-6 text-sm leading-6",
       )}
     >

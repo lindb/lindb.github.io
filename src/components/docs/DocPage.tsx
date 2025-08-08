@@ -16,12 +16,16 @@
  * under the License.
  */
 import React from "react";
+
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
-import { getDocPages } from "@site/utils/utils";
+import { useTranslation } from "next-i18next";
+
+import { BookOpenIcon, RocketLaunchIcon } from "@heroicons/react/24/solid";
+
 import { DocContainer, MetaTitle, TableOfContents } from "@site/components";
 import { PageInfo, ReleaseInfo, SidebarItem, TOCItem } from "@site/types";
-import { RocketLaunchIcon, BookOpenIcon } from "@heroicons/react/24/solid";
-import { useTranslation } from "next-i18next";
+import { getDocPages } from "@site/utils/utils";
+
 import { NavSidebar, Sidebar } from "./DocSidebar";
 
 export const DocPage: React.FC<{

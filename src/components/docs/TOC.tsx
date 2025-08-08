@@ -16,13 +16,17 @@
  * under the License.
  */
 import React, { useEffect, useState } from "react";
-import Link from "../Link";
-import { ListBulletIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+
+import { useTranslation } from "next-i18next";
+
+import { ChevronRightIcon, ListBulletIcon } from "@heroicons/react/24/solid";
+import classNames from "classnames";
+
+import { docs } from "@site/docs.config";
 import { GithubIcon } from "@site/icons";
 import { PageInfo, TOCItem } from "@site/types";
-import { useTranslation } from "next-i18next";
-import { docs } from "@site/docs.config";
-import classNames from "classnames";
+
+import Link from "../Link";
 
 export const TableOfContents = (props: {
   page: PageInfo;

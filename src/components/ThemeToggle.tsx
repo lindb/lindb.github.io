@@ -17,10 +17,11 @@
  */
 "use client";
 import React, { useEffect, useState } from "react";
+
 import {
+  ComputerDesktopIcon,
   MoonIcon,
   SunIcon,
-  ComputerDesktopIcon,
 } from "@heroicons/react/24/solid";
 import classNames from "classnames";
 

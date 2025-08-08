@@ -15,9 +15,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { ReleaseInfo } from "@site/types";
-import { getReleases } from "@site/utils/docs";
-import { getI18nProps } from "@site/utils/i18n";
+import React, { useState } from "react";
+
+import { GetStaticPaths } from "next";
+import { useTranslation } from "next-i18next";
+
 import {
   Listbox,
   ListboxButton,
@@ -26,12 +28,13 @@ import {
   Transition,
 } from "@headlessui/react";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
-import { GetStaticPaths } from "next";
-import React, { useState } from "react";
-import clsx from "clsx";
-import { useTranslation } from "next-i18next";
+import classNames from "classnames";
+
 import { CodeBlock, DocLink } from "@site/components";
 import { DockerIcon, LinuxIcon, MacIcon, WindowsIcon } from "@site/icons";
+import { ReleaseInfo } from "@site/types";
+import { getReleases } from "@site/utils/docs";
+import { getI18nProps } from "@site/utils/i18n";
 
 const findDownloadUrl = (release: ReleaseInfo, name: string) => {
   return (release.assets || []).find((item) => item.name.startsWith(name));
@@ -176,7 +179,7 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
             <div>
               <Listbox value={selected} onChange={setSelected}>
                 <ListboxButton
-                  className={clsx(
+                  className={classNames(
                     "relative block w-48 rounded-sm bg-slate-100 py-1.5 pl-3 pr-8 text-left text-sm/6 text-current dark:bg-slate-800 dark:text-white",
                     "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25",
                   )}
@@ -239,7 +242,7 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
               <button
                 key={os.name}
                 onClick={() => setCurrentOS(os)}
-                className={clsx(
+                className={classNames(
                   "group flex flex-col items-center gap-2 text-sm font-semibold",
                   {
                     "text-sky-500": active,
@@ -248,7 +251,7 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
                 )}
               >
                 <Icon
-                  className={clsx("size-10 ", {
+                  className={classNames("size-10 ", {
                     "text-slate-300 group-hover:fill-slate-400 dark:fill-slate-600 dark:group-hover:fill-slate-500":
                       !active,
                     "fill-sky-500": active,

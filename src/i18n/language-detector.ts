@@ -15,8 +15,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { docs } from "@site/docs.config";
 import languageDetector from "next-language-detector";
+
+import { docs } from "@site/docs.config";
 
 export default languageDetector({
   order: ["path"],

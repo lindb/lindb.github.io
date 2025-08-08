@@ -15,12 +15,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import globals from "globals";
 import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import headers from "eslint-plugin-headers";
+import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
+import simpleImportSort from "eslint-plugin-simple-import-sort";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
 const header = `Licensed to LinDB under one or more contributor
 license agreements. See the NOTICE file distributed with
@@ -46,8 +47,24 @@ export default [
   {
     plugins: {
       headers,
+      "simple-import-sort": simpleImportSort,
     },
     rules: {
+      "simple-import-sort/imports": [
+        "error",
+        {
+          groups: [
+            ["^react$", "^react-dom$", "^react-router"],
+            ["^next", "^next-i18next"],
+            ["^@?\\w"],
+            ["^@site/"],
+            ["^\\."],
+            ["^.+\\.s?css$"],
+          ],
+        },
+      ],
+      "simple-import-sort/exports": "error",
+
       "headers/header-format": [
         "error",
         {

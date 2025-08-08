@@ -15,11 +15,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
-import { CommitInfo, PageInfo, SidebarItem } from "@site/types";
-import { execSync } from "child_process";
+
 import { docs } from "@site/docs.config";
+import { CommitInfo, PageInfo, SidebarItem } from "@site/types";
+
 import { loadFile } from "./mdx";
 
 export const currentWorkingDirectory = process.cwd();

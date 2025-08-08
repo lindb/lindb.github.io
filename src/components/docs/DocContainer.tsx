@@ -18,21 +18,26 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+
+import { useRouter } from "next/router";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
+
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
+
 import {
-  DocsFooter,
   CodeSnippet,
-  Heading,
   DocHeader,
+  DocsFooter,
+  Heading,
   Image,
 } from "@site/components";
 import { PageInfo, ReleaseInfo, SidebarItem, TOCItem } from "@site/types";
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import "remark-github-blockquote-alert/alert.css";
-import Link from "../Link";
+
 import { Footer } from "../Footer";
+import Link from "../Link";
 import { ReleaseNotes } from "./ReleaseNotes";
-import { useRouter } from "next/router";
+
+import "remark-github-blockquote-alert/alert.css";
 
 export const DocContainer: React.FC<{
   locale: string;
