@@ -132,7 +132,7 @@ const DocsSidebar: React.FC<{
   mobile?: boolean;
   locale?: string;
 }> = (props) => {
-  const { sidebarItems, mobile, locale } = props;
+  const { sidebarItems, locale } = props;
   const { t } = useTranslation();
 
   const render = (page: SidebarItem) => {
@@ -140,12 +140,7 @@ const DocsSidebar: React.FC<{
       return (
         <li key={page.title} className="mt-2">
           <h5 className="font-semibold">{t(page.title)}</h5>
-          <ul
-            className={classNames(
-              "border-l border-base-content/10",
-              mobile ? "dark:border-slate-700" : "border-base-content/10",
-            )}
-          >
+          <ul className="border-l border-base-content/10">
             {(page.children || []).map((item: SidebarItem) => (
               <DocsSidebarItem
                 key={item.title}

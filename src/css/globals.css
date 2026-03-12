@@ -39,7 +39,7 @@ under the License.
   background-size: 122.375rem 100%;
 }
 
-html.dark .beams-0 {
+[data-theme=dark] .beams-0 {
   background-image: url("../img/beams/1-dark@tinypng.png");
   background-size: 125.5rem 100%;
 }
@@ -49,7 +49,37 @@ html.dark .beams-0 {
   background-size: 2rem;
 }
 
-html.dark .beams-1 {
+[data-theme=dark] .beams-1 {
   background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(241 245 249 / 0.02)'><path d='M0 .5H31.5V32'/></svg>");
   background-size: 2rem;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(-24px) scale(1.04); }
+}
+
+@keyframes stream-scroll {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -600; }
 }

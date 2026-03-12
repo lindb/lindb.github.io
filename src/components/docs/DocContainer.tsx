@@ -99,10 +99,7 @@ export const DocContainer: React.FC<{
             },
             TabList: (props) => {
               return (
-                <TabList
-                  className="border-b border-slate-200 dark:border-slate-200/5"
-                  {...props}
-                >
+                <TabList className="border-b border-base-content/10" {...props}>
                   {props.children}
                 </TabList>
               );
@@ -110,7 +107,7 @@ export const DocContainer: React.FC<{
             Tab: (props) => (
               <Tab
                 {...props}
-                className="border-b border-sky-400/0 px-3 py-2 text-sm/6 leading-6 font-semibold text-slate-900 focus:outline-none data-[hover]:border-slate-300 data-[selected]:border-primary data-[selected]:text-primary  dark:text-white"
+                className="border-b border-sky-400/0 px-3 py-2 text-sm/6 leading-6 font-semibold text-base-content focus:outline-none data-[hover]:border-base-content/30 data-[selected]:border-primary data-[selected]:text-primary"
               >
                 {props.children}
               </Tab>

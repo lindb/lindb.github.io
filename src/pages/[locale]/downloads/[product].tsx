@@ -56,7 +56,7 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
       <div className="flex flex-col gap-4">
         {amd && (
           <div className="flex flex-col gap-3">
-            <h2 className="text-lg font-semibold dark:text-white">
+            <h2 className="text-lg font-semibold text-base-content">
               Standalone Binaries(64 Bit/AMD)
             </h2>
             <ul className="list-inside list-decimal text-sm">
@@ -76,7 +76,7 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
         )}
         {arm && (
           <div className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold dark:text-white">
+            <h2 className="text-lg font-semibold text-base-content">
               Standalone Binaries(64 Bit/ARM)
             </h2>
             <ul className="list-inside list-decimal text-sm">
@@ -119,7 +119,7 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
         }
         return (
           <>
-            <h2 className="text-lg font-semibold dark:text-white">
+            <h2 className="text-lg font-semibold text-base-content">
               Standalone Windows Binaries(64 Bit)
             </h2>
             <div className="prose dark:prose-invert">
@@ -144,7 +144,7 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
       cmds: (release: ReleaseInfo) => {
         return (
           <>
-            <h2 className="text-lg font-semibold dark:text-white">Docker</h2>
+            <h2 className="text-lg font-semibold text-base-content">Docker
             <CodeBlock
               className="pt-2"
               code={`docker run -d --name=lindb -p 9000:9000 lindata/lindb:${
@@ -170,7 +170,7 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
   return (
     <div>
       <div className="max-w-8xl m-8 flex flex-1 flex-col gap-4">
-        <h2 className="mb-6 text-3xl font-bold text-neutral-900 lg:text-4xl dark:text-white">
+        <h2 className="mb-6 text-3xl font-bold text-base-content lg:text-4xl">
           {t("Downloads")} LinDB
         </h2>
         <div className="flex flex-col gap-3 text-sm">
@@ -180,13 +180,13 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
               <Listbox value={selected} onChange={setSelected}>
                 <ListboxButton
                   className={classNames(
-                    "relative block w-48 rounded-sm bg-slate-100 py-1.5 pl-3 pr-8 text-left text-sm/6 text-current dark:bg-slate-800 dark:text-white",
+                    "relative block w-48 rounded-sm bg-base-200 py-1.5 pl-3 pr-8 text-left text-sm/6 text-base-content",
                     "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25",
                   )}
                 >
                   {selected.name}
                   <ChevronDownIcon
-                    className="group pointer-events-none absolute top-2.5 right-2.5 size-4 fill-current/60 dark:fill-white"
+                    className="group pointer-events-none absolute top-2.5 right-2.5 size-4 fill-base-content/60"
                     aria-hidden="true"
                   />
                 </ListboxButton>
@@ -197,7 +197,7 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
                 >
                   <ListboxOptions
                     anchor="bottom"
-                    className="mt-1 w-[var(--button-width)] border border-slate-200/5 bg-slate-100 p-1 dark:bg-slate-800"
+                    className="mt-1 w-[var(--button-width)] border border-base-content/10 bg-base-200 p-1"
                   >
                     {releases.map((release) => (
                       <ListboxOption
@@ -206,8 +206,8 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
                         onSelect={() => setSelected(release)}
                         className="group flex cursor-default items-center py-1.5 select-none  data-[focus]:bg-white/10"
                       >
-                        <CheckIcon className="invisible mx-2 size-4 fill-current group-data-[selected]:visible dark:fill-white" />
-                        <div className="text-sm/6 text-current dark:text-white">
+                        <CheckIcon className="invisible mx-2 size-4 fill-base-content/60 group-data-[selected]:visible" />
+                        <div className="text-sm/6 text-base-content">
                           {release.name}
                         </div>
                       </ListboxOption>
@@ -219,11 +219,11 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
           </div>
           <div className="flex items-center gap-4">
             <div className="w-32">{t("License")}:</div>
-            <div className="dark:text-white">Apache 2.0</div>
+            <div className="text-base-content">Apache 2.0</div>
           </div>
           <div className="flex items-center gap-4">
             <div className="w-32">{t("Release Date")}:</div>
-            <div className=" dark:text-white">{selected.published_at}</div>
+            <div className="text-base-content">{selected.published_at}</div>
           </div>
           <div className="flex items-center gap-4">
             <div className="w-32">{t("Release Note")}:</div>
@@ -252,7 +252,7 @@ const ProductDownload = (props: { releases: ReleaseInfo[] }) => {
               >
                 <Icon
                   className={classNames("size-10 ", {
-                    "text-slate-300 group-hover:fill-slate-400 dark:fill-slate-600 dark:group-hover:fill-slate-500":
+                    "fill-base-content/40 group-hover:fill-base-content/60":
                       !active,
                     "fill-sky-500": active,
                   })}

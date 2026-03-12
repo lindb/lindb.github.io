@@ -58,3 +58,5 @@ Release notes and contributors are fetched from the GitHub API at build time (or
 - Import order is enforced via `eslint-plugin-simple-import-sort`
 - Prettier + Tailwind CSS class sorting is enforced
 - Stylelint enforces license headers in CSS files
+- Use **daisyUI semantic color tokens** for all theming — `bg-base-100`, `bg-base-200`, `bg-base-300`, `text-base-content`, `bg-primary`, `text-primary-content`, `bg-secondary`, `bg-accent`, `bg-neutral`, `bg-info`, `bg-success`, `bg-warning`, `bg-error`, etc. These tokens auto-adapt when `data-theme` changes.
+- **Do not use Tailwind's `dark:` variant** for color overrides. Dark mode is driven by `data-theme="dark"` (daisyUI), not the OS media query. Hardcoded color pairs like `bg-gray-100 dark:bg-gray-800` should be replaced with the appropriate semantic token.

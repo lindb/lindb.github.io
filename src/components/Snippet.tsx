@@ -55,7 +55,7 @@ export const CodeSnippet = (props: {
 
   return (
     <div className="bg-base-content/5 ring-1 ring-base-content/10">
-      <div className="border-b border-base-content/10 p-2 text-xs text-slate-900 dark:border-b-white/20 dark:text-sky-300">
+      <div className="border-b border-base-content/10 p-2 text-xs text-base-content">
         <div className="flex flex-none items-center gap-1 ">
           <CommandLineIcon className="size-4" />
           Terminal

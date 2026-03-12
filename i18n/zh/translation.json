@@ -59,5 +59,15 @@
 	"What's LinDB?": "什么是 LinDB？",
 	"What's New in": "",
 	"Why LinDB?": "为什么选择 LinDB？",
-	"With fundamental techniques like efficient compression storage and parallel computing, LinDB delivers highly optimized query performance.": "高效的数据压缩与多节点的并行查询与计算，专注查询性能优化；"
+	"With fundamental techniques like efficient compression storage and parallel computing, LinDB delivers highly optimized query performance.": "高效的数据压缩与多节点的并行查询与计算，专注查询性能优化；",
+	"Observe, Ingest, Analyze.": "观测、采集、分析。",
+	"All Signals. One Platform.": "全信号类型，统一平台。",
+	"A native observability processing platform that stores and analyzes Metrics, Traces, Logs, and Exemplars in a single engine — powered by SQL-based CEP for real-time correlation, automated rollups, and derived insights.": "原生可观测性处理平台，在单一引擎中存储并分析 Metrics、Traces、Logs 和 Exemplars —— 基于 SQL 的 CEP 驱动实时关联分析、自动汇聚与衍生洞察。",
+	"Open Source · OpenTelemetry Native · SQL-based CEP": "开源 · 原生 OpenTelemetry · 基于 SQL 的 CEP",
+	"Metrics": "Metrics",
+	"Traces": "Traces",
+	"Logs": "Logs",
+	"Exemplars": "Exemplars",
+	"Signal Types": "信号类型",
+	"Rollup": "自动汇聚"
 }
