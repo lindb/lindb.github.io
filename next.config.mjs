@@ -18,7 +18,7 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["next-mdx-remote"],
+  transpilePackages: ["next-mdx-remote", "@docsearch/react"],
   output: "export",
   pageExtensions: ["js", "jsx", "ts", "tsx"],
 };

@@ -15,17 +15,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-"use client";
-
-import React from "react";
-
 import { DocSearch as Search } from "@docsearch/react";
 
 export const DocSearch = () => {
   return (
     <Search
       appId="Z2Q2CCBG6Q"
-      indexName="lindb"
+			indices={["lindb"]}
       apiKey="a54e7b4183d11c7f6967d67dd9801ade"
       placeholder="Search documentation"
     />
