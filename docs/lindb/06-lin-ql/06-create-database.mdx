@@ -1,0 +1,66 @@
+---
+title: CREATE DATABASE
+description: Create a database with an optional engine type, storage options, and rollup policies.
+---
+
+Creates a new database in the LinDB cluster.
+
+## Syntax
+
+```sql
+CREATE DATABASE name
+  [ENGINE [=] METRIC | LOG | TRACE]
+  [WITH (key = value [, ...])]
+  [ROLLUP ((key = value [, ...]) [, ...])]
+```
+
+## Options
+
+### ENGINE
+
+| Value | Description |
+| --- | --- |
+| `METRIC` | Time-series metric storage (default) |
+| `LOG` | Log-oriented storage |
+| `TRACE` | Distributed trace storage |
+
+### WITH Properties
+
+| Key | Description |
+| --- | --- |
+| `numOfShard` | Number of shards to allocate |
+| `replicaFactor` | Number of replicas per shard |
+| `behead` | How far into the past data can be written (e.g. `'1h'`) |
+| `ahead` | How far into the future data can be written (e.g. `'1h'`) |
+| `autoCreateNS` | Automatically create namespaces on write (`true` / `false`) |
+
+### ROLLUP Properties
+
+Each rollup entry is a set of key-value properties wrapped in parentheses.
+
+| Key | Description |
+| --- | --- |
+| `interval` | Rollup aggregation interval (e.g. `'10s'`, `'5m'`, `'1h'`) |
+| `retention` | How long to keep data at this rollup level (e.g. `'30d'`, `'3M'`, `'2y'`) |
+
+## Examples
+
+```sql
+-- minimal database with default options
+CREATE DATABASE system_monitor;
+
+-- metric database with shards and replicas
+CREATE DATABASE system_monitor
+  ENGINE = METRIC
+  WITH (numOfShard = 3, replicaFactor = 2, behead = '1h', ahead = '1h', autoCreateNS = true);
+
+-- database with multi-tier rollup
+CREATE DATABASE system_monitor
+  ENGINE METRIC
+  WITH (numOfShard = 3, replicaFactor = 2, behead = '1h', ahead = '1h')
+  ROLLUP (
+    (interval = '10s', retention = '30d'),
+    (interval = '5m',  retention = '3M'),
+    (interval = '1h',  retention = '2y')
+  );
+```

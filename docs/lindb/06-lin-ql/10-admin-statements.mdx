@@ -1,0 +1,61 @@
+---
+title: Administrative Statements
+description: Administrative statements for switching databases and triggering maintenance operations.
+---
+
+Administrative statements manage the current database context and trigger maintenance operations on storage.
+
+## USE
+
+Sets the current database for subsequent queries. Equivalent to specifying the database in the API call.
+
+```sql
+USE database
+```
+
+| Parameter | Description |
+| --- | --- |
+| `database` | Name of the database to select |
+
+**Example**
+
+```sql
+USE system_monitor;
+SELECT idle FROM cpu_stat WHERE time > now() - 1h;
+```
+
+## FLUSH DATABASE
+
+Forces the in-memory write buffer (memory database) for the specified database to be flushed to disk.
+
+```sql
+FLUSH DATABASE name
+```
+
+| Parameter | Description |
+| --- | --- |
+| `name` | Name of the database to flush |
+
+**Example**
+
+```sql
+FLUSH DATABASE system_monitor;
+```
+
+## COMPACT DATABASE
+
+Triggers a compaction of the on-disk data files for the specified database.
+
+```sql
+COMPACT DATABASE name
+```
+
+| Parameter | Description |
+| --- | --- |
+| `name` | Name of the database to compact |
+
+**Example**
+
+```sql
+COMPACT DATABASE system_monitor;
+```

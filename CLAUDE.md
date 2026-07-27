@@ -16,7 +16,7 @@ No test framework is configured.
 
 ## Architecture
 
-This is a **Next.js static documentation site** for the LinDB ecosystem (LinDB, Linsight, Lingo), using the **Pages Router** (not App Router) with static export (`output: "export"`).
+This is a **Next.js static documentation site** for the LinDB ecosystem (LinDB, Linsight), using the **Pages Router** (not App Router) with static export (`output: "export"`).
 
 ### Path Aliases
 - `@site/*` → `./src/*`

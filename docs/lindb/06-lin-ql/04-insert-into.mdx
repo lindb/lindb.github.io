@@ -1,0 +1,30 @@
+---
+title: INSERT INTO
+description: Write the results of a query into a target table.
+---
+
+`INSERT INTO` evaluates a `SELECT` query and writes the resulting rows into the specified target table.
+
+## Syntax
+
+```sql
+INSERT INTO table_name [(col1 [, col2 ...])] query
+```
+
+| Parameter | Description |
+| --- | --- |
+| `table_name` | Qualified name of the target table (e.g. `db.metric`) |
+| `(col1, ...)` | Optional explicit column list; must match the number of columns produced by `query` |
+| `query` | Any valid `SELECT` query |
+
+## Examples
+
+```sql
+-- insert all columns from a query
+INSERT INTO archive.cpu_stat
+SELECT idle, iowait, ip FROM system.cpu_stat WHERE time > now() - 7d;
+
+-- insert with explicit column mapping
+INSERT INTO summary.cpu (ip, avg_idle)
+SELECT ip, avg(idle) FROM system.cpu_stat GROUP BY ip;
+```

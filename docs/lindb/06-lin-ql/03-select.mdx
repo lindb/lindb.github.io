@@ -1,0 +1,173 @@
+---
+title: SELECT
+description: Query metric data using SELECT with optional CTEs, joins, filtering, grouping, and ordering.
+---
+
+Retrieve rows from one or more relations. The full query form optionally starts with a `WITH` clause (CTE),
+followed by `SELECT`, and then the standard query clauses.
+
+## Syntax
+
+```sql
+[WITH cte_name AS (query) [, ...]]
+SELECT select_item [, ...]
+[FROM relation [, relation ...]]
+[WHERE condition]
+[GROUP BY {expression | grouping_set | ALL} [, ...]]
+[HAVING condition]
+[ORDER BY expression [ASC | DESC] [, ...]]
+[LIMIT n]
+```
+
+Where `select_item` is one of:
+
+```sql
+expression [AS alias]
+table.*
+*
+```
+
+And `relation` is one of:
+
+```sql
+table_name [AS alias]
+(subquery) [AS alias]
+relation CROSS JOIN relation
+relation LEFT  JOIN relation ON condition
+relation RIGHT JOIN relation ON condition
+relation LEFT  JOIN relation USING (col [, ...])
+relation RIGHT JOIN relation USING (col [, ...])
+```
+
+## WITH — Common Table Expressions
+
+A `WITH` clause defines named subqueries (CTEs) that can be referenced in the main query.
+
+```sql
+WITH cte_name AS (query) [, cte_name2 AS (query2) ...]
+SELECT ...
+```
+
+**Example**
+
+```sql
+WITH cpu AS (
+  SELECT idle, iowait, ip FROM system.cpu_stat WHERE time > now() - 1h
+)
+SELECT idle, iowait FROM cpu WHERE ip = '192.168.1.10';
+```
+
+## FROM & Subqueries
+
+The `FROM` clause specifies one or more relations to query. A relation can be a table name or a subquery.
+
+```sql
+-- simple table reference
+SELECT idle FROM system.cpu_stat;
+
+-- subquery as relation
+SELECT t.idle FROM (SELECT idle, ip FROM system.cpu_stat) AS t;
+
+-- comma join (implicit cross join)
+SELECT a.idle, b.iowait FROM system.cpu_stat AS a, system.cpu_stat AS b;
+```
+
+## JOIN
+
+LinQL supports `CROSS JOIN`, `LEFT JOIN`, and `RIGHT JOIN`. Join conditions use either `ON` or `USING`.
+
+```sql
+-- CROSS JOIN
+SELECT a.idle, b.iowait
+FROM system.cpu_stat AS a CROSS JOIN system.mem_stat AS b;
+
+-- LEFT JOIN with ON condition
+SELECT a.idle, b.used
+FROM system.cpu_stat AS a
+LEFT JOIN system.mem_stat AS b ON a.ip = b.ip;
+
+-- RIGHT JOIN with USING
+SELECT idle, used
+FROM system.cpu_stat
+RIGHT JOIN system.mem_stat USING (ip);
+```
+
+## WHERE
+
+Filter rows before aggregation. Accepts any boolean expression (see
+[Expressions & Data Types](./expressions)).
+
+```sql
+SELECT idle FROM system.cpu_stat WHERE ip = '192.168.1.10';
+SELECT idle FROM system.cpu_stat WHERE ip LIKE '192.168.*' AND idle > 80.0;
+```
+
+## GROUP BY
+
+Group rows for aggregation. Supports individual expressions, explicit grouping sets, or `ALL` (group by every
+non-aggregate column in the SELECT list).
+
+```sql
+-- group by tag
+SELECT sum(idle) FROM system.cpu_stat GROUP BY ip;
+
+-- group by time window
+SELECT sum(order) FROM order.monitoring WHERE time > now() - 1h GROUP BY time(1m);
+
+-- group by ALL columns
+SELECT sum(idle) FROM system.cpu_stat GROUP BY ALL;
+
+-- explicit grouping set
+SELECT sum(idle) FROM system.cpu_stat GROUP BY (ip, host);
+```
+
+## HAVING
+
+Filter groups after aggregation. The `HAVING` clause accepts any boolean expression over aggregate results.
+
+```sql
+SELECT ip, avg(idle) AS avg_idle
+FROM system.cpu_stat
+GROUP BY ip
+HAVING avg(idle) < 50.0;
+```
+
+## ORDER BY
+
+Sort the result set. Each sort key is an expression followed by an optional direction (`ASC` or `DESC`).
+Default direction is `ASC`.
+
+```sql
+SELECT ip, avg(idle) AS avg_idle
+FROM system.cpu_stat
+GROUP BY ip
+ORDER BY avg_idle DESC;
+```
+
+## LIMIT
+
+Restrict the number of rows returned.
+
+```sql
+SELECT idle FROM system.cpu_stat LIMIT 100;
+```
+
+## Examples
+
+```sql
+-- select from all nodes, grouped by ip
+SELECT idle, iowait FROM monitor.system.cpu_stat GROUP BY ip;
+
+-- select a single node
+SELECT idle, iowait FROM monitor.system.cpu_stat WHERE ip = '192.168.1.10';
+
+-- expression with alias
+SELECT usage * 100.0 AS usage_percent
+FROM monitor.system.cpu_stat
+WHERE ip = '192.168.1.10';
+
+-- time-windowed aggregation over the last hour
+SELECT sum(order) FROM order.system.monitoring
+WHERE time > now() - 1h
+GROUP BY time(1m);
+```

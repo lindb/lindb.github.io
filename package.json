@@ -1,7 +1,7 @@
 {
   "name": "LinDB-docs",
   "version": "0.1.0",
-  "description": "Official documentation site for the LinDB ecosystem (LinDB, Linsight, Lingo)",
+  "description": "Official documentation site for the LinDB ecosystem (LinDB, Linsight)",
   "private": true,
   "engines": {
     "node": ">=22"

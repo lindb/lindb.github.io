@@ -1,0 +1,38 @@
+---
+title: LinQL Overview
+sidebar: Lin query language
+description: Overview of LinQL, the SQL-like query language for the LinDB ecosystem.
+---
+
+LinQL is the SQL-like query language used across the LinDB ecosystem (LinDB, Linsight, Lingo). It supports data
+manipulation (SELECT, INSERT INTO), schema management (CREATE / DROP DATABASE, CREATE BROKER), cluster
+administration, and streaming pipeline DDL — all with familiar SQL syntax.
+
+## Statement Reference
+
+| Statement | Description |
+| --- | --- |
+| [SELECT](./select) | Query metric data with optional CTEs, joins, filtering, grouping, and ordering |
+| [INSERT INTO](./insert-into) | Write query results into a table |
+| [EXPLAIN / EXPLAIN ANALYZE](./explain) | Show the execution plan or runtime statistics of a statement |
+| [CREATE DATABASE](./create-database) | Create a database with engine, storage options, and rollup policies |
+| [DROP DATABASE](./drop-database) | Drop an existing database |
+| [CREATE BROKER](./create-broker) | Register a broker cluster |
+| [SHOW Statements](./show-statements) | Query cluster status, metadata, and metric schema |
+| [Administrative Statements](./admin-statements) | USE, FLUSH DATABASE, COMPACT DATABASE |
+| [Streaming DDL](./streaming) | CREATE / DROP STREAMING, CREATE / DROP JOB, CREATE SINK, annotations |
+| [Expressions & Data Types](./expressions) | Operators, predicates, function calls, literals, INTERVAL |
+
+## Identifier Quoting
+
+Use backticks `` ` `` or double-quotes `"` to quote identifiers that conflict with reserved words or contain special
+characters:
+
+```sql
+SELECT `select`, `from` FROM my_metric;
+SELECT "order" FROM order.system.monitoring;
+```
+
+## Case Sensitivity
+
+Keywords are case-insensitive. Identifiers are case-sensitive when quoted and case-insensitive when unquoted.

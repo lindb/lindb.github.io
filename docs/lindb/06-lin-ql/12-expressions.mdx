@@ -1,0 +1,208 @@
+---
+title: Expressions & Data Types
+description: Reference for operators, predicates, function calls, literals, INTERVAL, and data types in LinQL.
+---
+
+This page documents the expression syntax available in LinQL — usable in `SELECT`, `WHERE`, `HAVING`,
+`ORDER BY`, and anywhere else an expression is accepted.
+
+## Arithmetic Operators
+
+| Operator | Description | Example |
+| --- | --- | --- |
+| `+` | Addition | `idle + 10` |
+| `-` | Subtraction / unary negation | `100.0 - idle`, `-1` |
+| `*` | Multiplication | `usage * 100.0` |
+| `/` | Division | `bytes / 1024` |
+| `%` | Modulo | `seq % 60` |
+
+Operator precedence follows standard math rules: `*`, `/`, `%` bind tighter than `+`, `-`.
+
+## Comparison Operators
+
+| Operator | Description |
+| --- | --- |
+| `=` | Equal |
+| `<>` or `!=` | Not equal |
+| `<` | Less than |
+| `<=` | Less than or equal |
+| `>` | Greater than |
+| `>=` | Greater than or equal |
+
+## Logical Operators
+
+| Operator | Description |
+| --- | --- |
+| `AND` | Both conditions must be true |
+| `OR` | Either condition must be true |
+| `NOT` or `!` | Negate a condition |
+
+## Predicates
+
+### IN / NOT IN
+
+```sql
+expression [NOT] IN (value1, value2, ...)
+```
+
+```sql
+WHERE ip IN ('192.168.1.10', '192.168.1.11')
+WHERE status NOT IN ('error', 'timeout')
+```
+
+### LIKE / NOT LIKE
+
+```sql
+expression [NOT] LIKE pattern [ESCAPE escape_char]
+```
+
+```sql
+WHERE ip LIKE '192.168.*'
+WHERE name NOT LIKE 'test%'
+WHERE path LIKE '50\%' ESCAPE '\'
+```
+
+### REGEXP / NEQREGEXP
+
+```sql
+expression =~  pattern   -- matches regexp
+expression !~  pattern   -- does not match regexp
+```
+
+```sql
+WHERE ip =~ '192\.168\.\d+\.\d+'
+WHERE name !~ '^test'
+```
+
+### IS NULL / IS NOT NULL
+
+```sql
+expression IS [NOT] NULL
+```
+
+```sql
+WHERE error IS NULL
+WHERE result IS NOT NULL
+```
+
+### BETWEEN
+
+The `BETWEEN` predicate is used with the `TIMESTAMP` keyword for time-range queries.
+
+```sql
+TIMESTAMP BETWEEN lower AND upper
+```
+
+```sql
+WHERE TIMESTAMP BETWEEN now() - 1h AND now()
+```
+
+### TIMESTAMP Comparison
+
+Compare the implicit timestamp column using a standard comparison operator.
+
+```sql
+TIMESTAMP operator value
+```
+
+```sql
+WHERE TIMESTAMP > now() - 1h
+WHERE TIMESTAMP >= '2024-01-01T00:00:00Z'
+```
+
+## Field Dereference
+
+Access a nested field with dot notation:
+
+```sql
+table.field
+```
+
+```sql
+SELECT system.cpu_stat.idle FROM system.cpu_stat;
+```
+
+## Map / Array Access
+
+Access a map value by key using bracket notation:
+
+```sql
+field[key]
+```
+
+```sql
+SELECT labels['region'] FROM metrics;
+```
+
+## Function Calls
+
+```sql
+function_name(arg1 [, arg2 ...])
+```
+
+```sql
+SELECT sum(idle), avg(iowait), max(usage) FROM system.cpu_stat GROUP BY ip;
+SELECT now() - INTERVAL 1 HOUR;
+```
+
+## Subexpressions
+
+Use parentheses to control evaluation order:
+
+```sql
+(expression)
+```
+
+```sql
+SELECT (idle + iowait) * 100.0 / total AS busy_pct FROM system.cpu_stat;
+```
+
+## Literals
+
+| Type | Syntax | Examples |
+| --- | --- | --- |
+| Integer | `[−]digits` | `42`, `-7`, `0` |
+| Decimal | `[−]digits.digits` | `3.14`, `-0.5` |
+| Double | `[−]digits[.digits]e[±]digits` | `1.5e3`, `2E-4` |
+| String | `'...'` or `"..."` | `'hello'`, `"world"` |
+| Boolean | `TRUE` \| `FALSE` | `TRUE`, `FALSE` |
+| Null | `NULL` | `NULL` |
+
+## INTERVAL
+
+Represents a duration for time arithmetic.
+
+```sql
+INTERVAL value unit
+```
+
+| Unit | Keyword |
+| --- | --- |
+| Seconds | `SECOND` |
+| Minutes | `MINUTE` |
+| Hours | `HOUR` |
+| Days | `DAY` |
+| Months | `MONTH` |
+| Years | `YEAR` |
+
+```sql
+now() - INTERVAL 1 HOUR
+now() - INTERVAL 30 DAY
+TIMESTAMP > now() - INTERVAL 7 DAY
+```
+
+## Properties Syntax
+
+Used in `WITH (...)` and `ROLLUP (...)` clauses:
+
+```sql
+(key = value [, key = value ...])
+```
+
+Property values can be:
+
+| Form | Example |
+| --- | --- |
+| Expression | `numOfShard = 3` |
+| `DEFAULT` | `timeout = DEFAULT` |
+| Array | `endpoints = ['http://host1:2379', 'http://host2:2379']` |

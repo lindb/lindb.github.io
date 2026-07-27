@@ -1,0 +1,36 @@
+---
+title: EXPLAIN / EXPLAIN ANALYZE
+description: Show the logical or distributed execution plan of a statement, or collect runtime statistics.
+---
+
+`EXPLAIN` displays the execution plan that LinDB would use to run a statement, without actually executing it.
+`EXPLAIN ANALYZE` executes the statement and returns runtime statistics (rows processed, time per stage, etc.).
+
+## Syntax
+
+```sql
+EXPLAIN [(TYPE LOGICAL | DISTRIBUTED)] statement
+
+EXPLAIN ANALYZE statement
+```
+
+| Option | Description |
+| --- | --- |
+| `TYPE LOGICAL` | Show the logical query plan (default when no `TYPE` is given) |
+| `TYPE DISTRIBUTED` | Show the distributed execution plan broken into stages |
+| `ANALYZE` | Execute the statement and annotate the plan with actual runtime metrics |
+
+## Examples
+
+```sql
+-- show the logical plan for a SELECT
+EXPLAIN SELECT sum(order) FROM order.system.monitoring WHERE time > now() - 1h GROUP BY time(1m);
+
+-- show the distributed plan
+EXPLAIN (TYPE DISTRIBUTED)
+SELECT idle, iowait FROM monitor.system.cpu_stat GROUP BY ip;
+
+-- collect actual runtime statistics
+EXPLAIN ANALYZE
+SELECT sum(order) FROM order.system.monitoring WHERE time > now() - 1h GROUP BY time(1m);
+```

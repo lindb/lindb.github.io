@@ -1,0 +1,41 @@
+---
+title: CREATE BROKER
+description: Register a broker cluster with the Root cluster for multi-IDC / multi-region service.
+---
+
+Registers a broker cluster so that the Root cluster can route queries and writes to it.
+
+## Syntax
+
+```sql
+CREATE BROKER name [WITH (key = value [, ...])]
+```
+
+| Parameter | Description |
+| --- | --- |
+| `name` | Logical name for the broker cluster |
+| `WITH (...)` | Optional connection properties |
+
+### WITH Properties
+
+| Key | Description |
+| --- | --- |
+| `namespace` | ETCD namespace used by this broker (e.g. `'/lindb-broker'`) |
+| `endpoints` | Comma-separated list of ETCD endpoint URLs |
+| `timeout` | Request timeout in seconds |
+| `dialTimeout` | Connection dial timeout in seconds |
+| `leaseTTL` | ETCD lease TTL in seconds |
+
+## Examples
+
+```sql
+-- register a broker cluster
+CREATE BROKER lindb_broker
+  WITH (
+    namespace  = '/lindb-broker',
+    endpoints  = ['http://192.168.1.10:2379'],
+    timeout    = 10,
+    dialTimeout = 10,
+    leaseTTL   = 10
+  );
+```

@@ -1,0 +1,118 @@
+---
+title: SHOW Statements
+description: Query cluster status, metric schema, namespaces, and table metadata using SHOW.
+---
+
+`SHOW` statements retrieve cluster state, schema information, and operational metrics. Each variant is described
+below.
+
+## SHOW MASTER
+
+Returns the status of the current master node.
+
+```sql
+SHOW MASTER
+```
+
+## SHOW BROKERS
+
+Returns configuration and status of alive broker clusters.
+
+```sql
+SHOW BROKERS
+```
+
+## SHOW DATABASES
+
+Lists all database names in the current cluster.
+
+```sql
+SHOW DATABASES
+```
+
+## SHOW REQUESTS
+
+Lists currently running LinQL queries in the cluster.
+
+```sql
+SHOW REQUESTS
+```
+
+## SHOW LIMIT
+
+Returns the query result-row limit configuration for the cluster.
+
+```sql
+SHOW LIMIT
+```
+
+## SHOW MEMORY_DATABASES
+
+Returns the in-memory write buffer (memory database) status per shard.
+
+```sql
+SHOW MEMORY_DATABASES
+```
+
+## SHOW REPLICATIONS
+
+Returns WAL / replication status for each replica in the cluster.
+
+```sql
+SHOW REPLICATIONS
+```
+
+## SHOW NAMESPACES
+
+Lists namespaces in the current database. An optional `LIKE` clause filters by prefix or pattern.
+
+```sql
+SHOW NAMESPACES [LIKE expression]
+```
+
+**Examples**
+
+```sql
+-- list all namespaces (up to the default limit)
+SHOW NAMESPACES;
+
+-- list namespaces matching a pattern
+SHOW NAMESPACES LIKE 'order%';
+```
+
+## SHOW TABLE_NAMES
+
+Lists metric / table names. An optional `FROM` clause scopes the search to a database, and `LIKE` filters by
+name pattern.
+
+```sql
+SHOW TABLE_NAMES [FROM qualified_name] [LIKE expression]
+```
+
+**Examples**
+
+```sql
+-- list all table names in the current database
+SHOW TABLE_NAMES;
+
+-- list table names in a specific database
+SHOW TABLE_NAMES FROM system_monitor;
+
+-- filter by pattern
+SHOW TABLE_NAMES FROM system_monitor LIKE 'cpu%';
+```
+
+## SHOW COLUMNS
+
+Lists the fields (columns) of a given table/metric.
+
+```sql
+SHOW COLUMNS FROM qualified_name
+```
+
+**Examples**
+
+```sql
+-- list columns of system.cpu_stat
+SHOW COLUMNS FROM system.cpu_stat;
+```

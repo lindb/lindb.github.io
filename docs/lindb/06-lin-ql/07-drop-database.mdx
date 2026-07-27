@@ -1,0 +1,27 @@
+---
+title: DROP DATABASE
+description: Drop an existing database, optionally suppressing the error if it does not exist.
+---
+
+Removes a database and all its data from the cluster.
+
+## Syntax
+
+```sql
+DROP DATABASE [IF EXISTS] name
+```
+
+| Parameter | Description |
+| --- | --- |
+| `IF EXISTS` | Suppress the error if the database does not exist |
+| `name` | Name of the database to drop |
+
+## Examples
+
+```sql
+-- drop a database (error if it does not exist)
+DROP DATABASE system_monitor;
+
+-- drop only if it exists
+DROP DATABASE IF EXISTS system_monitor;
+```

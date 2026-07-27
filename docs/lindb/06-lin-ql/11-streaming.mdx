@@ -1,0 +1,142 @@
+---
+title: Streaming DDL
+description: DDL statements for creating and managing streaming pipelines, jobs, sinks, and annotations.
+---
+
+Streaming DDL statements create and manage continuous data-pipeline objects: streaming connections, jobs that
+wrap pipeline logic, and sinks that receive output.
+
+## CREATE STREAMING
+
+Creates a named streaming connection that observes a data source and writes into a target database.
+
+```sql
+CREATE STREAMING name (
+  OBSERVER observer_name,
+  DATABASE database_name
+)
+```
+
+| Parameter | Description |
+| --- | --- |
+| `name` | Logical name for this streaming connection |
+| `OBSERVER` | Identifier of the observer component |
+| `DATABASE` | Target database for incoming data |
+
+**Example**
+
+```sql
+CREATE STREAMING metrics_stream (
+  OBSERVER kafka_observer,
+  DATABASE system_monitor
+);
+```
+
+## DROP STREAMING
+
+Removes an existing streaming connection.
+
+```sql
+DROP STREAMING [IF EXISTS] name
+```
+
+| Parameter | Description |
+| --- | --- |
+| `IF EXISTS` | Suppress the error if the streaming connection does not exist |
+| `name` | Name of the streaming connection to drop |
+
+**Example**
+
+```sql
+DROP STREAMING IF EXISTS metrics_stream;
+```
+
+## CREATE JOB
+
+Defines a named streaming job. The job body (`BEGIN … END`) contains one or more streaming statements
+(sink definitions and annotated queries).
+
+```sql
+CREATE JOB name
+BEGIN
+  streaming_statement [;]
+  [streaming_statement [;] ...]
+END
+```
+
+**Example**
+
+```sql
+CREATE JOB cpu_pipeline
+BEGIN
+  CREATE SINK cpu_sink WITH (type = 'lindb', database = 'system_monitor');
+
+  @APP(name = 'cpu_app', version = '1.0')
+  @source(topic = 'cpu_metrics')
+  INSERT INTO system.cpu_stat SELECT idle, iowait, ip FROM input;
+END;
+```
+
+## DROP JOB
+
+Removes an existing streaming job.
+
+```sql
+DROP JOB [IF EXISTS] name
+```
+
+**Example**
+
+```sql
+DROP JOB IF EXISTS cpu_pipeline;
+```
+
+## CREATE SINK
+
+Defines a named sink that streaming queries can write to. Properties are backend-specific.
+
+```sql
+CREATE SINK name [WITH (key = value [, ...])]
+```
+
+**Example**
+
+```sql
+CREATE SINK lindb_sink WITH (
+  type     = 'lindb',
+  database = 'system_monitor',
+  endpoint = 'http://192.168.1.10:9000'
+);
+```
+
+## @APP Annotation
+
+The `@APP` annotation tags a streaming application with metadata (name, version, etc.). It appears before a
+block of streaming statements.
+
+```sql
+@APP [(key = value [, ...])]
+```
+
+**Example**
+
+```sql
+@APP(name = 'monitor_app', version = '2.0')
+INSERT INTO system.cpu_stat SELECT idle FROM input;
+```
+
+## @identifier Annotation
+
+A generic annotation used to attach arbitrary metadata to a streaming query or statement.
+
+```sql
+@identifier [(key = value | annotation [, ...])]
+```
+
+**Example**
+
+```sql
+@source(topic = 'cpu_metrics', group = 'lindb')
+@transform(filter = 'idle > 0')
+INSERT INTO system.cpu_stat SELECT idle, iowait FROM input;
+```

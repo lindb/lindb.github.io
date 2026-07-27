@@ -128,7 +128,7 @@ export const Footer: React.FC<{ className?: string }> = () => {
         {/* Bottom bar */}
         <div className="mt-10 flex flex-col items-center justify-between gap-2 border-t border-base-content/10 pt-4 sm:flex-row">
           <p className="text-xs text-base-content/50">
-            © {year} Lin Labs Inc. All rights reserved.
+            ©Copyright {year} LinDB Inc. All rights reserved.
           </p>
           <p className="text-xs text-base-content/40">
             Licensed under Apache 2.0
